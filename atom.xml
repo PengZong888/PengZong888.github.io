@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>青稞</title>
+  
+  
+  <link href="http://example.com/atom.xml" rel="self"/>
+  
+  <link href="http://example.com/"/>
+  <updated>2021-12-02T14:20:34.084Z</updated>
+  <id>http://example.com/</id>
+  
+  <author>
+    <name>pengbin007</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>集合面试题</title>
+    <link href="http://example.com/2021/12/02/%E9%9B%86%E5%90%88%E9%9D%A2%E8%AF%95%E9%A2%98/"/>
+    <id>http://example.com/2021/12/02/%E9%9B%86%E5%90%88%E9%9D%A2%E8%AF%95%E9%A2%98/</id>
+    <published>2021-12-02T14:11:55.000Z</published>
+    <updated>2021-12-02T14:20:34.084Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h3 id=&quot;&quot;&gt;&lt;a href=&quot;#&quot; class=&quot;headerlink&quot; title=&quot;&quot;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;h3</summary>
+        
+      
+    
+    
+    
+    
+    <category term="Java集合" scheme="http://example.com/tags/Java%E9%9B%86%E5%90%88/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Collection接口继承树</title>
+    <link href="http://example.com/2021/12/02/Collection%E6%8E%A5%E5%8F%A3%E7%BB%A7%E6%89%BF%E6%A0%91/"/>
+    <id>http://example.com/2021/12/02/Collection%E6%8E%A5%E5%8F%A3%E7%BB%A7%E6%89%BF%E6%A0%91/</id>
+    <published>2021-12-02T12:50:18.000Z</published>
+    <updated>2021-12-03T02:47:27.019Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20211202210335782.png&quot; alt=&quot;image-20211202210335782&quot;&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Collection接口是List、Set和Queue接口的父接口，该接口里定义的方法既可用于操作Set集合，也可用于操作List和Queue集合。&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="Java集合" scheme="http://example.com/tags/Java%E9%9B%86%E5%90%88/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Java集合框架概述</title>
+    <link href="http://example.com/2021/12/02/Java%E9%9B%86%E5%90%88%E6%A1%86%E6%9E%B6%E6%A6%82%E8%BF%B0/"/>
+    <id>http://example.com/2021/12/02/Java%E9%9B%86%E5%90%88%E6%A1%86%E6%9E%B6%E6%A6%82%E8%BF%B0/</id>
+    <published>2021-12-02T05:40:01.000Z</published>
+    <updated>2021-12-03T02:51:37.232Z</updated>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;1-Java集合框架&quot;&gt;&lt;a href=&quot;#1-Java集合框架&quot; class=&quot;headerlink&quot; title=&quot;1. Java集合框架&quot;&gt;&lt;/a&gt;1. Java集合框架&lt;/h2&gt;&lt;p&gt;Java最初的版本只为最常用的数据结构提供了很少的一组类：Vector、Stack、Hashtable、BitSet与Enumeration接口，其中的Enumeration接口提供了一种用于访问任意容器中各个元素的抽象机制。&lt;/p&gt;
+&lt;p&gt;随着JavaSE1.2的问世，设计人员感到是推出一组功能完善的数据结构的时机了。面对一大堆相互矛盾的设计策略，他们希望让类库规模小且易于学习，而不希望像C++的“标准模板库”（即STL）那样复杂，但却又希望能够得到STL率先推出的“泛型算法”所具有的优点。本节将介绍Java集合框架的基本设计，展示使用它们的方法，并解释一些颇具争议的特性背后的考虑。&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="Java集合" scheme="http://example.com/tags/Java%E9%9B%86%E5%90%88/"/>
+    
+  </entry>
+  
+</feed>
