@@ -68,11 +68,11 @@
       
       
       
-      <h2 id="1-Java集合框架"><a href="#1-Java集合框架" class="headerlink" title="1. Java集合框架"></a>1. Java集合框架</h2><p>Java最初的版本只为最常用的数据结构提供了很少的一组类：Vector、Stack、Hashtable、BitSet与Enumeration接口，其中的Enumeration接口提供了一种用于访问任意容器中各个元素的抽象机制。</p>
+      <h2 id="Java集合框架"><a href="#Java集合框架" class="headerlink" title="Java集合框架"></a>Java集合框架</h2><p>Java最初的版本只为最常用的数据结构提供了很少的一组类：Vector、Stack、Hashtable、BitSet与Enumeration接口，其中的Enumeration接口提供了一种用于访问任意容器中各个元素的抽象机制。</p>
 <p>随着JavaSE1.2的问世，设计人员感到是推出一组功能完善的数据结构的时机了。面对一大堆相互矛盾的设计策略，他们希望让类库规模小且易于学习，而不希望像C++的“标准模板库”（即STL）那样复杂，但却又希望能够得到STL率先推出的“泛型算法”所具有的优点。本节将介绍Java集合框架的基本设计，展示使用它们的方法，并解释一些颇具争议的特性背后的考虑。</p>
 <span id="more"></span>
 
-<h3 id="1-1将集合的接口与实现分离"><a href="#1-1将集合的接口与实现分离" class="headerlink" title="1.1将集合的接口与实现分离"></a>1.1将集合的接口与实现分离</h3><p>与现代的数据结构类库的常见情况一样，Java集合类库也将接口（interface）与实现（implementation）分离。首先，看一下人们熟悉的数据结构——队列（queue）是如何分离的。</p>
+<h3 id="1-将集合的接口与实现分离"><a href="#1-将集合的接口与实现分离" class="headerlink" title="1. 将集合的接口与实现分离"></a>1. 将集合的接口与实现分离</h3><p>与现代的数据结构类库的常见情况一样，Java集合类库也将接口（interface）与实现（implementation）分离。首先，看一下人们熟悉的数据结构——队列（queue）是如何分离的。</p>
 <p>队列接口指出可以在队列的尾部添加元素，在队列的头部删除元素，并且可以查找队列中元素的个数。当需要收集对象，并按照“先进先出”的规则检索对象时就应该使用队列。</p>
 <p>队列接口的最简形式可能类似下面这样：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Queue</span>&lt;<span class="title">E</span>&gt; </span>&#123; <span class="comment">// a simplified form of the interface in the standard library</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">add</span><span class="params">(E element)</span></span>;</span><br><span class="line">    <span class="function">E <span class="title">remove</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">size</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -96,11 +96,11 @@
 
 <p>在研究API文档时，会发现另外一组名字以Abstract开头的类，例如，AbstractQueue。这些类是为类库设计者而设计的。如果想要实现自己的队列类（也许不太可能），会发现扩展AbstractQueue类要比实现Queue接口中的所有方法轻松得多。</p>
 <p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20211202182324676.png" alt="image-20211202182324676"></p>
-<h3 id="1-2-Collection接口"><a href="#1-2-Collection接口" class="headerlink" title="1.2 Collection接口"></a>1.2 Collection接口</h3><p>在Java类库中，集合类的基本接口是Collection接口。这个接口有两个基本方法add和iterator()。</p>
+<h3 id="2-Collection接口"><a href="#2-Collection接口" class="headerlink" title="2. Collection接口"></a>2. Collection接口</h3><p>在Java类库中，集合类的基本接口是Collection接口。这个接口有两个基本方法add和iterator()。</p>
 <p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20211202182633987.png" alt="image-20211202182633987"></p>
 <p>add用于向集合中添加元素。如果添加成功就返回true，否则返回false。例如，如果你试图向集合中添加一个已经存在的对象，会返回false。因为集合中不允许存在重复的对象。</p>
 <p>iterator用于返回一个实现了Iterator接口的对象。可以使用这个迭代器对象依次访问集合中的元素。</p>
-<h3 id="1-3-迭代器"><a href="#1-3-迭代器" class="headerlink" title="1.3 迭代器"></a>1.3 迭代器</h3><p>Iterator接口包含4个方法</p>
+<h3 id="3-迭代器"><a href="#3-迭代器" class="headerlink" title="3. 迭代器"></a>3. 迭代器</h3><p>Iterator接口包含4个方法</p>
 <p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20211202184905848.png" alt="image-20211202184905848"></p>
 <p>通过反复调用next方法，可以逐个访问集合中的每个元素。但是，如果到了集合的末尾，next方法将抛出一个NoSuchElementException。因此，需要在调用next之前调用hasNext方法来判断是否下一个元素是否为null。</p>
 <p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20211202185152900.png" alt="image-20211202185152900"></p>
@@ -126,7 +126,7 @@
 <p>相反，必须先调用next越过将要删除的元素：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">it.remove();</span><br><span class="line">it.next();</span><br><span class="line">it.remove(); <span class="comment">// OK!</span></span><br></pre></td></tr></table></figure>
 
-<h3 id="1-4-泛型实用方法"><a href="#1-4-泛型实用方法" class="headerlink" title="1.4 泛型实用方法"></a>1.4 泛型实用方法</h3><p>由于Collection与Iterator都是泛型接口，可以编写操作任何集合类型的实用方法。例如，下面是一个检测任意结合是否包含指定元素的泛型方法：</p>
+<h3 id="4-泛型实用方法"><a href="#4-泛型实用方法" class="headerlink" title="4. 泛型实用方法"></a>4. 泛型实用方法</h3><p>由于Collection与Iterator都是泛型接口，可以编写操作任何集合类型的实用方法。例如，下面是一个检测任意结合是否包含指定元素的泛型方法：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> &lt;E&gt; <span class="function"><span class="keyword">boolean</span> <span class="title">contains</span><span class="params">(Collection&lt;E&gt; c, Object obj)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(E element : c) </span><br><span class="line">        <span class="keyword">if</span>(element.equals(obj))</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
 
 <p>Java类库设计者认为：这些实用方法中的某些方法非常有用，应该将它们提供给用户使用。这样，类库的使用者就不必自己重新构建这些方法了。contains就是这样一个实用方法。</p>
@@ -134,16 +134,48 @@
 <p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20211202194211291.png" alt="image-20211202194211291"></p>
 <p>当然，如果实现Collection接口的每一个类都要提供如此多的例行方法将是一件很烦人的事情。为了能够让实现者更容易地实现这个接口，Java类库提供了一个类AbstractCollection，它将基础方法size和iterator抽象化了，但是在此提供了例行方法。例如：</p>
 <p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20211202194307915.png" alt="image-20211202194307915"></p>
-<h3 id="1-5-集合框架中的接口"><a href="#1-5-集合框架中的接口" class="headerlink" title="1.5 集合框架中的接口"></a>1.5 集合框架中的接口</h3><p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20211202195210125.png" alt="image-20211202195210125"></p>
+<h3 id="5-集合框架中的接口"><a href="#5-集合框架中的接口" class="headerlink" title="5. 集合框架中的接口"></a>5. 集合框架中的接口</h3><p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20211202195210125.png" alt="image-20211202195210125"></p>
+<h3 id="6-Collections工具类"><a href="#6-Collections工具类" class="headerlink" title="6. Collections工具类"></a>6. Collections工具类</h3><blockquote>
+<ul>
+<li>Collections是一个操作Set、List和Map等集合的工具类。</li>
+<li>Collections中提供了一系列静态的方法对集合元素进行排序、查询和修改等操作，还提供了对集合对象设置不可变、对集合对象实现同步控制等方法</li>
+</ul>
+</blockquote>
+<ul>
+<li><p>排序操作（均为static方法）</p>
+<ul>
+<li>reverse(List); 反转List中元素的顺序</li>
+<li>shuffle(List); 对List集合元素进行随机排序</li>
+<li>sort(List); 根据元素的自然顺序对指定List集合元素按升序排序</li>
+<li>sort(List, Comparator); </li>
+<li>swap(List, int, int); 将指定list集合中的i出元素和j出元素进行交换</li>
+</ul>
+</li>
+<li><p>查找、替换</p>
+<ul>
+<li>Object max(Collection); 自然排序后，返回给定集合中最大元素</li>
+<li>Object max(Collection，Comparator);</li>
+<li>Object min(Collection);</li>
+<li>Object min(Collection，Comparator);</li>
+<li>int frequency(Collection，Object); 返回指定集合中指定元素的出现次数</li>
+<li>void copy(List dest,List src);</li>
+<li>boolean replaceAll(List list，Object oldVal，Object newVal); 使用新值替换List对象的所有旧值</li>
+</ul>
+</li>
+<li><p>同步机制</p>
+<p>Collections类中提供了多个synchronizedXxx方法，该方法可以将指定集合包装成线程同步的集合，从而可以解决多线程并发访问集合时的线程安全问题。</p>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20211203191631324.png" alt="image-20211203191631324"></p>
+</li>
+</ul>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2021/12/02/Java%E9%9B%86%E5%90%88%E6%A1%86%E6%9E%B6%E6%A6%82%E8%BF%B0/" data-id="ckwojd0v3000220tw230k9sqh" class="article-share-link">
+      <a data-url="http://example.com/2021/12/02/Java%E9%9B%86%E5%90%88%E6%A1%86%E6%9E%B6%E6%A6%82%E8%BF%B0/" data-id="ckwqaoij60003qotwekn8e6o0" class="article-share-link">
         Share
       </a>
       
-<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java%E9%9B%86%E5%90%88/" rel="tag">Java集合</a></li></ul>
+<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%9B%86%E5%90%88/" rel="tag">集合</a></li></ul>
 
     </footer>
 

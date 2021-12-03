@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2021-12-02T14:20:34.084Z</updated>
+  <updated>2021-12-03T10:27:52.766Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -17,25 +17,47 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Map接口继承树</title>
+    <link href="http://example.com/2021/12/03/Map%E6%8E%A5%E5%8F%A3%E7%BB%A7%E6%89%BF%E6%A0%91/"/>
+    <id>http://example.com/2021/12/03/Map%E6%8E%A5%E5%8F%A3%E7%BB%A7%E6%89%BF%E6%A0%91/</id>
+    <published>2021-12-03T03:12:55.000Z</published>
+    <updated>2021-12-03T10:27:52.766Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20211203111736182.png&quot; alt=&quot;image-20211203111736182&quot;&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Map与Collection并列存在。用于保存具有**==映射关系==**得数据：key-value。&lt;/li&gt;
+&lt;li&gt;Map中的key和value都可以是任何引用类型得数据。&lt;/li&gt;
+&lt;li&gt;Map中的**==key用Set来存放，不允许重复==**，即同一个Map对象所对应的类，须重写hashCode和equals方法。&lt;/li&gt;
+&lt;/ul&gt;</summary>
+    
+    
+    
+    
+    <category term="Java" scheme="http://example.com/tags/Java/"/>
+    
+    <category term="集合" scheme="http://example.com/tags/%E9%9B%86%E5%90%88/"/>
+    
+  </entry>
+  
+  <entry>
     <title>集合面试题</title>
     <link href="http://example.com/2021/12/02/%E9%9B%86%E5%90%88%E9%9D%A2%E8%AF%95%E9%A2%98/"/>
     <id>http://example.com/2021/12/02/%E9%9B%86%E5%90%88%E9%9D%A2%E8%AF%95%E9%A2%98/</id>
     <published>2021-12-02T14:11:55.000Z</published>
-    <updated>2021-12-02T14:20:34.084Z</updated>
+    <updated>2021-12-03T09:20:55.597Z</updated>
     
     
-      
-      
-        
-        
-    <summary type="html">&lt;h3 id=&quot;&quot;&gt;&lt;a href=&quot;#&quot; class=&quot;headerlink&quot; title=&quot;&quot;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;h3</summary>
-        
-      
+    <summary type="html">&lt;h3 id=&quot;&quot;&gt;&lt;a href=&quot;#&quot; class=&quot;headerlink&quot; title=&quot;&quot;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;h3 id=&quot;请问ArrayList-LinkedList-Vector的异同？谈谈你的理解？ArrayList底层是什么？扩容机制？Vector和ArrayList的最大区别？&quot;&gt;&lt;a href=&quot;#请问ArrayList-LinkedList-Vector的异同？谈谈你的理解？ArrayList底层是什么？扩容机制？Vector和ArrayList的最大区别？&quot; class=&quot;headerlink&quot; title=&quot;请问ArrayList/LinkedList/Vector的异同？谈谈你的理解？ArrayList底层是什么？扩容机制？Vector和ArrayList的最大区别？&quot;&gt;&lt;/a&gt;请问ArrayList/LinkedList/Vector的异同？谈谈你的理解？ArrayList底层是什么？扩容机制？Vector和ArrayList的最大区别？&lt;/h3&gt;</summary>
     
     
     
     
-    <category term="Java集合" scheme="http://example.com/tags/Java%E9%9B%86%E5%90%88/"/>
+    <category term="Java" scheme="http://example.com/tags/Java/"/>
+    
+    <category term="集合" scheme="http://example.com/tags/%E9%9B%86%E5%90%88/"/>
+    
+    <category term="面经" scheme="http://example.com/tags/%E9%9D%A2%E7%BB%8F/"/>
     
   </entry>
   
@@ -44,7 +66,7 @@
     <link href="http://example.com/2021/12/02/Collection%E6%8E%A5%E5%8F%A3%E7%BB%A7%E6%89%BF%E6%A0%91/"/>
     <id>http://example.com/2021/12/02/Collection%E6%8E%A5%E5%8F%A3%E7%BB%A7%E6%89%BF%E6%A0%91/</id>
     <published>2021-12-02T12:50:18.000Z</published>
-    <updated>2021-12-03T02:47:27.019Z</updated>
+    <updated>2021-12-03T03:28:01.272Z</updated>
     
     
     <summary type="html">&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20211202210335782.png&quot; alt=&quot;image-20211202210335782&quot;&gt;&lt;/p&gt;
@@ -54,7 +76,9 @@
     
     
     
-    <category term="Java集合" scheme="http://example.com/tags/Java%E9%9B%86%E5%90%88/"/>
+    <category term="Java" scheme="http://example.com/tags/Java/"/>
+    
+    <category term="集合" scheme="http://example.com/tags/%E9%9B%86%E5%90%88/"/>
     
   </entry>
   
@@ -63,16 +87,18 @@
     <link href="http://example.com/2021/12/02/Java%E9%9B%86%E5%90%88%E6%A1%86%E6%9E%B6%E6%A6%82%E8%BF%B0/"/>
     <id>http://example.com/2021/12/02/Java%E9%9B%86%E5%90%88%E6%A1%86%E6%9E%B6%E6%A6%82%E8%BF%B0/</id>
     <published>2021-12-02T05:40:01.000Z</published>
-    <updated>2021-12-03T02:51:37.232Z</updated>
+    <updated>2021-12-03T11:16:45.728Z</updated>
     
     
-    <summary type="html">&lt;h2 id=&quot;1-Java集合框架&quot;&gt;&lt;a href=&quot;#1-Java集合框架&quot; class=&quot;headerlink&quot; title=&quot;1. Java集合框架&quot;&gt;&lt;/a&gt;1. Java集合框架&lt;/h2&gt;&lt;p&gt;Java最初的版本只为最常用的数据结构提供了很少的一组类：Vector、Stack、Hashtable、BitSet与Enumeration接口，其中的Enumeration接口提供了一种用于访问任意容器中各个元素的抽象机制。&lt;/p&gt;
+    <summary type="html">&lt;h2 id=&quot;Java集合框架&quot;&gt;&lt;a href=&quot;#Java集合框架&quot; class=&quot;headerlink&quot; title=&quot;Java集合框架&quot;&gt;&lt;/a&gt;Java集合框架&lt;/h2&gt;&lt;p&gt;Java最初的版本只为最常用的数据结构提供了很少的一组类：Vector、Stack、Hashtable、BitSet与Enumeration接口，其中的Enumeration接口提供了一种用于访问任意容器中各个元素的抽象机制。&lt;/p&gt;
 &lt;p&gt;随着JavaSE1.2的问世，设计人员感到是推出一组功能完善的数据结构的时机了。面对一大堆相互矛盾的设计策略，他们希望让类库规模小且易于学习，而不希望像C++的“标准模板库”（即STL）那样复杂，但却又希望能够得到STL率先推出的“泛型算法”所具有的优点。本节将介绍Java集合框架的基本设计，展示使用它们的方法，并解释一些颇具争议的特性背后的考虑。&lt;/p&gt;</summary>
     
     
     
     
-    <category term="Java集合" scheme="http://example.com/tags/Java%E9%9B%86%E5%90%88/"/>
+    <category term="Java" scheme="http://example.com/tags/Java/"/>
+    
+    <category term="集合" scheme="http://example.com/tags/%E9%9B%86%E5%90%88/"/>
     
   </entry>
   

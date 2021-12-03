@@ -1,13 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>集合面试题</title>
+    <url>/2021/12/02/%E9%9B%86%E5%90%88%E9%9D%A2%E8%AF%95%E9%A2%98/</url>
+    <content><![CDATA[<h3 id=""><a href="#" class="headerlink" title=""></a></h3><h3 id="请问ArrayList-LinkedList-Vector的异同？谈谈你的理解？ArrayList底层是什么？扩容机制？Vector和ArrayList的最大区别？"><a href="#请问ArrayList-LinkedList-Vector的异同？谈谈你的理解？ArrayList底层是什么？扩容机制？Vector和ArrayList的最大区别？" class="headerlink" title="请问ArrayList/LinkedList/Vector的异同？谈谈你的理解？ArrayList底层是什么？扩容机制？Vector和ArrayList的最大区别？"></a>请问ArrayList/LinkedList/Vector的异同？谈谈你的理解？ArrayList底层是什么？扩容机制？Vector和ArrayList的最大区别？</h3><span id="more"></span>
+
+<ul>
+<li><p>ArrayList和LinkedList的异同</p>
+<blockquote>
+<p>二者都是线程不安全的，相对线程安全的Vector，执行效率高。</p>
+<p>ArrayList是实现了基于动态数组的数据结构，LinkedList基于链表的数据结构。对于随机访问get和set，ArrayList优于LinkedList，因为LinkedList要移动指针。对于新增和删除操作以及add和remove，LinkedList比较占优势，因为ArrayList要移动数据。</p>
+</blockquote>
+</li>
+<li><p>ArrayList和Vector的区别</p>
+<blockquote>
+<p>Vector和ArrayList几乎是完全相同的，唯一的区别在于Vector是同步类(synchronized)，属于强同步类。因此开销就比ArrayList要大，访问要慢。正常情况下，大多数的Java程序员使用ArrayList而不是Vector，因为同步完全可以由程序员自己来控制。Vector每次扩容请求其大小的2倍空间，而ArrayList是1.5倍。Vector还有一个子类Stack。</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="负载因子值的大小，对HashMap有什么影响"><a href="#负载因子值的大小，对HashMap有什么影响" class="headerlink" title="负载因子值的大小，对HashMap有什么影响"></a>负载因子值的大小，对HashMap有什么影响</h3><blockquote>
+<ul>
+<li>负载因子的大小决定了HashMap的数据密度。</li>
+<li>负载因子越大密度越大，发生碰撞的几率越高，数组中的链表越容易长，造成查询或插入时的比较次数增多，性能会下降。</li>
+<li>负载因子越小，就越容易触发扩容，数据密度也越小，意味着发射如果碰撞的几率越小，数组中的链表也就越短，查询和插入时比较的次数也越小，性能会更高。但是会浪费一定的内存空间。而且经常扩容也会影响性能，建议初始化预设大一点的空间。</li>
+<li>按照其它语言的参考及研究经验，会考虑将负载因子设置为0.7~0.75，此时平均检索长度接近于常数。</li>
+</ul>
+</blockquote>
+]]></content>
+      <tags>
+        <tag>Java</tag>
+        <tag>集合</tag>
+        <tag>面经</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Java集合框架概述</title>
     <url>/2021/12/02/Java%E9%9B%86%E5%90%88%E6%A1%86%E6%9E%B6%E6%A6%82%E8%BF%B0/</url>
-    <content><![CDATA[<h2 id="1-Java集合框架"><a href="#1-Java集合框架" class="headerlink" title="1. Java集合框架"></a>1. Java集合框架</h2><p>Java最初的版本只为最常用的数据结构提供了很少的一组类：Vector、Stack、Hashtable、BitSet与Enumeration接口，其中的Enumeration接口提供了一种用于访问任意容器中各个元素的抽象机制。</p>
+    <content><![CDATA[<h2 id="Java集合框架"><a href="#Java集合框架" class="headerlink" title="Java集合框架"></a>Java集合框架</h2><p>Java最初的版本只为最常用的数据结构提供了很少的一组类：Vector、Stack、Hashtable、BitSet与Enumeration接口，其中的Enumeration接口提供了一种用于访问任意容器中各个元素的抽象机制。</p>
 <p>随着JavaSE1.2的问世，设计人员感到是推出一组功能完善的数据结构的时机了。面对一大堆相互矛盾的设计策略，他们希望让类库规模小且易于学习，而不希望像C++的“标准模板库”（即STL）那样复杂，但却又希望能够得到STL率先推出的“泛型算法”所具有的优点。本节将介绍Java集合框架的基本设计，展示使用它们的方法，并解释一些颇具争议的特性背后的考虑。</p>
 <span id="more"></span>
 
-<h3 id="1-1将集合的接口与实现分离"><a href="#1-1将集合的接口与实现分离" class="headerlink" title="1.1将集合的接口与实现分离"></a>1.1将集合的接口与实现分离</h3><p>与现代的数据结构类库的常见情况一样，Java集合类库也将接口（interface）与实现（implementation）分离。首先，看一下人们熟悉的数据结构——队列（queue）是如何分离的。</p>
+<h3 id="1-将集合的接口与实现分离"><a href="#1-将集合的接口与实现分离" class="headerlink" title="1. 将集合的接口与实现分离"></a>1. 将集合的接口与实现分离</h3><p>与现代的数据结构类库的常见情况一样，Java集合类库也将接口（interface）与实现（implementation）分离。首先，看一下人们熟悉的数据结构——队列（queue）是如何分离的。</p>
 <p>队列接口指出可以在队列的尾部添加元素，在队列的头部删除元素，并且可以查找队列中元素的个数。当需要收集对象，并按照“先进先出”的规则检索对象时就应该使用队列。</p>
 <p>队列接口的最简形式可能类似下面这样：</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Queue</span>&lt;<span class="title">E</span>&gt; </span>&#123; <span class="comment">// a simplified form of the interface in the standard library</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">add</span><span class="params">(E element)</span></span>;</span><br><span class="line">    <span class="function">E <span class="title">remove</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">size</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -31,11 +64,11 @@
 
 <p>在研究API文档时，会发现另外一组名字以Abstract开头的类，例如，AbstractQueue。这些类是为类库设计者而设计的。如果想要实现自己的队列类（也许不太可能），会发现扩展AbstractQueue类要比实现Queue接口中的所有方法轻松得多。</p>
 <p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20211202182324676.png" alt="image-20211202182324676"></p>
-<h3 id="1-2-Collection接口"><a href="#1-2-Collection接口" class="headerlink" title="1.2 Collection接口"></a>1.2 Collection接口</h3><p>在Java类库中，集合类的基本接口是Collection接口。这个接口有两个基本方法add和iterator()。</p>
+<h3 id="2-Collection接口"><a href="#2-Collection接口" class="headerlink" title="2. Collection接口"></a>2. Collection接口</h3><p>在Java类库中，集合类的基本接口是Collection接口。这个接口有两个基本方法add和iterator()。</p>
 <p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20211202182633987.png" alt="image-20211202182633987"></p>
 <p>add用于向集合中添加元素。如果添加成功就返回true，否则返回false。例如，如果你试图向集合中添加一个已经存在的对象，会返回false。因为集合中不允许存在重复的对象。</p>
 <p>iterator用于返回一个实现了Iterator接口的对象。可以使用这个迭代器对象依次访问集合中的元素。</p>
-<h3 id="1-3-迭代器"><a href="#1-3-迭代器" class="headerlink" title="1.3 迭代器"></a>1.3 迭代器</h3><p>Iterator接口包含4个方法</p>
+<h3 id="3-迭代器"><a href="#3-迭代器" class="headerlink" title="3. 迭代器"></a>3. 迭代器</h3><p>Iterator接口包含4个方法</p>
 <p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20211202184905848.png" alt="image-20211202184905848"></p>
 <p>通过反复调用next方法，可以逐个访问集合中的每个元素。但是，如果到了集合的末尾，next方法将抛出一个NoSuchElementException。因此，需要在调用next之前调用hasNext方法来判断是否下一个元素是否为null。</p>
 <p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20211202185152900.png" alt="image-20211202185152900"></p>
@@ -61,7 +94,7 @@
 <p>相反，必须先调用next越过将要删除的元素：</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line">it.remove();</span><br><span class="line">it.next();</span><br><span class="line">it.remove(); <span class="comment">// OK!</span></span><br></pre></td></tr></table></figure>
 
-<h3 id="1-4-泛型实用方法"><a href="#1-4-泛型实用方法" class="headerlink" title="1.4 泛型实用方法"></a>1.4 泛型实用方法</h3><p>由于Collection与Iterator都是泛型接口，可以编写操作任何集合类型的实用方法。例如，下面是一个检测任意结合是否包含指定元素的泛型方法：</p>
+<h3 id="4-泛型实用方法"><a href="#4-泛型实用方法" class="headerlink" title="4. 泛型实用方法"></a>4. 泛型实用方法</h3><p>由于Collection与Iterator都是泛型接口，可以编写操作任何集合类型的实用方法。例如，下面是一个检测任意结合是否包含指定元素的泛型方法：</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> &lt;E&gt; <span class="function"><span class="keyword">boolean</span> <span class="title">contains</span><span class="params">(Collection&lt;E&gt; c, Object obj)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(E element : c) </span><br><span class="line">        <span class="keyword">if</span>(element.equals(obj))</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
 
 <p>Java类库设计者认为：这些实用方法中的某些方法非常有用，应该将它们提供给用户使用。这样，类库的使用者就不必自己重新构建这些方法了。contains就是这样一个实用方法。</p>
@@ -69,31 +102,168 @@
 <p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20211202194211291.png" alt="image-20211202194211291"></p>
 <p>当然，如果实现Collection接口的每一个类都要提供如此多的例行方法将是一件很烦人的事情。为了能够让实现者更容易地实现这个接口，Java类库提供了一个类AbstractCollection，它将基础方法size和iterator抽象化了，但是在此提供了例行方法。例如：</p>
 <p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20211202194307915.png" alt="image-20211202194307915"></p>
-<h3 id="1-5-集合框架中的接口"><a href="#1-5-集合框架中的接口" class="headerlink" title="1.5 集合框架中的接口"></a>1.5 集合框架中的接口</h3><p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20211202195210125.png" alt="image-20211202195210125"></p>
-]]></content>
-      <tags>
-        <tag>Java集合</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>集合面试题</title>
-    <url>/2021/12/02/%E9%9B%86%E5%90%88%E9%9D%A2%E8%AF%95%E9%A2%98/</url>
-    <content><![CDATA[<h3 id=""><a href="#" class="headerlink" title=""></a></h3><h3 id="请问ArrayList-LinkedList-Vector的异同？谈谈你的理解？ArrayList底层是什么？扩容机制？Vector和ArrayList的最大区别？"><a href="#请问ArrayList-LinkedList-Vector的异同？谈谈你的理解？ArrayList底层是什么？扩容机制？Vector和ArrayList的最大区别？" class="headerlink" title="请问ArrayList/LinkedList/Vector的异同？谈谈你的理解？ArrayList底层是什么？扩容机制？Vector和ArrayList的最大区别？"></a>请问ArrayList/LinkedList/Vector的异同？谈谈你的理解？ArrayList底层是什么？扩容机制？Vector和ArrayList的最大区别？</h3><ul>
-<li><p>ArrayList和LinkedList的异同</p>
-<blockquote>
-<p>二者都是线程不安全的，相对线程安全的Vector，执行效率高。</p>
-<p>ArrayList是实现了基于动态数组的数据结构，LinkedList基于链表的数据结构。对于随机访问get和set，ArrayList优于LinkedList，因为LinkedList要移动指针。对于新增和删除操作以及add和remove，LinkedList比较占优势，因为ArrayList要移动数据。</p>
+<h3 id="5-集合框架中的接口"><a href="#5-集合框架中的接口" class="headerlink" title="5. 集合框架中的接口"></a>5. 集合框架中的接口</h3><p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20211202195210125.png" alt="image-20211202195210125"></p>
+<h3 id="6-Collections工具类"><a href="#6-Collections工具类" class="headerlink" title="6. Collections工具类"></a>6. Collections工具类</h3><blockquote>
+<ul>
+<li>Collections是一个操作Set、List和Map等集合的工具类。</li>
+<li>Collections中提供了一系列静态的方法对集合元素进行排序、查询和修改等操作，还提供了对集合对象设置不可变、对集合对象实现同步控制等方法</li>
+</ul>
 </blockquote>
+<ul>
+<li><p>排序操作（均为static方法）</p>
+<ul>
+<li>reverse(List); 反转List中元素的顺序</li>
+<li>shuffle(List); 对List集合元素进行随机排序</li>
+<li>sort(List); 根据元素的自然顺序对指定List集合元素按升序排序</li>
+<li>sort(List, Comparator); </li>
+<li>swap(List, int, int); 将指定list集合中的i出元素和j出元素进行交换</li>
+</ul>
 </li>
-<li><p>ArrayList和Vector的区别</p>
-<blockquote>
-<p>Vector和ArrayList几乎是完全相同的，唯一的区别在于Vector是同步类(synchronized)，属于强同步类。因此开销就比ArrayList要大，访问要慢。正常情况下，大多数的Java程序员使用ArrayList而不是Vector，因为同步完全可以由程序员自己来控制。Vector每次扩容请求其大小的2倍空间，而ArrayList是1.5倍。Vector还有一个子类Stack。</p>
-</blockquote>
+<li><p>查找、替换</p>
+<ul>
+<li>Object max(Collection); 自然排序后，返回给定集合中最大元素</li>
+<li>Object max(Collection，Comparator);</li>
+<li>Object min(Collection);</li>
+<li>Object min(Collection，Comparator);</li>
+<li>int frequency(Collection，Object); 返回指定集合中指定元素的出现次数</li>
+<li>void copy(List dest,List src);</li>
+<li>boolean replaceAll(List list，Object oldVal，Object newVal); 使用新值替换List对象的所有旧值</li>
+</ul>
+</li>
+<li><p>同步机制</p>
+<p>Collections类中提供了多个synchronizedXxx方法，该方法可以将指定集合包装成线程同步的集合，从而可以解决多线程并发访问集合时的线程安全问题。</p>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20211203191631324.png" alt="image-20211203191631324"></p>
 </li>
 </ul>
 ]]></content>
       <tags>
-        <tag>Java集合</tag>
+        <tag>Java</tag>
+        <tag>集合</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Map接口继承树</title>
+    <url>/2021/12/03/Map%E6%8E%A5%E5%8F%A3%E7%BB%A7%E6%89%BF%E6%A0%91/</url>
+    <content><![CDATA[<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20211203111736182.png" alt="image-20211203111736182"></p>
+<ul>
+<li>Map与Collection并列存在。用于保存具有**==映射关系==**得数据：key-value。</li>
+<li>Map中的key和value都可以是任何引用类型得数据。</li>
+<li>Map中的**==key用Set来存放，不允许重复==**，即同一个Map对象所对应的类，须重写hashCode和equals方法。</li>
+</ul>
+<span id="more"></span>
+
+<ul>
+<li><p>常用String类作为Map的“键”。</p>
+</li>
+<li><p>key和value之间存在单向一对一关系，即通过指定的key总能找到唯一的、确定的value。</p>
+</li>
+<li><p>Map接口的常用实现类：HashMap、TreeMap、LinkedHashMap和Properties。其中，<strong>HashMap是Map接口使用频率最高的实现类</strong>。</p>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20211203112634817.png" alt="image-20211203112634817"></p>
+</li>
+</ul>
+<h2 id="1-常用方法"><a href="#1-常用方法" class="headerlink" title="1. 常用方法"></a>1. 常用方法</h2><ul>
+<li>添加、删除、修改操作<ul>
+<li>Object put(Object key,Object value); 将指定key-value添加到(或修改)当前Map对象中</li>
+<li>void putAll(Map m); 将m中所有key-value对存放到当前map中</li>
+<li>Object remove(Object key); 移出指定key的key-value对，并返回value</li>
+<li>void clear(); 清空当前map中的所有数据</li>
+</ul>
+</li>
+<li>元素查询的操作<ul>
+<li>Object get(Object key); 获取指定key对应的value</li>
+<li>boolean containsKey(Object key); 是否包含指定的key</li>
+<li>boolean containsValue(Object value); 是否包含指定的value</li>
+<li>int size(); 返回map中key-value对的个数</li>
+<li>boolean isEmpty(); 判断当前map是否为空</li>
+<li>boolean equals(Object obj); 判断当前map和参数对象obj是否相等</li>
+</ul>
+</li>
+<li>元视图操作<ul>
+<li>Set keySet(); 返回所以key构成的Set集合</li>
+<li>Collection values(); 返回所有value构成的Collection集合</li>
+<li>Set entrySet(); 返回所有key-value对构成的Set集合</li>
+</ul>
+</li>
+</ul>
+<h2 id="2-HashMap"><a href="#2-HashMap" class="headerlink" title="2. HashMap"></a>2. HashMap</h2><blockquote>
+<ul>
+<li><strong>==HashMap是Map接口使用频率最高的实现类。==</strong></li>
+<li>允许使用null键和null值，与HashSet一样，不保证映射的顺序。</li>
+<li>所有的key构成的集合是Set：无序的、不可重复的。所以要重写方法。</li>
+<li>所有value构成的集合是Collection：无序的、可以重复的。所以要重写equals。</li>
+<li>一个key-value构成一个entry。</li>
+<li>所有的entry构成的集合是Set：无序的、不可重复的。</li>
+<li>HashMap判断两个key相等的标准是：两个key通过equals方法返回true，hashCode值也相等。</li>
+<li>HashMap判断两个value相等的标准是：两个value通过equals方法返回true。</li>
+</ul>
+</blockquote>
+<h3 id="2-1-HashMap的存储结构"><a href="#2-1-HashMap的存储结构" class="headerlink" title="2.1 HashMap的存储结构"></a>2.1 HashMap的存储结构</h3><p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20211203132751458.png" alt="image-20211203132751458"></p>
+<h3 id="2-2-HashMap源码中的重要常量"><a href="#2-2-HashMap源码中的重要常量" class="headerlink" title="2.2 HashMap源码中的重要常量"></a>2.2 HashMap源码中的重要常量</h3><p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20211203133703159.png" alt="image-20211203133703159"></p>
+<h3 id="2-3-JDK-1-8之前"><a href="#2-3-JDK-1-8之前" class="headerlink" title="2.3 JDK 1.8之前"></a>2.3 JDK 1.8之前</h3><p>HashMap的内部存储结构其实是**<u>数组和链表</u>**的结合。当实例化一个HashMap时，系统会创建一个长度为Capacity的Entry数组，这个长度在哈希表中被称为容量(Capacity)，在这个数组中可以存放元素的位置我们称之为“桶”(bucket)，每个bucket都有自己的索引，系统可以根据索引快速的查找bucket中的元素。</p>
+<p>每个bucket中存储一个元素，即一个Entry对象，但每一个Entry对象可以带一个引用变量，用于指向下一个元素，因此，在一个桶中，就有可能生成一个Entry链。而且**==新添加的元素作为链表的head==**。</p>
+<ul>
+<li><p><strong>添加元素的过程</strong></p>
+<p>向HashMap中添加entry1(key, value)，首先需要计算entry1中key的哈希值（根据key所在类的hashCode计算得到），这个哈希值经过处理以后，得到在底层Entry[]数组中要存储的位置i。如果位置i上没有元素，则entry1直接添加成功。如果位置i上已经存在entry2（或还有链表存在的entry3，entry4），则需要通过循环的方法，依次比较entry1中key和其它的entry。如果彼此hash值相同，则直接添加成功。如果hash值相同，继续比较二者是否equals。如果返回true，则使用entry1的value去替换equals为true的entry的value。如果遍历一遍以后，发现所有的equals返回都为false，则entry1仍可添加成功。entry1指向原有的entry元素。</p>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20211203165213991.png" alt="image-20211203165213991"></p>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20211203165106541.png" alt="image-20211203165106541"></p>
+</li>
+<li><p><strong>HashMap的扩容</strong></p>
+<p>当HashMap中的元素越来越多的时候，hash冲突的几率也就越来越高，因为数组的长度是固定的，所以为了提高查询的效率，就要对HashMap的数组进行扩容，而**<u>在HashMap数组扩容之后，最消耗性能的点就出现了：原数组中的数据必须重新计算其在新数组中的位置，并放进去，这就是resize。</u>**</p>
+</li>
+<li><p><strong>那么HashMap什么时候进行扩容呢？</strong></p>
+<p>当HashMap中的元素个数超过数组大小 * loadFactor时，就会进行数组扩容，而loadFactor默认值就是0.75.也就是说，默认数组大小为16，当元素个数超过16 * 0.75 = 12（这个值就是代码中的threshold值，也叫做临界值）的时候，就把数组的大小扩展为2 * 16 = 32，即扩大一倍，然后重新计算每个元素在数组中的位置，而这是一个非常消耗性能的操作，所以<em><strong>如果我们已经预知HashMap中元素的个数，那么预设元素的个数能够有效的提高HashMap的性能</strong></em>。</p>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20211203164010966.png" alt="image-20211203164010966"></p>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20211203165721926.png" alt="image-20211203165721926"></p>
+</li>
+</ul>
+<h3 id="2-4-JDK-1-8"><a href="#2-4-JDK-1-8" class="headerlink" title="2.4 JDK 1.8"></a>2.4 JDK 1.8</h3><p>HashMap的内部存储结构其实是**<u>数组 + 链表 + 红黑树</u>**的结合。当实例化一个HashMap时，会初始化initialCapacity和loadFactor，在put第一对映射关系时，系统会创建一个长度为initialCapacity的Node数组，这个长度在哈希表中被称为容量(Capacity)，在这个数组中可以存放元素的位置我们称之为“桶”(bucket)，每个bucket都有自己的索引，系统可以根据索引快速的查找bucket中的元素。</p>
+<p>每个bucket中存储一个元素，即一个Node对象，但每一个Node对象可以带一个引用变量next，用于指向下一个元素，因此，在一个桶中，就有可能生成一个Node链。也可能是一个一个TreeNode对象，每一个TreeNode对象可以有两个叶子节点left和right，因此，在一个桶中，就有可能生成一个TreeNode树。而新添加的元素作为链表的last，或树的叶子节点。</p>
+<ul>
+<li><p><strong>扩容和树形化</strong></p>
+<p>扩容操作与JDK1.7相类似。当HashMap中的其中一个链的对象个数如果达到了8个，此时如果没有capacity没有达到64，那么HashMap会先扩容解决；如果已经达到了64，那么这个链会变成树，节点类型由Node变成TreeNode类型。当然，如果当映射关系被移除后，下次resize时判断树节点个数低于6个，也会把树再转化为链表。</p>
+</li>
+<li><p><strong>关于映射关系的key是否可以修改？</strong></p>
+<p>不要修改！映射关系存储到HashMap中会存储key的hash值，这样就不用再每次查找时重新计算每一个Entry或Node(TreeNode)的hash值了，因此如果已经put到Map中的映射关系，再修改key的属性，而这个属性又参与hashCode值得计算，那么会导致匹配不上。</p>
+</li>
+</ul>
+<h3 id="2-5-总结：JDK1-8相较于之前得变化"><a href="#2-5-总结：JDK1-8相较于之前得变化" class="headerlink" title="2.5 总结：JDK1.8相较于之前得变化"></a>2.5 总结：JDK1.8相较于之前得变化</h3><ol>
+<li>HashMap map = new HashMap(); // 默认情况下，先不创建长度为16的数组</li>
+<li>当首次调用map.put()时，再创建长度为16的数组</li>
+<li>数组为Node类型，在JDK1.7中称为Entry类型</li>
+<li>形成链表结构时，新添加的key-value对在链表的尾部（七上八下）</li>
+<li>当数组指定索引位置的链表长度 &gt; 8时，且map中的数组的长度 &gt; 64时，次索引位置上的所有key-value对使用红黑树进行存储。</li>
+</ol>
+<h2 id="3-LinkedHashMap"><a href="#3-LinkedHashMap" class="headerlink" title="3. LinkedHashMap"></a>3. LinkedHashMap</h2><ul>
+<li>HashMap的子类。</li>
+<li>在HashMap存储结构的基础上，使用了一对双向链表来记录添加元素的顺序。</li>
+<li>与LinkedHashSet类似，LinkedHashMap可以维护Map的迭代顺序：迭代顺序与key-value对的插入顺序一致。</li>
+</ul>
+<h2 id="4-TreeMap"><a href="#4-TreeMap" class="headerlink" title="4. TreeMap"></a>4. TreeMap</h2><ul>
+<li>TreeMap存储key-value对时，需要根据key-value对进行排序，TreeMap可以保证所有的key-value对处于有序状态。</li>
+<li>TreeMap底层使用红黑树结构存储数据。</li>
+<li>TreeMap的key的排序：<ul>
+<li>自然排序：TreeMap所有key必须实现Comparable接口，而且所有的key应该是同一个类的对象，否则将会抛出ClassCastException。</li>
+<li>定制排序：创建TreeMap时，传入一个Comparator对象。此时不需要Map的key实现Comparable接口。</li>
+</ul>
+</li>
+<li>TreeMap判断两个key相等的标准：两个key通过compareTo方法或者compare方法返回0.</li>
+</ul>
+<h2 id="5-Hashtable"><a href="#5-Hashtable" class="headerlink" title="5. Hashtable"></a>5. Hashtable</h2><ul>
+<li>Hashtable是一个古老的Map实现类，JDK1.0就提供了，并且与HashMap不同的是，它是线程安全的。</li>
+<li>Hashtable实现原理和HashMap相同，功能相同。底层都使用哈希表结构，查询速度快，很多情况下可以互用。</li>
+<li>与HashMap不同，Hashtable不允许使用null作为key和value。</li>
+<li>与HashMap一样，Hashtable也不能保证其中key-value对的顺序。</li>
+<li>判断key、value相等的标准，同HashMap。</li>
+</ul>
+<h2 id="6-Properties"><a href="#6-Properties" class="headerlink" title="6. Properties"></a>6. Properties</h2><ul>
+<li>Properties类是Hashtable的子类，该对象用于处理属性文件</li>
+<li>由于属性文件里的key、value都是字符串类型，所以**<u>Properties里的key和value都是字符串类型</u>**。</li>
+<li>存取数据时，建议使用setProperty(String key, String value)方法和getProperty(String key)方法。</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>Java</tag>
+        <tag>集合</tag>
       </tags>
   </entry>
   <entry>
@@ -303,7 +473,8 @@
 
 ]]></content>
       <tags>
-        <tag>Java集合</tag>
+        <tag>Java</tag>
+        <tag>集合</tag>
       </tags>
   </entry>
 </search>
