@@ -68,7 +68,8 @@
       
       
       
-      <h2 id="6-总结"><a href="#6-总结" class="headerlink" title="6. 总结"></a>6. 总结</h2><ol>
+      <blockquote>
+<h2 id="6-总结"><a href="#6-总结" class="headerlink" title="6. 总结"></a>6. 总结</h2><ol>
 <li>ArrayList创建时的大小为0，当加入第一个元素时，进行第一次扩容，默认容量大小为10。（Java8之前为饿汉式，Java为懒汉式）</li>
 <li>ArrayList每次扩容都以当前数组大小的1.5倍去扩容。</li>
 <li>Vector创建时默认大小为10（饿汉式）。<span id="more"></span></li>
@@ -76,6 +77,7 @@
 <li>ArrayList和Vector的add、get、size方法的复杂度都为O(1)，remove方法的复杂度为O(n)。</li>
 <li>ArrayList是线程不安全的，Vector是线程安全的。</li>
 </ol>
+</blockquote>
 <h2 id="1-概述"><a href="#1-概述" class="headerlink" title="1.概述"></a>1.概述</h2><p>先看源码中的这段注释：</p>
 <blockquote>
 <p>Resizable-array implementation of the List interface. Implements all optional list operations, and permits all elements, including null. In addition to implementing the List interface, this class provides methods to manipulate the size of the array that is used internally to store the list. (This class is roughly equivalent to Vector, except that it is unsynchronized.)</p>
@@ -122,7 +124,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2021/12/03/%E6%B7%B1%E5%85%A5Java%E9%9B%86%E5%90%88%E7%B3%BB%E5%88%97%E4%B9%8B%E2%80%94%E2%80%94ArrayList/" data-id="ckwqi31hj00093stwe9gk0aqo" class="article-share-link">
+      <a data-url="http://example.com/2021/12/03/%E6%B7%B1%E5%85%A5Java%E9%9B%86%E5%90%88%E7%B3%BB%E5%88%97%E4%B9%8B%E2%80%94%E2%80%94ArrayList/" data-id="ckwt9fumz000848tw7vd7bs0w" class="article-share-link">
         Share
       </a>
       
@@ -135,6 +137,15 @@
   
   
 <nav class="article-nav">
+  
+  <a href="/2021/12/04/%E6%B7%B1%E5%85%A5Java%E9%9B%86%E5%90%88%E7%B3%BB%E5%88%97%E4%B9%8B%E2%80%94%E2%80%94HashMap/" class="article-nav-link">
+    <strong class="article-nav-caption">Newer</strong>
+    <div class="article-nav-title">
+      
+      深入Java集合系列之——HashMap
+      
+    </div>
+  </a>
   
   
   <a href="/2021/12/03/Map%E6%8E%A5%E5%8F%A3%E7%BB%A7%E6%89%BF%E6%A0%91/" class="article-nav-link">

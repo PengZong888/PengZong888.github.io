@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2021-12-03T14:41:21.267Z</updated>
+  <updated>2021-12-05T13:07:33.451Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -17,14 +17,40 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>深入Java集合系列之——HashMap</title>
+    <link href="http://example.com/2021/12/04/%E6%B7%B1%E5%85%A5Java%E9%9B%86%E5%90%88%E7%B3%BB%E5%88%97%E4%B9%8B%E2%80%94%E2%80%94HashMap/"/>
+    <id>http://example.com/2021/12/04/%E6%B7%B1%E5%85%A5Java%E9%9B%86%E5%90%88%E7%B3%BB%E5%88%97%E4%B9%8B%E2%80%94%E2%80%94HashMap/</id>
+    <published>2021-12-04T01:32:40.000Z</published>
+    <updated>2021-12-05T13:07:33.451Z</updated>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;1-传统HashMap的缺点&quot;&gt;&lt;a href=&quot;#1-传统HashMap的缺点&quot; class=&quot;headerlink&quot; title=&quot;1. 传统HashMap的缺点&quot;&gt;&lt;/a&gt;1. 传统HashMap的缺点&lt;/h2&gt;&lt;p&gt;HashMap是基于哈希表的Map接口的非同步实现。此实现提供所有可选的映射操作，并允许使用null值和null键。此类不保证映射的顺序，特别是它不保证该顺序恒久不变。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;JDK1.8以前HashMap的实现是 数组 + 链表，即使哈希函数取得再好，也很难达到元素百分百均与分布。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;当HashMap中有大量的元素都存放到同一个桶中时，这个桶下由一条长长的链表，这个时候HashMap就相当于一个单链表，加入单链表有n个元素，遍历的时间复杂度就是O(n)，完全失去了它的优势。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;针对这种情况，JDK1.8中引入了红黑树(查找时间复杂度为O(logn))来优化这个问题。&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="Java" scheme="http://example.com/tags/Java/"/>
+    
+    <category term="集合" scheme="http://example.com/tags/%E9%9B%86%E5%90%88/"/>
+    
+  </entry>
+  
+  <entry>
     <title>深入Java集合系列之——ArrayList</title>
     <link href="http://example.com/2021/12/03/%E6%B7%B1%E5%85%A5Java%E9%9B%86%E5%90%88%E7%B3%BB%E5%88%97%E4%B9%8B%E2%80%94%E2%80%94ArrayList/"/>
     <id>http://example.com/2021/12/03/%E6%B7%B1%E5%85%A5Java%E9%9B%86%E5%90%88%E7%B3%BB%E5%88%97%E4%B9%8B%E2%80%94%E2%80%94ArrayList/</id>
     <published>2021-12-03T11:25:50.000Z</published>
-    <updated>2021-12-03T14:41:21.267Z</updated>
+    <updated>2021-12-03T14:47:45.414Z</updated>
     
     
-    <summary type="html">&lt;h2 id=&quot;6-总结&quot;&gt;&lt;a href=&quot;#6-总结&quot; class=&quot;headerlink&quot; title=&quot;6. 总结&quot;&gt;&lt;/a&gt;6. 总结&lt;/h2&gt;&lt;ol&gt;
+    <summary type="html">&lt;blockquote&gt;
+&lt;h2 id=&quot;6-总结&quot;&gt;&lt;a href=&quot;#6-总结&quot; class=&quot;headerlink&quot; title=&quot;6. 总结&quot;&gt;&lt;/a&gt;6. 总结&lt;/h2&gt;&lt;ol&gt;
 &lt;li&gt;ArrayList创建时的大小为0，当加入第一个元素时，进行第一次扩容，默认容量大小为10。（Java8之前为饿汉式，Java为懒汉式）&lt;/li&gt;
 &lt;li&gt;ArrayList每次扩容都以当前数组大小的1.5倍去扩容。&lt;/li&gt;
 &lt;li&gt;Vector创建时默认大小为10（饿汉式）。</summary>
