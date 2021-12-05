@@ -93,7 +93,7 @@
     <link href="http://example.com/2021/12/02/%E9%9B%86%E5%90%88%E9%9D%A2%E8%AF%95%E9%A2%98/"/>
     <id>http://example.com/2021/12/02/%E9%9B%86%E5%90%88%E9%9D%A2%E8%AF%95%E9%A2%98/</id>
     <published>2021-12-02T14:11:55.000Z</published>
-    <updated>2021-12-03T09:20:55.597Z</updated>
+    <updated>2021-12-05T13:10:13.492Z</updated>
     
     
     <summary type="html">&lt;h3 id=&quot;&quot;&gt;&lt;a href=&quot;#&quot; class=&quot;headerlink&quot; title=&quot;&quot;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;h3 id=&quot;请问ArrayList-LinkedList-Vector的异同？谈谈你的理解？ArrayList底层是什么？扩容机制？Vector和ArrayList的最大区别？&quot;&gt;&lt;a href=&quot;#请问ArrayList-LinkedList-Vector的异同？谈谈你的理解？ArrayList底层是什么？扩容机制？Vector和ArrayList的最大区别？&quot; class=&quot;headerlink&quot; title=&quot;请问ArrayList/LinkedList/Vector的异同？谈谈你的理解？ArrayList底层是什么？扩容机制？Vector和ArrayList的最大区别？&quot;&gt;&lt;/a&gt;请问ArrayList/LinkedList/Vector的异同？谈谈你的理解？ArrayList底层是什么？扩容机制？Vector和ArrayList的最大区别？&lt;/h3&gt;</summary>
@@ -135,7 +135,7 @@
     <link href="http://example.com/2021/12/02/Java%E9%9B%86%E5%90%88%E6%A1%86%E6%9E%B6%E6%A6%82%E8%BF%B0/"/>
     <id>http://example.com/2021/12/02/Java%E9%9B%86%E5%90%88%E6%A1%86%E6%9E%B6%E6%A6%82%E8%BF%B0/</id>
     <published>2021-12-02T05:40:01.000Z</published>
-    <updated>2021-12-03T11:16:45.728Z</updated>
+    <updated>2021-12-05T13:10:18.478Z</updated>
     
     
     <summary type="html">&lt;h2 id=&quot;Java集合框架&quot;&gt;&lt;a href=&quot;#Java集合框架&quot; class=&quot;headerlink&quot; title=&quot;Java集合框架&quot;&gt;&lt;/a&gt;Java集合框架&lt;/h2&gt;&lt;p&gt;Java最初的版本只为最常用的数据结构提供了很少的一组类：Vector、Stack、Hashtable、BitSet与Enumeration接口，其中的Enumeration接口提供了一种用于访问任意容器中各个元素的抽象机制。&lt;/p&gt;
