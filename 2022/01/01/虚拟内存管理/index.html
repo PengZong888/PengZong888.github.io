@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  
+  
+  <title>
+    虚拟内存管理 |
+    
+    青稞
+  </title>
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+    
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<script src="/js/pace.min.js"></script>
+
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="青稞" type="application/atom+xml">
+</head>
+
+<body>
+  <main class="content">
+    <section class="outer">
+  <article id="post-虚拟内存管理" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+      
+
+<h1 class="article-title" itemprop="name">
+  虚拟内存管理
+</h1>
+
+
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2022/01/01/%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/" class="article-date">
+  <time datetime="2022-01-01T13:33:04.000Z" itemprop="datePublished">2022-01-01</time>
+</a>
+      
+    </div>
+    
+
+    
+    
+<div class="tocbot"></div>
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+      
+      <blockquote>
+<p>为什么要引入虚拟内存？</p>
+<p>虚拟内存空间的大小由什么因素决定？</p>
+<p>虚拟内存是怎么解决问题的？会带来什么问题？</p>
+</blockquote>
+<h1 id="1-虚拟内存的基本概念"><a href="#1-虚拟内存的基本概念" class="headerlink" title="1. 虚拟内存的基本概念"></a>1. 虚拟内存的基本概念</h1><h2 id="1-1-传统存储管理方式的特征"><a href="#1-1-传统存储管理方式的特征" class="headerlink" title="1.1 传统存储管理方式的特征"></a>1.1 传统存储管理方式的特征</h2><p>在传统的内存管理策略都是为了同时将多个进程保存在内存中，以便允许进行多道程序设计。它们都具有以下两个共同的特征：</p>
+<ul>
+<li><strong>一次性</strong>。作业必须一次性全部装入内存后，才能开始运行。这会导致两种情况：<ol>
+<li>单个作业很大而不能全部装入内存中，作业无法运行。</li>
+<li>大量作业要求运行，而内存却不足以容纳所有，只能少数先行，导致多道程序度下降。</li>
+</ol>
+</li>
+<li><strong>驻留性</strong>。作业被装入内存后，就一直驻留在内存中，其任何部分都不会被换出，直至作业运行结束。运行中的进程会因等待I/O而被阻塞，可能处于长期等待状态。</li>
+</ul>
+<p>也就是说：<strong>许多在程序运行中不用或暂时不用的程序（数据）占据了大量的内存空间，而一些需要运行的作业又无法装入运行</strong>，显然浪费了宝贵的内存资源。</p>
+<h2 id="1-2-局部性原理"><a href="#1-2-局部性原理" class="headerlink" title="1.2 局部性原理"></a>1.2 局部性原理</h2><p>Bill Joy（SUN公司CEO）说过：“在研究所时，我经常开玩笑地说高速缓存是计算机科学中唯一重要的思想。事实上，高速缓存技术确实极大地影响了计算机系统的设计。”快表、页高速缓存及虚拟内存技术从广义上讲，都属于<strong>高速缓存技术</strong>。这个技术所依赖的原理就是<strong>局部性原理</strong>。局部性原理既适用于程序结构，又适用于数据结构。</p>
+<p>局部性原理表现在以下两个方面：</p>
+<ul>
+<li><strong>时间局部性</strong>。程序中的某条指令一旦执行，不久后该指令可能再次执行；某数据被访问过，不久后该数据可能再次被访问。产生时间局部性的典型原因是<strong>程序中存在着大量的循环操作</strong>。</li>
+<li><strong>空间局部性</strong>。一旦程序访问了某个存储单元，在不久后，其附近的存储单元也将被访问，即程序在一段时间内所访问的地址，可能集中在一定的范围内，因为指令通常是顺序存放、顺序执行的，数据也一般是以向量、数组、表等形式簇聚存储的。</li>
+</ul>
+<p>时间局部性通过将最近使用的指令和数据保存到高速缓冲存储器中，并使用高速缓存的层次结构实现。</p>
+<p>空间局部性通常使用较大的高速缓存，并将预取机制集成到高速缓存控制逻辑中实现。</p>
+<p><strong>虚拟内存技术实际上建立了“内存——外存”的两级存储器结构，利用局部性原理实现高速缓存</strong>。</p>
+<h2 id="1-3-虚拟存储器的定义和特征"><a href="#1-3-虚拟存储器的定义和特征" class="headerlink" title="1.3 虚拟存储器的定义和特征"></a>1.3 虚拟存储器的定义和特征</h2><p>基于局部性原理，在程序装入时，将程序的一部分装入内存，而将剩余部分留在外存，就可以启动程序执行。当执行过程中，发现所访问的信息不再内存中，再通过OS将所需资源调入内存。如果有资源暂时不使用，OS将其换出到外存中。这样，系统好像为用户提供了一个比实际内存大得多的存储器，称为<strong>虚拟存储器</strong>。</p>
+<p>这个存储器实际是不存在的，只是由于系统提供了部分装入、请求调入和置换功能后（对用户完全透明），给用户的感觉是好像存在一个比实际物理内存大得多的存储器。虚拟存储器的大小由计算机的地址结构决定，并不是内存和外存的简单相加。它具有以下三个主要特征：</p>
+<ul>
+<li><strong>多次性</strong>。作业无须一次装入。</li>
+<li><strong>对换性</strong>。作业无须常驻内存。</li>
+<li><strong>虚拟性</strong>。从逻辑上扩充内存容量。</li>
+</ul>
+<h2 id="1-4-虚拟内存技术的实现"><a href="#1-4-虚拟内存技术的实现" class="headerlink" title="1.4 虚拟内存技术的实现"></a>1.4 虚拟内存技术的实现</h2><p>因为具有多次行的特征，所以作业肯定不是连续分配的，而是离散分配。虚拟内存的实现有以下三种方式：</p>
+<ul>
+<li>请求分页存储管理。</li>
+<li>请求分段存储管理。</li>
+<li>请求段页式存储管理。</li>
+</ul>
+<p>不管使用哪种方式，都需要一定的硬件支持，一般需要的支持有以下几个方面：</p>
+<ul>
+<li>一定容量的内存和外存。</li>
+<li>页表机制（或段表机制），作为主要的数据结构。</li>
+<li>中断机构，当用户程序要访问的部分尚未调入内存时，则产生中断。</li>
+<li>地址变换机构，逻辑地址到物理地址的转换。</li>
+</ul>
+<h1 id="2-请求分页管理方式"><a href="#2-请求分页管理方式" class="headerlink" title="2. 请求分页管理方式"></a>2. 请求分页管理方式</h1><p>请求分页系统建立在基本分页系统基础之上，为了支持虚拟存储器功能而增加了请求调页功能和页面置换功能。这也是目前最常用的一种实现虚拟存储器的方法。</p>
+<h2 id="2-1-页表机制"><a href="#2-1-页表机制" class="headerlink" title="2.1 页表机制"></a>2.1 页表机制</h2><p>因为一个作业运行之前不要求全部装入内存，那么在作业的运行过程中，必然会出现要访问的页面不在内存中的情况，如何发现和处理这种情况是请求分页系统必须解决的两个基本问题。为此，在请求页表项中增加了4个字段，如图所示：</p>
+<ul>
+<li><strong>状态为P</strong>。用于指示该页是否已调入内存，供程序访问时参考。</li>
+<li><strong>访问字段A</strong>。用于记录本页在一段时间内被访问的次数，或记录本页最近已有多长时间未被访问，供置换算法换出页面时参考。</li>
+<li><strong>修改位M</strong>。标识该页在调入内存后是否被修改过。</li>
+<li><strong>外存地址</strong>。用于指出该页在外存上的地址，通常是物理块号，供调入该页时参考。</li>
+</ul>
+<h2 id="2-2-缺页中断机构"><a href="#2-2-缺页中断机构" class="headerlink" title="2.2 缺页中断机构"></a>2.2 缺页中断机构</h2><p>每当所要访问的页面不在内存中时，便产生一个缺页中断，请求OS将所缺的页调入内存。此时应将缺页的进程阻塞（调页完成后唤醒），若内存中有空闲块，则分配一个块，将要调入的页装入，并修改页表中对应的页表项；若没有空闲块，则淘汰某页（淘汰也如果被修改过，则要将其写回外存）；</p>
+<p>缺页中断作为中断，同样要经历诸如保护CPU环境、分析中断原因、转入缺页中断处理程序、恢复CPU环境等几个步骤。但与一般的中断相比。它有以下两个明显的区别：</p>
+<ul>
+<li>在指令执行期间而非一条指令执行完后产生和处理中断信号，属于内部中断。</li>
+<li>一条指令在执行期间，可能产生多次缺页中断。</li>
+</ul>
+<h2 id="2-3-地址变换机构"><a href="#2-3-地址变换机构" class="headerlink" title="2.3 地址变换机构"></a>2.3 地址变换机构</h2><p>在进行地址变换时，先检索快表：</p>
+<ul>
+<li>若找到要访问的页，则修改页表项中的访问位（写指令还需要重置修改位），然后利用页表项中给出的物理块号和页内地址形成物理地址。</li>
+<li>没有找到，则到内存中去查找页表，再对比页表项中的状态为P，看该页是否已调入内存，未调入则产生缺页中断，请求从外存调入该页。</li>
+</ul>
+<h1 id="3-页面置换算法"><a href="#3-页面置换算法" class="headerlink" title="3. 页面置换算法"></a>3. 页面置换算法</h1><p>参见 <a target="_blank" rel="noopener" href="https://atqingke.com/index.php/archives/76/">https://atqingke.com/index.php/archives/76/</a></p>
+<h1 id="4-页面分配策略"><a href="#4-页面分配策略" class="headerlink" title="4. 页面分配策略"></a>4. 页面分配策略</h1><h2 id="4-1-驻留集大小"><a href="#4-1-驻留集大小" class="headerlink" title="4.1 驻留集大小"></a>4.1 驻留集大小</h2><p>给一个进程分配的物理页框的集合就是这个进程的驻留集。需要考虑以下几点：</p>
+<ul>
+<li>分配给一个进程的存储量越小，任何时候驻留在内存中的进程数就越多，从而可以提高处理机的时间利用效率。</li>
+<li>若一个进程在主存中的页数过少，则尽管有局部性原理，页错误率仍然会相对较高。</li>
+<li>若页数过多，则由于局部性原理，给特定的进程分配更多的主存空间对该进程的错误率没有明显的影响。</li>
+</ul>
+<p>基于这些因素，现代OS通常采用三种策略：</p>
+<ol>
+<li><strong>固定分配局部置换</strong>。它为每一个进程分配一定数目的物理块，然后在整个运行期间都不改变。如果缺页，再进行换入换出。实现这种策略，分配的物理块太少会频繁出现缺页中断，太多又会使CPU和其它资源利用率下降。</li>
+<li><strong>可变分配全局置换</strong>。最易于实现的物理块分配和置换策略，它在为系统的每个进程分配一定数量的物理块时，OS自身也保持一个空闲物理块队列。当发生缺页时，动态的增加进程的物理块，但也存在弊端，如它会盲目给进程增加物理块，从而导致系统多道程序的并发能力下降。</li>
+<li><strong>可变分配局部置换</strong>。它为每个进程分配一定数目的物理块，当某个进程发生缺页时，只允许从该进程在内存的页面中选出一页换出，因此不会影响其它进程运行。如果进程频繁缺页，则系统再为该进程分配若干物理块，直到该进程的缺页率趋于适当程度；反之，缺页率很低，则适当减少物理块的分配。相比前两种策略，它需要更复杂的实现，也需要更大的开销，但对比频繁地换入/换出所浪费的计算机资源，这种牺牲是值得的。</li>
+</ol>
+<h2 id="4-2-调入页面的时机"><a href="#4-2-调入页面的时机" class="headerlink" title="4.2 调入页面的时机"></a>4.2 调入页面的时机</h2><p>为确定系统将进程运行时所缺的页面调入内存的时机，可采取以下两种调页策略：</p>
+<ul>
+<li><strong>预调页策略</strong>。根据局部性原理，采用以预测为基础的预调页策略，将预计在不久之后便会被访问的页面预先调入内存。但目前预调页的成功了只有约50%。因此这种策略主要用于进程的首次调入，由程序员指出应先调入哪些页。</li>
+<li><strong>请求调页策略</strong>。进程在运行中需要访问的页面不在内存而提出请求，由系统将所需页面调入内存。这个缺点是每次只能调入一页，调入/调出页面多时会花费过多的I/O开销。</li>
+</ul>
+<p>预调入实际上就是运行前的调入，请求调页实际上就是运行期间调入。一般情况下，两种调页策略会同时使用。</p>
+<h2 id="4-3-从何处调入页面"><a href="#4-3-从何处调入页面" class="headerlink" title="4.3 从何处调入页面"></a>4.3 从何处调入页面</h2><p>请求分页系统中的外存分为两部分：用于存放文件的文件区和用于存放对换页面的对换区。对换区通常采用连续分配方式，而文件区采用离散分配方式，因此对换区的磁盘I/O速度比文件区的更快。这样，从何处调入页面就存在三种情况：</p>
+<ul>
+<li>系统拥有足够的对换区空间</li>
+<li>系统缺少足够的对换区空间</li>
+<li></li>
+</ul>
+<h1 id="5-抖动"><a href="#5-抖动" class="headerlink" title="5. 抖动"></a>5. 抖动</h1><h1 id="6-工作集"><a href="#6-工作集" class="headerlink" title="6. 工作集"></a>6. 工作集</h1><h1 id="7-地址翻译"><a href="#7-地址翻译" class="headerlink" title="7. 地址翻译"></a>7. 地址翻译</h1>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/01/01/%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/" data-id="ckzb6dz4u0028zwtw67v95us1" class="article-share-link">
+        Share
+      </a>
+      
+    </footer>
+
+  </div>
+
+  
+  
+<nav class="article-nav">
+  
+  <a href="/2022/01/02/%E3%80%90%E6%BA%90%E7%A0%81%E3%80%91Spring%E2%80%94%E2%80%94bean%E7%9A%84%E5%88%9B%E5%BB%BA/" class="article-nav-link">
+    <strong class="article-nav-caption">Newer</strong>
+    <div class="article-nav-title">
+      
+      一探Spring源码——bean的创建
+      
+    </div>
+  </a>
+  
+  
+  <a href="/2022/01/01/%E7%A3%81%E7%9B%98%E7%BB%84%E7%BB%87%E4%B8%8E%E7%AE%A1%E7%90%86/" class="article-nav-link">
+    <strong class="article-nav-caption">Older</strong>
+    <div class="article-nav-title">磁盘组织与管理</div>
+  </a>
+  
+</nav>
+
+  
+
+  
+  
+  
+  
+
+</article>
+</section>
+    <footer class="footer">
+  <div class="outer">
+    <div class="float-right">
+      <ul class="list-inline">
+  
+  <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
+  
+  <li><i class="fe fe-bookmark"></i> <span id="busuanzi_value_page_pv"></span></li>
+  
+</ul>
+    </div>
+    <ul class="list-inline">
+      <li>青稞 &copy; 2022</li>
+      
+        <li>ZHWANGART</li>
+      
+      <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
+      <li>theme  <a target="_blank" rel="noopener" href="https://github.com/zhwangart/hexo-theme-ocean">Ocean</a></li>
+    </ul>
+  </div>
+</footer>
+  </main>
+  <aside class="sidebar">
+    <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/hexo.svg" alt="青稞"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">Home</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">Archives</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/gallery">Gallery</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about">About</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="Search">
+        <i class="fe fe-search"></i>
+        Search
+      </a>
+    </li>
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      <div class="totop" id="totop">
+  <i class="fe fe-rocket"></i>
+</div>
+    </li>
+    <li class="nav-item">
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="fe fe-feed"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+  </aside>
+  
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/copybtn.js"></script>
+
+
+
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto',
+  });
+</script>
+
+
+
+<script src="/js/ocean.js"></script>
+
+</body>
+
+</html>

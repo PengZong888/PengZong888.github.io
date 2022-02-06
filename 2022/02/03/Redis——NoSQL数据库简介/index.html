@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  
+  
+  <title>
+    Redis——NoSQL数据库简介 |
+    
+    青稞
+  </title>
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+    
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<script src="/js/pace.min.js"></script>
+
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="青稞" type="application/atom+xml">
+</head>
+
+<body>
+  <main class="content">
+    <section class="outer">
+  <article id="post-Redis——NoSQL数据库简介" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+      
+
+<h1 class="article-title" itemprop="name">
+  Redis——NoSQL数据库简介
+</h1>
+
+
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2022/02/03/Redis%E2%80%94%E2%80%94NoSQL%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AE%80%E4%BB%8B/" class="article-date">
+  <time datetime="2022-02-03T06:55:11.000Z" itemprop="datePublished">2022-02-03</time>
+</a>
+      
+    </div>
+    
+
+    
+    
+<div class="tocbot"></div>
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+      
+      <h2 id="技术发展"><a href="#技术发展" class="headerlink" title="技术发展"></a>技术发展</h2><p>我们目前的技术分类有：</p>
+<ul>
+<li>解决功能性的问题：Java、Jsp、RDBMS、Tomcat、HTML、Linux、JDBC、SVN</li>
+<li>解决扩展性的问题：Struts、Spring、SpringMVC、Hibernate、Mybatis</li>
+<li>解决性能的问题：NoSQL、Java线程、Hadoop、Nginx、MQ、ElasticSearch</li>
+</ul>
+<p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220203152632905.png" alt="image-20220203152632905"></p>
+<p>在我们的Web1.0时代，数据量访问特别有限，我们使用一夫当关的高性能单节点服务器就足以满足绝大部分的业务场景了。</p>
+<p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220203160555989.png" alt="image-20220203160555989"></p>
+<p>随着Web2.0的时代的到来，用户访问量大幅度提升，同时产生了大量的用户数据。加上后来的智能移动设备的普及，所有的互联网平台都面临了巨大的性能挑战。</p>
+<p>而为了解决CPU和内存的压力，比如，session存在哪里？应运而生的有以下几种解决方案：</p>
+<p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220203161839755.png" alt="image-20220203161839755"></p>
+<ul>
+<li>存在cookie中，但是不安全，而且网络负担效率低。</li>
+<li>存在文件服务器或者数据库中，造成严重的IO压力以及效率问题。</li>
+<li>session复制，易造成session数据冗余，并且节点越多，浪费越大。</li>
+<li>存在缓存数据库中，完全在内存中，速度快，数据结构简单。</li>
+</ul>
+<p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220203162815759.png" alt="image-20220203162815759"></p>
+<h2 id="NoSQL数据库"><a href="#NoSQL数据库" class="headerlink" title="NoSQL数据库"></a>NoSQL数据库</h2><p>所谓的NoSQL不是指没有SQL，而是指Not Only SQL，意指“不仅仅是SQL”，泛指“非关系型数据库”。NoSQL数据库不依赖于传统的业务逻辑方式存储，而以简单的key-value模式存储。因此大大的增加了数据库的扩展能力。它有以下特点：</p>
+<ul>
+<li>不遵循SQL标准；</li>
+<li>不支持ACID（注意不是不支持事务）；</li>
+<li>远超于SQL的性能；</li>
+<li>……</li>
+</ul>
+<h3 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a>适用场景</h3><ul>
+<li>对数据高并发的读写。</li>
+<li>海量数据的读写。</li>
+<li>对数据高可扩展性。</li>
+</ul>
+<h3 id="不适用场景"><a href="#不适用场景" class="headerlink" title="不适用场景"></a>不适用场景</h3><ul>
+<li>需要事务支持。</li>
+<li>基于sql的结构化查询存储，处理复杂的关系。</li>
+<li><strong>用不着sql的和用来sql也不行的情况，请考虑用NoSQL。</strong></li>
+</ul>
+<h3 id="常见产品"><a href="#常见产品" class="headerlink" title="常见产品"></a>常见产品</h3><h4 id="Memcached"><a href="#Memcached" class="headerlink" title="Memcached"></a>Memcached</h4><ul>
+<li>很早出现的NoSql数据库</li>
+<li>数据都在内存中，一般不持久化</li>
+<li>支持简单的key-value模式，支持类型单一</li>
+<li>一般是作为缓存数据库辅助持久化的数据库</li>
+</ul>
+<h4 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h4><ul>
+<li>几乎覆盖了Memcached的绝大部分功能</li>
+<li>数据都在内存中，支持持久化，主要用作备份恢复</li>
+<li>除了支持简单的key-value模式，还支持多种数据结构的存储，比如 list、set、hash、zset等。</li>
+<li>一般是作为缓存数据库辅助持久化的数据库</li>
+</ul>
+<h4 id="MongoDB"><a href="#MongoDB" class="headerlink" title="MongoDB"></a>MongoDB</h4><ul>
+<li>高性能、开源、模式自由(schema free)的<strong>文档型数据库</strong></li>
+<li>数据都在内存中， 如果内存不足，把不常用的数据保存到硬盘</li>
+<li>虽然是key-value模式，但是对value（尤其是<strong>json</strong>）提供了丰富的查询功能</li>
+<li>支持二进制数据及大型对象</li>
+<li>可以根据数据的特点替代RDBMS ，成为独立的数据库。或者配合RDBMS，存储特定的数据。</li>
+</ul>
+<h2 id="行式存储数据库（大数据时代）"><a href="#行式存储数据库（大数据时代）" class="headerlink" title="行式存储数据库（大数据时代）"></a>行式存储数据库（大数据时代）</h2><h3 id="行式数据库"><a href="#行式数据库" class="headerlink" title="行式数据库"></a>行式数据库</h3><p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220203164458163.png" alt="image-20220203164458163"></p>
+<h3 id="列式数据库"><a href="#列式数据库" class="headerlink" title="列式数据库"></a>列式数据库</h3><p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220203164655935.png" alt="image-20220203164655935"></p>
+<h3 id="Hbase"><a href="#Hbase" class="headerlink" title="Hbase"></a>Hbase</h3><p>HBase是<strong>Hadoop</strong>项目中的数据库。它用于需要对大量的数据进行随机、实时的读写操作的场景中。</p>
+<p>HBase的目标就是处理数据量非常庞大的表，可以用普通的计算机处理超过10亿行数据，还可处理有数百万列元素的数据表。</p>
+<h3 id="Cassandra"><a href="#Cassandra" class="headerlink" title="Cassandra"></a>Cassandra</h3><p>Apache Cassandra是一款免费的开源NoSQL数据库，其设计目的在于管理由大量商用服务器构建起来的庞大集群上的海量数据集(数据量通常达到PB级别)。在众多显著特性当中，Cassandra最为卓越的长处是对写入及读取操作进行规模调整，而且其不强调主集群的设计思路能够以相对直观的方式简化各集群的创建与扩展流程。</p>
+<blockquote>
+<p>ps：计算机存储单位</p>
+<p>计算机存储单位一般用B，KB，MB，GB，TB，EB，ZB，YB，BB来表示，它们之间的关系是：</p>
+<p>位 bit (比特)(Binary Digits)：存放一位二进制数，即 0 或 1，最小的存储单位。</p>
+<p>字节 byte：8个二进制位为一个字节(B)，最常用的单位。</p>
+<p>1KB (Kilobyte 千字节)=1024B，</p>
+<p>1MB (Megabyte 兆字节 简称“兆”)=1024KB，</p>
+<p>1GB (Gigabyte 吉字节 又称“千兆”)=1024MB，</p>
+<p>1TB (Trillionbyte 万亿字节 太字节)=1024GB，其中1024=2^10 ( 2 的10次方)，</p>
+<p>1PB（Petabyte 千万亿字节 拍字节）=1024TB，</p>
+<p>1EB（Exabyte 百亿亿字节 艾字节）=1024PB，</p>
+<p>1ZB (Zettabyte 十万亿亿字节 泽字节)= 1024 EB,</p>
+<p>1YB (Jottabyte 一亿亿亿字节 尧字节)= 1024 ZB,</p>
+<p>1BB (Brontobyte 一千亿亿亿字节)= 1024 YB.</p>
+<p>注：“兆”为百万级数量单位。</p>
+</blockquote>
+<h2 id="图关系型数据库"><a href="#图关系型数据库" class="headerlink" title="图关系型数据库"></a>图关系型数据库</h2><p>主要应用：社会关系，公共交通网络，地图及网络拓谱(n*(n-1)/2)</p>
+<p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220203165033021.png" alt="image-20220203165033021"></p>
+<h2 id="DB-Engines数据库排名"><a href="#DB-Engines数据库排名" class="headerlink" title="DB-Engines数据库排名"></a>DB-Engines数据库排名</h2><p><a target="_blank" rel="noopener" href="http://db-engines.com/en/ranking"><strong>http://db-engines.com/en/ranking</strong></a></p>
+<p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220203165235844.png" alt="image-20220203165235844"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/02/03/Redis%E2%80%94%E2%80%94NoSQL%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AE%80%E4%BB%8B/" data-id="ckzb6dz2x000czwtwfnr7gxb7" class="article-share-link">
+        Share
+      </a>
+      
+    </footer>
+
+  </div>
+
+  
+  
+<nav class="article-nav">
+  
+  <a href="/2022/02/03/Redis%E2%80%94%E2%80%94%E5%AE%89%E8%A3%85/" class="article-nav-link">
+    <strong class="article-nav-caption">Newer</strong>
+    <div class="article-nav-title">
+      
+      Redis——安装
+      
+    </div>
+  </a>
+  
+  
+  <a href="/2022/02/02/SpringBoot%E2%80%94%E2%80%94%E8%87%AA%E5%8A%A8%E9%85%8D%E7%BD%AE/" class="article-nav-link">
+    <strong class="article-nav-caption">Older</strong>
+    <div class="article-nav-title">SpringBoot——自动配置</div>
+  </a>
+  
+</nav>
+
+  
+
+  
+  
+  
+  
+
+</article>
+</section>
+    <footer class="footer">
+  <div class="outer">
+    <div class="float-right">
+      <ul class="list-inline">
+  
+  <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
+  
+  <li><i class="fe fe-bookmark"></i> <span id="busuanzi_value_page_pv"></span></li>
+  
+</ul>
+    </div>
+    <ul class="list-inline">
+      <li>青稞 &copy; 2022</li>
+      
+        <li>ZHWANGART</li>
+      
+      <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
+      <li>theme  <a target="_blank" rel="noopener" href="https://github.com/zhwangart/hexo-theme-ocean">Ocean</a></li>
+    </ul>
+  </div>
+</footer>
+  </main>
+  <aside class="sidebar">
+    <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/hexo.svg" alt="青稞"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">Home</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">Archives</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/gallery">Gallery</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about">About</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="Search">
+        <i class="fe fe-search"></i>
+        Search
+      </a>
+    </li>
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      <div class="totop" id="totop">
+  <i class="fe fe-rocket"></i>
+</div>
+    </li>
+    <li class="nav-item">
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="fe fe-feed"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+  </aside>
+  
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/copybtn.js"></script>
+
+
+
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto',
+  });
+</script>
+
+
+
+<script src="/js/ocean.js"></script>
+
+</body>
+
+</html>

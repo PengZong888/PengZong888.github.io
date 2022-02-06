@@ -1,0 +1,1292 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  
+  
+  <title>
+    
+    青稞
+  </title>
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+    
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<script src="/js/pace.min.js"></script>
+
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="青稞" type="application/atom+xml">
+</head>
+
+<body>
+  <main class="content">
+    <section class="jumbotron">
+  <div class="video">
+    
+    <div class="video-frame">
+      <img src="/images/ocean/overlay-hero.png" alt="Decorative image frame">
+    </div>
+    
+    <div class="video-media">
+      <video playsinline="" autoplay="" loop="" muted="" data-autoplay="" poster="/images/ocean/ocean.png"
+        x5-video-player-type="h5">
+        <source src="/images/ocean/ocean.mp4" type="video/mp4">
+        <source src="/images/ocean/ocean.ogv" type="video/ogg">
+        <source src="/images/ocean/ocean.webm" type="video/webm">
+        <p>Your user agent does not support the HTML5 Video element.</p>
+      </video>
+      <div class="video-overlay"></div>
+    </div>
+    <div class="video-inner text-center text-white">
+      <h1><a href="/">青稞</a></h1>
+      <p></p>
+      <div><img src="/images/hexo-inverted.svg" class="brand" alt="青稞"></div>
+    </div>
+    <div class="video-learn-more">
+      <a class="anchor" href="#landingpage"><i class="fe fe-mouse"></i></a>
+    </div>
+  </div>
+</section>
+<div id="landingpage">
+  <section class="outer">
+  <article class="articles">
+    
+    <h1 class="page-type-title"></h1>
+    
+    
+    <article id="post-什么是因特网" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+      
+
+<h2 itemprop="name">
+  <a class="article-title" href="/2021/12/14/%E4%BB%80%E4%B9%88%E6%98%AF%E5%9B%A0%E7%89%B9%E7%BD%91/">什么是因特网</a>
+</h2>
+
+
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2021/12/14/%E4%BB%80%E4%B9%88%E6%98%AF%E5%9B%A0%E7%89%B9%E7%BD%91/" class="article-date">
+  <time datetime="2021-12-14T08:05:15.000Z" itemprop="datePublished">2021-12-14</time>
+</a>
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+        
+      
+      
+      <p>在这里，我们使用一种特定的计算机网络，即公共因特网，作为讨论计算机网络及其协议的主要载体。关于什么是因特网这个问题，可以从两种方式来回答：其一，我们能够描述因特网的具体构成，即构成因特网的基本硬件和软件组件；其二，我们能够根据分布式应用提供服务的联网基础设施来描述因特网。</p>
+<h1 id="1-具体构成描述"><a href="#1-具体构成描述" class="headerlink" title="1. 具体构成描述"></a>1. 具体构成描述</h1><p>因特网是一个世界范围的计算机网络，即它是一个互联了遍及全世界的数以亿计的计算设备的网络。所有这些设备都成为主机（host）或端系统（end system）。</p>
+<p>端系统通过通信链路（communication link）和分组交换机（packet switch）连接到一起。不同的链路能够以不同的速率传输数据，链路的传输速率以比特/秒度量（bit/s，或bps）。当一台端系统要向另一台端系统发送数据时，发送端系统将数据分段，并为每段加上首部字节。由此形成的信息包用计算机网络的术语来说称为分组（packet）。这些分组通过网络发送到目的端系统，在那里被装配成初始数据。</p>
+<p>分组交换机从它的一条入通信链路接收到达的分组，并从它的一条出通信链路转发该分组。现在，市面上最著名的两种分组交换机类型是路由器（router）和链路层交换机（link-layer switch）。链路层交换机通常用于接入网中，而路由器通常用于网络核心中。从发送端系统到接收端系统，一个分组所经历的一系列通信链路和分组交换机称为通过该网络的路径（route或path）。</p>
+<p>端系统通过因特网服务提供商（Internet Service Provider，ISP）接入因特网，包括如本地电缆或电话公司那样的住宅区ISP、公司ISP、大学ISP等等。每个ISP是一个由多个分组交换机和多段通信链路组成的网络。</p>
+<p>端系统、分组交换机和其它因特网部件都要运行一系列协议（protocol），这些协议控制因特网中信息的接收和发送。TCP（Transmission Control Protocol，传输控制协议）和IP（Internet Protocol，网际协议）是因特网中两个最为重要的协议。IP协议定义了路由器和端系统之间发送和接收的分组格式。因特网的主要协议统称为TCP/IP。</p>
+<p>鉴于因特网协议的重要性，每个人就各个协议及其作用取得一致认识是很重要的，这样人们就能够创造协同工作的系统和产品。这正是标准发挥作用的地方。因特网标准由因特网工程任务组研发（Internet Engineering Task Force，IETF）。IETF的标准文档称为请求评论（Request For Comment，RFC）。RFC最初是作为普通的请求评论，以解决因特网先驱者们面临的网络和协议问题。</p>
+<h1 id="2-服务描述"><a href="#2-服务描述" class="headerlink" title="2. 服务描述"></a>2. 服务描述</h1><p>我们从为应用程序提供服务的基础设施的角度来描述因特网。这些应用程序包括电子邮件、Web冲浪、即时讯息、社交网络等。这些应用程序称为分布式应用程序（distributed application），因为它们涉及多台相互交换数据的端系统。重要的是，因特网应用程序运行在端系统上，即它们并不运行在网络核心中的分组交换机中。尽管分组交换机促进端系统之间的数据交换，但它们并不关心作为数据的源或宿的应用程序。</p>
+<p>与因特网相连的端系统提供了一个应用程序编程接口（Application Programming Interface，API），该API规定了运行在一个端系统上的软件请求因特网基础设施向运行在另一个端系统上的特定目的地软件交付数据的方式。因特网API是一套发送软件必须遵循的规则集合，因此因特网能够将数据交付给目的地。</p>
+<blockquote>
+<p>PS：关于什么是分组交换？什么是TCP/IP？什么是路由器？因特网正在使用什么样的通信链路？什么是分布式应用程序？一个烤箱或天气传感器怎样与因特网相连？将在后面解释这些重要的术语和问题。</p>
+</blockquote>
+<h1 id="3-什么是协议"><a href="#3-什么是协议" class="headerlink" title="3. 什么是协议"></a>3. 什么是协议</h1><p>下面考虑计算机网络中另一个重要的时髦术语：协议。什么是协议？协议是用来干什么的？</p>
+<h2 id="3-1-人类活动的类比"><a href="#3-1-人类活动的类比" class="headerlink" title="3.1 人类活动的类比"></a>3.1 人类活动的类比</h2><p>我们先通过与某些人类活动进行类比，来更好的理解计算机网络协议的概念。考虑当你想要向某人询问时间的时候要怎么做？如图显示了一种典型的交互过程。人类协议要求一方首先进行问候，以开始和另一个人进行通信。对“你好”的典型响应是返回一个“你好”报文，隐含着你能继续向我询问时间。同样的，如果对我们回答“不要烦我”诸如此类的话则表示了一个勉强的或不能进行的通信。在这个情况下，按照人类协议，发话者也许不能够询问时间了。在某些时候，我们的“你好”得不到任何回答，那么，发话者通常会放弃向这个人询问时间。</p>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20220112210944423.png" alt="image-20220112210944423"></p>
+<p>如果人们使用了不同的协议（比如一个人讲礼貌，而另一个人不讲礼貌，或者一个人知道时间的概念，另一个不知道），该协议就不能互动，因而不能完成有用的工作。在网络中这个道理同样成立。即为了完成一项工作，要求两个（或多个）通信实体运行相同的协议。</p>
+<h2 id="3-2-网络协议"><a href="#3-2-网络协议" class="headerlink" title="3.2 网络协议"></a>3.2 网络协议</h2><p> 网络协议类似于人类协议，除了交换报文和采取动作的实体是某些设备的硬件或软件组件。在因特网中，凡是涉及两个或多个远程通信实体的所有活动都受协议的制约。</p>
+<p>我们以一个计算机网络协议为例，当你向一个Web服务器发出请求时所发生的情况。首先，你的计算机将向该Web服务器发送一条连接请求报文，并等待回答。该Web服务器将最终能接收到连接请求报文，并返回一条连接响应报文。得知请求该Web文档正常以后，计算机则在一条GET报文中发送要从这台Web服务器上取回的网页的名字。最后，Web服务器向计算机返回该Web网页（文件）。</p>
+<p>从上面的例子中我们可以看见，报文的交换以及发送和接收这些报文时所采取的动作是定义一个协议的关键元素：</p>
+<blockquote>
+<p>一个<strong>协议</strong>定义了在两个或多个通信实体之间交换的报文格式和次序，以及报文发送和/接收一条报文或其它事件所采取的动作。</p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/12/14/%E4%BB%80%E4%B9%88%E6%98%AF%E5%9B%A0%E7%89%B9%E7%BD%91/" data-id="ckzb6dz40001nzwtw44h0h70q" class="article-share-link">
+        Share
+      </a>
+      
+    </footer>
+
+  </div>
+
+  
+
+  
+
+</article>
+    
+    <article id="post-最快最简单的排序——桶排序" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+      
+
+<h2 itemprop="name">
+  <a class="article-title" href="/2021/12/14/%E6%9C%80%E5%BF%AB%E6%9C%80%E7%AE%80%E5%8D%95%E7%9A%84%E6%8E%92%E5%BA%8F%E2%80%94%E2%80%94%E6%A1%B6%E6%8E%92%E5%BA%8F/">最快最简单的排序——桶排序</a>
+</h2>
+
+
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2021/12/14/%E6%9C%80%E5%BF%AB%E6%9C%80%E7%AE%80%E5%8D%95%E7%9A%84%E6%8E%92%E5%BA%8F%E2%80%94%E2%80%94%E6%A1%B6%E6%8E%92%E5%BA%8F/" class="article-date">
+  <time datetime="2021-12-14T08:02:41.000Z" itemprop="datePublished">2021-12-14</time>
+</a>
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+        
+      
+      
+      <p>生活中，排序可以说是无处不在。站队的时候会按身高排序，考试的时候按分数排序，购物的时候按价格排序……</p>
+<p>我们来看一个具体需求：现在需要向控制台输入五个成绩（满分10分），并将成绩按从大到小排列后输出到控制台。（输入成绩5、3、5、2、8）</p>
+<p>在这里我们只需要借助一个一维数组就可以解决问题。首先申请一个大小为11的数组 int arr[11]。刚开始的时候，我们将arr[0] ~ arr[10]都初始化为0，表示这些分数还都没有人得过。</p>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20211214203726463.png" alt="image-20211214203726463"></p>
+<p>下面开始处理每个人的分数，第一个人5分，我们将相对应的a[5]的值在原来的基础上加一，即a[5] = 1，表示5分出现过一次。同理类似，最后得到下列结果：</p>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20211214203657932.png" alt="image-20211214203657932"></p>
+<p>接下来，我们只需要将出现过的分数打印出来即可，出现几次打印几次，具体如下：</p>
+<p>a[0] = 0，表示“0”没有出现过，不打印。</p>
+<p>a[1] = 0，表示“1”没有出现过，不打印。</p>
+<p>a[2] = 1，表示“2”出现过一次，打印2。</p>
+<p>a[3] = 1，表示“3”出现过一次，打印3。</p>
+<p>a[4] = 0，表示“4”没有出现过，不打印。</p>
+<p>a[5] = 2，表示“5”出现过两次，打印5、5。</p>
+<p>a[6] = 0，表示“6”没有出现过，不打印。</p>
+<p>a[7] = 0，表示“7”没有出现过，不打印。</p>
+<p>a[8] = 1，表示“8”出现过一次，打印8。</p>
+<p>a[9] = 0，表示“9”没有出现过，不打印。</p>
+<p>a[10] = 0，表示“10”没有出现过，不打印。</p>
+<p>最终屏幕输出“2 3 5 5 8”，完整代码如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 初始化数据</span></span><br><span class="line">  <span class="keyword">int</span> arr[<span class="number">11</span>];</span><br><span class="line">  <span class="keyword">int</span> i, j, t;</span><br><span class="line">  <span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; <span class="number">11</span>; i++) &#123;</span><br><span class="line">    arr[i] = <span class="number">0</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 循环读入五个成绩</span></span><br><span class="line">  <span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++) &#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;t);</span><br><span class="line">    arr[t]++;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 将结果输出到控制台</span></span><br><span class="line">  <span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; <span class="number">11</span>; i++) &#123;</span><br><span class="line">    <span class="keyword">for</span>(j = <span class="number">1</span>; j &lt;= arr[i]; j++) &#123;</span><br><span class="line">      <span class="built_in">printf</span>(<span class="string">&quot;%d\t&quot;</span>, i);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20211214204358363.png" alt="image-20211214204358363"></p>
+<p>这种排序方法暂且叫它”桶排序“。因为其实真正的桶排序要比这个复杂一点，目前这个算法已经能够满足我们的需求了。</p>
+<p>这个算法就好比有11个桶，编号从0~10。每出现一个数，就在对应编号的桶中放一个小旗子，最后只要数一下每个桶中有几个小旗子就OK了。</p>
+<p>这样，如果我们需要对数据范围在0~1000的整数进行排序，我们需要1001个桶，来表示0-1000之间每个数出现的次数。</p>
+<p>现在来说一下时间复杂度的问题。代码中第8行的循环一共循环了m次（m为桶的个数），第13行的代码循环了n次（n为待排序数的个数），第19行和20行一共循环了m+n次。所以整个排序算法一共执行了m+n+m+n次。用大O表示该算法的时间复杂度为O(M+N)。</p>
+<p>这是一个非常快的排序算法。桶排序从1956年就开始被使用，该算法的基本思想是由E.J.Issac和R.C.Singleton提出来的。然而，我们现在实现的并非真正的桶排序算法，真正的桶排序算法要比这个更加复杂！</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/12/14/%E6%9C%80%E5%BF%AB%E6%9C%80%E7%AE%80%E5%8D%95%E7%9A%84%E6%8E%92%E5%BA%8F%E2%80%94%E2%80%94%E6%A1%B6%E6%8E%92%E5%BA%8F/" data-id="ckzb6dz46001wzwtwh1avaq5l" class="article-share-link">
+        Share
+      </a>
+      
+    </footer>
+
+  </div>
+
+  
+
+  
+
+</article>
+    
+    <article id="post-永远的HelloWorld" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+      
+
+<h2 itemprop="name">
+  <a class="article-title" href="/2021/12/14/%E6%B0%B8%E8%BF%9C%E7%9A%84HelloWorld/">永远的HelloWorld</a>
+</h2>
+
+
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2021/12/14/%E6%B0%B8%E8%BF%9C%E7%9A%84HelloWorld/" class="article-date">
+  <time datetime="2021-12-14T07:47:57.000Z" itemprop="datePublished">2021-12-14</time>
+</a>
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+        
+      
+      
+      <p>毫无疑问，“HelloWorld”对于程序员来说简直是如雷贯耳。下面是一个C语言的HelloWorld程序：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Hello World\n&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>对于下面这些问题，你的脑子里能够马上反应出一个清晰又明确的答案吗？</p>
+<ul>
+<li>程序为什么要被编译器编译了之后才可以运行？</li>
+<li>编译器在把C语言程序转换成可以执行的机器码的过程中做了什么，怎么做的？</li>
+<li>最后编译出来的可执行文里面是什么？除了机器码还有什么？它们怎么存放的，怎么组织的？</li>
+<li>/#include&lt;stdio.h&gt;是什么意思？把stdio.h包含进来意味着什么？C语言库又是什么？它怎么实现的？</li>
+<li>不同的编译器（Microsoft VC、GCC）和不同的硬件平台（x86、SPARC、MIPS、ARM），以及不同的OS（Windows、Linux、UNIX、Solaris），最终编译出来的结果一样吗？为什么？</li>
+<li>HelloWorld程序是怎么运行起来的？OS是怎么装载它的？它从哪儿开始执行，到哪儿结束？main函数之前发生了什么？main函数结束以后又发生了什么？</li>
+<li>如果没有OS，HelloWorld可以运行吗？如果要在一台没有OS的机器上运行HelloWorld需要什么？应该怎么实现？</li>
+<li>printf是怎么实现的？它为什么可以有不定数量的参数？为什么它能够在终端上输出字符串？</li>
+<li>HelloWorld程序在运行时，它在内存中是什么样子的？</li>
+</ul>
+<p>在接下来的“程序员的自我修养”系列将逐个解决这些问题！</p>
+<h2 id="1-万变不离其宗"><a href="#1-万变不离其宗" class="headerlink" title="1. 万变不离其宗"></a>1. 万变不离其宗</h2><p>对于系统程序开发者来说，计算机多如牛毛的硬件设备中，有三个部件最为关键，它们分别是<strong>中央处理器CPU、内存和I/O控制芯片</strong>，这三个部件几乎就是计算机的核心了；对于普通应用程序开发者来说，它们似乎除了要关心CPU以外，其它的硬件细节基本不用关心，对于一些高级平台的开发者来说，连CPU都不需要关心，因为这些平台为它们提供了一个通用的抽象的计算机，它们只要关心这个抽象的计算机就可以了。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/12/14/%E6%B0%B8%E8%BF%9C%E7%9A%84HelloWorld/" data-id="ckzb6dz4l0021zwtw6ncg4h6d" class="article-share-link">
+        Share
+      </a>
+      
+    </footer>
+
+  </div>
+
+  
+
+  
+
+</article>
+    
+    <article id="post-InnoDB存储引擎概述" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+      
+
+<h2 itemprop="name">
+  <a class="article-title" href="/2021/12/14/InnoDB%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E%E6%A6%82%E8%BF%B0/">InnoDB存储引擎概述</a>
+</h2>
+
+
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2021/12/14/InnoDB%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E%E6%A6%82%E8%BF%B0/" class="article-date">
+  <time datetime="2021-12-14T07:36:27.000Z" itemprop="datePublished">2021-12-14</time>
+</a>
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+        
+      
+      
+      <p>InnoDB存储引擎最早由Innobase Oy公司（06年被Oracle公司收购）开发，被包括在MySQL数据库所有的二进制发行版本中，从MySQL5.5版本开始是默认的表存储引擎（之前的版本InnoDB存储引擎仅在Windows下为默认的存储引擎）。该存储引擎是第一个完整支持ACID事务的MySQL存储引擎（BDB是第一个支持事务的MySQL存储引擎，现在已经停止开发），其特点是行锁设计、支持MVCC、支持外键、提供一致性非锁定读，同时被设计用来最有效地利用以及使用内存和CPU。</p>
+<p>Heikki Tuuri是InnoDB存储引擎的创始人，和著名的Linux创始人Linus是芬兰赫尔辛基大学校友。在1990年获得了赫尔辛基大学的数学逻辑博士学位后，他于1995年成立Innobase Oy公司并担任CEO。</p>
+<p>InnoDB存储引擎已经被许多大型网站使用，如用户熟知的Google、Facebook、YouTube，在网络游戏领域有魔兽世界、Second Life、神兵玄奇等。</p>
+<p>从MySQL数据库的官方手册可得知，著名的Internet新闻站点Slashdot.org运行在InnoDB上。Mytrix、Inc在InnoDB上存储超过</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/12/14/InnoDB%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E%E6%A6%82%E8%BF%B0/" data-id="ckzb6dz2n0003zwtw1xmj4rzt" class="article-share-link">
+        Share
+      </a>
+      
+    </footer>
+
+  </div>
+
+  
+
+  
+
+</article>
+    
+    <article id="post-连接MySQL" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+      
+
+<h2 itemprop="name">
+  <a class="article-title" href="/2021/12/13/%E8%BF%9E%E6%8E%A5MySQL/">连接MySQL</a>
+</h2>
+
+
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2021/12/13/%E8%BF%9E%E6%8E%A5MySQL/" class="article-date">
+  <time datetime="2021-12-13T15:38:18.000Z" itemprop="datePublished">2021-12-13</time>
+</a>
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+        
+      
+      
+      <p>连接MySQL操作是一个连接进程和MySQL数据库实例进行通信。从程序设计的角度来说，<strong>本质上是进程通信</strong>。如果对进程通信比较了解，可以知道常用的进程通信方式有管道、命名管道、命名字、TCP/IP套接字、UNIX域套接字。MySQL数据库提供的连接方式从本质上看都是上述提及的进程通信方式。</p>
+<h2 id="1-TCP-IP"><a href="#1-TCP-IP" class="headerlink" title="1. TCP/IP"></a>1. TCP/IP</h2><p>TCP/IP套接字方式是MySQL数据库在任何平台下都提供的连接方式，也是网络中使用的最多的一种方式。这种方式在TCP/IP连接上建立一个基于网络的连接请求，一般情况下客户端（client）在一台服务器上，而MySQL实例（server）在另一台服务器上，这两台机器通过一个TCP/IP网络连接。例如，用户可以在Windows服务器下请求一台远程Linux服务器下的MySQL实例，如下所示：</p>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20211213234830324.png" alt="image-20211213234830324"></p>
+<p>这里我连的localhost本地的MySQL，如果要连接远程服务器只需要把localhost改成对应IP。</p>
+<p>这里需要注意的是，在通过TCP/IP连接到MySQL实例时，MySQL数据库会先检查一张权限视图，用来判断发起请求的客户端IP是否允许连接到MySQL实例。该视图在mysql架构下，表名为user，如下所示：</p>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20211213235547816.png" alt="image-20211213235547816"></p>
+<h2 id="2-命名管道和共享内存"><a href="#2-命名管道和共享内存" class="headerlink" title="2. 命名管道和共享内存"></a>2. 命名管道和共享内存</h2><p>在Windows 2000、Windows XP、Windows 2003和Windows Vista以及在此之上的平台上，如果两个需要进程通信的进程在同一台服务器上，那么可以使用命名管道，Microsoft SQL Server数据库默认安装后的本地连接也是使用命名管道。在MySQL数据库中须在配置文件中启用 –enable-named-pipe 选项。在MySQL4.1之后的版本中，MySQL还提供了共享内存的连接方式，这是通过在配置文件中添加 –shared-memory实现的。如果想使用共享内存的方式，在连接时，MySQL客户端还必须使用 –protocol=memory选项。</p>
+<h2 id="3-UNIX域套接字"><a href="#3-UNIX域套接字" class="headerlink" title="3. UNIX域套接字"></a>3. UNIX域套接字</h2><p>在Linux和UNIX环境下，还可以使用UNIX域套接字。UNIX域套接字其实不是一个网络协议，所以只能在MySQL客户端和数据库实例在一台服务器上的情况下使用。用户可以在配置文件中指定套接字文件的路径，如 –socket=/tmp/mysql.sock。当数据库实例启动后 ，用户可以通过下列命令来进行UNIX域套接字文件的查找：</p>
+<p>在知道了UNIX域套接字文件的路径后，就可以使用该方式进行连接了，如下所示：</p>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20211214001744968.png" alt="image-20211214001744968"></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -uroot -S /tmp/mysql.sock</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/12/13/%E8%BF%9E%E6%8E%A5MySQL/" data-id="ckzb6dz4y002dzwtw3pjzelqw" class="article-share-link">
+        Share
+      </a>
+      
+    </footer>
+
+  </div>
+
+  
+
+  
+
+</article>
+    
+    <article id="post-工厂方法模式" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+      
+
+<h2 itemprop="name">
+  <a class="article-title" href="/2021/12/12/%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F/">工厂方法模式</a>
+</h2>
+
+
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2021/12/12/%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F/" class="article-date">
+  <time datetime="2021-12-12T15:04:25.000Z" itemprop="datePublished">2021-12-12</time>
+</a>
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+        
+      
+      
+      <p>工厂方法模式定义了一个用户创建对象的接口，让子类决定实例化哪一个类。工厂方法模式使一个类的实例化延迟到其子类。</p>
+<p>在看到工厂方法时可能有这样的疑问：</p>
+<ul>
+<li>为什么要创建一个对象的接口？</li>
+<li>为什么要把类实例化延迟到其子类？</li>
+</ul>
+<p>我们看一个具体实例：比如某人有一个习惯，在睡前吃一个水果，无论什么水果都行。水果本身是一个抽象的概念，比如有苹果、葡萄等。此人的习惯是任意水果都行，所以它不关心是哪一种水果的具体实现，如果让他执行每晚固定吃水果的程序时都确定哪一种水果，这是不现实的，每天家里能有的水果是不可知的，这就是工厂方法模式要解决的问题。</p>
+<p>在编程活动中，对于一个大型的软件工程，一个行之有效的方案就是进行模块式的分解。每一个模块由大量的代码构成，此模块的功能被其它模块使用，使用的方式就是：</p>
+<ul>
+<li>实例化此模块</li>
+<li>调用此模块功能</li>
+</ul>
+<p>注意这两个步骤中的第一步，在复杂的应用中会产生严重的副作用。模块的接口虽然不易变，但是各种具体实现的类及其需求是经常变化的。比如编码客户端的时候设计的用户按钮是方形的，但是交付客户的时候客户的需求改成了圆形，程序中创建的按钮有数万个，更改程序时就成了非常麻烦的事。</p>
+<p>以上各种情形下所出现的棘手问题都可以由工厂方法模式解决。</p>
+<h2 id="1-商品上架遇到的问题"><a href="#1-商品上架遇到的问题" class="headerlink" title="1. 商品上架遇到的问题"></a>1. 商品上架遇到的问题</h2><p>超市中有很多种商品，每种商品上架时都需要合适的货架来摆放。</p>
+<p>现在我们使用软件实现商品上架，在以下的设计中，基本思路是为商品选择货架，而不是为货架选择商品，这是根据需求决定的设计方式。商品上架的流程是先拿到商品对象，创建一个可以容纳的货架空间，最后讲商品放入。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Goods</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Goods</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Goods</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SampleShelf</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String name  = <span class="string">&quot;普通货架类&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">put</span><span class="params">(Goods goods)</span> </span>&#123;</span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 打印货架名，货架类信息，所放商品信息</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        System.out.println(<span class="keyword">this</span>.name + <span class="string">&quot;(&quot;</span> + <span class="keyword">this</span> + <span class="string">&quot;)&quot;</span> + <span class="string">&quot;上摆放了：&quot;</span> + goods.getName());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SampleShelfClient</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 得到商品</span></span><br><span class="line">        Goods goods = <span class="keyword">new</span> Goods(<span class="string">&quot;巧克力&quot;</span>);</span><br><span class="line">        <span class="comment">// 得到货架</span></span><br><span class="line">        SampleShelf shelf = <span class="keyword">new</span> SampleShelf();</span><br><span class="line">        <span class="comment">// 上架</span></span><br><span class="line">        shelf.put(goods);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 得到商品</span></span><br><span class="line">        Goods goods1 = <span class="keyword">new</span> Goods(<span class="string">&quot;方便面&quot;</span>);</span><br><span class="line">        <span class="comment">// 得到货架</span></span><br><span class="line">        SampleShelf shelf1 = <span class="keyword">new</span> SampleShelf();</span><br><span class="line">        <span class="comment">// 上架</span></span><br><span class="line">        shelf1.put(goods1);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20211213221122918.png" alt="image-20211213221122918"></p>
+<p>从代码和结果可以看出，我们需要商品就实例化一个商品，需要货架就实例化一个货架，从结果也可以看出，两个商品分别取得了不同的货架进行存放。</p>
+<p>但是我们设想一下在这个系统设计出来以后有可能发生的事情：</p>
+<ul>
+<li>货架的使用应该具有可复用性，即如果一个货架没有装满的话，还可以用来装其它的货物。由于使用程序来装货物，所以货物不应该知道货架的细节。</li>
+<li>每一种货物所摆放的货架是有要求的，不能任意用一种货架。</li>
+<li>当使用代码大量增加时，如果再想做统一的操作，将会增加大量代码。</li>
+<li>未来将会增加货架的种类，在此系统中，增加货架的种类势必增加货架类和改变使用的代码，使用代码和特定的货架是紧密耦合的。</li>
+</ul>
+<p>由以上的研究可以发现，简单的设计在需求的复杂性提高了后会出现问题，而工厂方法模式就是解决创建类问题的一种方法。</p>
+<h2 id="2-简单工厂模式"><a href="#2-简单工厂模式" class="headerlink" title="2. 简单工厂模式"></a>2. 简单工厂模式</h2><p>一个具体工厂通过条件语句创建多个产品，产品的创建逻辑集中在一个工厂类上。客户端通过传递不同的参数给工厂，实现创建不同产品的目的。增减新产品时，需要修改工厂类、增加产品类，这不符合OCP原则。</p>
+<p>先看一下通常所见到的代码初步设计类图：</p>
+<p><img src="C:/Users/pengbin007/AppData/Roaming/Typora/typora-user-images/image-20211213202048185.png" alt="image-20211213202048185"></p>
+<p>这个图使用的结构类似于上面的商品上架的代码，这种设计所能造成的缺点我们已经讨论过了，下面看一下由此图进行的模式演化：</p>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20211213202557212.png" alt="image-20211213202557212"></p>
+<p>由图可见，设计中加入了一个抽象的层次Auto类，加入此抽象层次的好处是显而易见的，它帮助架构降低了Client类和各种具体车型之间的耦合度，而且符合了开-闭原则，如果以后需要加入其它车型，设计将变得很容易。</p>
+<p>但是，此设计的缺点也是存在的，它并没有将客户端的构建具体依赖对象的代码和客户端的使用代码完全分开，这样就会对扩展性和功能性设计造成麻烦，请思考以下问题：</p>
+<ul>
+<li>客户所用的任何一部车都需要在使用前登记。</li>
+<li>如果Car类车型没有了，使用Truck车型替代。</li>
+<li>公司的Car类车全部换为SuperCar。</li>
+</ul>
+<p>如果采用简单工厂模式，则可以解决以上问题，如图：</p>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20211213203646066.png" alt="image-20211213203646066"></p>
+<p>图中各种元素如下：</p>
+<ul>
+<li>产品接口：Auto此接口用于描述各种具体的产品。</li>
+<li>具体产品：Car、Bus、Truck。</li>
+<li>静态工厂类：StaticFactory类中具有静态的工厂方法。</li>
+<li>客户类：Client类调用静态工厂生产各种Auto的实现对象。</li>
+</ul>
+<p>具体代码实现：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 调用静态工厂创建对象</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        Auto auto1 = StaticFactory.createAuto(<span class="number">1</span>);</span><br><span class="line">        auto1.run();</span><br><span class="line"></span><br><span class="line">        Auto auto2 = StaticFactory.createAuto(<span class="number">2</span>);</span><br><span class="line">        auto2.run();</span><br><span class="line"></span><br><span class="line">        Auto auto3 = StaticFactory.createAuto(<span class="number">4</span>);</span><br><span class="line">        auto3.run();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StaticFactory</span> <span class="keyword">extends</span> <span class="title">Client</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Auto <span class="title">createAuto</span><span class="params">(<span class="keyword">int</span> autoId)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">switch</span>(autoId) &#123;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">new</span> Car();</span><br><span class="line">            <span class="keyword">case</span> <span class="number">2</span>:</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">new</span> Bus();</span><br><span class="line">            <span class="keyword">case</span> <span class="number">3</span>:</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">new</span> Truck();</span><br><span class="line">            <span class="keyword">default</span>:</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">&quot;没有这种车型&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Auto</span> <span class="keyword">extends</span> <span class="title">StaticFactory</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">abstract</span> <span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Car</span> <span class="keyword">extends</span> <span class="title">Auto</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Car</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.setName(<span class="string">&quot;轿车&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;启动&quot;</span> + <span class="keyword">this</span>.getName());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Bus</span> <span class="keyword">extends</span> <span class="title">Auto</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Bus</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.setName(<span class="string">&quot;巴士&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;启动&quot;</span> + <span class="keyword">this</span>.getName());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Truck</span> <span class="keyword">extends</span> <span class="title">Auto</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Truck</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.setName(<span class="string">&quot;卡车&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;启动&quot;</span> + <span class="keyword">this</span>.getName());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>运行结果如下：</p>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20211213204023931.png" alt="image-20211213204023931"></p>
+<p>经过了以上的简单工厂模式的设计，可以发现它有以下几个方面的优点：</p>
+<ol>
+<li>用代码和具体使用类的耦合度降低。</li>
+<li>令创建与使用的代码相分离，可以独立地变化，易于维护和扩展。</li>
+<li>可以通过外部配置的方法将耦合度进一步降低。</li>
+</ol>
+<h2 id="3-工厂方法模式"><a href="#3-工厂方法模式" class="headerlink" title="3. 工厂方法模式"></a>3. 工厂方法模式</h2><p>简单工厂模式虽然有一定的优点，但是还是存在下面的不足：</p>
+<ul>
+<li><p>工厂实现的产品抽象，不具备复杂性。</p>
+</li>
+<li><p>工厂不具备抽象性。</p>
+</li>
+</ul>
+<p>为了解决这些问题，GoF的设计模式中提出了工厂方法模式。解决方法就是将各种产品使用不同的工厂生产，各种工厂中的创建方法可以互相独立地改变，并将这些工厂类抽象出一个共同的父类，如下图：</p>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20211213210920006.png" alt="image-20211213210920006"></p>
+<p>工厂方法和简单工厂的区别在于其对工厂也做了一层抽象，不同的工厂负责生产不同的产品。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 调用静态工厂创建对象</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        Factory factory;</span><br><span class="line">        Auto auto;</span><br><span class="line"></span><br><span class="line">        factory = <span class="keyword">new</span> BusFactory();</span><br><span class="line">        auto = factory.createAuto();</span><br><span class="line">        auto.run();</span><br><span class="line"></span><br><span class="line">        factory = <span class="keyword">new</span> CarFactory();</span><br><span class="line">        auto = factory.createAuto();</span><br><span class="line">        auto.run();</span><br><span class="line"></span><br><span class="line">        factory = <span class="keyword">new</span> TruckFactory();</span><br><span class="line">        auto = factory.createAuto();</span><br><span class="line">        auto.run();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Factory</span> <span class="keyword">extends</span> <span class="title">Client</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">abstract</span> <span class="keyword">public</span> Auto <span class="title">createAuto</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CarFactory</span> <span class="keyword">extends</span> <span class="title">Factory</span></span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Auto <span class="title">createAuto</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Truck();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BusFactory</span> <span class="keyword">extends</span> <span class="title">Factory</span></span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Auto <span class="title">createAuto</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Bus();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TruckFactory</span> <span class="keyword">extends</span> <span class="title">Factory</span></span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Auto <span class="title">createAuto</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Car();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20211213211500428.png" alt="image-20211213211500428"></p>
+<p>以上就是工厂方法模式的简单实现，分析其实现可以发现简单工厂模式的两种主要缺点已经被解决了，现在我们看工厂方法能实现而简单工厂不能实现的情况：</p>
+<ul>
+<li>对每一种生产出的产品实例做不同的操作。</li>
+<li>增加一种完全不同类型的产品。</li>
+<li>在不修改原有工厂类的情况下增加对新产品的支持。</li>
+</ul>
+<h2 id="4-使用工厂方法模式解决商品上架问题"><a href="#4-使用工厂方法模式解决商品上架问题" class="headerlink" title="4. 使用工厂方法模式解决商品上架问题"></a>4. 使用工厂方法模式解决商品上架问题</h2><p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20211213214955812.png" alt="image-20211213214955812"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Bed</span> <span class="keyword">extends</span> <span class="title">Goods</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Bed</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>();</span><br><span class="line">        <span class="keyword">this</span>.setName(<span class="string">&quot;双人床&quot;</span>);</span><br><span class="line">        <span class="keyword">this</span>.setWidth(<span class="number">300</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Shelf</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String shelfName;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> maxWidth;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getShelfName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> shelfName;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setShelfName</span><span class="params">(String shelfName)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.shelfName = shelfName;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getMaxWidth</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> maxWidth;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setMaxWidth</span><span class="params">(<span class="keyword">int</span> maxWidth)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.maxWidth = maxWidth;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">put</span><span class="params">(Goods goods)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;将&quot;</span> + goods.getName() + <span class="string">&quot;放入&quot;</span> + <span class="keyword">this</span>.getShelfName());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SmallShelf</span> <span class="keyword">extends</span> <span class="title">Shelf</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">SmallShelf</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>();</span><br><span class="line">        <span class="keyword">this</span>.setShelfName(<span class="string">&quot;一种90cm的小货架&quot;</span>);</span><br><span class="line">        <span class="keyword">this</span>.setMaxWidth(<span class="number">90</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BigShelf</span> <span class="keyword">extends</span> <span class="title">Shelf</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">BigShelf</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>();</span><br><span class="line">        <span class="keyword">this</span>.setShelfName(<span class="string">&quot;一种200cm的大货架&quot;</span>);</span><br><span class="line">        <span class="keyword">this</span>.setMaxWidth(<span class="number">200</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">ShelfFactory</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> maxWidth;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getMaxWidth</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> maxWidth;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setMaxWidth</span><span class="params">(<span class="keyword">int</span> maxWidth)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.maxWidth = maxWidth;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">abstract</span> <span class="keyword">public</span> Shelf <span class="title">createShelf</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SmallShelfFactory</span> <span class="keyword">extends</span> <span class="title">ShelfFactory</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">SmallShelfFactory</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>();</span><br><span class="line">        <span class="keyword">this</span>.setMaxWidth(<span class="keyword">new</span> SmallShelf().getMaxWidth());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Shelf <span class="title">createShelf</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> SmallShelf();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BigShelfFactory</span> <span class="keyword">extends</span> <span class="title">ShelfFactory</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">BigShelfFactory</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>();</span><br><span class="line">        <span class="keyword">this</span>.setMaxWidth(<span class="keyword">new</span> BigShelf().getMaxWidth());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Shelf <span class="title">createShelf</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> BigShelf();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PlaceGoodsHelper</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">placeGoods</span><span class="params">(Goods goods)</span> </span>&#123;</span><br><span class="line">        ArrayList&lt;ShelfFactory&gt; shelfFactories = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        shelfFactories.add(<span class="keyword">new</span> SmallShelfFactory());</span><br><span class="line">        shelfFactories.add(<span class="keyword">new</span> BigShelfFactory());</span><br><span class="line"></span><br><span class="line">        Shelf shelf;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(ShelfFactory shelfFactory : shelfFactories) &#123;</span><br><span class="line">            <span class="keyword">if</span>(shelfFactory.getMaxWidth() &gt;= goods.getWidth()) &#123;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    shelf = shelfFactory.createShelf();</span><br><span class="line">                    shelf.put(goods);</span><br><span class="line">                    <span class="keyword">return</span>;</span><br><span class="line">                &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">&quot;没有找到符合&quot;</span> + goods.getName() + <span class="string">&quot;尺寸的货架&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        ArrayList&lt;Goods&gt; goods = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        goods.add(<span class="keyword">new</span> Phone());</span><br><span class="line">        goods.add(<span class="keyword">new</span> TV());</span><br><span class="line">        goods.add(<span class="keyword">new</span> Bed());</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">&quot;init already&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(Goods good : goods) &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                PlaceGoodsHelper.placeGoods(good);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">&quot;放置货物完成！&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20211213215148107.png" alt="image-20211213215148107"></p>
+<p>到此，我们已经可以使用工厂方法模式完全解决商品上架的问题了，但是，由于篇幅原因，有一些因素没有完全考虑到，读者可以自行扩展。部分扩展如下：</p>
+<ul>
+<li>考虑一个货架可以放多个货物的情况。</li>
+<li>考虑商品防止的优先级的问题。</li>
+<li>考虑更多类型的货架，如不同的形状和材质的货架。</li>
+<li>考虑货物体积与货架空间相互作用引发的最优化放置问题。</li>
+</ul>
+<p>完整代码见我的码云仓库：<a target="_blank" rel="noopener" href="https://gitee.com/pengzong888/blog">https://gitee.com/pengzong888/blog</a></p>
+<h2 id="5-工厂方法模式的使用范围"><a href="#5-工厂方法模式的使用范围" class="headerlink" title="5. 工厂方法模式的使用范围"></a>5. 工厂方法模式的使用范围</h2><ul>
+<li>当客户程序不需要知道要使用对象的创建过程时。</li>
+<li>客户程序使用的对象存在变动的可能，或者根本就不知道使用哪一个具体的对象时。</li>
+<li>当客户想分离对象的创建和使用代码时。</li>
+<li>当客户想集中管理创建代码时。</li>
+<li>当客户需要使用的对象种类非常多，并且有扩展需求时。</li>
+</ul>
+<p>其优点在于分担了对象承受的压力，使结构变得灵活起来，并且符合开-闭原则。同样的可以看出工厂方法的加入，使得对象的数量成倍增长。当产品种类非常多时，会出现大量的与之对应的工厂对象，这不是我们希望的。</p>
+<h2 id="6-简单工厂与其它模式的区别"><a href="#6-简单工厂与其它模式的区别" class="headerlink" title="6. 简单工厂与其它模式的区别"></a>6. 简单工厂与其它模式的区别</h2><ul>
+<li>工厂方法模式与简单工厂模式在结构上的不同不是很明显。工厂方法模式的核心是一个抽象工厂类，而简单工厂模式把核心放在一个具体类上。</li>
+<li>工厂方法模式之所以有一个别名叫多态性工厂模式是因为，具体工厂类都有共同的接口，或者有共同的抽象父类。</li>
+<li>当系统扩展需要添加新的产品对象时，仅仅需要添加一个具体对象以及一个具体工厂对象，原有工厂对象不需要进行任何修改，也不需要修改客户端，这很好地符合了”开放——封闭“原则。而简单工厂模式在添加新产品对象后不得不修改工厂方法，扩展性不好。</li>
+<li>工厂方法模式退化后可以演变成简单工厂模式。</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/12/12/%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F/" data-id="ckzb6dz43001rzwtw9fl5bspy" class="article-share-link">
+        Share
+      </a>
+      
+    </footer>
+
+  </div>
+
+  
+
+  
+
+</article>
+    
+    <article id="post-页面置换算法-下" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+      
+
+<h2 itemprop="name">
+  <a class="article-title" href="/2021/12/12/%E9%A1%B5%E9%9D%A2%E7%BD%AE%E6%8D%A2%E7%AE%97%E6%B3%95-%E4%B8%8B/">页面置换算法(下)</a>
+</h2>
+
+
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2021/12/12/%E9%A1%B5%E9%9D%A2%E7%BD%AE%E6%8D%A2%E7%AE%97%E6%B3%95-%E4%B8%8B/" class="article-date">
+  <time datetime="2021-12-12T02:45:51.000Z" itemprop="datePublished">2021-12-12</time>
+</a>
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+        
+      
+      
+      <h2 id="1-工作集页面置换算法"><a href="#1-工作集页面置换算法" class="headerlink" title="1. 工作集页面置换算法"></a>1. 工作集页面置换算法</h2><p>在单纯的分页系统里，刚启动进程时，在内存中并没有页面。CPU试图取第一条指令时就会产生缺页中断，使OS装入含有第一条指令的页面。其它由访问全局数据和堆栈引起的缺页中断通常会紧接着发生。一段时间以后，进程需要的大部分页面已经在内存了，进程开始在较少缺页中断的情况下运行。这个策略称为<strong>请求调页</strong>（demand paging），因为页面是在需要时被调入的，而不是预先装入。</p>
+<p>一个进程当前正在使用的页面的集合称为<strong>工作集</strong>（denning）。如果整个工作集都被装入到了内存中，那么进程在运行到下一运行阶段之前，不会产生很多缺页中断。若内存太小无法容纳下整个工作集，那么进程的运行过程中会产生大量的缺页中断，导致运行速度变得很缓慢，因为通常只需要几个纳秒就能执行完一条指令，而通常需要十毫米才能从磁盘上读入一个页面。若每执行几条指令程序就发生一次缺页中断，那么就称这个程序发生了<strong>颠簸</strong>。</p>
+<p>在多道程序设计系统中，经常会把进程转移到磁盘上，这样可以让其它的进程有机会占有CPU。有一个问题是：<strong>当该进程再次调回来以后应该怎么办</strong>？从技术角度上讲，并不需要做什么。该进程会一直中断知道它的工作集全部被装入内存。然而，每次装入一个进程时都要产生多次缺页中断，速度显然太慢了，并且由于CPU需要几毫米时间处理一个缺页中断，因此有相当多的CPU时间也被浪费掉了。</p>
+<p>所以不少分页系统都会设法跟踪进程的工作集，以确保在让进程运行以前，它的工作集就已在内存中了。该方法称为<strong>工作集模型</strong>，其目的在于大大减少缺页中断率。在进程运行前预先装入其工作集页面也称为<strong>预先调页</strong>。请注意工作集是随着时间变化的。</p>
+<p>为了实现工作集模型，OS必须跟踪哪些页面在工作集中。通过这些信息可以直接推导出一个合理的页面置换算法：当发生缺页中断时，淘汰一个不在工作集中的页面。为了实现该算法，就需要一种精确的方法确定哪些页面在工作集中。根据定义，<strong>工作集就是最近k次内存访问所使用过的页面集合</strong>（有些设计者使用最近k次页面集合，但选择是任意的）。为了实现工作集算法，必须预先选定k的值，一定那选定某个值，每次内存访问之后，最近k次内存访问所使用过的页面的集合就是唯一的确定的了。</p>
+<p>当然，有了工作集的定义并不意味着存在一种有效的方法能够在程序运行期间及时的计算出工作集，假设有一个长度为k的移位寄存器，每进行一次内存访问就把寄存器左移一位，并在最右端插入所访问过的页面号。理论上，当缺页中断发生时，读出移位寄存器并进行排序，然后删除重复页面，就是工作集了。但是，维护移位寄存器并在缺页中断时处理它所需的开销很大，因此该技术从来没有被使用过。</p>
+<p>作为替代，可以使用几种近似的方法。一种常见的近似方法就是，不是向后找最近k次的内存访问，而是考虑其执行时间。例如，我们现在这样定义：工作集是过去10ms中的内存访问所用到的页面集合。实际上，这样的模型很适合并且更容易实现。要注意到，每个进程只计算它自己的执行时间。因此，如果一个进程在T时刻开始，在（T+100）ms的时刻使用了40msCPU时间，对工作集而言，它的时间就是40ms。一个进程从它开始执行到当前所实际使用的CPU时间总数通常称作<strong>当前实际运行时间</strong>。通过这个近似的方法，<strong>进程的工作集可以被称为在过去的t秒实际运行时间中它所访问过的页面的集合</strong>。</p>
+<h2 id="2-工作集时钟页面置换算法"><a href="#2-工作集时钟页面置换算法" class="headerlink" title="2. 工作集时钟页面置换算法"></a>2. 工作集时钟页面置换算法</h2><h2 id="3-页面置换算法小结"><a href="#3-页面置换算法小结" class="headerlink" title="3. 页面置换算法小结"></a>3. 页面置换算法小结</h2>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/12/12/%E9%A1%B5%E9%9D%A2%E7%BD%AE%E6%8D%A2%E7%AE%97%E6%B3%95-%E4%B8%8B/" data-id="ckx2yjv9k000bpgtwd6wigaud" class="article-share-link">
+        Share
+      </a>
+      
+    </footer>
+
+  </div>
+
+  
+
+  
+
+</article>
+    
+    <article id="post-页面置换算法" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+      
+
+<h2 itemprop="name">
+  <a class="article-title" href="/2021/12/11/%E9%A1%B5%E9%9D%A2%E7%BD%AE%E6%8D%A2%E7%AE%97%E6%B3%95/">页面置换算法</a>
+</h2>
+
+
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2021/12/11/%E9%A1%B5%E9%9D%A2%E7%BD%AE%E6%8D%A2%E7%AE%97%E6%B3%95/" class="article-date">
+  <time datetime="2021-12-11T11:27:40.000Z" itemprop="datePublished">2021-12-11</time>
+</a>
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+        
+      
+      
+      <p>当发生缺页中断时，操作系统必须在内存中选择一个页面将其换出内存，以便为即将调入的页面腾出空间。如果要换出的页面在内存驻留期间已经被修改过，就必须把它写回磁盘以更新该页面在磁盘上的副本，如果没有，则不需要回写（磁盘上的副本就是最新的）。直接用调入的页面覆盖被淘汰的页面就可以了。</p>
+<p>缺页中断发生时，虽然可以随机选择一个页面进行置换，但是如果我们每次选择的都是不常使用的页面可以提升系统性能（不用回写，并且能避免其在短时间内又被置换回来）。”页面置换“问题在计算机设计的其它领域中也同样发生。例如，多数计算机把最近使用过的32字节或64字节的存储块保存在一个或多个告诉缓存中。另外一个例子是Web服务器。服务器可以把经常访问的一些Web页面存放在存储器的高速缓存中。</p>
+<h2 id="1-最优页面置换算法（OPT，Optimal）"><a href="#1-最优页面置换算法（OPT，Optimal）" class="headerlink" title="1. 最优页面置换算法（OPT，Optimal）"></a>1. 最优页面置换算法（OPT，Optimal）</h2><p>很容易就可以描述出最好的页面置换算法，虽然<strong>此算法不可能实现</strong>。该算法是这样工作的：在缺页中断发生时，有些页面在内存中，其中有一个页面将很快被访问，其它页面则可能要到10、100或1000条指令后才会被访问，每个页面都可以用在该页面首次被访问前所要执行的指令数作为标记。</p>
+<p>最优页面置换算法规定应该置换标记最大的页面。如果一个页面在800万条指令内不会被使用，另外一个600万条，则置换前一个页面，从而把因需要调入这个页面而发生的缺页中断推迟到将来，越久越好。计算机也像人一样，希望把不愉快的事情尽可能往后拖延。</p>
+<p>这个算法唯一的问题就是无法实现。当缺页中断发生时，<strong>OS无法知道各个页面下一次将在什么时候被访问</strong>。当然，通过首先在仿真程序上运行程序，跟踪所有页面的访问情况，然后在第二次运行时利用第一次收集的信息是可以实现的。<strong>用这种方式，可以通过最优页面置换算法对其它可实现算法的性能进行比较</strong>。如果OS达到的页面置换性能只比最优算法差1%，那么即使花费大量的精力来寻找更好的算法最多也只能换来1%的性能提高。</p>
+<p>假定系统为某进程分配了三个物理块，并考虑有页面号引用串7，0，1，2，0，3，0，4，2，3，0，3，2，1，2，0，1，7，0，1。那么采用OPT算法时的情况如下表：</p>
+<table>
+<thead>
+<tr>
+<th align="center">访问页面</th>
+<th>7</th>
+<th>0</th>
+<th>1</th>
+<th>2</th>
+<th>0</th>
+<th>3</th>
+<th>0</th>
+<th>4</th>
+<th>2</th>
+<th>3</th>
+<th>0</th>
+<th>3</th>
+<th>2</th>
+<th>1</th>
+<th>2</th>
+<th>0</th>
+<th>1</th>
+<th>7</th>
+<th>0</th>
+<th>1</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">物理块1</td>
+<td>7</td>
+<td>7</td>
+<td>7</td>
+<td>2</td>
+<td></td>
+<td>2</td>
+<td></td>
+<td>2</td>
+<td></td>
+<td></td>
+<td>2</td>
+<td></td>
+<td></td>
+<td>2</td>
+<td></td>
+<td></td>
+<td></td>
+<td>7</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">物理块2</td>
+<td></td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td></td>
+<td>0</td>
+<td></td>
+<td>4</td>
+<td></td>
+<td></td>
+<td>0</td>
+<td></td>
+<td></td>
+<td>0</td>
+<td></td>
+<td></td>
+<td></td>
+<td>0</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">物理块3</td>
+<td></td>
+<td></td>
+<td>1</td>
+<td>1</td>
+<td></td>
+<td>3</td>
+<td></td>
+<td>3</td>
+<td></td>
+<td></td>
+<td>3</td>
+<td></td>
+<td></td>
+<td>1</td>
+<td></td>
+<td></td>
+<td></td>
+<td>1</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">缺页否</td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
+<td></td>
+<td>√</td>
+<td></td>
+<td>√</td>
+<td></td>
+<td></td>
+<td>√</td>
+<td></td>
+<td></td>
+<td>√</td>
+<td></td>
+<td></td>
+<td></td>
+<td>√</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>缺页率：45%</p>
+<h2 id="2-最近未使用页面置换算法（NRU，Not-Recently-Used）"><a href="#2-最近未使用页面置换算法（NRU，Not-Recently-Used）" class="headerlink" title="2. 最近未使用页面置换算法（NRU，Not Recently Used）"></a>2. 最近未使用页面置换算法（NRU，Not Recently Used）</h2><p>为了让OS能够收集有用的统计信息，在大部分具有虚拟内存的计算机中，系统为每一页面设置了两个状态位。当页面被访问（读或写）时设置R位；当页面被写入（即修改）时设置M位。这些位包含在页表项中，每次访问内存时更新这些位，因此由硬件来设置这些位是必要的。</p>
+<p>如果硬件没有这些位，可以用OS的缺页中断和时钟中断机制进行以下的模拟：当启动一个进程时，将其所有的页面都标记为不在内存中；一旦访问任何一个页面都会引发一次缺页中断，此时OS就可以设置R位，修改页表项使其指向正确的页面，并设为READ ONLY模式。然后重新启动引起缺页中断的指令；如果随后对该页面的修改又引起了缺页中断，则OS设置这个页面的M位，并将其改为READ/WRITE模式。</p>
+<p>可以用R位和M位来构造一个简单的页面置换算法：当启动一个进程时，它的所有页面的两个位都由OS设为0，R位被定期清零（比如在每次时钟中断时），以区别最近没有被访问的页面和被访问的页面。</p>
+<p>当发生缺页中断时，OS检查所有的页面并根据它们当前的R位和M位的值，将它们分成以下四类：</p>
+<ul>
+<li>第0类：没有被访问，没有被修改</li>
+<li>第1类：没有被访问，已经被修改</li>
+<li>第2类：已经被访问，没有被修改</li>
+<li>第3类：已经被访问，已经被修改</li>
+</ul>
+<p>尽管第1类看起来似乎不可能，但是一个第3类的页面在它的R位被时钟中断清零后就成了第1位。时钟中断不清零M位是因为在决定一个页面是否要写回磁盘需要用到这个位。</p>
+<p>NRU算法随机地从类编号最小的非空类中挑选一个页面淘汰。这个算法隐含的意思是，在最近一个时钟滴答中淘汰一个没有被访问的已修改页面要比淘汰一个被频繁使用的”干净“页面好。NRU的主要优点是易于理解和能够有效地被实现，虽然它的性能不是最好的，但是已经够用了。</p>
+<h2 id="3-先进先出页面置换算法（FIFO）"><a href="#3-先进先出页面置换算法（FIFO）" class="headerlink" title="3. 先进先出页面置换算法（FIFO）"></a>3. 先进先出页面置换算法（FIFO）</h2><p>由OS维护一个所有当前在内存中的页面的链表，最新进入的页面放在表尾，最早的放在表头。当发生缺页中断时，淘汰表头的页面并把新调入的页面加到表尾。</p>
+<table>
+<thead>
+<tr>
+<th align="center">访问页面</th>
+<th>7</th>
+<th>0</th>
+<th>1</th>
+<th>2</th>
+<th>0</th>
+<th>3</th>
+<th>0</th>
+<th>4</th>
+<th>2</th>
+<th>3</th>
+<th>0</th>
+<th>3</th>
+<th>2</th>
+<th>1</th>
+<th>2</th>
+<th>0</th>
+<th>1</th>
+<th>7</th>
+<th>0</th>
+<th>1</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">物理块1</td>
+<td>7</td>
+<td>7</td>
+<td>7</td>
+<td>2</td>
+<td></td>
+<td>2</td>
+<td>2</td>
+<td>4</td>
+<td>4</td>
+<td>4</td>
+<td>0</td>
+<td></td>
+<td></td>
+<td>0</td>
+<td>0</td>
+<td></td>
+<td></td>
+<td>7</td>
+<td>7</td>
+<td>7</td>
+</tr>
+<tr>
+<td align="center">物理块2</td>
+<td></td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td></td>
+<td>3</td>
+<td>3</td>
+<td>3</td>
+<td>2</td>
+<td>2</td>
+<td>2</td>
+<td></td>
+<td></td>
+<td>1</td>
+<td>1</td>
+<td></td>
+<td></td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td align="center">物理块3</td>
+<td></td>
+<td></td>
+<td>1</td>
+<td>1</td>
+<td></td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>3</td>
+<td>3</td>
+<td></td>
+<td></td>
+<td>3</td>
+<td>2</td>
+<td></td>
+<td></td>
+<td>2</td>
+<td>2</td>
+<td>1</td>
+</tr>
+<tr>
+<td align="center">缺页否</td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
+<td></td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
+<td></td>
+<td></td>
+<td>√</td>
+<td>√</td>
+<td></td>
+<td></td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
+</tr>
+</tbody></table>
+<p>缺页率：75%</p>
+<h2 id="4-第二次机会页面置换算法"><a href="#4-第二次机会页面置换算法" class="headerlink" title="4. 第二次机会页面置换算法"></a>4. 第二次机会页面置换算法</h2><p>FIFO算法可能会把经常使用的页面置换出去，为了避免这一问题，对该算法做一个简单的修改：检查最老页面的R位。如果R位是0，那么这个页面既老又没有被使用，可以立刻置换掉；如果是1，就将R位清零，并把该页面放到链表尾端，然后继续搜索。这就是第二次机会算法。</p>
+<p>第二次机会算法就是寻找一个在最近的时钟间隔内没有被访问过的页面。如果所有的页面都被访问过了，该算法就简化为纯粹的FIFO算法。</p>
+<h2 id="5-时钟页面置换算法（CLOCK）"><a href="#5-时钟页面置换算法（CLOCK）" class="headerlink" title="5.时钟页面置换算法（CLOCK）"></a>5.时钟页面置换算法（CLOCK）</h2><p>尽管第二次机会算法是一个比较合理的算法，但它经常要在链表中移动页面，既降低了效率又不是很有必要。一个更好的办法是<strong>把所有的页面都保存在一个类似钟面的环形链表中</strong>，一个表针指向最老的页面。当发生缺页中断时，算法首先检查表针指向的页面，如果它的R为是0就淘汰该页面，并把新的页面插入这个位置，然后把表针前移一个位置；如果是1就清除R为并把表针前移一个位置。重复这个过程知道找到了一个R位为0的页面为止。这就是时钟算法。</p>
+<h2 id="6-最近最少使用页面置换算法（LRU）"><a href="#6-最近最少使用页面置换算法（LRU）" class="headerlink" title="6.最近最少使用页面置换算法（LRU）"></a>6.最近最少使用页面置换算法（LRU）</h2><p>对最优算法的一个很好的近似是基于这样的观察：在前面几条指令中频繁使用的页面很可能在后面的几条指令中被使用。反过来说，已经很久没有使用的页面很有可能在未来较长一段时间内仍然不会被使用。这一思想提示了一个可实现的算法：<strong>在缺页中断时，置换未使用时间最长的页面</strong>。这一策略称为LRU（Least Recently Used）页面置换算法。</p>
+<p>虽然LRU在理论上可以实现，但代价很高。为了完全实现LRU，需要在内存中维护一个所有页面的链表，最近最多使用的页面在表头，最近最少使用的在表尾。困难的是在每次访问内存时都必须更新整个链表。在链表中找到一个页面，删除它，然后把它移动到表头是一个非常耗时的操作，即使使用硬件实现也一样费时（假设有这样的硬件）。</p>
+<table>
+<thead>
+<tr>
+<th align="center">访问页面</th>
+<th>7</th>
+<th>0</th>
+<th>1</th>
+<th>2</th>
+<th>0</th>
+<th>3</th>
+<th>0</th>
+<th>4</th>
+<th>2</th>
+<th>3</th>
+<th>0</th>
+<th>3</th>
+<th>2</th>
+<th>1</th>
+<th>2</th>
+<th>0</th>
+<th>1</th>
+<th>7</th>
+<th>0</th>
+<th>1</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">物理块1</td>
+<td>7</td>
+<td>7</td>
+<td>7</td>
+<td>2</td>
+<td></td>
+<td>2</td>
+<td></td>
+<td>4</td>
+<td>4</td>
+<td>4</td>
+<td>0</td>
+<td></td>
+<td></td>
+<td>1</td>
+<td></td>
+<td>1</td>
+<td></td>
+<td>1</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">物理块2</td>
+<td></td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td></td>
+<td>0</td>
+<td></td>
+<td>0</td>
+<td>0</td>
+<td>3</td>
+<td>3</td>
+<td></td>
+<td></td>
+<td>3</td>
+<td></td>
+<td>0</td>
+<td></td>
+<td>0</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">物理块3</td>
+<td></td>
+<td></td>
+<td>1</td>
+<td>1</td>
+<td></td>
+<td>3</td>
+<td></td>
+<td>3</td>
+<td>2</td>
+<td>2</td>
+<td>2</td>
+<td></td>
+<td></td>
+<td>2</td>
+<td></td>
+<td>2</td>
+<td></td>
+<td>7</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">缺页否</td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
+<td></td>
+<td>√</td>
+<td></td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
+<td></td>
+<td></td>
+<td>√</td>
+<td></td>
+<td>√</td>
+<td></td>
+<td>√</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>缺页率：60%</p>
+<p>还是有一些使用特殊硬件实现LRU的方法。首先考虑一个最简单的方法，这个方法要求硬件有一个64位计数器C，它在每条指令执行完后自动加1，每个页表项必须有一个足够容纳这个计数器值的域。在每次访问内存后，将当前的C值保存到被访问页面的页表项中。一旦发生缺页中断，OS就检查所有页表项中计数器的值，找到值最小的一个页面，这个页面就是最近最少使用的页面。</p>
+<h2 id="7-用软件模拟LRU"><a href="#7-用软件模拟LRU" class="headerlink" title="7. 用软件模拟LRU"></a>7. 用软件模拟LRU</h2><p>LRU算法在理论上可以实现的，但是在实际操作中的硬件很难实现。因此，我们希望能用一种软件的方式来实现，这就是<strong>NFU（Not Frequently Used，最不常用）算法。该算法将每一个页面与一个初值为0的软件计数器相关联，每次时钟中断时，由OS扫描内存中所有页面，将每个页面的R位加到它的计数器上。这个计数器大体上跟踪了每个页面被访问的频繁程度。发生缺页中断时，则置换计数器值最小的页面</strong>。</p>
+<p>NFU的主要问题是它从来不忘记任何事情。比如，在一个多次(扫描)编译器中，第一次被频繁使用的页面在程序进入第二次扫描的时候，其计数器的值可能依旧很高。实际上，如果第一次扫描的执行时间恰好是各次扫描中最长的，含有以后各次扫描代码的页面的计数器可能总是比含有第一次扫描代码的页面的计数器小，结果是OS将置换有用的页面而不是不再使用的页面。</p>
+<p>幸运的是只要最一点修改就能很好的模拟LRU。其修改分为两部分：首先，在R位被加进之前先将计数器右移一位，其次；将R位加到计数器最左端而不是最右端。修改以后的<strong>老化（aging）算法</strong>，下图解释了它是如何工作的。假设在第一个时钟滴答后，页面0~5的R位的值分别是1、0、1、0、1、1。换句话说，在时钟滴答0到时钟滴答1之间，访问了页0、2、4、5，它们的R位设置为1，而其他的设为0。对应的6个计数器右移并把R位插入左端后的值如图(a)所示。</p>
+<p><img src="C:/Users/pengbin007/AppData/Roaming/Typora/typora-user-images/image-20211212002429361.png" alt="image-20211212002429361"></p>
+<p>发生缺页中断时，将置换计数器值最小的页面。如果一个页面在前面4个时钟滴答中都没有访问过，那么它的计数器最前面应该有4个连续的0，因此它的值肯定要比在前面三个时钟滴答中都没有被访问过的页面的计数器小。</p>
+<p>该算法与LRU由两个区别。如图e中的页面3和5，它们都连续两个时钟滴答没有被访问过了，而在这两个时钟滴答之前都被访问过了。根据LRU，如果必须置换一个页面，则应该二选一。但是，我们不知道在时钟滴答1到时钟滴答2期间它们中的哪个页面是后被访问到的。因为在每个时钟滴答中只记录了一位，所以无法区分在一个时钟滴答中哪个页面在较早的时间被访问哪个较晚，因此，我们所能做的就是置换页面3，原因是页面5在更往前的两个时钟滴答中也被访问过而3没有。</p>
+<p>LRU和老化算法的第二个区别是老化算法的计数器只有有限位数（本例中是8位），这就限制了其对以往页面的记录。如果两个页面的计数器都是0，我们只能在两个页面中随机选一个进行置换。实际上，有可能其中一个页面上次被访问是在9个时钟滴答以前，另一个页面是在1000个时钟滴答以前，而我们却无法看到这些。在实践中，如果时钟滴答是20ms，8位一般是够用的。加入一个页面已经有160ms没有被访问过，那么它可能并不重要。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/12/11/%E9%A1%B5%E9%9D%A2%E7%BD%AE%E6%8D%A2%E7%AE%97%E6%B3%95/" data-id="ckx2yjv9k000cpgtw5r2dez30" class="article-share-link">
+        Share
+      </a>
+      
+    </footer>
+
+  </div>
+
+  
+
+  
+
+</article>
+    
+    <article id="post-指令级并行原理" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+      
+
+<h2 itemprop="name">
+  <a class="article-title" href="/2021/12/11/%E6%8C%87%E4%BB%A4%E7%BA%A7%E5%B9%B6%E8%A1%8C%E5%8E%9F%E7%90%86/">指令级并行原理</a>
+</h2>
+
+
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2021/12/11/%E6%8C%87%E4%BB%A4%E7%BA%A7%E5%B9%B6%E8%A1%8C%E5%8E%9F%E7%90%86/" class="article-date">
+  <time datetime="2021-12-11T11:05:49.000Z" itemprop="datePublished">2021-12-11</time>
+</a>
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+        
+      
+      
+      <h2 id="1-名词"><a href="#1-名词" class="headerlink" title="1. 名词"></a>1. 名词</h2><h3 id="Clock-Cycle-Time"><a href="#Clock-Cycle-Time" class="headerlink" title="Clock Cycle Time"></a>Clock Cycle Time</h3>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/12/11/%E6%8C%87%E4%BB%A4%E7%BA%A7%E5%B9%B6%E8%A1%8C%E5%8E%9F%E7%90%86/" data-id="ckx2yjv9k0007pgtw5zh16srz" class="article-share-link">
+        Share
+      </a>
+      
+    </footer>
+
+  </div>
+
+  
+
+  
+
+</article>
+    
+    <article id="post-Java线程" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+      
+
+<h2 itemprop="name">
+  <a class="article-title" href="/2021/12/11/Java%E7%BA%BF%E7%A8%8B/">Java线程</a>
+</h2>
+
+
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2021/12/11/Java%E7%BA%BF%E7%A8%8B/" class="article-date">
+  <time datetime="2021-12-11T08:48:53.000Z" itemprop="datePublished">2021-12-11</time>
+</a>
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+        
+      
+      
+      <h2 id="1-创建和运行线程"><a href="#1-创建和运行线程" class="headerlink" title="1. 创建和运行线程"></a>1. 创建和运行线程</h2>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/12/11/Java%E7%BA%BF%E7%A8%8B/" data-id="ckx2yjv9d0002pgtwhkh7gpjc" class="article-share-link">
+        Share
+      </a>
+      
+    </footer>
+
+  </div>
+
+  
+
+  
+
+</article>
+    
+  </article>
+  
+
+  
+  <nav class="page-nav">
+    <a class="extend prev" rel="prev" href="/page/9/">Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><span class="page-number current">10</span><a class="page-number" href="/page/11/">11</a><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/11/">Next</a>
+  </nav>
+  
+</section>
+</div>
+    <footer class="footer">
+  <div class="outer">
+    <div class="float-right">
+      <ul class="list-inline">
+  
+  <li><i class="fe fe-bar-chart"></i> <span id="busuanzi_value_site_pv"></span></li>
+  
+  <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
+  
+</ul>
+    </div>
+    <ul class="list-inline">
+      <li>青稞 &copy; 2022</li>
+      
+        <li>ZHWANGART</li>
+      
+      <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
+      <li>theme  <a target="_blank" rel="noopener" href="https://github.com/zhwangart/hexo-theme-ocean">Ocean</a></li>
+    </ul>
+  </div>
+</footer>
+  </main>
+  <aside class="sidebar">
+    <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/hexo.svg" alt="青稞"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">Home</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">Archives</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/gallery">Gallery</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about">About</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="Search">
+        <i class="fe fe-search"></i>
+        Search
+      </a>
+    </li>
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      <div class="totop" id="totop">
+  <i class="fe fe-rocket"></i>
+</div>
+    </li>
+    <li class="nav-item">
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="fe fe-feed"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+  </aside>
+  
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/copybtn.js"></script>
+
+
+
+
+
+
+<script src="/js/ocean.js"></script>
+
+</body>
+
+</html>

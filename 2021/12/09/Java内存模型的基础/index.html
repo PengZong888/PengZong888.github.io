@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  
+  
+  <title>
+    Java内存模型的基础 |
+    
+    青稞
+  </title>
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+    
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<script src="/js/pace.min.js"></script>
+
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="青稞" type="application/atom+xml">
+</head>
+
+<body>
+  <main class="content">
+    <section class="outer">
+  <article id="post-Java内存模型的基础" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+      
+
+<h1 class="article-title" itemprop="name">
+  Java内存模型的基础
+</h1>
+
+
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2021/12/09/Java%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B%E7%9A%84%E5%9F%BA%E7%A1%80/" class="article-date">
+  <time datetime="2021-12-09T01:23:36.000Z" itemprop="datePublished">2021-12-09</time>
+</a>
+      
+    </div>
+    
+
+    
+    
+<div class="tocbot"></div>
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+      
+      <p>Java线程之间的通信对程序员完全透明，内存可见性问题很容易困扰Java程序员。</p>
+<h2 id="1-并发编程模型的两个关键问题"><a href="#1-并发编程模型的两个关键问题" class="headerlink" title="1. 并发编程模型的两个关键问题"></a>1. 并发编程模型的两个关键问题</h2><ul>
+<li><p>线程之间如何通信</p>
+<p>通信是指线程之间以何种机制来交换信息。在命令式编程中，线程之间的通信机制有两种：共享内存和消息传递。</p>
+<p>在共享内存的并发模型里，线程之间共享程序的公共状态，通过写-读内存中的公共状态进行隐式通信。在消息传递的并发模型里，线程之间没有公共状态，线程之间必须通过发送消息来显式进行通信。</p>
+</li>
+<li><p>线程之间如何同步</p>
+<p>同步是指程序中用于控制不同线程间操作发生相对顺序的机制。在共享内存并发模型里，同步是显式进行的。程序员必须显式指定某个方法或某段代码需要在线程之间互斥执行。在消息传递的并发模型里，由于消息的发送必须在消息的接收之前，因此同步是隐式进行的。</p>
+</li>
+</ul>
+<p>Java的并发采用的是共享内存模型，Java线程之间的通信总是隐式进行，这个通信过程对程序员完全透明。如果编写多线程程序的Java程序员不理解隐式进行的线程之间通信的工作机制，很可能会遇到各种奇怪的内存可见性问题。</p>
+<h2 id="2-Java内存模型的抽象结构"><a href="#2-Java内存模型的抽象结构" class="headerlink" title="2. Java内存模型的抽象结构"></a>2. Java内存模型的抽象结构</h2><p>在Java中，所有实例域、静态域和数组元素都存储在堆内存中，对内存在线程之间共享(下面用共享变量代指三者)。局部变量，方法定义参数和异常处理器参数不会在线程之间共享，它们不会有内存可见性问题，也不受内存模型的影响。</p>
+<p>Java线程之间的通信由Java内存模型（本文简称为JMM）控制，JMM决定一个线程对共享变量的写入何时对另一个线程可见。从抽象的角度来看，JMM定义了线程和主内存之间的抽象关系：线程之间的共享变量存储在主内存中，每个线程都由一个私有的本地内存，本地内存中存储该线程已读/写共享变量的副本。本地内存是JMM的一个抽象概念，并不真实存在。它涵盖了缓存、写缓冲区、寄存器以及其它的硬件和编译器优化。Java内存模型的抽象示意图：</p>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20211209193054163.png" alt="image-20211209193054163"></p>
+<p>从图中来看，如果线程A和线程B之间要通信的话，必须要经历下面两个步骤。</p>
+<ol>
+<li>线程A把本地内存A中更新过的共享变量刷新到主存中去。</li>
+<li>线程B到主存中去读取线程A之前已经更新过的共享变量。</li>
+</ol>
+<p>线程之间通信如图：</p>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20211209194936096.png" alt="image-20211209194936096"></p>
+<p>从整体来看，这两个步骤实质上是线程A在向线程B发送消息，而且这个通信过程必须要经过主内存。JMM通过控制主内存与每个线程的本地内存之间的交互，来为Java程序员提供内存可见性保证。</p>
+<h2 id="3-从源代码到指令序列的重排序"><a href="#3-从源代码到指令序列的重排序" class="headerlink" title="3. 从源代码到指令序列的重排序"></a>3. 从源代码到指令序列的重排序</h2><p>在执行程序时，为了提高性能，编译器和处理器常常会对指令做重排序。重排序分3种类型。</p>
+<ol>
+<li>编译器优化的重排序。编译器在不改变单线程程序语义的前提下，可以重新安排语句的执行顺序。</li>
+<li>指令级并行的重排序。现代处理器采用了指令级并行技术（Instruction-Level Parallelism，ILP）来将多条指令重叠执行。如果不存在数据依赖性，处理器可以改变语句对应及其指令的执行顺序。</li>
+<li>内存系统的重排序。由于处理器使用缓存和读/写缓冲区，这使得加载和存储操作看上去可能是在乱序执行。</li>
+</ol>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20211209200421067.png" alt="image-20211209200421067"></p>
+<p>在这些重排序中可能会导致对线程程序出现内存可见性问题。对于编译器，JMM的编译器重排序规则会禁止特定类型的编译器重排序（不是所有的都要禁止）。对于处理器重排序，JMM的处理器重排序规则会要求Java编译器在生成指令序列时，插入特定类型的内存屏障指令，通过内存屏障指令来禁止特定类型的处理器重排序。</p>
+<p>JMM属于语句级的内存模型，它确保在不同的编译器和不同的处理器平台之上，通过禁止特定类型的编译器重排序和处理器重排序，为程序员提供一致的内存可见性保证。</p>
+<h2 id="4-并发编程模型的分类"><a href="#4-并发编程模型的分类" class="headerlink" title="4. 并发编程模型的分类"></a>4. 并发编程模型的分类</h2><p>我们先看一个处理器操作内存的执行结果：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Processor A</th>
+<th>Processor B</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>代码</td>
+<td>a = 1; // A1<br />x = b; // A2</td>
+<td>b = 2; // B1<br />y = a; // B2</td>
+</tr>
+<tr>
+<td>运行结果</td>
+<td>初始状态：a = b = 0</td>
+<td>处理器允许执行后得到结果：x = y = 0</td>
+</tr>
+</tbody></table>
+<p> 假设处理器A和处理器B按程序的顺序并行执行内存访问，最终可能得到x = y = 0的结果。具体原因如下图：</p>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20211209211248724.png" alt="image-20211209211248724"></p>
+<p>在这里，处理器A和B可以同时把共享变量a和b写入自己的写缓冲区，然后从内存中读取另一个共享变量，最后才把自己写缓冲区中保存的脏数据刷新到内存中。所以这就得到了 x = y = 0 的结果。</p>
+<p>从内存操作实际发生的顺序来看，直到处理器A执行A3来刷新自己的写缓冲区，写操作A1才算真正执行了。虽然执行顺序为：A1→A2，但内存操作实际发生顺序却是A2→A1。此时，处理器A的内存操作顺序被重排序了（B与A的情况一样）。</p>
+<p>这里的关键是，由于写缓冲区仅对自己的处理器可见，它会导致处理器执行内存操作的顺序可能会与内存实际的操作执行顺序不一致。由于现代的处理器都会使用写缓冲区，因此都会允许对写-读操作进行重排序。</p>
+<p>下表是常见处理器允许的重排序类型的列表</p>
+<table>
+<thead>
+<tr>
+<th align="center">处理器</th>
+<th align="center">Load-Load</th>
+<th align="center">Load-Store</th>
+<th align="center">Store-Store</th>
+<th align="center">Store-Load</th>
+<th align="center">数据依赖</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">SPARC-TSO</td>
+<td align="center">N</td>
+<td align="center">N</td>
+<td align="center">N</td>
+<td align="center">Y</td>
+<td align="center">N</td>
+</tr>
+<tr>
+<td align="center">x86</td>
+<td align="center">N</td>
+<td align="center">N</td>
+<td align="center">N</td>
+<td align="center">Y</td>
+<td align="center">N</td>
+</tr>
+<tr>
+<td align="center">IA64</td>
+<td align="center">Y</td>
+<td align="center">Y</td>
+<td align="center">Y</td>
+<td align="center">Y</td>
+<td align="center">N</td>
+</tr>
+<tr>
+<td align="center">PowerPC</td>
+<td align="center">Y</td>
+<td align="center">Y</td>
+<td align="center">Y</td>
+<td align="center">Y</td>
+<td align="center">N</td>
+</tr>
+</tbody></table>
+<p>从表中可以看出：常见的处理器都运行Store-Load重排序，而不允许对存在数据依赖的操作进行重排序。sparc-TSO和X86拥有相对较强的处理器内存模型，它们仅允许对写-读操作进行重排序（因为它们都使用了写缓冲区）。</p>
+<p>为了保证内存可见性，Java编译器在生成指令序列的适当位置会插入内存屏障指令来禁止特定类型的处理器重排序。JMM把内存屏障指令分为4类，如表所示。</p>
+<table>
+<thead>
+<tr>
+<th>屏障类型</th>
+<th>指令示例</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>LoadLoad Barriers</td>
+<td>Load1;LoadLoad;Load2</td>
+<td>确保Load1数据的装载先于Load2及所有后续装载指令的装载</td>
+</tr>
+<tr>
+<td>StoreStore Barriers</td>
+<td>Store1;StoreStore;Store2</td>
+<td>确保Store1数据对其它处理器可见(刷新到内存)先于Store2及所有后续存储指令的存储</td>
+</tr>
+<tr>
+<td>LoadStore Barriers</td>
+<td>Load1;LoadStore;Store2;</td>
+<td>确保Load1数据装载先于Store2及所有后续的存储指令刷新到内存</td>
+</tr>
+<tr>
+<td>StoreLoad Barriers</td>
+<td>Store1;StoreLoad;Load2;</td>
+<td>确保Store1数据对其它处理器变得可见(指刷新到内存)先于Load2及所有后续装载指令的装载。StoreLoad Barriers会使该屏障之前的所有内存访问指令(存储和装载指令)完成之后，才执行该屏障之后的内存访问指令</td>
+</tr>
+</tbody></table>
+<p>StoreLoad Barriers是一个”全能型“的屏障，它同时具有其它3个屏障的效果。现代的多处理器大多支持该屏障。执行该屏障开销会很昂贵，因为当前处理器通常要把写缓冲区中的数据全部刷新到内存中（Buffer Fully Flush）。</p>
+<h2 id="5-happens-before简介"><a href="#5-happens-before简介" class="headerlink" title="5. happens-before简介"></a>5. happens-before简介</h2><p>从JDK5开始，Java使用新的JSR-133内存模型。JSR-133使用happens-before的概念来阐述操作之间的内存可见性。在JMM中如果一个操作执行的结果需要对另一个操作可见，那么这两个操作之间必须要存在happens-before关系。这里的两个操作既可以是在一个线程之内，也可以是在不同线程之间。</p>
+<p>与程序员密切相关的happens-before规则如下：</p>
+<ul>
+<li>程序顺序规则：一个线程中的每个操作，happens-before于该线程中的任意后续操作。</li>
+<li>监视器锁规则：对一个锁的解锁，happens-before于随后对这个锁的加锁。</li>
+<li>volatile变量规则：对一个volatile域的写，happens-before于任意后续对这个volatile域的读。</li>
+<li>传递性：如果A happens-before B，且B happens-before C，那么A happens-before C。</li>
+</ul>
+<blockquote>
+<p>注意：两个操作之间具有happens-before关系，并不意味着前一个操作必须要在后一个操作之前执行！happens-before仅仅要求前一个操作（执行的结果）对后一个操作可见，且前一个操作按顺序排在第二个操作之前。</p>
+</blockquote>
+<p>happens-before与JMM的关系如图所示：</p>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20211209215601271.png" alt="image-20211209215601271"></p>
+<p>一个happens-before规则对应于一个或多个编译器和处理器重排序规则。对于Java程序员来说，happens-before规则简单易懂，它避免Java程序员为了理解JMM提供的内存可见性保证而去学习复杂的重排序规则以及这些规则的具体实现方法。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/12/09/Java%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B%E7%9A%84%E5%9F%BA%E7%A1%80/" data-id="ckx2yjv810000pgtwgy2ugxea" class="article-share-link">
+        Share
+      </a>
+      
+    </footer>
+
+  </div>
+
+  
+  
+<nav class="article-nav">
+  
+  <a href="/2021/12/09/Java%E4%B8%AD%E7%9A%84%E9%94%81%E2%80%94%E2%80%94Lock%E6%8E%A5%E5%8F%A3%E5%92%8C%E9%98%9F%E5%88%97%E5%90%8C%E6%AD%A5%E5%99%A8/" class="article-nav-link">
+    <strong class="article-nav-caption">Newer</strong>
+    <div class="article-nav-title">
+      
+      Java中的锁——Lock接口和队列同步器
+      
+    </div>
+  </a>
+  
+  
+  <a href="/2021/12/09/%E5%88%9D%E8%A7%81%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="article-nav-link">
+    <strong class="article-nav-caption">Older</strong>
+    <div class="article-nav-title">初见设计模式</div>
+  </a>
+  
+</nav>
+
+  
+
+  
+  
+  
+  
+
+</article>
+</section>
+    <footer class="footer">
+  <div class="outer">
+    <div class="float-right">
+      <ul class="list-inline">
+  
+  <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
+  
+  <li><i class="fe fe-bookmark"></i> <span id="busuanzi_value_page_pv"></span></li>
+  
+</ul>
+    </div>
+    <ul class="list-inline">
+      <li>青稞 &copy; 2022</li>
+      
+        <li>ZHWANGART</li>
+      
+      <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
+      <li>theme  <a target="_blank" rel="noopener" href="https://github.com/zhwangart/hexo-theme-ocean">Ocean</a></li>
+    </ul>
+  </div>
+</footer>
+  </main>
+  <aside class="sidebar">
+    <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/hexo.svg" alt="青稞"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">Home</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">Archives</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/gallery">Gallery</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about">About</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="Search">
+        <i class="fe fe-search"></i>
+        Search
+      </a>
+    </li>
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      <div class="totop" id="totop">
+  <i class="fe fe-rocket"></i>
+</div>
+    </li>
+    <li class="nav-item">
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="fe fe-feed"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+  </aside>
+  
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/copybtn.js"></script>
+
+
+
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto',
+  });
+</script>
+
+
+
+<script src="/js/ocean.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  
+  
+  <title>
+    
+    青稞
+  </title>
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+    
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<script src="/js/pace.min.js"></script>
+
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="青稞" type="application/atom+xml">
+</head>
+
+<body>
+  <main class="content">
+    <section class="jumbotron">
+  <div class="video">
+    
+    <div class="video-frame">
+      <img src="/images/ocean/overlay-hero.png" alt="Decorative image frame">
+    </div>
+    
+    <div class="video-media">
+      <video playsinline="" autoplay="" loop="" muted="" data-autoplay="" poster="/images/ocean/ocean.png"
+        x5-video-player-type="h5">
+        <source src="/images/ocean/ocean.mp4" type="video/mp4">
+        <source src="/images/ocean/ocean.ogv" type="video/ogg">
+        <source src="/images/ocean/ocean.webm" type="video/webm">
+        <p>Your user agent does not support the HTML5 Video element.</p>
+      </video>
+      <div class="video-overlay"></div>
+    </div>
+    <div class="video-inner text-center text-white">
+      <h1><a href="/">青稞</a></h1>
+      <p></p>
+      <div><img src="/images/hexo-inverted.svg" class="brand" alt="青稞"></div>
+    </div>
+    <div class="video-learn-more">
+      <a class="anchor" href="#landingpage"><i class="fe fe-mouse"></i></a>
+    </div>
+  </div>
+</section>
+<div id="landingpage">
+  <section class="outer">
+  <article class="articles">
+    
+    <h1 class="page-type-title"></h1>
+    
+    
+    <article id="post-SpringMVC——-RequestMapping映射" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+      
+
+<h2 itemprop="name">
+  <a class="article-title" href="/2022/01/23/SpringMVC%E2%80%94%E2%80%94-RequestMapping%E6%98%A0%E5%B0%84/">SpringMVC——@RequestMapping映射</a>
+</h2>
+
+
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2022/01/23/SpringMVC%E2%80%94%E2%80%94-RequestMapping%E6%98%A0%E5%B0%84/" class="article-date">
+  <time datetime="2022-01-23T07:26:55.000Z" itemprop="datePublished">2022-01-23</time>
+</a>
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+        
+      
+      
+      <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> org.springframework.web.bind.annotation;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.lang.annotation.Documented;</span><br><span class="line"><span class="keyword">import</span> java.lang.annotation.ElementType;</span><br><span class="line"><span class="keyword">import</span> java.lang.annotation.Retention;</span><br><span class="line"><span class="keyword">import</span> java.lang.annotation.RetentionPolicy;</span><br><span class="line"><span class="keyword">import</span> java.lang.annotation.Target;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.Callable;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Target(&#123;ElementType.METHOD, ElementType.TYPE&#125;)</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Mapping</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> RequestMapping &#123;</span><br><span class="line"></span><br><span class="line">   String[] value() <span class="keyword">default</span> &#123;&#125;;</span><br><span class="line"></span><br><span class="line">   RequestMethod[] method() <span class="keyword">default</span> &#123;&#125;;</span><br><span class="line"></span><br><span class="line">   String[] params() <span class="keyword">default</span> &#123;&#125;;</span><br><span class="line"></span><br><span class="line">   String[] headers() <span class="keyword">default</span> &#123;&#125;;</span><br><span class="line"></span><br><span class="line">   String[] consumes() <span class="keyword">default</span> &#123;&#125;;</span><br><span class="line"></span><br><span class="line">   String[] produces() <span class="keyword">default</span> &#123;&#125;;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="RequestMapping映射请求注解"><a href="#RequestMapping映射请求注解" class="headerlink" title="@RequestMapping映射请求注解"></a>@RequestMapping映射请求注解</h2><p>SpringMVC使用@RequestMapping注解为控制器指定可以处理哪些URL请求，从源码中可以看到，在类上和方法定义处都可以标注。它的作用就是为了让DispatcherServlet截获请求后，就通过控制器上@RequestMapping提供的映射信息确定请求所对应的处理方法。</p>
+<p>我们在index.jsp中编写我们的测试代码来看看</p>
+<figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;h1&gt;RequestMapping测试&lt;/h1&gt;&lt;br/&gt;</span><br><span class="line">&lt;a href=<span class="string">&quot;hello&quot;</span>&gt;写在方法上的RequestMapping&lt;/a&gt;&lt;br/&gt;</span><br><span class="line">&lt;a href=<span class="string">&quot;hello01&quot;</span>&gt;写在类上的RequestMapping&lt;/a&gt;&lt;br/&gt;</span><br><span class="line">&lt;br/&gt;&lt;br/&gt;</span><br></pre></td></tr></table></figure>
+
+<p>在我们的controller中，我们先不在类上标注@RequestMapping</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="comment">// @RequestMapping(&quot;/ha&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyFirstController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping(&quot;/hello&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">myFirstRequest</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;请求收到了...正在处理中&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;success&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>最后，我们启动可以发现，点击访问的是：<a target="_blank" rel="noopener" href="http://localhost:8080/SpringMVC_war_exploded/hello">http://localhost:8080/SpringMVC_war_exploded/hello</a></p>
+<p><img src="C:/Users/pengbin007/AppData/Roaming/Typora/typora-user-images/image-20220130144836741.png" alt="image-20220130144836741"></p>
+<p>而当我们在类上也标注@RequestMapping时会发现，当我们访问的是：<a target="_blank" rel="noopener" href="http://localhost:8080/SpringMVC_war_exploded/ha/hello%E6%89%8D%E8%83%BD%E8%AE%BF%E9%97%AE%E6%88%90%E5%8A%9F%EF%BC%8C%E8%80%8C%E7%BB%A7%E7%BB%AD%E8%AE%BF%E9%97%AEhttp://localhost:8080/SpringMVC_war_exploded/hello%E4%BC%9A%E6%8F%90%E7%A4%BA404%E3%80%82">http://localhost:8080/SpringMVC_war_exploded/ha/hello才能访问成功，而继续访问http://localhost:8080/SpringMVC_war_exploded/hello会提示404。</a></p>
+<p>简而言之，我们在类上标注的@RequestMapping就相当于我们项目的根目录，而当我们没有在类上指定的时候，方法上的@RequestMapping就是请求的根目录。</p>
+<h2 id="RequestMapping映射请求方式"><a href="#RequestMapping映射请求方式" class="headerlink" title="RequestMapping映射请求方式"></a>RequestMapping映射请求方式</h2><p>我们先看一个标准的HTTP请求报头</p>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20220130145331634.png" alt="image-20220130145331634"></p>
+<p>@RequestMapping除了可以使用请求URL映射请求外，还可以使用请求方法、请求参数以及请求头映射请求。在源码中我们可以看到，它有value、method、params、headers等属性，它们分别表示请求URL、请求方法、请求参数和请求头的映射条件。</p>
+<p>其中，比较重要的是value和method属性，params和headers了解即可。value我们已经使用过了，我们来看method</p>
+<h3 id="method"><a href="#method" class="headerlink" title="method"></a>method</h3><p>先在index.jsp中准备好测试页面：</p>
+<figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;h1&gt;测试RequestMapping的属性&lt;/h1&gt;&lt;br/&gt;</span><br><span class="line">&lt;a href=<span class="string">&quot;ha/handle02&quot;</span>&gt;测试method属性&lt;/a&gt;&lt;br/&gt;</span><br><span class="line">&lt;a href=<span class="string">&quot;ha/handle03&quot;</span>&gt;测试params属性&lt;/a&gt;&lt;br/&gt;</span><br><span class="line">&lt;a href=<span class="string">&quot;ha/handle04&quot;</span>&gt;测试headers属性(只能谷歌浏览器打开)&lt;/a&gt;&lt;br/&gt;</span><br><span class="line">&lt;br/&gt;&lt;br/&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RequestMapping(value = &quot;/handle02&quot;, method = RequestMethod.POST)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">handle02</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;success&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们在参数位置指明了method为POST，那么，只有POST请求才能进行访问。因此，当我们点击“测试method属性”的连接，会发现提示405，GET方式不允许。</p>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20220130150145762.png" alt="image-20220130150145762"></p>
+<p>除了POST，在RequestMethod中还有其它请求方式：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">enum</span> <span class="title">RequestMethod</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">   GET, HEAD, POST, PUT, PATCH, DELETE, OPTIONS, TRACE</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>而有了这个请求方式之后，我们就可以实现Rest风格的请求方式了（详情参见）。</p>
+<h3 id="params-amp-headers"><a href="#params-amp-headers" class="headerlink" title="params &amp; headers"></a>params &amp; headers</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RequestMapping(value=&quot;/handle03&quot;, params=&quot;&#123;&quot;user=admin&quot;, &quot;password&quot;&#125;&quot;)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">handle03</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;success&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@RequestMapping(value=&quot;/handle04&quot;, headers=&#123;&quot;User-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.71 Safari/537.36&quot;&#125;)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">handle04</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;success&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<ul>
+<li>params：规定请求参数<ul>
+<li><pre><code> params和headers都支持简单的表达式：
+</code></pre>
+</li>
+<li><pre><code>     param1：表示请求中必须包含名为param1的请求参数，没带都会404
+</code></pre>
+</li>
+<li><pre><code>     !param：表示请求不能包含名为param1的请求参数
+</code></pre>
+</li>
+<li><pre><code>     param != value1：表示请求包含名为param1的请求参数，但其值不能为value1
+</code></pre>
+</li>
+<li><pre><code>     &#123;&quot;param1 = value1&quot;, &quot;param2&quot;&#125;：请求必须包含param1和param2参数，且param1必须等于value1
+</code></pre>
+</li>
+</ul>
+</li>
+<li>headers：规定请求头，同params</li>
+<li>consumes：只接受内容类型是哪种的请求，规定请求头中的Content-Type</li>
+<li>produce：告诉浏览器返回的内容类型是什么，给响应头中加上Content-Type</li>
+</ul>
+</blockquote>
+<p>在我们上面的handle03中就规定了，访问路径中必须包含参数user和password，并且user必须等于admin才能访问成功。在handle04中headers规定了必须使用Chrome浏览器才能访问，而火狐等浏览器无法访问。</p>
+<h2 id="RequestMapping支持Ant路径风格"><a href="#RequestMapping支持Ant路径风格" class="headerlink" title="RequestMapping支持Ant路径风格"></a>RequestMapping支持Ant路径风格</h2><p>所谓的RequestMapping支持Ant路径风格就是，我们可以在URL地址上写模糊的通配符，Ant风格资源地址支持3中通配符：</p>
+<ol>
+<li>?：匹配文件名中的一个字符</li>
+<li>*：匹配文件名中任意字符</li>
+<li>**：匹配多层路径</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">/user/*/createUser</span><br><span class="line">匹配 /user/aaa/createUser、/user/bbb/createUser 等 URL</span><br><span class="line"></span><br><span class="line">/user/**/createUser</span><br><span class="line">匹配 /user/createUser、/user/aaa/bbb/createUser 等 URL</span><br><span class="line"></span><br><span class="line">/user/createUser??</span><br><span class="line">匹配 /user/createUseraa、/user/createUserbb 等 URL</span><br></pre></td></tr></table></figure>
+
+<p>注意，？只匹配一个字符，0个多个都不行。并且，在模糊和精确同时成立的情况下，精确优先。</p>
+<h2 id="占位符-PathVariable"><a href="#占位符-PathVariable" class="headerlink" title="占位符@PathVariable"></a>占位符@PathVariable</h2><p>通过使用@PathVariable注解，可以将URL中占位符参数绑定到控制器处理方法的入参中，即将URL中的{xxx}占位符通过@PathVariable(“xxx”)绑定到操作方法的入参中。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RequestMapping(&quot;/user/&#123;id&#125;&quot;)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">pathVariableTest</span><span class="params">(<span class="meta">@PathVariable(&quot;id&quot;)</span> String id)</span> </span>&#123;</span><br><span class="line">    System.out.println(<span class="string">&quot;id = &quot;</span> + id);</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;success&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/01/23/SpringMVC%E2%80%94%E2%80%94-RequestMapping%E6%98%A0%E5%B0%84/" data-id="ckzb6dz37000qzwtw54o03buy" class="article-share-link">
+        Share
+      </a>
+      
+    </footer>
+
+  </div>
+
+  
+
+  
+
+</article>
+    
+    <article id="post-SpringMVC——Spring整合" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+      
+
+<h2 itemprop="name">
+  <a class="article-title" href="/2022/01/22/SpringMVC%E2%80%94%E2%80%94Spring%E6%95%B4%E5%90%88/">SpringMVC——Spring整合</a>
+</h2>
+
+
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2022/01/22/SpringMVC%E2%80%94%E2%80%94Spring%E6%95%B4%E5%90%88/" class="article-date">
+  <time datetime="2022-01-22T09:21:27.000Z" itemprop="datePublished">2022-01-22</time>
+</a>
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+        
+      
+      
+      
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/01/22/SpringMVC%E2%80%94%E2%80%94Spring%E6%95%B4%E5%90%88/" data-id="ckzb6dz3c000uzwtwc8d8b727" class="article-share-link">
+        Share
+      </a>
+      
+    </footer>
+
+  </div>
+
+  
+
+  
+
+</article>
+    
+    <article id="post-SpringMVC——异常处理" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+      
+
+<h2 itemprop="name">
+  <a class="article-title" href="/2022/01/22/SpringMVC%E2%80%94%E2%80%94%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/">SpringMVC——异常处理</a>
+</h2>
+
+
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2022/01/22/SpringMVC%E2%80%94%E2%80%94%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/" class="article-date">
+  <time datetime="2022-01-22T09:21:09.000Z" itemprop="datePublished">2022-01-22</time>
+</a>
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+        
+      
+      
+      
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/01/22/SpringMVC%E2%80%94%E2%80%94%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/" data-id="ckzb6dz3j000zzwtw61ru2xco" class="article-share-link">
+        Share
+      </a>
+      
+    </footer>
+
+  </div>
+
+  
+
+  
+
+</article>
+    
+    <article id="post-SpringMVC——国际化" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+      
+
+<h2 itemprop="name">
+  <a class="article-title" href="/2022/01/22/SpringMVC%E2%80%94%E2%80%94%E5%9B%BD%E9%99%85%E5%8C%96/">SpringMVC——国际化</a>
+</h2>
+
+
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2022/01/22/SpringMVC%E2%80%94%E2%80%94%E5%9B%BD%E9%99%85%E5%8C%96/" class="article-date">
+  <time datetime="2022-01-22T09:21:01.000Z" itemprop="datePublished">2022-01-22</time>
+</a>
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+        
+      
+      
+      
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/01/22/SpringMVC%E2%80%94%E2%80%94%E5%9B%BD%E9%99%85%E5%8C%96/" data-id="ckzb6dz38000rzwtwbhd1dpre" class="article-share-link">
+        Share
+      </a>
+      
+    </footer>
+
+  </div>
+
+  
+
+  
+
+</article>
+    
+    <article id="post-SpringMVC——拦截器" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+      
+
+<h2 itemprop="name">
+  <a class="article-title" href="/2022/01/22/SpringMVC%E2%80%94%E2%80%94%E6%8B%A6%E6%88%AA%E5%99%A8/">SpringMVC——拦截器</a>
+</h2>
+
+
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2022/01/22/SpringMVC%E2%80%94%E2%80%94%E6%8B%A6%E6%88%AA%E5%99%A8/" class="article-date">
+  <time datetime="2022-01-22T09:20:49.000Z" itemprop="datePublished">2022-01-22</time>
+</a>
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+        
+      
+      
+      
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/01/22/SpringMVC%E2%80%94%E2%80%94%E6%8B%A6%E6%88%AA%E5%99%A8/" data-id="ckzb6dz3d000wzwtwgsr7asxf" class="article-share-link">
+        Share
+      </a>
+      
+    </footer>
+
+  </div>
+
+  
+
+  
+
+</article>
+    
+    <article id="post-SpringMVC——数据绑定-数据校验" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+      
+
+<h2 itemprop="name">
+  <a class="article-title" href="/2022/01/22/SpringMVC%E2%80%94%E2%80%94%E6%95%B0%E6%8D%AE%E7%BB%91%E5%AE%9A-%E6%95%B0%E6%8D%AE%E6%A0%A1%E9%AA%8C/">SpringMVC——数据绑定&amp;数据校验</a>
+</h2>
+
+
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2022/01/22/SpringMVC%E2%80%94%E2%80%94%E6%95%B0%E6%8D%AE%E7%BB%91%E5%AE%9A-%E6%95%B0%E6%8D%AE%E6%A0%A1%E9%AA%8C/" class="article-date">
+  <time datetime="2022-01-22T09:20:07.000Z" itemprop="datePublished">2022-01-22</time>
+</a>
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+        
+      
+      
+      
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/01/22/SpringMVC%E2%80%94%E2%80%94%E6%95%B0%E6%8D%AE%E7%BB%91%E5%AE%9A-%E6%95%B0%E6%8D%AE%E6%A0%A1%E9%AA%8C/" data-id="ckzb6dz3e000xzwtwfqcw245v" class="article-share-link">
+        Share
+      </a>
+      
+    </footer>
+
+  </div>
+
+  
+
+  
+
+</article>
+    
+    <article id="post-SpringMVC——RestfulCRUD" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+      
+
+<h2 itemprop="name">
+  <a class="article-title" href="/2022/01/22/SpringMVC%E2%80%94%E2%80%94RestfulCRUD/">SpringMVC——RestfulCRUD</a>
+</h2>
+
+
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2022/01/22/SpringMVC%E2%80%94%E2%80%94RestfulCRUD/" class="article-date">
+  <time datetime="2022-01-22T09:19:44.000Z" itemprop="datePublished">2022-01-22</time>
+</a>
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+        
+      
+      
+      
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/01/22/SpringMVC%E2%80%94%E2%80%94RestfulCRUD/" data-id="ckzb6dz3b000tzwtwbh6e4opn" class="article-share-link">
+        Share
+      </a>
+      
+    </footer>
+
+  </div>
+
+  
+
+  
+
+</article>
+    
+    <article id="post-SpringMVC——视图解析" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+      
+
+<h2 itemprop="name">
+  <a class="article-title" href="/2022/01/22/SpringMVC%E2%80%94%E2%80%94%E8%A7%86%E5%9B%BE%E8%A7%A3%E6%9E%90/">SpringMVC——视图解析</a>
+</h2>
+
+
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2022/01/22/SpringMVC%E2%80%94%E2%80%94%E8%A7%86%E5%9B%BE%E8%A7%A3%E6%9E%90/" class="article-date">
+  <time datetime="2022-01-22T09:19:23.000Z" itemprop="datePublished">2022-01-22</time>
+</a>
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+        
+      
+      
+      
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/01/22/SpringMVC%E2%80%94%E2%80%94%E8%A7%86%E5%9B%BE%E8%A7%A3%E6%9E%90/" data-id="ckzb6dz3i000yzwtwh3vh4pad" class="article-share-link">
+        Share
+      </a>
+      
+    </footer>
+
+  </div>
+
+  
+
+  
+
+</article>
+    
+    <article id="post-【源码】SpringMVC——请求处理流程" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+      
+
+<h2 itemprop="name">
+  <a class="article-title" href="/2022/01/22/%E3%80%90%E6%BA%90%E7%A0%81%E3%80%91SpringMVC%E2%80%94%E2%80%94%E8%AF%B7%E6%B1%82%E5%A4%84%E7%90%86%E6%B5%81%E7%A8%8B/">【源码】SpringMVC——请求处理流程</a>
+</h2>
+
+
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2022/01/22/%E3%80%90%E6%BA%90%E7%A0%81%E3%80%91SpringMVC%E2%80%94%E2%80%94%E8%AF%B7%E6%B1%82%E5%A4%84%E7%90%86%E6%B5%81%E7%A8%8B/" class="article-date">
+  <time datetime="2022-01-22T09:19:03.000Z" itemprop="datePublished">2022-01-22</time>
+</a>
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+        
+      
+      
+      
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/01/22/%E3%80%90%E6%BA%90%E7%A0%81%E3%80%91SpringMVC%E2%80%94%E2%80%94%E8%AF%B7%E6%B1%82%E5%A4%84%E7%90%86%E6%B5%81%E7%A8%8B/" data-id="ckzb6dz3x001jzwtw5nzy45he" class="article-share-link">
+        Share
+      </a>
+      
+    </footer>
+
+  </div>
+
+  
+
+  
+
+</article>
+    
+    <article id="post-SpringMVC——数据输出" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+      
+
+<h2 itemprop="name">
+  <a class="article-title" href="/2022/01/22/SpringMVC%E2%80%94%E2%80%94%E6%95%B0%E6%8D%AE%E8%BE%93%E5%87%BA/">SpringMVC——数据输出</a>
+</h2>
+
+
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2022/01/22/SpringMVC%E2%80%94%E2%80%94%E6%95%B0%E6%8D%AE%E8%BE%93%E5%87%BA/" class="article-date">
+  <time datetime="2022-01-22T09:17:46.000Z" itemprop="datePublished">2022-01-22</time>
+</a>
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+        
+      
+      
+      <p>f</p>
+<p>传入Model、Map、ModelMap</p>
+<p>三者关系</p>
+<p>方法返回值为ModelAndView</p>
+<p>SessionAttributes</p>
+<p>全字段更新引发的问题</p>
+<p>ModelAttribute解决问题</p>
+<p>ModelAttribute原理</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/01/22/SpringMVC%E2%80%94%E2%80%94%E6%95%B0%E6%8D%AE%E8%BE%93%E5%87%BA/" data-id="ckzb6dz3d000vzwtw9ysp7u1v" class="article-share-link">
+        Share
+      </a>
+      
+    </footer>
+
+  </div>
+
+  
+
+  
+
+</article>
+    
+  </article>
+  
+
+  
+  <nav class="page-nav">
+    <a class="extend prev" rel="prev" href="/page/3/">Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/5/">Next</a>
+  </nav>
+  
+</section>
+</div>
+    <footer class="footer">
+  <div class="outer">
+    <div class="float-right">
+      <ul class="list-inline">
+  
+  <li><i class="fe fe-bar-chart"></i> <span id="busuanzi_value_site_pv"></span></li>
+  
+  <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
+  
+</ul>
+    </div>
+    <ul class="list-inline">
+      <li>青稞 &copy; 2022</li>
+      
+        <li>ZHWANGART</li>
+      
+      <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
+      <li>theme  <a target="_blank" rel="noopener" href="https://github.com/zhwangart/hexo-theme-ocean">Ocean</a></li>
+    </ul>
+  </div>
+</footer>
+  </main>
+  <aside class="sidebar">
+    <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/hexo.svg" alt="青稞"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">Home</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">Archives</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/gallery">Gallery</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about">About</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="Search">
+        <i class="fe fe-search"></i>
+        Search
+      </a>
+    </li>
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      <div class="totop" id="totop">
+  <i class="fe fe-rocket"></i>
+</div>
+    </li>
+    <li class="nav-item">
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="fe fe-feed"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+  </aside>
+  
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/copybtn.js"></script>
+
+
+
+
+
+
+<script src="/js/ocean.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  
+  
+  <title>
+    死锁避免（含银行家算法） |
+    
+    青稞
+  </title>
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+    
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<script src="/js/pace.min.js"></script>
+
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="青稞" type="application/atom+xml">
+</head>
+
+<body>
+  <main class="content">
+    <section class="outer">
+  <article id="post-死锁避免（含银行家算法）" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+      
+
+<h1 class="article-title" itemprop="name">
+  死锁避免（含银行家算法）
+</h1>
+
+
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2021/12/23/%E6%AD%BB%E9%94%81%E9%81%BF%E5%85%8D%EF%BC%88%E5%90%AB%E9%93%B6%E8%A1%8C%E5%AE%B6%E7%AE%97%E6%B3%95%EF%BC%89/" class="article-date">
+  <time datetime="2021-12-23T13:26:37.000Z" itemprop="datePublished">2021-12-23</time>
+</a>
+      
+    </div>
+    
+
+    
+    
+<div class="tocbot"></div>
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+      
+      <p>在大多数系统中，一个进程一次只能请求一个资源。系统必须能够判断分配资源是否安全，并且只能在保证安全的条件下分配资源。问题是：是否存在一种算法总能做出正确的选择从而避免死锁？</p>
+<h1 id="1-资源轨迹图"><a href="#1-资源轨迹图" class="headerlink" title="1. 资源轨迹图"></a>1. 资源轨迹图</h1><p>避免死锁的主要算法是基于一个安全状态的概念。在描述算法前，我们先讨论有关安全的概念。通过图的方式，能更容易理解。虽然它不能被直接翻译成有用的算法，但它给出了一个解决问题的直观感受。</p>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20211223221557289.png" alt="image-20211223221557289"></p>
+<p>如图，我们看到一个处理两个进程和两个资源（打印机和绘图仪）的模型。横轴表示进程A执行的指令，纵轴表示进程B执行的指令。进程A在m1处申请打印机，在m3处释放；在m2处申请绘图仪，在m4处释放。进程B在m5处申请绘图仪，在m7处释放；在m6处申请打印机，在m8处释放。</p>
+<p>图中的每一个点都表示出两个进程的连接状态。初始点为p，没有执行任何指令，如果调度程序选中进程A先运行，那么在A执行一段指令后到达q，此时B没有执行任何指令。在q点，如果轨迹沿着垂直方向移动，表示调度程序选中B执行。</p>
+<p>当进程A越过m1线时，它请求并获得打印机；当进程B到达t点时，它请求绘图仪。</p>
+<p>图中蓝色部分表示两个进程都拥有打印机，红色部分表示两个进程都拥有绘图仪，而互斥使用的规则决定了不可能进入这些区域。</p>
+<p>如果系统一旦进入m1、m2、m5和m6组成的矩形区域，那么最后一定会到达m2和m6的交叉点，这是就产生死锁。在该点，A拥有打印机，请求绘图仪；B拥有绘图仪，请求打印机。整个紫色区域都是不安全的，因此绝不能进入这个区域。在点t处唯一的办法就是运行进程A直到m4，过了m4之后，可以按任何路线前进，直到终点u。</p>
+<p>需要注意的是，在点t进程B请求资源。系统必须决定是否分配。如果系统把资源分配给B，系统进入不安全区域，最终形成死锁。要避免死锁，应该将B挂起，直到A请求并释放绘图仪。</p>
+<h1 id="2-安全状态和不安全状态"><a href="#2-安全状态和不安全状态" class="headerlink" title="2. 安全状态和不安全状态"></a>2. 安全状态和不安全状态</h1><p>如果没有死锁发生，并且即使所有进程突然请求对资源的最大需求，也仍然存在某种调度次序能够使得每一个进程运行完毕，则称该状态是安全的。我们看下面这张图：</p>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20211223224618571.png" alt="image-20211223224618571"></p>
+<p>在图a中进程A拥有3个资源实例但最终可能会需要9个资源实例，进程B拥有2个资源实例但可能会需要4个资源实例，……总共有10个资源实例，还有3个是空闲的。图a的状态是安全的，考虑下面这个分配序列：先单独运行B，直到它请求并获得另外两个资源实例，从而达到图b的状态。当B完成后，就到了图c的状态。然后调度运行C，再到达图d的状态。当C完成后，到达了图e的状态，现在A可以获得它所需要的6个资源实例，并且完成。这样系统通过仔细的调度，就能够避免死锁，所以图a的状态是安全的。</p>
+<p>现在假设初始状态如下图a所示，但这次A请求并得到一个资源，如下图b所示。我们还能找到一个序列来完成所有工作吗？如果调度程序运行B，直到B获取所需资源，如下图c所示。最终，进程B完成，状态如下图d所示，此时进入困境了，只有4个资源实例空闲，并且所有进程A和C都需要5个资源实例。任何分配资源实例的序列都无法保证工作的完成。于是，从下图的a到b的分配方案，从安全状态进入到了不安全状态。</p>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20211223225802876.png" alt="image-20211223225802876"></p>
+<p>值得注意的是，不安全状态并不是死锁。从图b出发，系统能运行一段时间。实际上，甚至有一个进程能完成。而且，在A请求其它资源实例前，A可能先释放一个资源实例，这就可以让C先完成，从而避免了死锁。因而，<strong>安全状态和不安全状态的区别是：从安全状态出发，系统能够保证所有进程都能完成，而从不安全状态出发，就没有这样的保证。</strong></p>
+<h1 id="3-单个资源的银行家算法"><a href="#3-单个资源的银行家算法" class="headerlink" title="3. 单个资源的银行家算法"></a>3. 单个资源的银行家算法</h1><p>Dijkstra提出了一种能够避免死锁的调度算法，称为<strong>银行家算法</strong>。该模型基于一个小城镇的银行家，他向一群客户分别承诺了一定的贷款额度。<strong>算法要做的是判断对请求的满足是否会导致进入不安全状态。</strong>如果是，就拒绝请求；否则就予以分配。在图a中我们可以看到4个客户A、B、C、D，每个客户都被授予一定数量的贷款单位，银行家知道不可能所有客户同时都需要最大贷款额，所以他只保留10个单位而不是22个单位的资金来为客户服务。这里将客户比作进程，贷款单位比作资源，银行家比作OS。</p>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20211223231131980.png" alt="image-20211223231131980"></p>
+<p>客户们各自做自己的生意，在某些时刻需要贷款（相当于请求资源）。某一时刻，具体情况如图b所示。这个状态是安全的，由于保留着2个单位，银行家能够拖延除了C以外的其它请求。因而可以让C先完成，然后释放C所占的4个资源单位。有了这4个单位资源，银行家就可以给D或B分配所需的贷款单位，以此类推。</p>
+<p>考虑假如向B提供了剩下的一个贷款单位，如图c所示，该状态是不安全的。如果忽然所有的客户都请求最大的限额，而银行家无法满足其中任何一个的要求，那么就会产生死锁。不安全状态并不一定引起死锁，由于客户不一定需要其最大贷款额度，但银行家不敢抱这样的侥幸心理。</p>
+<p>银行家算法就是对每一个请求进行检查，检查如果满足这一请求是否会达到安全状态。若是，那么满足该请求；否则，就推迟对这一请求的满足。为了检查状态是否安全，银行家需要考虑他是否有足够的资源满足某一个客户。如果可以，那么这笔贷款就是能够收回的，并且接着检查最接近最大限额的一个客户，以此类推。如果所有投资最终都能被收回，那么该状态是安全的，最初的请求可以批准。</p>
+<h1 id="4-多个资源的银行家算法"><a href="#4-多个资源的银行家算法" class="headerlink" title="4. 多个资源的银行家算法"></a>4. 多个资源的银行家算法</h1><p>可以把银行家算法进行推广以处理多个资源。如图（状态是安全的）：</p>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20211223232843534.png" alt="image-20211223232843534"></p>
+<p>图中的三个向量分别表示现有资源E、已分配资源P和可用资源A。由E可知系统中共有6台磁带机、3台绘图仪、4台打印机和2台蓝光光驱，其它同理类推。</p>
+<p>检查一个状态是否安全的算法如下：</p>
+<ol>
+<li>查找右边矩阵中是否有一行，其没有被满足的资源数均小于或等于A。如果不存在这样的行，那么系统将会产生死锁，因为任何进程都无法运行结束。（假设进程会一直占有资源直到它们终止为止）</li>
+<li>如果找到这样一行，那么可以假设它获得所需的资源并运行结束，将该进程标记为终止，并将其资源加到向量A。</li>
+<li>重复以上两步，或者直到所有的进程都标记为终止，其初始状态是安全的；或者所有进程的资源需求都得不到满足，此时就是发生了死锁。</li>
+</ol>
+<p>如果在第一步有若干进程均符合条件，那么不管挑选那一个运行都没有关系，因为可用资源或者会增多，至少会保持不变。</p>
+<p>银行家算法最早由Dijkstra于1965年发表。从那以后几乎每本OS的专著都有详细地描述它，很多论文的内容也围绕着该算法讨论了它的不同方面。但很少有作者指出该算法虽然很有意义但缺乏实用价值。因为很少有进程能够在运行前就知道其所需资源的最大值。而且进程数也不是固定的，往往在不断变化，况且原本可用的资源也可能突然变成不可用。因此，在实际中，如果有，也只有极少的系统使用银行家算法来避免死锁。然而，一些系统可以使用诸如银行家算法之类的启发式方法类避免死锁。例如，当缓冲区利用率达到70%以上时，网络会实现自动节流，此时网络预计剩余的30%就足够用户完成服务并返回资源。</p>
+<h2 id="4-1-数据结构描述"><a href="#4-1-数据结构描述" class="headerlink" title="4.1 数据结构描述"></a>4.1 数据结构描述</h2><ul>
+<li><p>可利用资源向量Available：</p>
+<p>含有m个元素的数组，其中每个元素代表一类可用的资源数目。Available[j] = k表示系统中现有Rj类资源k个。</p>
+</li>
+<li><p>最大需求矩阵Max：</p>
+<p>n×m矩阵，定义系统中n个进程中的每个进程对m类资源的最大需求。</p>
+</li>
+<li><p>分配矩阵Allocation：</p>
+<p>n×m矩阵，定义系统中每类资源当前已分配给每个进程的资源数。</p>
+</li>
+<li><p>需求矩阵Need：</p>
+<p>n×m矩阵，表示每个进程接下来最多还需要多少资源。</p>
+</li>
+</ul>
+<p>上述三个矩阵间存在下述关系：Need = Max - Allocation。一般情况下，在银行家算法的题目中，Max和Allocation矩阵是已知条件，而求出Need矩阵是解题的第一步。</p>
+<h2 id="4-2-安全性算法"><a href="#4-2-安全性算法" class="headerlink" title="4.2 安全性算法"></a>4.2 安全性算法</h2><p>设置工作向量Work，有m个元素，表示系统中剩余可用资源数目。在执行安全性算法开始时，Work = Available。</p>
+<ol>
+<li>初始时安全序列为空。</li>
+<li>从Need矩阵中找出符号下面条件的行：该行对应的进程不在安全序列中，而且该行小于等于Work向量，找到后，把对应的进程加入安全序列；若找不到，执行步骤④。</li>
+<li>进程Pi进入安全序列后，可顺利执行，直至完成，并释放分配给它的资源，因此应执行Work = Work + Allocation[i]，返回步骤②。</li>
+<li>若此时安全序列中已有所有进程，则系统处于安全状态，否则处于不安全状态。</li>
+</ol>
+<h1 id="5-银行家算法举例"><a href="#5-银行家算法举例" class="headerlink" title="5. 银行家算法举例"></a>5. 银行家算法举例</h1><p>在银行家算法的题目中，一般会有某个进程的一个资源请求向量，我们只要执行上面所介绍的银行家算法的三步，马上就会得到更新的Allcation矩阵和Need矩阵，再进行安全状态的判断，就能知道系统能否满足进程提出的资源请求。</p>
+<p>假设当前系统中资源的分配和剩余情况如表所示：</p>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20211224000223816.png" alt="image-20211224000223816"></p>
+<p>从表中我们可以提取Max矩阵和Allocation矩阵，这两个矩阵相减得到Need矩阵：<br>$$<br>\begin{Bmatrix}<br>7 &amp; 5 &amp; 3\<br>3 &amp; 2 &amp; 2\<br>9 &amp; 0 &amp; 2\<br>2 &amp; 2 &amp; 2\<br>4 &amp; 3 &amp; 3<br>\end{Bmatrix}<br>-<br>\begin{Bmatrix}<br>0 &amp; 1 &amp; 0\<br>2 &amp; 0 &amp; 0\<br>3 &amp; 0 &amp; 2\<br>2 &amp; 1 &amp; 1\<br>0 &amp; 0 &amp; 2<br>\end{Bmatrix}<br>=<br>\begin{Bmatrix}<br>7 &amp; 4 &amp; 3\<br>1 &amp; 2 &amp; 2\<br>6 &amp; 0 &amp; 0\<br>0 &amp; 1 &amp; 1\<br>4 &amp; 3 &amp; 1<br>\end{Bmatrix}<br>$$<br>（1）P1请求资源：P1发出的请求向量Request1(1,0,2)，系统按银行家算法进行检查：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Request1(1,0,2) &lt;= Need1(1,2,2)</span><br><span class="line">Request1(1,0,2) &lt;= Available1(3,3,2)</span><br></pre></td></tr></table></figure>
+
+<p>系统先假定可为P1分配资源，并修改</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Available = Available - Request1 = (2,3,0)</span><br><span class="line">Allocation1 = Allocation1 + Request1 = (3,0,2)</span><br><span class="line">Need1 = Need1 - Request1 = (0,2,0)</span><br></pre></td></tr></table></figure>
+
+<p>由此形成的资源变化情况如上表中的圆括号所示。</p>
+<p>令Work = Available = (2,3,0)，再利用安全性算法检查此时系统是否安全，如表所示：</p>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20211224115522411.png" alt="image-20211224115522411"></p>
+<p>由所进行的安全性检查可知，可找到一个安全序列{P1,P3,P4,P2,P0}。因此，系统是安全的，可以立即将P1所申请的资源分配给它。分配后系统中的资源情况如表所示：</p>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20211224120132179.png" alt="image-20211224120132179"></p>
+<p>（2）P4请求资源：P4发出请求向量Request4(3,3,0)，系统按银行家算法进行检查：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Request4(3,3,0) &lt;= Need4(4,3,1)</span><br><span class="line">Request4(3,3,0) &gt; Available4(2,3,0)</span><br></pre></td></tr></table></figure>
+
+<p>因此让P4等待。</p>
+<p>（3）P0请求资源：P0发出请求向量Request0(0,2,0),系统按银行家算法进行检查：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Request0(0,2,0) &lt;= Need0(7,4,3)</span><br><span class="line">Request0(0,2,0) &lt;= Available0(2,3,0)</span><br></pre></td></tr></table></figure>
+
+<p>系统暂时先假定可以为P0分配资源，并修改相关数据：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Available= Available- Request0 = (2,1,0)</span><br><span class="line">Allocation0 = Allocation0 + Request0 = (0,3,0)</span><br><span class="line">Need0 = Need0 - Request0 = (7,2,3)</span><br></pre></td></tr></table></figure>
+
+<p>结果如表所示：</p>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20211224120825960.png" alt="image-20211224120825960"></p>
+<p>进行安全性检查，可用资源Available(2,1,0)已不能满足任何进程的需要，因此系统进入不安全状态，因此拒绝P0的请求，让P0等待，并将Available、Allocation0、Need0恢复为之前的值。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/12/23/%E6%AD%BB%E9%94%81%E9%81%BF%E5%85%8D%EF%BC%88%E5%90%AB%E9%93%B6%E8%A1%8C%E5%AE%B6%E7%AE%97%E6%B3%95%EF%BC%89/" data-id="ckzb6dz48001zzwtwgfl53xs3" class="article-share-link">
+        Share
+      </a>
+      
+    </footer>
+
+  </div>
+
+  
+  
+<nav class="article-nav">
+  
+  <a href="/2021/12/24/%E6%AD%BB%E9%94%81%E9%A2%84%E9%98%B2/" class="article-nav-link">
+    <strong class="article-nav-caption">Newer</strong>
+    <div class="article-nav-title">
+      
+      死锁预防
+      
+    </div>
+  </a>
+  
+  
+  <a href="/2021/12/22/URI-URL-URN/" class="article-nav-link">
+    <strong class="article-nav-caption">Older</strong>
+    <div class="article-nav-title">URI &amp; URL &amp; URN</div>
+  </a>
+  
+</nav>
+
+  
+
+  
+  
+  
+  
+
+</article>
+</section>
+    <footer class="footer">
+  <div class="outer">
+    <div class="float-right">
+      <ul class="list-inline">
+  
+  <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
+  
+  <li><i class="fe fe-bookmark"></i> <span id="busuanzi_value_page_pv"></span></li>
+  
+</ul>
+    </div>
+    <ul class="list-inline">
+      <li>青稞 &copy; 2022</li>
+      
+        <li>ZHWANGART</li>
+      
+      <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
+      <li>theme  <a target="_blank" rel="noopener" href="https://github.com/zhwangart/hexo-theme-ocean">Ocean</a></li>
+    </ul>
+  </div>
+</footer>
+  </main>
+  <aside class="sidebar">
+    <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/hexo.svg" alt="青稞"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">Home</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">Archives</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/gallery">Gallery</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about">About</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="Search">
+        <i class="fe fe-search"></i>
+        Search
+      </a>
+    </li>
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      <div class="totop" id="totop">
+  <i class="fe fe-rocket"></i>
+</div>
+    </li>
+    <li class="nav-item">
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="fe fe-feed"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+  </aside>
+  
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/copybtn.js"></script>
+
+
+
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto',
+  });
+</script>
+
+
+
+<script src="/js/ocean.js"></script>
+
+</body>
+
+</html>

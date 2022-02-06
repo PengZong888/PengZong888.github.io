@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  
+  
+  <title>
+    MySQL的存储引擎 |
+    
+    青稞
+  </title>
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+    
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<script src="/js/pace.min.js"></script>
+
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="青稞" type="application/atom+xml">
+</head>
+
+<body>
+  <main class="content">
+    <section class="outer">
+  <article id="post-MySQL存储引擎" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+      
+
+<h1 class="article-title" itemprop="name">
+  MySQL的存储引擎
+</h1>
+
+
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2021/12/18/MySQL%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E/" class="article-date">
+  <time datetime="2021-12-17T16:15:20.000Z" itemprop="datePublished">2021-12-18</time>
+</a>
+      
+    </div>
+    
+
+    
+    
+<div class="tocbot"></div>
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+      
+      <p>g</p>
+<p>在这里我们只是概要地描述MySQL的存储引擎，而不会设计太多细节。</p>
+<p>在文件系统中，MySQL将每个数据库（也可以称之为schema）保存为数据库目录下的一个子目录。创建表时，MySQL会在数据库子目录下创建一个和表同名的.frm文件保存表的定义。</p>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20211218124930511.png" alt="image-20211218124930511"></p>
+<p>因为MySQL使用文件系统的目录和文件来保存数据库和表的定义，大小写敏感性和具体的平台密切相关。在Windows中，大小写是不敏感的；而在类Unix中则是敏感的。不同的存储引擎保存数据和索引的方式是不同的，但表的定义则是在MySQL服务层统一处理的。</p>
+<p>可以使用show table status命令显示表的相关信息。例如，对于mysql数据库中的user表：</p>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20211218125959234.png" alt="image-20211218125959234"></p>
+<p>输出的结果表明，这是一个MyISAM表。下面简单介绍一些每一行的含义：</p>
+<blockquote>
+<ul>
+<li> Name: user</li>
+<li>表名。</li>
+<li>Engine: MyISAM<ul>
+<li>表的存储引擎类型。在旧版本中，该列的名字叫Type，而不是Engine。</li>
+</ul>
+</li>
+<li>Version: 10<ul>
+<li>官方解释“The version number of the table’s .frm file.”。推测是mysql表结构的版本号，作用么就是跟踪表结构的历程，如在replication时，如果表结构的版本不一致，就不应该进行replication.自己可以测试一下，alter一下表结构，在show 一下看看version应该变化了，应该是mysql内部机制使用，对用户来说是透明的。</li>
+</ul>
+</li>
+<li>Row_format: Dynamic<ul>
+<li>行的格式。对于MyISAM表，可选的值为Dynamic、Fixed或者Compressed。Dynamic的行长度是可变的，一般包含可变长度的字段，如VARCHAR或BLOB。Fixed的行长度则是固定的，只包含固定长度的列，如CHAR和INTEGER。Compressed的行则只在压缩表中存在。</li>
+</ul>
+</li>
+<li>Rows: 4<ul>
+<li>表中的行数。对于MyISAM和其它一些存储引擎，该值是精确的，但对于InnoDB，该值是估计值。</li>
+</ul>
+</li>
+<li>Avg_row_length: 129<ul>
+<li>平均每行包含的字节数。</li>
+</ul>
+</li>
+<li>Data_length: 516<ul>
+<li>表数据的大小（以字节为单位）。</li>
+</ul>
+</li>
+<li>Max_data_length: 281474976710655<ul>
+<li>表数据的最大容量，该值和存储引擎有关。</li>
+</ul>
+</li>
+<li>Index_length: 4096<ul>
+<li>索引的大小（以字节为单位）。</li>
+</ul>
+</li>
+<li>Data_free: 0<ul>
+<li>对于MyISAM表，表示已分配但目前没有使用的空间。这部分空间包括了之前删除的行，以及后续可以被INSERT利用到的空间。</li>
+</ul>
+</li>
+<li>Auto_increment: NULL<ul>
+<li>下一个AUTO_INCREMENT的值。</li>
+</ul>
+</li>
+<li>Create_time: 2021-04-25 17:12:01<ul>
+<li>表的创建时间。</li>
+</ul>
+</li>
+<li> Update_time: 2021-12-10 23:14:07</li>
+<li>表数据的最后修改时间。</li>
+<li>Check_time: NULL<ul>
+<li>使用CHECK TABLE命令或者myisamchk工具最后一次检查表的时间。</li>
+</ul>
+</li>
+<li>Collation: utf8_bin<ul>
+<li>表的默认字符集和字符列排序规则。</li>
+</ul>
+</li>
+<li>Checksum: NULL<ul>
+<li>如果启用，保存的是整个表的实时校验和。</li>
+</ul>
+</li>
+<li>Create_options:<ul>
+<li>创建表时指定的其它选项。</li>
+</ul>
+</li>
+<li>Comment: Users and global privileges<ul>
+<li>该列包含了一些其它的额外信息。对于MyISAM表，保存的是表在创建时带的注释。对于InnoDB表，则保存的是InnoDB表空间的剩余空间信息。如果是一个视图，则该列包含“VIEW”的文本字样。</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h1 id="1-InnoDB存储引擎"><a href="#1-InnoDB存储引擎" class="headerlink" title="1. InnoDB存储引擎"></a>1. InnoDB存储引擎</h1><p>InnoDB是MySQL的默认事务型引擎，也是最重要、使用最广泛的存储引擎。它被设计用来处理大量的短期事务，短期事务大部分情况是正常提交的，很少会被回滚。InnoDB的性能和自动崩溃恢复特性，使得它在非事务型存储的需求中也很流行。除非有非常特别的原因需要使用其它存储引擎，否则应该优先考虑InnoDB引擎。</p>
+<h2 id="InnoDB历史"><a href="#InnoDB历史" class="headerlink" title="InnoDB历史"></a>InnoDB历史</h2>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/12/18/MySQL%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E/" data-id="ckzb6dz2w000bzwtw0ookcaye" class="article-share-link">
+        Share
+      </a>
+      
+    </footer>
+
+  </div>
+
+  
+  
+<nav class="article-nav">
+  
+  <a href="/2021/12/18/%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%80%A7%E8%83%BD%E5%89%96%E6%9E%90-%E4%B8%8A/" class="article-nav-link">
+    <strong class="article-nav-caption">Newer</strong>
+    <div class="article-nav-title">
+      
+      服务器性能剖析(上)
+      
+    </div>
+  </a>
+  
+  
+  <a href="/2021/12/17/MySQL%E6%9E%B6%E6%9E%84%E4%B8%8E%E5%8E%86%E5%8F%B2-%E4%B8%8A/" class="article-nav-link">
+    <strong class="article-nav-caption">Older</strong>
+    <div class="article-nav-title">MySQL架构与历史(上)</div>
+  </a>
+  
+</nav>
+
+  
+
+  
+  
+  
+  
+
+</article>
+</section>
+    <footer class="footer">
+  <div class="outer">
+    <div class="float-right">
+      <ul class="list-inline">
+  
+  <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
+  
+  <li><i class="fe fe-bookmark"></i> <span id="busuanzi_value_page_pv"></span></li>
+  
+</ul>
+    </div>
+    <ul class="list-inline">
+      <li>青稞 &copy; 2022</li>
+      
+        <li>ZHWANGART</li>
+      
+      <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
+      <li>theme  <a target="_blank" rel="noopener" href="https://github.com/zhwangart/hexo-theme-ocean">Ocean</a></li>
+    </ul>
+  </div>
+</footer>
+  </main>
+  <aside class="sidebar">
+    <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/hexo.svg" alt="青稞"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">Home</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">Archives</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/gallery">Gallery</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about">About</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="Search">
+        <i class="fe fe-search"></i>
+        Search
+      </a>
+    </li>
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      <div class="totop" id="totop">
+  <i class="fe fe-rocket"></i>
+</div>
+    </li>
+    <li class="nav-item">
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="fe fe-feed"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+  </aside>
+  
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/copybtn.js"></script>
+
+
+
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto',
+  });
+</script>
+
+
+
+<script src="/js/ocean.js"></script>
+
+</body>
+
+</html>

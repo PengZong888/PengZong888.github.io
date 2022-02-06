@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  
+  
+  <title>
+    Spring注解驱动开发——组件注册 |
+    
+    青稞
+  </title>
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+    
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<script src="/js/pace.min.js"></script>
+
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="青稞" type="application/atom+xml">
+</head>
+
+<body>
+  <main class="content">
+    <section class="outer">
+  <article id="post-Spring注解驱动开发——组件注册" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+      
+
+<h1 class="article-title" itemprop="name">
+  Spring注解驱动开发——组件注册
+</h1>
+
+
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2022/01/20/Spring%E6%B3%A8%E8%A7%A3%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91%E2%80%94%E2%80%94%E7%BB%84%E4%BB%B6%E6%B3%A8%E5%86%8C/" class="article-date">
+  <time datetime="2022-01-20T13:17:15.000Z" itemprop="datePublished">2022-01-20</time>
+</a>
+      
+    </div>
+    
+
+    
+    
+<div class="tocbot"></div>
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+      
+      <blockquote>
+<ul>
+<li>@Configuration：声明这是Spring的配置类</li>
+<li>@Bean：给容器中注册组件</li>
+<li>@ComponentScan：自动扫描配置</li>
+<li>@Scope：设置组件作用域</li>
+<li>@Lazy：bean懒加载</li>
+<li>@Conditional：按照条件注册组件</li>
+<li>@Import：给容器快速导入组件</li>
+</ul>
+</blockquote>
+<h2 id="Configuration"><a href="#Configuration" class="headerlink" title="@Configuration"></a>@Configuration</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Target(ElementType.TYPE)</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Configuration &#123; ...... &#125;</span><br></pre></td></tr></table></figure>
+
+<p>这是注解只能标在类上，通过这个注解告诉Spring这是一个配置类，我们以前在XML配置文件中配置的东西，都可以在这标了这个注解的类里面进行相对应的配置。</p>
+<h2 id="Bean"><a href="#Bean" class="headerlink" title="@Bean"></a>@Bean</h2><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;person&quot;</span> <span class="attr">class</span>=<span class="string">&quot;com.atqingke.bean.Person&quot;</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;name&quot;</span> <span class="attr">value</span>=<span class="string">&quot;张三&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;age&quot;</span> <span class="attr">value</span>=<span class="string">&quot;23&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>这是我们之前在XML中要给容器中注册一个bean需要的配置，现在我们在配置类中通过@Bean注解也可以做到同样的效果：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Person <span class="title">person</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> Person(<span class="string">&quot;张三&quot;</span>, <span class="number">23</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们通过在一个返回值类型为要注册的组件类型的方法上标注@Bean，给容器中注册一个id为方法名，即”person“的组件。当然，我们也可以为@Bean的value属性赋值，显式的赋予一个bean的id。</p>
+<p>我们要测试效果也很简单，以前我们通过ClassPathXmlApplicationContext方法来给容器中注册所有组件，现在我们是使用注解驱动开发，因此我们使用AnnotationConfigApplicationContext方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    ApplicationContext context = <span class="keyword">new</span> AnnotationConfigApplicationContext(MainConfig.class);</span><br><span class="line">    Person bean = context.getBean(Person.class);</span><br><span class="line">    System.out.println(bean);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>控制台输出信息：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Person&#123;name=&#x27;张三&#x27;, age=23&#125;</span><br><span class="line">[INFO] ------------------------------------------------------------------------</span><br><span class="line">[INFO] BUILD SUCCESS</span><br><span class="line">[INFO] ------------------------------------------------------------------------</span><br></pre></td></tr></table></figure>
+
+<h2 id="ComponentScan"><a href="#ComponentScan" class="headerlink" title="@ComponentScan"></a>@ComponentScan</h2><p>我们可以通过ApplicationContext的getBeanDefinitionNames方法来查看所有在容器中注册的组件：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test01</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    ApplicationContext context = <span class="keyword">new</span> AnnotationConfigApplicationContext(MainConfig.class);</span><br><span class="line">    String[] definitionNames = context.getBeanDefinitionNames();</span><br><span class="line">    <span class="keyword">for</span> (String name : definitionNames) &#123;</span><br><span class="line">    	System.out.println(name);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">一月 21, 2022 4:19:50 下午 org.springframework.context.annotation.AnnotationConfigApplicationContext prepareRefresh</span><br><span class="line">信息: Refreshing org.springframework.context.annotation.AnnotationConfigApplicationContext@6a38e57f: startup date [Fri Jan 21 16:19:50 CST 2022]; root of context hierarchy</span><br><span class="line">一月 21, 2022 4:19:50 下午 org.springframework.context.annotation.AnnotationConfigApplicationContext prepareRefresh</span><br><span class="line">信息: Refreshing org.springframework.context.annotation.AnnotationConfigApplicationContext@78b1cc93: startup date [Fri Jan 21 16:19:50 CST 2022]; root of context hierarchy</span><br><span class="line">org.springframework.context.annotation.internalConfigurationAnnotationProcessor</span><br><span class="line">org.springframework.context.annotation.internalAutowiredAnnotationProcessor</span><br><span class="line">org.springframework.context.annotation.internalRequiredAnnotationProcessor</span><br><span class="line">org.springframework.context.annotation.internalCommonAnnotationProcessor</span><br><span class="line">org.springframework.context.event.internalEventListenerProcessor</span><br><span class="line">org.springframework.context.event.internalEventListenerFactory</span><br><span class="line">mainConfig</span><br><span class="line">person</span><br><span class="line"></span><br><span class="line">Process finished with exit code 0</span><br></pre></td></tr></table></figure>
+
+<p>可以看到，除了我们在配置类中注册的person还有其它组件，甚至包括我们的配置类。那我们要通过怎样的配置来指定它的扫描规则呢？我们知道，以前通过XML是通过开启component-scan来指定扫描的包的：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">context:component-scan</span> <span class="attr">base-package</span>=<span class="string">&quot;com.atqingke&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>那么，我们的@ComponentScan注解就是来解决这个问题的。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Target(ElementType.TYPE)</span></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Repeatable(ComponentScans.class)</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> ComponentScan &#123; ...... &#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个注解可以看到，也是只能标在类上。它有一些属性，其中value属性来配置要扫描的包配置、excludeFilters指定不扫描的包配置以及includeFilters指定要扫描的包配置</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@ComponentScan(value = &#123;&quot;com.atqingke&quot;&#125;,</span></span><br><span class="line"><span class="meta">        excludeFilters = &#123;</span></span><br><span class="line"><span class="meta">            // 不扫描带有@Controller和@Service注解的类</span></span><br><span class="line"><span class="meta">            @ComponentScan.Filter(type = FilterType.ANNOTATION, classes = &#123;Controller.class, Service.class&#125;),</span></span><br><span class="line"><span class="meta">            // 不扫描BookService这个类</span></span><br><span class="line"><span class="meta">            @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes =&#123;BookService.class&#125;),</span></span><br><span class="line"><span class="meta">            // 不扫描符合MyTypeFilter中配置的自定义规则的类</span></span><br><span class="line"><span class="meta">            @ComponentScan.Filter(type = FilterType.CUSTOM, classes =&#123;MyTypeFilter.class&#125;) &#125;,</span></span><br><span class="line"><span class="meta">        includeFilters = &#123;</span></span><br><span class="line"><span class="meta">            // 要扫描带有@Repository注解的类</span></span><br><span class="line"><span class="meta">            @ComponentScan.Filter(type=FilterType.ANNOTATION, classes = &#123;Repository.class&#125;)</span></span><br><span class="line"><span class="meta">        &#125;</span></span><br><span class="line"><span class="meta">)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MainConfig</span> </span>&#123; ...... &#125;</span><br></pre></td></tr></table></figure>
+
+<p>excludeFilters和includeFilters都是需要传入一些Filter过滤规则，一共有五种规则，分别是ANNOTATION（按注解）、ASSIGNABLE_TYPE（按类型）、ASPECTJ（按aspectj）、REGEX（按正则）、CUSTOM（按自定义）。</p>
+<p>我们通过自己写一个类MyTypeFilter去实现TypeFilter中的match方法来自定义我们的过滤规则：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.atqingke.filter;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.core.io.Resource;</span><br><span class="line"><span class="keyword">import</span> org.springframework.core.type.AnnotationMetadata;</span><br><span class="line"><span class="keyword">import</span> org.springframework.core.type.ClassMetadata;</span><br><span class="line"><span class="keyword">import</span> org.springframework.core.type.classreading.MetadataReader;</span><br><span class="line"><span class="keyword">import</span> org.springframework.core.type.classreading.MetadataReaderFactory;</span><br><span class="line"><span class="keyword">import</span> org.springframework.core.type.filter.TypeFilter;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> pengbin007</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2022/1/18 23:04</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyTypeFilter</span> <span class="keyword">implements</span> <span class="title">TypeFilter</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> metadataReader 读取到的当前正在扫描的类的信息</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> metadataReaderFactory 可以获取到其它任何类信息</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">match</span><span class="params">(MetadataReader metadataReader, MetadataReaderFactory metadataReaderFactory)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        <span class="comment">// 获取当前类注解的信息</span></span><br><span class="line">        AnnotationMetadata annotationMetadata = metadataReader.getAnnotationMetadata();</span><br><span class="line">        <span class="comment">// 获取当前正在扫描的类的信息</span></span><br><span class="line">        ClassMetadata classMetadata = metadataReader.getClassMetadata();</span><br><span class="line">        <span class="comment">// 获取当前类资源（类的路径）</span></span><br><span class="line">        Resource resource = metadataReader.getResource();</span><br><span class="line">        String className = classMetadata.getClassName();</span><br><span class="line">        System.out.println(className);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> className.contains(<span class="string">&quot;er&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">com.atqingke.test.IOCTest</span><br><span class="line">com.atqingke.bean.Person</span><br><span class="line">com.atqingke.dao.BookDao	// 标了@Repository</span><br><span class="line">com.atqingke.filter.MyTypeFilter	// 包含er</span><br><span class="line">com.atqingke.service.BookService	// BookService</span><br><span class="line">org.springframework.context.annotation.internalConfigurationAnnotationProcessor</span><br><span class="line">org.springframework.context.annotation.internalAutowiredAnnotationProcessor</span><br><span class="line">org.springframework.context.annotation.internalRequiredAnnotationProcessor</span><br><span class="line">org.springframework.context.annotation.internalCommonAnnotationProcessor</span><br><span class="line">org.springframework.context.event.internalEventListenerProcessor</span><br><span class="line">org.springframework.context.event.internalEventListenerFactory</span><br><span class="line">mainConfig</span><br><span class="line">bookDao</span><br><span class="line">person</span><br></pre></td></tr></table></figure>
+
+<h2 id="Scope"><a href="#Scope" class="headerlink" title="@Scope"></a>@Scope</h2><p>我们通过@Bean注解配置的bean默认都是单实例的，我们可以通过@Scope注解来改变组件的作用域：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">    @see ConfigurableBeanFactory#SCOPE_PROTOTYPE</span></span><br><span class="line"><span class="comment">    @see ConfigurableBeanFactory#SCOPE_SINGLETON</span></span><br><span class="line"><span class="comment">    @see org.springframework.web.context.WebApplicationContext#SCOPE_REQUEST</span></span><br><span class="line"><span class="comment">    @see org.springframework.web.context.WebApplicationContext#SCOPE_SESSION</span></span><br><span class="line"><span class="comment">    prototype：多实例的</span></span><br><span class="line"><span class="comment">          IOC容器启动并不会去调用方法创建对象放到容器中，而是每次获取的时候才会调用方法创建对象</span></span><br><span class="line"><span class="comment">    singleton：单实例的</span></span><br><span class="line"><span class="comment">          IOC容器启动回调用方法创建对象放到IOC容器中，以后每次获取就是直接从容器(map.get())中拿</span></span><br><span class="line"><span class="comment">    request：同一次请求创建一个实例</span></span><br><span class="line"><span class="comment">	session：同一个session创建一个实例</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="meta">@Scope(&quot;prototype&quot;)</span></span><br><span class="line"><span class="meta">@Bean(&quot;person&quot;)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Person <span class="title">person</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> Person(<span class="string">&quot;liSi&quot;</span>, <span class="number">24</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Lazy"><a href="#Lazy" class="headerlink" title="@Lazy"></a>@Lazy</h2><p>默认配置的bean都是单实例的，因此在容器已启动就会创建对象，我们可以通过@Lazy注解来实现懒加载效果。即容器启动的时候不创建对象，第一次使用（获取）的时候创建并初始化。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Lazy</span></span><br><span class="line"><span class="meta">@Bean(&quot;person&quot;)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Person <span class="title">person</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> Person(<span class="string">&quot;liSi&quot;</span>, <span class="number">24</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Conditional"><a href="#Conditional" class="headerlink" title="@Conditional"></a>@Conditional</h2><p>考虑这样一个业务场景，有些组件我们需要在Linux操作系统下注册到容器中，而在Windows操作系统下不需要；反之，有些需要Windows环境而不需要Linux环境。那么要如何才能做到呢？</p>
+<p>@Conditional注解就可以解决这个问题，它会按照一定的条件进行判断，满足条件的就给容器中注册bean。例如，我们现在有下面两个bean：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Bean(&quot;bill&quot;)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Person <span class="title">person01</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> Person(<span class="string">&quot;Bill Gates&quot;</span>, <span class="number">23</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Bean(&quot;linus&quot;)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Person <span class="title">person02</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> Person(<span class="string">&quot;linus&quot;</span>, <span class="number">32</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>bill需要Windows环境、linus需要Linux环境，那么我们就可以分配在两个bean上加上各自的条件判断</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Conditional(&#123;WindowsCondition.class&#125;)</span></span><br><span class="line"><span class="meta">@Bean(&quot;bill&quot;)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Person <span class="title">person01</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> Person(<span class="string">&quot;Bill Gates&quot;</span>, <span class="number">23</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Conditional(&#123;LinuxCondition.class&#125;)</span></span><br><span class="line"><span class="meta">@Bean(&quot;linus&quot;)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Person <span class="title">person02</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> Person(<span class="string">&quot;linus&quot;</span>, <span class="number">32</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.atqingke.condition;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.config.ConfigurableListableBeanFactory;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.support.BeanDefinitionRegistry;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Condition;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.ConditionContext;</span><br><span class="line"><span class="keyword">import</span> org.springframework.core.env.Environment;</span><br><span class="line"><span class="keyword">import</span> org.springframework.core.type.AnnotatedTypeMetadata;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> pengbin007</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2022/1/20 14:13</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LinuxCondition</span> <span class="keyword">implements</span> <span class="title">Condition</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> context 判断条件能使用的上下文（环境）</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> metadata 注释信息</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">matches</span><span class="params">(ConditionContext context, AnnotatedTypeMetadata metadata)</span> </span>&#123;</span><br><span class="line"><span class="comment">//        // 能获取到IOC使用的beanFactory</span></span><br><span class="line"><span class="comment">//        ConfigurableListableBeanFactory beanFactory = context.getBeanFactory();</span></span><br><span class="line"><span class="comment">//        // 获取类加载器</span></span><br><span class="line"><span class="comment">//        ClassLoader classLoader = context.getClassLoader();</span></span><br><span class="line">        <span class="comment">// 获取当前环境信息</span></span><br><span class="line">        Environment environment = context.getEnvironment();</span><br><span class="line"><span class="comment">//        // 获取到bean定义的注册类</span></span><br><span class="line"><span class="comment">//        BeanDefinitionRegistry registry = context.getRegistry();</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 获取当前操作系统环境</span></span><br><span class="line">        String property = environment.getProperty(<span class="string">&quot;os.name&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> property.contains(<span class="string">&quot;Linux&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.atqingke.condition;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Condition;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.ConditionContext;</span><br><span class="line"><span class="keyword">import</span> org.springframework.core.env.Environment;</span><br><span class="line"><span class="keyword">import</span> org.springframework.core.type.AnnotatedTypeMetadata;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> pengbin007</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2022/1/20 14:13</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WindowsCondition</span> <span class="keyword">implements</span> <span class="title">Condition</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">matches</span><span class="params">(ConditionContext context, AnnotatedTypeMetadata metadata)</span> </span>&#123;</span><br><span class="line">        Environment environment = context.getEnvironment();</span><br><span class="line">        String property = environment.getProperty(<span class="string">&quot;os.name&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> !<span class="string">&quot;Windows&quot;</span>.contains(property);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>ps：@Conditional也可以标注在类上，这样就对整个配置类都生效。</p>
+</blockquote>
+<h2 id="Import"><a href="#Import" class="headerlink" title="@Import"></a>@Import</h2><p>现在，我们要给容器中注册组件有两种方式：</p>
+<ul>
+<li>包扫描 + 组件注解（局限于我们自己写的类）</li>
+<li>@Bean（导入第三方包里面的组件）</li>
+</ul>
+<p>我们还可以通过@Import注解快速给容器中导入一个组件！</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Target(ElementType.TYPE)</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Import &#123; ...... &#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个注解也只能标在类上，例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@Import(&#123;Color.class, Red.class&#125;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MainConfig2</span> </span>&#123; ...... &#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样，我们就给容器中快速导入了Color和Red两个组件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">org.springframework.context.annotation.internalConfigurationAnnotationProcessor</span><br><span class="line">org.springframework.context.annotation.internalAutowiredAnnotationProcessor</span><br><span class="line">org.springframework.context.annotation.internalRequiredAnnotationProcessor</span><br><span class="line">org.springframework.context.annotation.internalCommonAnnotationProcessor</span><br><span class="line">org.springframework.context.event.internalEventListenerProcessor</span><br><span class="line">org.springframework.context.event.internalEventListenerFactory</span><br><span class="line">mainConfig2</span><br><span class="line">com.atqingke.bean.Color</span><br><span class="line">com.atqingke.bean.Red</span><br></pre></td></tr></table></figure>
+
+<p>可以看到，注册的组件的id默认就是全类名。</p>
+<p>我们也可以通过实现ImportSelector接口来自定义逻辑返回需要导入的组件：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.atqingke.condition;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.ImportSelector;</span><br><span class="line"><span class="keyword">import</span> org.springframework.core.type.AnnotationMetadata;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 自定义逻辑返回需要导入的组件</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> pengbin007</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2022/1/20 19:49</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyImportSelector</span> <span class="keyword">implements</span> <span class="title">ImportSelector</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> importingClassMetadata 当前标注<span class="doctag">@Import</span>注解的类的所有注解信息</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 要导入到容器中的组件全类名，可以返回空数组，但是不能返回null（高版本有优化，可以返回null）</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String[] selectImports(AnnotationMetadata importingClassMetadata) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> String[] &#123;<span class="string">&quot;com.atqingke.bean.Blue&quot;</span>&#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@Import(&#123;Color.class, Red.class, MyImportSelector.class&#125;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MainConfig2</span> </span>&#123; ...... &#125;</span><br></pre></td></tr></table></figure>
+
+<p>还可以通过实现ImportBeanDefinitionRegistrar，手动注册bean到容器中：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.atqingke.condition;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.atqingke.bean.RainBow;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.support.BeanDefinitionRegistry;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.support.RootBeanDefinition;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.ImportBeanDefinitionRegistrar;</span><br><span class="line"><span class="keyword">import</span> org.springframework.core.type.AnnotationMetadata;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> pengbin007</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2022/1/20 19:56</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyImportBeanDefinitionRegistrar</span> <span class="keyword">implements</span> <span class="title">ImportBeanDefinitionRegistrar</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> importingClassMetadata 当前类的注解信息</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> registry BeanDefinition注册类</span></span><br><span class="line"><span class="comment">     *                 把所有需要添加到容器中的bean，调用BeanDefinitionRegistry.registerBeanDefinition手动注册进来</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">registerBeanDefinitions</span><span class="params">(AnnotationMetadata importingClassMetadata, BeanDefinitionRegistry registry)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">boolean</span> red = registry.containsBeanDefinition(<span class="string">&quot;com.atqingke.bean.Red&quot;</span>);</span><br><span class="line">        <span class="keyword">boolean</span> blue = registry.containsBeanDefinition(<span class="string">&quot;com.atqingke.bean.Blue&quot;</span>);</span><br><span class="line">        <span class="keyword">if</span> (red &amp;&amp; blue) &#123;</span><br><span class="line">            <span class="comment">// 指定Bean定义信息（Bean类型、Bean作用域......）</span></span><br><span class="line">            RootBeanDefinition beanDefinition = <span class="keyword">new</span> RootBeanDefinition(RainBow.class);</span><br><span class="line">            <span class="comment">// 注册一个Bean，指定名称</span></span><br><span class="line">            registry.registerBeanDefinition(<span class="string">&quot;rainBow&quot;</span>, beanDefinition);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@Import(&#123;Color.class, Red.class, MyImportSelector.class, MyImportBeanDefinitionRegistrar.class&#125;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MainConfig2</span> </span>&#123; ...... &#125;</span><br></pre></td></tr></table></figure>
+
+<p>这是第三种方法使用@Import注解，还有第四种方法——使用Spring提供的FactoryBean（工厂bean）。我们创建一个自定义的FactoryBean，它实现了FactoryBean，泛型就是要注册的组件类型。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.atqingke.bean;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.FactoryBean;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 创建一个Spring定义的FactoryBean</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> pengbin007</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2022/1/20 20:08</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ColorFactoryBean</span> <span class="keyword">implements</span> <span class="title">FactoryBean</span>&lt;<span class="title">Color</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> Color对象，这个对象会添加到容器中</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Color <span class="title">getObject</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Color();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 对象类型</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> Class&lt;?&gt; getObjectType() &#123;</span><br><span class="line">        <span class="keyword">return</span> Color.class;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> true，这个bean是单实例，在容器中保存一份；false，多实例</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isSingleton</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们再给配置类中注册上这个ColorFactoryBean：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> ColorFactoryBean <span class="title">colorFactoryBean</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> ColorFactoryBean();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>再测试：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test03</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    ApplicationContext bean = <span class="keyword">new</span> AnnotationConfigApplicationContext(MainConfig2.class);</span><br><span class="line">    Object colorFactoryBean = bean.getBean(<span class="string">&quot;colorFactoryBean&quot;</span>);</span><br><span class="line">    System.out.println(colorFactoryBean);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>控制台结果：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">com.atqingke.bean.Color@5ef60048</span><br><span class="line"></span><br><span class="line">Process finished with exit code 0</span><br></pre></td></tr></table></figure>
+
+<p>可以看到默认获取到的是工厂bean调用getObject创建的对象，而如果我们要获取工厂bean本身，我们需要给id前面加一个&amp;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test03</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    ApplicationContext bean = <span class="keyword">new</span> AnnotationConfigApplicationContext(MainConfig2.class);</span><br><span class="line">    <span class="comment">// 获取的是工厂bean帮我们创建的bean</span></span><br><span class="line">    Object colorFactoryBean = bean.getBean(<span class="string">&quot;colorFactoryBean&quot;</span>);</span><br><span class="line">    System.out.println(colorFactoryBean);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 获取工厂bean本身</span></span><br><span class="line">    Object factoryBean = <span class="keyword">this</span>.bean.getBean(<span class="string">&quot;&amp;colorFactoryBean&quot;</span>);</span><br><span class="line">    System.out.println(factoryBean);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">com.atqingke.bean.Color@5ef60048</span><br><span class="line">com.atqingke.bean.ColorFactoryBean@1d548a08</span><br><span class="line"></span><br><span class="line">Process finished with exit code 0</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/01/20/Spring%E6%B3%A8%E8%A7%A3%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91%E2%80%94%E2%80%94%E7%BB%84%E4%BB%B6%E6%B3%A8%E5%86%8C/" data-id="ckzb6dz56002hzwtw3z2kgvm8" class="article-share-link">
+        Share
+      </a>
+      
+    </footer>
+
+  </div>
+
+  
+  
+<nav class="article-nav">
+  
+  <a href="/2022/01/21/Spring%E6%B3%A8%E8%A7%A3%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91%E2%80%94%E2%80%94%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/" class="article-nav-link">
+    <strong class="article-nav-caption">Newer</strong>
+    <div class="article-nav-title">
+      
+      Spring注解驱动开发——生命周期
+      
+    </div>
+  </a>
+  
+  
+  <a href="/2022/01/15/HTML%E5%B0%8F%E7%BB%93-%E5%B0%9A%E7%A1%85%E8%B0%B7-%E6%9D%8E%E7%AB%8B%E8%B6%85%E8%AF%BE%E7%A8%8B/" class="article-nav-link">
+    <strong class="article-nav-caption">Older</strong>
+    <div class="article-nav-title">HTML小结(尚硅谷-李立超课程)</div>
+  </a>
+  
+</nav>
+
+  
+
+  
+  
+  
+  
+
+</article>
+</section>
+    <footer class="footer">
+  <div class="outer">
+    <div class="float-right">
+      <ul class="list-inline">
+  
+  <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
+  
+  <li><i class="fe fe-bookmark"></i> <span id="busuanzi_value_page_pv"></span></li>
+  
+</ul>
+    </div>
+    <ul class="list-inline">
+      <li>青稞 &copy; 2022</li>
+      
+        <li>ZHWANGART</li>
+      
+      <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
+      <li>theme  <a target="_blank" rel="noopener" href="https://github.com/zhwangart/hexo-theme-ocean">Ocean</a></li>
+    </ul>
+  </div>
+</footer>
+  </main>
+  <aside class="sidebar">
+    <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/hexo.svg" alt="青稞"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">Home</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">Archives</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/gallery">Gallery</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about">About</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="Search">
+        <i class="fe fe-search"></i>
+        Search
+      </a>
+    </li>
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      <div class="totop" id="totop">
+  <i class="fe fe-rocket"></i>
+</div>
+    </li>
+    <li class="nav-item">
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="fe fe-feed"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+  </aside>
+  
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/copybtn.js"></script>
+
+
+
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto',
+  });
+</script>
+
+
+
+<script src="/js/ocean.js"></script>
+
+</body>
+
+</html>

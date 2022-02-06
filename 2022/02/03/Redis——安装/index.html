@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  
+  
+  <title>
+    Redis——安装 |
+    
+    青稞
+  </title>
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+    
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<script src="/js/pace.min.js"></script>
+
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="青稞" type="application/atom+xml">
+</head>
+
+<body>
+  <main class="content">
+    <section class="outer">
+  <article id="post-Redis——安装" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+      
+
+<h1 class="article-title" itemprop="name">
+  Redis——安装
+</h1>
+
+
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2022/02/03/Redis%E2%80%94%E2%80%94%E5%AE%89%E8%A3%85/" class="article-date">
+  <time datetime="2022-02-03T06:55:40.000Z" itemprop="datePublished">2022-02-03</time>
+</a>
+      
+    </div>
+    
+
+    
+    
+<div class="tocbot"></div>
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+      
+      <blockquote>
+<ul>
+<li>英文官网：<a target="_blank" rel="noopener" href="https://redis.io/">https://redis.io/</a></li>
+<li>中文官网：<a target="_blank" rel="noopener" href="http://redis.cn/">http://redis.cn/</a></li>
+</ul>
+</blockquote>
+<p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220203145900071.png" alt="image-20220203145900071"></p>
+<h2 id="Redis概述"><a href="#Redis概述" class="headerlink" title="Redis概述"></a>Redis概述</h2><ul>
+<li>Redis是一个开源的key-value存储系统。</li>
+<li>和Memcached类似，它支持存储的value类型相对更多，包括string(字符串)、list(链表)、set(集合)、zset(sorted set –有序集合)和hash（哈希类型）。</li>
+<li>这些数据类型都支持push/pop、add/remove及取交集并集和差集及更丰富的操作，而且这些操作都是原子性的。</li>
+<li>在此基础上，Redis支持各种不同方式的排序。</li>
+<li>与memcached一样，为了保证效率，数据都是缓存在内存中。</li>
+<li>区别的是Redis会周期性的把更新的数据写入磁盘或者把修改操作写入追加的记录文件。</li>
+<li>并且在此基础上实现了master-slave(主从)同步。</li>
+</ul>
+<h2 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h2><h4 id="配合关系型数据库做高速缓存"><a href="#配合关系型数据库做高速缓存" class="headerlink" title="配合关系型数据库做高速缓存"></a>配合关系型数据库做高速缓存</h4><p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220204201013137.png" alt="image-20220204201013137"></p>
+<h4 id="多样的数据结构存储持久化数据"><a href="#多样的数据结构存储持久化数据" class="headerlink" title="多样的数据结构存储持久化数据"></a>多样的数据结构存储持久化数据</h4><p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220204200947400.png" alt="image-20220204200947400"></p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><ul>
+<li>安装C语言环境（如果有，这一步可以跳过）</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">yum install centos-release-scl scl-utils-build</span><br><span class="line">yum install -y devtoolset-8-toolchain</span><br><span class="line">scl enable devtoolset-8 bash</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>/usr/local目录下创建redis文件夹</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /usr/local</span><br><span class="line">mkdir redis</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>将安装包解压到新建的redis目录中</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd redis</span><br><span class="line">tar zxvf /opt/software/redis-6.2.6.tar.gz -C ./</span><br></pre></td></tr></table></figure>
+
+<p>解压完之后，在redis目录下会出现一个redis-6.2.6目录</p>
+<p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220204203944653.png" alt="image-20220204203944653"></p>
+<ul>
+<li>编译并安装</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd redis-6.2.6</span><br><span class="line">make &amp;&amp; make install</span><br></pre></td></tr></table></figure>
+
+<p>安装成功</p>
+<p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220204204335967.png" alt="image-20220204204335967"></p>
+<blockquote>
+<p>ps：执行make的时候报错</p>
+<p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220204205112972.png" alt="image-20220204205112972"></p>
+<p>解决方案：执行命令 <strong>make distclean</strong></p>
+<p>执行完后，再执行一遍make &amp;&amp; make install</p>
+</blockquote>
+<h3 id="安装目录"><a href="#安装目录" class="headerlink" title="安装目录"></a>安装目录</h3><p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220204205517902.png" alt="image-20220204205517902"></p>
+<h3 id="前台启动"><a href="#前台启动" class="headerlink" title="前台启动"></a>前台启动</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis-server</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220204210256753.png" alt="image-20220204210256753"></p>
+<p>前台启动，命令行窗口不能关闭，否则服务器停止（一般不采用）。</p>
+<h3 id="配置文件启动"><a href="#配置文件启动" class="headerlink" title="配置文件启动"></a>配置文件启动</h3><ul>
+<li>将/usr/local/redis/redis-6.2.6/redis.conf复制备份</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd /etc</span><br><span class="line">mkdir redis</span><br><span class="line">cp /usr/local/redis/redis-6.2.6/redis.conf /etc/redis/6379.conf</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>修改6379.conf以下几处</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 注释第76行，95行改成no，以便允许远程连接，否则只能本机连接</span><br><span class="line">76 #bind 127.0.0.1 -::1</span><br><span class="line">95 protected-mode no</span><br><span class="line"># 258行改为yes，允许后台启动</span><br><span class="line">258 daemonize yes</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>启动</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/local/bin/redis-server /usr/local/redis/redis-6.2.6/redis.conf</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220204223904012.png" alt="image-20220204223904012"></p>
+<h3 id="系统后台启动"><a href="#系统后台启动" class="headerlink" title="系统后台启动"></a>系统后台启动</h3><ul>
+<li>编辑redis.service</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">vim /usr/lib/systemd/system/redis.service</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 将下面内容写进去</span></span><br><span class="line">[Unit]</span><br><span class="line">Description=Redis</span><br><span class="line">After=network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=forking</span><br><span class="line">PIDFile=/var/run/redis_6379.pid</span><br><span class="line"><span class="meta">#</span><span class="bash"> 这里要注意换成你自己的目录</span></span><br><span class="line">ExecStart=/usr/local/bin/redis-server /etc/redis/6379.conf</span><br><span class="line">ExecReload=/bin/kill -s HUP $MAINPID</span><br><span class="line">ExecStop=/bin/kill -s QUIT $MAINPID</span><br><span class="line">PrivateTmp=true</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>让文件立即生效</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl daemon-reload</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>启动</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 启动</span></span><br><span class="line">systemctl start redis.service</span><br><span class="line"><span class="meta">#</span><span class="bash"> 重启</span></span><br><span class="line">systemctl restart redis.service</span><br><span class="line"><span class="meta">#</span><span class="bash"> 关闭</span></span><br><span class="line">systemctl stop redis.service</span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看状态</span></span><br><span class="line">systemctl status redis.service</span><br><span class="line"><span class="meta">#</span><span class="bash"> 设置开机自启</span></span><br><span class="line">systemctl enable redis.service</span><br><span class="line"><span class="meta">#</span><span class="bash"> 停止开机自启</span></span><br><span class="line">systemctl disable redis.service</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220204224633669.png" alt="image-20220204224633669"></p>
+<h3 id="redis-cli客户端连接测试"><a href="#redis-cli客户端连接测试" class="headerlink" title="redis-cli客户端连接测试"></a>redis-cli客户端连接测试</h3><p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220204225423226.png" alt="image-20220204225423226"></p>
+<h3 id="Redis-Desktop远程连接测试"><a href="#Redis-Desktop远程连接测试" class="headerlink" title="Redis Desktop远程连接测试"></a>Redis Desktop远程连接测试</h3><ul>
+<li>建立连接</li>
+</ul>
+<p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220204230650784.png" alt="image-20220204230650784"></p>
+<ul>
+<li>无法连接</li>
+</ul>
+<p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220204225842776.png" alt="image-20220204225842776"></p>
+<p>给redis设置一个密码即可，在/etc/redis/6379.conf文件下做如下修改：</p>
+<p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220204230327825.png" alt="image-20220204230327825"></p>
+<p>requirepass后面就是你的redis密码。</p>
+<ul>
+<li>重新建立连接</li>
+</ul>
+<p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220204230938826.png" alt="image-20220204230938826"></p>
+<ul>
+<li>测试成功</li>
+</ul>
+<p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220204230608520.png" alt="image-20220204230608520"></p>
+<p>此时，我们使用redis-cli连接也需要输入密码</p>
+<p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220205144625640.png" alt="image-20220205144625640"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/02/03/Redis%E2%80%94%E2%80%94%E5%AE%89%E8%A3%85/" data-id="ckzb6dz30000gzwtw0gdd1rsj" class="article-share-link">
+        Share
+      </a>
+      
+    </footer>
+
+  </div>
+
+  
+  
+<nav class="article-nav">
+  
+  <a href="/2022/02/04/Redis%E2%80%94%E2%80%94%E9%85%8D%E7%BD%AE%E5%90%8E%E5%8F%B0%E5%90%AF%E5%8A%A8/" class="article-nav-link">
+    <strong class="article-nav-caption">Newer</strong>
+    <div class="article-nav-title">
+      
+      Redis——配置后台启动
+      
+    </div>
+  </a>
+  
+  
+  <a href="/2022/02/03/Redis%E2%80%94%E2%80%94NoSQL%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AE%80%E4%BB%8B/" class="article-nav-link">
+    <strong class="article-nav-caption">Older</strong>
+    <div class="article-nav-title">Redis——NoSQL数据库简介</div>
+  </a>
+  
+</nav>
+
+  
+
+  
+  
+  
+  
+
+</article>
+</section>
+    <footer class="footer">
+  <div class="outer">
+    <div class="float-right">
+      <ul class="list-inline">
+  
+  <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
+  
+  <li><i class="fe fe-bookmark"></i> <span id="busuanzi_value_page_pv"></span></li>
+  
+</ul>
+    </div>
+    <ul class="list-inline">
+      <li>青稞 &copy; 2022</li>
+      
+        <li>ZHWANGART</li>
+      
+      <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
+      <li>theme  <a target="_blank" rel="noopener" href="https://github.com/zhwangart/hexo-theme-ocean">Ocean</a></li>
+    </ul>
+  </div>
+</footer>
+  </main>
+  <aside class="sidebar">
+    <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/hexo.svg" alt="青稞"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">Home</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">Archives</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/gallery">Gallery</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about">About</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="Search">
+        <i class="fe fe-search"></i>
+        Search
+      </a>
+    </li>
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      <div class="totop" id="totop">
+  <i class="fe fe-rocket"></i>
+</div>
+    </li>
+    <li class="nav-item">
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="fe fe-feed"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+  </aside>
+  
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/copybtn.js"></script>
+
+
+
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto',
+  });
+</script>
+
+
+
+<script src="/js/ocean.js"></script>
+
+</body>
+
+</html>

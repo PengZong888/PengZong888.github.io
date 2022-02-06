@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  
+  
+  <title>
+    Spring注解驱动开发【源码】——AOP原理——@EnableAspectJAutoProxy |
+    
+    青稞
+  </title>
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+    
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<script src="/js/pace.min.js"></script>
+
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="青稞" type="application/atom+xml">
+</head>
+
+<body>
+  <main class="content">
+    <section class="outer">
+  <article id="post-Spring注解驱动开发【源码】——AOP原理——-EnableAspectJAutoProxy" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+      
+
+<h1 class="article-title" itemprop="name">
+  Spring注解驱动开发【源码】——AOP原理——@EnableAspectJAutoProxy
+</h1>
+
+
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2022/02/06/Spring%E6%B3%A8%E8%A7%A3%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91%E3%80%90%E6%BA%90%E7%A0%81%E3%80%91%E2%80%94%E2%80%94AOP%E5%8E%9F%E7%90%86%E2%80%94%E2%80%94-EnableAspectJAutoProxy/" class="article-date">
+  <time datetime="2022-02-06T03:41:52.000Z" itemprop="datePublished">2022-02-06</time>
+</a>
+      
+    </div>
+    
+
+    
+    
+<div class="tocbot"></div>
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+      
+      <p>要实现注解版的AOP功能，最核心的注解就是@EnableAspectJAutoProxy了，有了它，AOP模式才生效。</p>
+<h4 id="流程分析图"><a href="#流程分析图" class="headerlink" title="流程分析图"></a>流程分析图</h4><p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220206131851374.png" alt="image-20220206131851374"></p>
+<p>可以看到，使用@EnableAspectJAutoProxy注解实际上就是使用@Import导入一个实现了ImportBeanDefinitionRegistrar的组件，也就是利用AspectJAutoProxyRegistrar实现registerBeanDefinitions方法及那个bean手动注册到容器中。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Register, escalate, and configure the AspectJ auto proxy creator based on the value</span></span><br><span class="line"><span class="comment"> * of the @&#123;<span class="doctag">@link</span> EnableAspectJAutoProxy#proxyTargetClass()&#125; attribute on the importing</span></span><br><span class="line"><span class="comment"> * &#123;<span class="doctag">@code</span> <span class="doctag">@Configuration</span>&#125; class.</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">registerBeanDefinitions</span><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">      AnnotationMetadata importingClassMetadata, BeanDefinitionRegistry registry)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 将AspectJAnnotationAutoProxyCreator注册到容器中如果需要的话</span></span><br><span class="line">    AopConfigUtils.registerAspectJAnnotationAutoProxyCreatorIfNecessary(registry);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 得到EnableAspectJAutoProxy注解的信息</span></span><br><span class="line">    AnnotationAttributes enableAspectJAutoProxy =</span><br><span class="line">        AnnotationConfigUtils.attributesFor(importingClassMetadata, EnableAspectJAutoProxy.class);</span><br><span class="line">    <span class="comment">// 判断是否包含proxyTargetClass属性</span></span><br><span class="line">    <span class="keyword">if</span> (enableAspectJAutoProxy.getBoolean(<span class="string">&quot;proxyTargetClass&quot;</span>)) &#123;</span><br><span class="line">        AopConfigUtils.forceAutoProxyCreatorToUseClassProxying(registry);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 判断是否包含exposeProxy属性</span></span><br><span class="line">    <span class="keyword">if</span> (enableAspectJAutoProxy.getBoolean(<span class="string">&quot;exposeProxy&quot;</span>)) &#123;</span><br><span class="line">        AopConfigUtils.forceAutoProxyCreatorToExposeProxy(registry);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在registerBeanDefinitions方法中，通过AopConfigUtils中的方法将AspectJAnnotationAutoProxyCreator注册到容器中，如果需要的话。之后拿到EnableAspectJAutoProxy注解的信息，再对其进行判断“proxyTargetClass”和“exposeProxy”是否为true，如果为true，对其进行相应操作。</p>
+<p>最终，registerAspectJAnnotationAutoProxyCreatorIfNecessary方法经过两层封装来到了registerOrEscalateApcAsRequired：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> BeanDefinition <span class="title">registerOrEscalateApcAsRequired</span><span class="params">(Class&lt;?&gt; cls, BeanDefinitionRegistry registry, Object source)</span> </span>&#123;</span><br><span class="line">    Assert.notNull(registry, <span class="string">&quot;BeanDefinitionRegistry must not be null&quot;</span>);</span><br><span class="line">    <span class="comment">// 判断容器中是否已经有internalAutoProxyCreator，有则让internalAutoProxyCreator = AnnotationAwareAspectJAutoProxyCreator将AnnotationAwareAspectJAutoProxyCreator注册到容器中去</span></span><br><span class="line">    <span class="keyword">if</span> (registry.containsBeanDefinition(AUTO_PROXY_CREATOR_BEAN_NAME)) &#123;</span><br><span class="line">        BeanDefinition apcDefinition = registry.getBeanDefinition(AUTO_PROXY_CREATOR_BEAN_NAME);</span><br><span class="line">        <span class="keyword">if</span> (!cls.getName().equals(apcDefinition.getBeanClassName())) &#123;</span><br><span class="line">            <span class="keyword">int</span> currentPriority = findPriorityForClass(apcDefinition.getBeanClassName());</span><br><span class="line">            <span class="keyword">int</span> requiredPriority = findPriorityForClass(cls);</span><br><span class="line">            <span class="keyword">if</span> (currentPriority &lt; requiredPriority) &#123;</span><br><span class="line">                apcDefinition.setBeanClassName(cls.getName());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 没有，新建一个关于AnnotationAwareAspectJAutoProxyCreator的bean的定义信息</span></span><br><span class="line">    RootBeanDefinition beanDefinition = <span class="keyword">new</span> RootBeanDefinition(cls);</span><br><span class="line">    beanDefinition.setSource(source);</span><br><span class="line">    beanDefinition.getPropertyValues().add(<span class="string">&quot;order&quot;</span>, Ordered.HIGHEST_PRECEDENCE);</span><br><span class="line">    beanDefinition.setRole(BeanDefinition.ROLE_INFRASTRUCTURE);</span><br><span class="line">    <span class="comment">// internalAutoProxyCreator = AnnotationAwareAspectJAutoProxyCreator注册到容器中</span></span><br><span class="line">    registry.registerBeanDefinition(AUTO_PROXY_CREATOR_BEAN_NAME, beanDefinition);</span><br><span class="line">    <span class="keyword">return</span> beanDefinition;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个方法传了一个参数：AnnotationAwareAspectJAutoProxyCreator</p>
+<p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220206133626317.png" alt="image-20220206133626317"></p>
+<p>然后，它判断容器中是否有internalAutoProxyCreator。</p>
+<p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220206133943067.png" alt="image-20220206133943067"></p>
+<p>如果容器中有internalAutoProxyCreator，则会让传入的cls也就是AnnotationAwareAspectJAutoProxyCreator赋给internalAutoProxyCreator。</p>
+<p>而我们这里并没有这个组件，因此它会创建一个AnnotationAwareAspectJAutoProxyCreator的RootBeanDefinition(new RootBeanDefinition()也就是创建一个bean的定义信息)。</p>
+<p>最后，依然是通过internalAutoProxyCreator = AnnotationAwareAspectJAutoProxyCreator将AnnotationAwareAspectJAutoProxyCreator注册到容器中。</p>
+<hr>
+<p><strong>因此，@EnableAspectJAutoProxy注解的作用就是将我们的AnnotationAwareAspectJAutoProxyCreator注册到容器中。</strong></p>
+<hr>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/02/06/Spring%E6%B3%A8%E8%A7%A3%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91%E3%80%90%E6%BA%90%E7%A0%81%E3%80%91%E2%80%94%E2%80%94AOP%E5%8E%9F%E7%90%86%E2%80%94%E2%80%94-EnableAspectJAutoProxy/" data-id="ckzb6dz3o0017zwtwdu823kve" class="article-share-link">
+        Share
+      </a>
+      
+    </footer>
+
+  </div>
+
+  
+  
+<nav class="article-nav">
+  
+  <a href="/2022/02/06/Spring%E6%B3%A8%E8%A7%A3%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91%E3%80%90%E6%BA%90%E7%A0%81%E3%80%91%E2%80%94%E2%80%94AOP%E5%8E%9F%E7%90%86%E2%80%94%E2%80%94AnnotationAwareAspectJAutoProxyCreator/" class="article-nav-link">
+    <strong class="article-nav-caption">Newer</strong>
+    <div class="article-nav-title">
+      
+      Spring注解驱动开发【源码】——AOP原理——AnnotationAwareAspectJAutoProxyCreator
+      
+    </div>
+  </a>
+  
+  
+  <a href="/2022/02/06/Spring%E6%B3%A8%E8%A7%A3%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91%E2%80%94%E2%80%94AOP%E5%8A%9F%E8%83%BD%E6%B5%8B%E8%AF%95/" class="article-nav-link">
+    <strong class="article-nav-caption">Older</strong>
+    <div class="article-nav-title">Spring注解驱动开发——AOP功能测试</div>
+  </a>
+  
+</nav>
+
+  
+
+  
+  
+  
+  
+
+</article>
+</section>
+    <footer class="footer">
+  <div class="outer">
+    <div class="float-right">
+      <ul class="list-inline">
+  
+  <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
+  
+  <li><i class="fe fe-bookmark"></i> <span id="busuanzi_value_page_pv"></span></li>
+  
+</ul>
+    </div>
+    <ul class="list-inline">
+      <li>青稞 &copy; 2022</li>
+      
+        <li>ZHWANGART</li>
+      
+      <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
+      <li>theme  <a target="_blank" rel="noopener" href="https://github.com/zhwangart/hexo-theme-ocean">Ocean</a></li>
+    </ul>
+  </div>
+</footer>
+  </main>
+  <aside class="sidebar">
+    <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/hexo.svg" alt="青稞"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">Home</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">Archives</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/gallery">Gallery</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about">About</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="Search">
+        <i class="fe fe-search"></i>
+        Search
+      </a>
+    </li>
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      <div class="totop" id="totop">
+  <i class="fe fe-rocket"></i>
+</div>
+    </li>
+    <li class="nav-item">
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="fe fe-feed"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+  </aside>
+  
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/copybtn.js"></script>
+
+
+
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto',
+  });
+</script>
+
+
+
+<script src="/js/ocean.js"></script>
+
+</body>
+
+</html>

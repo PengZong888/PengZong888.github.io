@@ -1,0 +1,1259 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  
+  
+  <title>
+    
+    青稞
+  </title>
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+    
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<script src="/js/pace.min.js"></script>
+
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="青稞" type="application/atom+xml">
+</head>
+
+<body>
+  <main class="content">
+    <section class="jumbotron">
+  <div class="video">
+    
+    <div class="video-frame">
+      <img src="/images/ocean/overlay-hero.png" alt="Decorative image frame">
+    </div>
+    
+    <div class="video-media">
+      <video playsinline="" autoplay="" loop="" muted="" data-autoplay="" poster="/images/ocean/ocean.png"
+        x5-video-player-type="h5">
+        <source src="/images/ocean/ocean.mp4" type="video/mp4">
+        <source src="/images/ocean/ocean.ogv" type="video/ogg">
+        <source src="/images/ocean/ocean.webm" type="video/webm">
+        <p>Your user agent does not support the HTML5 Video element.</p>
+      </video>
+      <div class="video-overlay"></div>
+    </div>
+    <div class="video-inner text-center text-white">
+      <h1><a href="/">青稞</a></h1>
+      <p></p>
+      <div><img src="/images/hexo-inverted.svg" class="brand" alt="青稞"></div>
+    </div>
+    <div class="video-learn-more">
+      <a class="anchor" href="#landingpage"><i class="fe fe-mouse"></i></a>
+    </div>
+  </div>
+</section>
+<div id="landingpage">
+  <section class="outer">
+  <article class="articles">
+    
+    <h1 class="page-type-title"></h1>
+    
+    
+    <article id="post-文件传输协议——FTP" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+      
+
+<h2 itemprop="name">
+  <a class="article-title" href="/2022/01/07/%E6%96%87%E4%BB%B6%E4%BC%A0%E8%BE%93%E5%8D%8F%E8%AE%AE%E2%80%94%E2%80%94FTP/">文件传输协议——FTP</a>
+</h2>
+
+
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2022/01/07/%E6%96%87%E4%BB%B6%E4%BC%A0%E8%BE%93%E5%8D%8F%E8%AE%AE%E2%80%94%E2%80%94FTP/" class="article-date">
+  <time datetime="2022-01-07T05:26:53.000Z" itemprop="datePublished">2022-01-07</time>
+</a>
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+        
+      
+      
+      <p>在一个典型的FTP会话中，用户坐在一台主机前面，向一台远程主机传输文件。为使用户能访问它的远程账户，用户必须提供一个用户标识和口令。在提供了这种授权信息后，用户就能从本地文件系统向远程主机文件系统传送文件，反之亦然。</p>
+<p>如图所示，用户通过一个FTP用户代理与FTP交互。该用户首先提供远程主机的主机名，使本地主机的FTP客户进程建立一个到远程主机FTP服务器进程的TCP连接。该用户接着提供用户标识和口令，作为FTP命令的一部分在该TCP连接上传送。一旦该服务器向该用户授权，用户可以将存放在本地文件系统中的一个或者多个文件复制到远程文件系统（反之亦然）。</p>
+<p><img src="C:/Users/pengbin007/AppData/Roaming/Typora/typora-user-images/image-20220107170948054.png" alt="image-20220107170948054"></p>
+<p>HTTP和FTP都是文件传输协议，并且有很多共同的特点，例如，它们都运行在TCP上。然而，这两个应用层协议也有一些重要的区别。其中最显著的就是FTP使用了两个并行的TCP连接来传输文件，一个是控制连接（control connection），一个是数据连接（data connection）。</p>
+<p>控制连接用于在两主机之间传输控制信息，如用户标识、口令、改变远程目录的命令以及“存放（put）”和“获取（get）”文件的命令。数据连接用于实际发送一个文件。因为FTP协议使用了一个独立的控制连接，所以我们也称FTP的控制信息是带外（out-of-band）传送的。而HTTP协议是在传输文件的同一个TCP连接中发送请求和响应首部行的。因此，HTTP也可以说是带内（in-band）发送控制信息的。FTP协议控制连接和数据连接如图所示。</p>
+<p><img src="C:/Users/pengbin007/AppData/Roaming/Typora/typora-user-images/image-20220107170217442.png" alt="image-20220107170217442"></p>
+<p>在同一个会话期间，如果用户还需要传输另一个文件，FTP则打开另一个数据连接。因而对FTP传输而言，控制连接贯穿了整个用户会话期间，但是对会话中的每一次文件传输都需要建立一个新的数据连接（即数据连接是非持续的）。</p>
+<p>FTP服务器必须在整个会话期间保留用户的状态（state）。特别是，服务器必须把特定的用户账户与控制连接联系起来，随着用户在远程目录树上徘徊，服务器必须追踪用户在远程目录树上的当前位置。对每个进行中的用户会话的状态信息进行追踪，大大限制了FTP同时维持的会话总数。而另一方面，前面讲过FTP是无状态的，即它不必对任何用户状态进行追踪。</p>
+<h1 id="FTP命令和回答"><a href="#FTP命令和回答" class="headerlink" title="FTP命令和回答"></a>FTP命令和回答</h1><p>从客户到服务器的命令和从服务器到客户的回答，都是以7比特ASCII格式在控制连接上传送的。因此，与HTTP协议的命令类似，FTP协议的命令也是人可读的。为了区分连续的命令，每个命令后跟回车换行符。每个命令由4个大写字母ASCII字符组成，有些还具有可选参数。一些较为常见的命令如下：</p>
+<ul>
+<li>USER username：用户向服务器传送用户标识。</li>
+<li>PASS password：用于向服务器发送用户口令。</li>
+<li>LIST：用于请求服务器回送当前远程目录中的所有文件列表。该文件列表是通过一个数据连接传送的，而不是在控制TCP连接上传送。</li>
+<li>RETR filename：用于从远程主机当前目录检索（即get）文件。该命令引起远程主机发起一个数据连接，并经该数据连接发送所请求的文件。</li>
+<li>STOR filename：用于在远程主机的当前目录上存放（即put）文件。</li>
+</ul>
+<p>贯穿控制连接，在用户发出的命令和FTP发送的命令之间通常有一一对应关系。每个命令都对应这一个从服务器发向客户的回答。回答是一个3位的数字，后跟一个可选信息。这与HTTP响应报文状态行的状态码和状态信息的结构相同。一些典型的回答连同它们可能的报文如下所示：</p>
+<ul>
+<li>331 Username OK，Password required（用户名OK，需要口令）。</li>
+<li>125 Data connection already open；transfer starting（数据连接已经打开，开始传送）。</li>
+<li>425 Can’t open data connection（无法打开数据连接）。</li>
+<li>452 Error writing file（写文件差错）。</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/01/07/%E6%96%87%E4%BB%B6%E4%BC%A0%E8%BE%93%E5%8D%8F%E8%AE%AE%E2%80%94%E2%80%94FTP/" data-id="ckzb6dz43001qzwtw2fxvakjr" class="article-share-link">
+        Share
+      </a>
+      
+    </footer>
+
+  </div>
+
+  
+
+  
+
+</article>
+    
+    <article id="post-OS" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+      
+
+<h2 itemprop="name">
+  <a class="article-title" href="/2022/01/03/OS/">OS</a>
+</h2>
+
+
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2022/01/03/OS/" class="article-date">
+  <time datetime="2022-01-02T20:00:29.000Z" itemprop="datePublished">2022-01-03</time>
+</a>
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+        
+      
+      
+      <h1 id="1-操作系统概述"><a href="#1-操作系统概述" class="headerlink" title="1. 操作系统概述"></a>1. 操作系统概述</h1><ol>
+<li>虚拟存储器是用“时间”来换取“空间”的。</li>
+<li>设计实时操作系统必须首先考虑系统的可靠性。</li>
+<li>一个作业第一次执行时用来5分钟，而第二次执行时用来6分钟，这说明了操作系统的不确定性特点。</li>
+<li>分布式操作系统一定是由多台计算机组成的系统。</li>
+<li>缓冲技术采用了以“空间”换“时间”的技术。</li>
+<li>按照所起的作用和需要的运行环境，操作系统属于系统软件。</li>
+<li>操作系统的主要功能是内存管理、设备管理、文件管理、用户接口和进程管理。</li>
+<li>操作系统的最基本的两个特征是资源共享和程序的并发性。</li>
+<li>采用多道程序设计技术可以提高CPU和外部设备的利用率。</li>
+<li>在计算机系统中，操作系统是处于裸机之上的第一层软件。</li>
+<li>操作系统是对计算机资源进行管理的软件。</li>
+<li>从用户的观点，操作系统是扩充裸机功能的软件，是比裸机功能更强、使用更方便的虚拟机。</li>
+<li>操作系统的基本类型是实时系统、分时系统和批处理系统。</li>
+<li>使系统中的用户得到及时的响应，操作系统应该是实时系统。</li>
+<li>如果分时系统的时间片一定，那么用户数越多会使响应时间越长。</li>
+<li>分时系统允许一台主机上同时连接多台终端，多个用户可以通过多台终端同时交互地使用计算机。</li>
+<li>批处理系统允许用户把多个作业同时提交给计算机，而无须与计算机进行交互。</li>
+<li>在实时系统的控制下计算机系统能及时处理由过程控制反馈的数据并做出及时响应。</li>
+<li>一个计算机系统采用多道程序设计技术后，使多道程序实现了宏观上并行。</li>
+<li>用户程序要将一个字符送到显示器上显示，要使用操作系统提供的系统调用。</li>
+<li>分布式系统相比于网络操作系统，具有的特点是多机合作、健壮性、透明性。</li>
+<li>嵌入式系统的特点是需要专用开发工具和方法进行设计、是技术密集、资金密集、高度分散、不断创新的知识集成系统、通常由是向特定任务的，而不同于一般通用PC计算平台，是“专用”的计算机系统。</li>
+<li>计算机系统是由硬件和软件两部分组成的。</li>
+<li>采用多道程序设计技术能够充分发挥CPU和外设并行工作的能力。</li>
+<li>多道程序环境下的各道程序，宏观上它们是在并行运行，微观上它们是在串行运行。</li>
+<li>并发和共享是操作系统的两个最基本的特征，两者之间互为存在条件。</li>
+<li>顺序执行的程序，具有顺行性、封闭性和可再现性。</li>
+<li>操作系统功能包括进程管理、内存管理、文件管理、设备管理，除此之外，操作系统还为用户使用计算机提供了用户接口。</li>
+<li>批处理系统按内存中同时存放的运行程序的数目可分为单道批处理系统和多道批处理系统。</li>
+<li>分时系统的主要特征有多路性、独占性、交互性和及时性。</li>
+<li>实时系统分为两种类型：实时信息处理系统和实时控制系统。</li>
+<li>响应时间是衡量分时系统性能的一项重要指标。</li>
+<li>批处理系统不允许用户干预自己的程序。</li>
+<li>采用批处理系统，用户提交作业前必须使用作业控制语言编写作业说明书，以指出作业加工的步骤。</li>
+<li>操作系统为程序员提供的是程序接口（系统调用），为一般用户提供的是命令接口。</li>
+<li>在操作系统的发展过程中，多道和分时的出现，标志着操作系统的正式形成。</li>
+<li>如果一个系统在用户提交作业后，不提供交互能力，则属于批处理系统；如果一个系统可靠性很强，时间响应及时且具有交互能力，则属于实时系统类型；如果一个系统具有很强的交互性，可同时供多个用户使用，时间响应比较及时，则属于分时系统。</li>
+</ol>
+<h1 id="2-进程与线程"><a href="#2-进程与线程" class="headerlink" title="2. 进程与线程"></a>2. 进程与线程</h1><ol>
+<li>并发执行的程序具有间断性特征。</li>
+<li>在OS中，要想读取文件中的数据，通过系统调用来实现。</li>
+<li>计算机处于用户态时，不能执行特权指令。</li>
+<li>单道程序执行时，具有顺序性、封闭性和可再现性的特点。</li>
+<li>多道程序执行时，具有间断性，将失去封闭性和可再现性的特点。</li>
+<li>进程具有动态性、并发性、独立性、异步性和结构特征。</li>
+<li>进程的3种基本状态是阻塞状态、就绪状态和运行状态。</li>
+<li>判断一个进程是否处于挂起状态，要看该进程是否在内存，挂起状态又分为阻塞挂起和就绪挂起。</li>
+<li>进程映像通常由程序、数据、栈和PCB四部分组成。</li>
+<li>通常将处理机的执行状态分为系统状态和用户状态。</li>
+<li>根据线程的切换是否依赖于内核把线程分成用户级和内核级。</li>
+<li>进程是一个动态的概念，而程序是一个静态的概念。</li>
+</ol>
+<h1 id="3-进程同步与通信"><a href="#3-进程同步与通信" class="headerlink" title="3. 进程同步与通信"></a>3. 进程同步与通信</h1><ol>
+<li>在利用信号量实现互斥时，应将临界区置于PV操作之间。</li>
+<li>在实现了用户级线程的系统中，CPU调度的对象是进程；在实现了内核级线程的系统中，CPU调度的对象是线程。</li>
+<li>在一个单处理机系统中，若有6个用户进程，且假设当前时刻为用户态，则处于就绪队列的进程最多有5个，最少有0个。</li>
+<li>有n个进程共享某一临界资源，如用信号量机制实现对临界资源的互斥访问，则信号量值得变化范围是 -(n - 1) ~ 1。</li>
+<li>对信号量的操作，只能是PV操作，P操作相当于进程申请资源，V操作相当于进程释放资源。如果P操作使用不当，可能导致系统死锁。</li>
+<li>在多道程序环境中，进程之间存在的相互制约关系可以分为两种，即同步和互斥。其中互斥是指进程之间使用共享资源时的相互约束关系，而同步是指进程之间的相互协作、相互配合关系。</li>
+<li>如果信号量的初始值为3，则表示系统有3个共享资源；如果信号量当前值为-4，则表示在该信号量上有4个进程等待。</li>
+<li>信号量的物理意义是：信号量的初始值大于0表示系统中共享资源的个数；信号量的初始值等于0表示系统中没有该类的共享资源；信号量的初始值小于0，其绝对值表示系统中等待该类共享资源的进程数。</li>
+<li>使用临界区的4个准则是：空闲让进、忙则等待、有限等待和让权等待。</li>
+<li>并发进程中涉及相同变量的程序段称为临界区，对这段程序要互斥执行。</li>
+<li>为实现消息通信，应有发送和接收两条基本原语。</li>
+<li>对信号量S的P操作定义中，使进程进入等待队列的条件是S &lt; 0；V操作定义中，唤醒进程的条件是S ≤ 0。</li>
+<li>AND信号量的基本思想是，将进程在整个运行期间所需要的临界资源一次性地全部分配给进程，待该进程使用完后再一起释放。</li>
+<li>管程由共享变量的定义、能使进程并发执行、对共享变量的初始化三部分组成。</li>
+<li>高级通信机制可分为三大类：共享存储系统、消息通信系统和管道通信。</li>
+</ol>
+<h1 id="4-调度与死锁"><a href="#4-调度与死锁" class="headerlink" title="4. 调度与死锁"></a>4. 调度与死锁</h1><ol>
+<li><p>产生死锁的原因是资源不足和进程推进顺序非法。</p>
+</li>
+<li><p>资源预先静态分配方法和资源有序分配方法分别破坏了产生死锁的请求和保持条件和环路等待条件。</p>
+</li>
+<li><p>解决死锁通常采用预防、避免、检测和解除等方法，其中银行家算法属于避免死锁的方法，资源的有序分配属于预防死锁的方法，剥夺资源属于解除死锁的方法。</p>
+</li>
+<li><p>作业调度是高级调度，内外存对换调度是中级调度，进程调度是低级调度。</p>
+</li>
+<li><p>在有n个进程的系统中，死锁进程个数k应满足的条件是2 ≤ k ≤ n。</p>
+</li>
+<li><p>产生死锁的4个必要条件是互斥、请求和保持、不可剥夺和环路等待条件。</p>
+</li>
+<li><p>在银行家算法中，当一个进程提出资源请求将导致系统从安全状态进入不安全状态时，系统就拒绝它的资源请求。</p>
+</li>
+<li><p>在先来先服务算法中，系统按照进程进入就绪队列的先后次序来分配CPU。</p>
+</li>
+<li><p>死锁是一个系统中多个进程无限期地等待永远不会发生的条件。</p>
+</li>
+<li><p>判断资源分配图是否可以简化是检测死锁的方法。</p>
+</li>
+</ol>
+<h1 id="5-存储管理"><a href="#5-存储管理" class="headerlink" title="5. 存储管理"></a>5. 存储管理</h1><ol>
+<li>将程序地址空间中的逻辑地址变换成物理地址的过程称为重定位。</li>
+<li>在可变分区中采用首次适应算法时，应将空闲区按地址递增的次序排列。</li>
+<li>在可变分区的分配算法中，倾向于优先使用低地址部分空闲区的是首次适应算法，能使内存空间的空闲分区分布得比较均匀的是下次适应算法，每次分配时，若内存中有和进程需要的分区的大小相等的空闲区，一定能分配给进程的是最佳适应算法。</li>
+<li>静态重定位是在程序装入内存时运行，动态重定位是在程序运行时运行。</li>
+<li>静态链接是在程序运行前时进行，动态链接是在程序运行时进行。</li>
+<li>两个目标模块链接在一起时需要解决相对地址的修改和外部符号引用的变换问题。</li>
+<li>在段式存储管理系统中，程序使用的最大段数和每段的最大长度是由逻辑地址结构解决的。</li>
+<li>进程有8页，页的大小1KB，它被映射到共有64个存储块的物理地址空间中，则该进程的逻辑地址的有效位是13，物理地址的有效位是16。</li>
+<li>在段页式系统中，先将程序分段，再将段分页。内存分配以页为单位，如果不考虑使用快表的情况下，每条访问内存的指令需要3次访存，其中第二次是查页表。</li>
+<li>在段式存储管理系统中，如果一个进程有15段，每段的大小不超过2KB，则该进程的逻辑地址的大小是30KB，其逻辑地址用15个二进制位表示。</li>
+</ol>
+<h1 id="6-虚拟存储管理"><a href="#6-虚拟存储管理" class="headerlink" title="6. 虚拟存储管理"></a>6. 虚拟存储管理</h1><ol>
+<li>在请求页式存储管理系统中，地址变换过程可能会因为地址越界、缺页和访问权限非法等原因产生中断。</li>
+<li>交换技术获得的好处是以牺牲CPU时间为代价的。</li>
+<li>在请求页式存储管理系统的页面置换算法中，最佳置换算法OPT选择淘汰不再使用的页或长时间不再使用的页；先进先出置换算法FIFO选择淘汰在内存驻留时间最长的页；最近最久未使用置换算法LRU选择淘汰最近一段时间内使用最少的页。</li>
+<li>在段页式系统中，OS必须为每个进程建立一张段表，且每一段都对应一张页表。</li>
+<li>页面置换算法是在内存中没有空闲块时被调用，它的目的是选出一个被淘汰块的页面，如果内存中有足够的空闲块存放所调入的页，则不必使用页面置换算法。</li>
+<li>决定缺页中断所需时间的主要因素是中断处理时间、页面交换时间和重启进程时间。</li>
+<li>过度增加多道程序的并行程序，在虚拟存储器系统中可能会引起抖动现象，反而会降低系统的吞吐量。理论和实践证明，在L = S，即使产生缺页的平均时间L等于系统处理缺页的平均时间S时，CPU利用率最好。</li>
+<li>多道程序设计技术的引入给存储管理系统提出了新的课题，需要考虑的3个问题是内存分配、内存保护和地址重定位。</li>
+<li>设一个计算机系统的CPU地址长度为32位，内存的大小是32MB，则该计算机的物理地址空间的大小位32MB，逻辑地址的大小为4GB。</li>
+<li>请求页式系统比起页式系统，页表中增加了状态位、修改位、访问字段和外存地址。</li>
+<li>可以实现虚拟存储技术的管理方案有页式、段式和段页式，其中段页式方案实现起来最复杂。</li>
+<li>在虚拟存储管理系统中，要求硬件必须提供Cache，以保证地址变化变换的速度。</li>
+<li>虚拟存储器的四大特征是离散性、多次性、对换性和虚拟性。</li>
+<li>时钟置换算法是LRU算法的近似算法，它要求页表中的访问字段只需一位即可。</li>
+<li>在请求页式存储管理的页表中，状态位的作用是判断是否缺页，修改位的作用是判断某页是否要写回外存，访问字段是用于页面置换。</li>
+</ol>
+<h1 id="7-设备管理"><a href="#7-设备管理" class="headerlink" title="7. 设备管理"></a>7. 设备管理</h1><ol>
+<li>在现代OS中，几乎所有的I/O设备与CPU交换数据时，都使用了缓冲区。</li>
+<li>读/写磁盘时，一般把磁盘的访问时间分成三部分寻道时间、旋转时间和数据传输时间。</li>
+<li>设备分配程序在分配设备时，先分配设备，再分配控制器，最后分配通道。</li>
+<li>虚拟设备是通过SPOOLing技术把独占设备变为能为若干用户共享的设备。</li>
+<li>为实现CPU和设备之间的并行工作，系统引入了通道和中断硬件机制。</li>
+<li>常用的I/O控制方式有程序直接控制方式、中断控制方式、DMA控制方式和通道方式。</li>
+<li>通道是一个独立于CPU而专门负责I/O的处理机，它控制外部设备与内存之间的信息交换。</li>
+<li>按设备固有属性，一般把设备分为独占设备、共享设备和虚拟设备。</li>
+<li>设备分配时所需要的数据结构有设备控制表、控制器控制表、通道控制表和系统设备表。</li>
+<li>使用逻辑设备表（LUT）有两个好处，一是增加了设备分配的灵活性，二是易于实现I/O重定向。</li>
+<li>打印机是独占设备，磁盘是共享设备。</li>
+<li>在存储设备中，磁带是一种顺序存取设备，它适合顺序存取；磁盘是一种直接存取设备，它适合随机存取。</li>
+<li>在RAID技术中，仅仅提供并行交叉访问的是RAID0，提供磁盘镜像的是RAID1，从RAID5开始把校验条带分布在所有的磁盘中.</li>
+<li>缓冲区的组织可分为单缓冲、双缓冲、循环缓冲和缓冲池。</li>
+<li>设备分配程序要保证设备有高的利用率，并防止死锁问题的产生。</li>
+<li>在计算机系统中，CPU输出数据的速度远远高于打印机的打印速度，为了解决这一矛盾，可以采用缓冲技术。</li>
+<li>缓冲技术的缓冲池在内存中。</li>
+<li>最短寻道时间优先算法选择与当前磁头所在磁道距离最近的请求作为下一次服务的对象。</li>
+</ol>
+<h1 id="8-文件管理"><a href="#8-文件管理" class="headerlink" title="8. 文件管理"></a>8. 文件管理</h1><ol>
+<li>使用文件之前必须先打开文件，使用完毕之后需要关闭文件。</li>
+<li>文件目录中至少应包含文件名和文件物理地址。</li>
+<li>逻辑文件结构有流式文件和记录式文件两种。</li>
+<li>文件的物理组织结构有连续文件、链接文件和索引文件。</li>
+<li>文件共享是指运行多个用户共同使用同一个文件。</li>
+<li>文件的转储方法有全量转储和增量转储。</li>
+<li>在文件系统中，要求物理块必须连续的文件物理组织方式是顺序文件。</li>
+<li>文件目录的作用是实现文件名到文件物理地址的转换。</li>
+<li>文件结构就是文件的组织方式，从用户观点出发看到的文件组织形式称为文件的逻辑结构，从实现观点出发看到的文件在外存上的存放组织形式称为文件的物理结构。</li>
+<li>文件系统中若文件的物理结构采用连续分配方式，则文件控制块中关于文件的物理位置应包括起始块号和块数。</li>
+<li>位示图在文件系统中的作用是管理文件系统中的空闲物理块。</li>
+<li>主目录在树形目录结构中，作为树的根节点，称为根目录；数据文件作为树的叶子节点，其它子目录作为树的分支节点。</li>
+<li>在OS中，每个索引文件都必须有一张索引表，其中每个登记项用来指出一个逻辑记录的存放位置和指针。</li>
+<li>按用户对文件的存取权限将用户分为若干组，同时规定每一组用户对文件的访问权限，这样，所有用户组存取权限的集合称为该文件的访问控制表。</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/01/03/OS/" data-id="ckzb6dz2y000dzwtw77gb2m8w" class="article-share-link">
+        Share
+      </a>
+      
+    </footer>
+
+  </div>
+
+  
+
+  
+
+</article>
+    
+    <article id="post-【源码】Spring——bean的创建" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+      
+
+<h2 itemprop="name">
+  <a class="article-title" href="/2022/01/02/%E3%80%90%E6%BA%90%E7%A0%81%E3%80%91Spring%E2%80%94%E2%80%94bean%E7%9A%84%E5%88%9B%E5%BB%BA/">一探Spring源码——bean的创建</a>
+</h2>
+
+
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2022/01/02/%E3%80%90%E6%BA%90%E7%A0%81%E3%80%91Spring%E2%80%94%E2%80%94bean%E7%9A%84%E5%88%9B%E5%BB%BA/" class="article-date">
+  <time datetime="2022-01-02T08:34:27.000Z" itemprop="datePublished">2022-01-02</time>
+</a>
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+        
+      
+      
+      <p>w我们知道，IOC是一个容器，在这个容器启动的时候会创建所有单实例对象，我们可以直接从容器中获取到这个对象。在这里，我们将解决以下问题：</p>
+<ul>
+<li>IOC容器的启动过程？启动期间都做了什么（什么时候创建所有单实例bean）？</li>
+<li>IOC是如何创建这些单实例bean，并如何管理的？到底保存在了哪里？</li>
+</ul>
+<h1 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h1><p>新建普通Java工程，引入jar包：</p>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20220111103132395.png" alt="image-20220111103132395"></p>
+<p>创建JavaBean，Person：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.atqingke.bean;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> pengbin007</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2022/1/3 15:24</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> Integer age;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Person</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Person</span><span class="params">(String name, Integer age)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">        <span class="keyword">this</span>.age = age;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Integer <span class="title">getAge</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> age;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setAge</span><span class="params">(Integer age)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.age = age;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Person&#123;&quot;</span> +</span><br><span class="line">                <span class="string">&quot;name=&#x27;&quot;</span> + name + <span class="string">&#x27;\&#x27;&#x27;</span> +</span><br><span class="line">                <span class="string">&quot;, age=&quot;</span> + age +</span><br><span class="line">                <span class="string">&#x27;&#125;&#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>xml注入bean，application.xml：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://www.springframework.org/schema/beans&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns:context</span>=<span class="string">&quot;http://www.springframework.org/schema/context&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">context:component-scan</span> <span class="attr">base-package</span>=<span class="string">&quot;com.atqingke&quot;</span>/&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;person01&quot;</span> <span class="attr">class</span>=<span class="string">&quot;com.atqingke.bean.Person&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;name&quot;</span> <span class="attr">value</span>=<span class="string">&quot;张三&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;age&quot;</span> <span class="attr">value</span>=<span class="string">&quot;21&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;person02&quot;</span> <span class="attr">class</span>=<span class="string">&quot;com.atqingke.bean.Person&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;name&quot;</span> <span class="attr">value</span>=<span class="string">&quot;李四&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;age&quot;</span> <span class="attr">value</span>=<span class="string">&quot;22&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;person03&quot;</span> <span class="attr">class</span>=<span class="string">&quot;com.atqingke.bean.Person&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;name&quot;</span> <span class="attr">value</span>=<span class="string">&quot;王五&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;age&quot;</span> <span class="attr">value</span>=<span class="string">&quot;23&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>编写测试类，SourceTest：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.atqingke.test;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.atqingke.bean.Person;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.ApplicationContext;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.support.ClassPathXmlApplicationContext;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> pengbin007</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2022/1/3 15:25</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SourceTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        ApplicationContext context = <span class="keyword">new</span> ClassPathXmlApplicationContext(<span class="string">&quot;application.xml&quot;</span>);</span><br><span class="line">        Person person01 = context.getBean(<span class="string">&quot;person01&quot;</span>, Person.class);</span><br><span class="line">        System.out.println(person01);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h1><p>从最简单的HelloWorld开始，单步调试。</p>
+<p>首先我们从第一行代码开始，Step Into进入</p>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20220103221340624.png" alt="image-20220103221340624"></p>
+<p>接下来我们来到AbstractApplicationContext：</p>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20220103221608551.png" alt="image-20220103221608551"></p>
+<p>这里的注释告诉我们：如果没有提供工厂中ApplicationEventMulticaster的bean的名称，则使用默认的名称，也就是这个“applicationEventMulticaster”。这里不是我们关注的重点，我们Step Over跳过这里！发现它又回到了我们的main方法，这时候我们再Step Over的话，可以看到，我们在配置文件中注入的bean对象，就已经创建好了。所以我们当我们回到main方法的时候，需要再次Step Into进入new ClassPathXmlApplicationContext。</p>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20220103222233024.png" alt="image-20220103222233024"></p>
+<p>可以发现，这次我们来到的是ClassPathXmlApplicationContext。也就是说，程序从开始运行到现在，有两次进入</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ApplicationContext context = <span class="keyword">new</span> ClassPathXmlApplicationContext(<span class="string">&quot;application.xml&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>第一次是进入ApplicationContext，第二次进入ClassPathXmlApplicationContext。而目的也很显然，就是创建一个ClassPathXmlApplicationContext对象，加载我们给定的XML配置文件。</p>
+<p>这时候如果我们Step Over跳过这个构造器方法的话，肯定又是回到了main函数，然后结束bean的创建。因此我们继续Step Into查看它是如何创建bean的(也可以在refresh方法上打上断点，再F9 Resume Program，使程序运行到这个断点)。</p>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20220103223116959.png" alt="image-20220103223116959"></p>
+<p>我们可以看到，构造器的注释中告诉我们refresh就是“<strong>loading all bean definitions and creating all singletons</strong>”。因此我们进入一路Step Over来到refresh并Step Into进入里面。我们来详细看一下refresh方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">refresh</span><span class="params">()</span> <span class="keyword">throws</span> BeansException, IllegalStateException </span>&#123;</span><br><span class="line">    <span class="keyword">synchronized</span> (<span class="keyword">this</span>.startupShutdownMonitor) &#123;</span><br><span class="line">        StartupStep contextRefresh = <span class="keyword">this</span>.applicationStartup.start(<span class="string">&quot;spring.context.refresh&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Prepare this context for refreshing.</span></span><br><span class="line">        prepareRefresh();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 这里是Spring解析xml配置文件，将要创建的所有bean的配置信息保存起来，所以想要看Spring对xml的解析可以Step Into里面</span></span><br><span class="line">        <span class="comment">// Tell the subclass to refresh the internal bean factory.</span></span><br><span class="line">        ConfigurableListableBeanFactory beanFactory = obtainFreshBeanFactory();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Prepare the bean factory for use in this context.</span></span><br><span class="line">        prepareBeanFactory(beanFactory);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">// Allows post-processing of the bean factory in context subclasses.</span></span><br><span class="line">            postProcessBeanFactory(beanFactory);</span><br><span class="line"></span><br><span class="line">            StartupStep beanPostProcess = <span class="keyword">this</span>.applicationStartup.start(<span class="string">&quot;spring.context.beans.post-process&quot;</span>);</span><br><span class="line">            <span class="comment">// Invoke factory processors registered as beans in the context.</span></span><br><span class="line">            invokeBeanFactoryPostProcessors(beanFactory);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// Register bean processors that intercept bean creation.</span></span><br><span class="line">            registerBeanPostProcessors(beanFactory);</span><br><span class="line">            beanPostProcess.end();</span><br><span class="line">            </span><br><span class="line"><span class="comment">// 支持国际化功能的</span></span><br><span class="line">            <span class="comment">// Initialize message source for this context.</span></span><br><span class="line">            initMessageSource();</span><br><span class="line"></span><br><span class="line">            <span class="comment">// Initialize event multicaster for this context.</span></span><br><span class="line">            initApplicationEventMulticaster();</span><br><span class="line">            </span><br><span class="line"><span class="comment">// 空方法，留给子类使用的</span></span><br><span class="line">            <span class="comment">// Initialize other special beans in specific context subclasses.</span></span><br><span class="line">            onRefresh();</span><br><span class="line"></span><br><span class="line">            <span class="comment">// Check for listener beans and register them.</span></span><br><span class="line">            registerListeners();</span><br><span class="line">            </span><br><span class="line"><span class="comment">// 从名字就可以知道，这里是初始化所有单实例bean的地方</span></span><br><span class="line">            <span class="comment">// Instantiate all remaining (non-lazy-init) singletons.</span></span><br><span class="line">            finishBeanFactoryInitialization(beanFactory);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// Last step: publish corresponding event.</span></span><br><span class="line">            finishRefresh();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">catch</span> (BeansException ex) &#123;</span><br><span class="line">            <span class="keyword">if</span> (logger.isWarnEnabled()) &#123;</span><br><span class="line">                logger.warn(<span class="string">&quot;Exception encountered during context initialization - &quot;</span> +</span><br><span class="line">                            <span class="string">&quot;cancelling refresh attempt: &quot;</span> + ex);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 销毁已经创建的单例bean</span></span><br><span class="line">            <span class="comment">// Destroy already created singletons to avoid dangling resources.</span></span><br><span class="line">            destroyBeans();</span><br><span class="line"></span><br><span class="line">            <span class="comment">// Reset &#x27;active&#x27; flag.</span></span><br><span class="line">            cancelRefresh(ex);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// Propagate exception to caller.</span></span><br><span class="line">            <span class="keyword">throw</span> ex;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">finally</span> &#123;</span><br><span class="line">            <span class="comment">// Reset common introspection caches in Spring&#x27;s core, since we</span></span><br><span class="line">            <span class="comment">// might not ever need metadata for singleton beans anymore...</span></span><br><span class="line">            resetCommonCaches();</span><br><span class="line">            contextRefresh.end();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>程序运行到finishBeanFactoryInitialization方法的时候，就结束了bean的初始化。</p>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20220111103916936.png" alt="image-20220111103916936"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * Finish the initialization of this context&#x27;s bean factory,</span></span><br><span class="line"><span class="comment">	 * initializing all remaining singleton beans.</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">finishBeanFactoryInitialization</span><span class="params">(ConfigurableListableBeanFactory beanFactory)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 自动类型转换，不用管</span></span><br><span class="line">    <span class="comment">// Initialize conversion service for this context.</span></span><br><span class="line">    <span class="keyword">if</span> (beanFactory.containsBean(CONVERSION_SERVICE_BEAN_NAME) &amp;&amp;</span><br><span class="line">        beanFactory.isTypeMatch(CONVERSION_SERVICE_BEAN_NAME, ConversionService.class)) &#123;</span><br><span class="line">        beanFactory.setConversionService(</span><br><span class="line">            beanFactory.getBean(CONVERSION_SERVICE_BEAN_NAME, ConversionService.class));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 处理前置处理器</span></span><br><span class="line">    <span class="comment">// Register a default embedded value resolver if no bean post-processor</span></span><br><span class="line">    <span class="comment">// (such as a PropertyPlaceholderConfigurer bean) registered any before:</span></span><br><span class="line">    <span class="comment">// at this point, primarily for resolution in annotation attribute values.</span></span><br><span class="line">    <span class="keyword">if</span> (!beanFactory.hasEmbeddedValueResolver()) &#123;</span><br><span class="line">        beanFactory.addEmbeddedValueResolver(strVal -&gt; getEnvironment().resolvePlaceholders(strVal));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// @Autowired相关</span></span><br><span class="line">    <span class="comment">// Initialize LoadTimeWeaverAware beans early to allow for registering their transformers early.</span></span><br><span class="line">    String[] weaverAwareNames = beanFactory.getBeanNamesForType(LoadTimeWeaverAware.class, <span class="keyword">false</span>, <span class="keyword">false</span>);</span><br><span class="line">    <span class="keyword">for</span> (String weaverAwareName : weaverAwareNames) &#123;</span><br><span class="line">        getBean(weaverAwareName);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Stop using the temporary ClassLoader for type matching.</span></span><br><span class="line">    beanFactory.setTempClassLoader(<span class="keyword">null</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Allow for caching all bean definition metadata, not expecting further changes.</span></span><br><span class="line">    beanFactory.freezeConfiguration();</span><br><span class="line"></span><br><span class="line"><span class="comment">// bean初始化</span></span><br><span class="line">    <span class="comment">// Instantiate all remaining (non-lazy-init) singletons.</span></span><br><span class="line">    beanFactory.preInstantiateSingletons();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Step Into进入preInstantiateSingletons方法：</p>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20220111105120658.png" alt="image-20220111105120658"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">preInstantiateSingletons</span><span class="params">()</span> <span class="keyword">throws</span> BeansException </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (logger.isTraceEnabled()) &#123;</span><br><span class="line">        logger.trace(<span class="string">&quot;Pre-instantiating singletons in &quot;</span> + <span class="keyword">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Iterate over a copy to allow for init methods which in turn register new bean definitions.</span></span><br><span class="line">    <span class="comment">// While this may not be part of the regular factory bootstrap, it does otherwise work fine.</span></span><br><span class="line">    List&lt;String&gt; beanNames = <span class="keyword">new</span> ArrayList&lt;&gt;(<span class="keyword">this</span>.beanDefinitionNames);</span><br><span class="line"></span><br><span class="line"><span class="comment">// bean实例真正初始化的地方</span></span><br><span class="line">    <span class="comment">// Trigger initialization of all non-lazy singleton beans...</span></span><br><span class="line">    <span class="keyword">for</span> (String beanName : beanNames) &#123;</span><br><span class="line">        </span><br><span class="line"><span class="comment">// 根据bean的id获取到bean的定义信息</span></span><br><span class="line">        RootBeanDefinition bd = getMergedLocalBeanDefinition(beanName);</span><br><span class="line">        </span><br><span class="line"><span class="comment">// 如果这个bean不是抽象并且是单例的，也不是懒加载的，我们就在容器中注册这个bean</span></span><br><span class="line">        <span class="keyword">if</span> (!bd.isAbstract() &amp;&amp; bd.isSingleton() &amp;&amp; !bd.isLazyInit()) &#123;</span><br><span class="line">            </span><br><span class="line"><span class="comment">// 是否是一个实现了FactoryBean接口的bean</span></span><br><span class="line">            <span class="keyword">if</span> (isFactoryBean(beanName)) &#123;</span><br><span class="line">                Object bean = getBean(FACTORY_BEAN_PREFIX + beanName);</span><br><span class="line">                <span class="keyword">if</span> (bean <span class="keyword">instanceof</span> FactoryBean) &#123;</span><br><span class="line">                    <span class="keyword">final</span> FactoryBean&lt;?&gt; factory = (FactoryBean&lt;?&gt;) bean;</span><br><span class="line">                    <span class="keyword">boolean</span> isEagerInit;</span><br><span class="line">                    <span class="keyword">if</span> (System.getSecurityManager() != <span class="keyword">null</span> &amp;&amp; factory <span class="keyword">instanceof</span> SmartFactoryBean) &#123;</span><br><span class="line">                        isEagerInit = AccessController.doPrivileged((PrivilegedAction&lt;Boolean&gt;)</span><br><span class="line">                                                                    ((SmartFactoryBean&lt;?&gt;) factory)::isEagerInit,</span><br><span class="line">                                                                    getAccessControlContext());</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">else</span> &#123;</span><br><span class="line">                        isEagerInit = (factory <span class="keyword">instanceof</span> SmartFactoryBean &amp;&amp;</span><br><span class="line">                                       ((SmartFactoryBean&lt;?&gt;) factory).isEagerInit());</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">if</span> (isEagerInit) &#123;</span><br><span class="line">                        getBean(beanName);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line"><span class="comment">// 否则，根据beanName直接获取</span></span><br><span class="line">            <span class="keyword">else</span> &#123;</span><br><span class="line">                getBean(beanName);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// bean初始化之后的回调函数</span></span><br><span class="line">    <span class="comment">// Trigger post-initialization callback for all applicable beans...</span></span><br><span class="line">    <span class="keyword">for</span> (String beanName : beanNames) &#123;</span><br><span class="line">        Object singletonInstance = getSingleton(beanName);</span><br><span class="line">        <span class="keyword">if</span> (singletonInstance <span class="keyword">instanceof</span> SmartInitializingSingleton) &#123;</span><br><span class="line">            <span class="keyword">final</span> SmartInitializingSingleton smartSingleton = (SmartInitializingSingleton) singletonInstance;</span><br><span class="line">            <span class="keyword">if</span> (System.getSecurityManager() != <span class="keyword">null</span>) &#123;</span><br><span class="line">                AccessController.doPrivileged((PrivilegedAction&lt;Object&gt;) () -&gt; &#123;</span><br><span class="line">                    smartSingleton.afterSingletonsInstantiated();</span><br><span class="line">                    <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">                &#125;, getAccessControlContext());</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> &#123;</span><br><span class="line">                smartSingleton.afterSingletonsInstantiated();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Step Into进入getBean方法：</p>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20220111105740064.png" alt="image-20220111105740064"></p>
+<p>再Step Into进入doGetBean方法：通过方法上的注释可以知道，这个方法会返回一个bean实例。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * Return an instance, which may be shared or independent, of the specified bean.</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> name the name of the bean to retrieve</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> requiredType the required type of the bean to retrieve</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> args arguments to use when creating a bean instance using explicit arguments</span></span><br><span class="line"><span class="comment">	 * (only applied when creating a new instance as opposed to retrieving an existing one)</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> typeCheckOnly whether the instance is obtained for a type check,</span></span><br><span class="line"><span class="comment">	 * not for actual use</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@return</span> an instance of the bean</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@throws</span> BeansException if the bean could not be created</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line"><span class="meta">@SuppressWarnings(&quot;unchecked&quot;)</span></span><br><span class="line"><span class="keyword">protected</span> &lt;T&gt; <span class="function">T <span class="title">doGetBean</span><span class="params">(<span class="keyword">final</span> String name, <span class="meta">@Nullable</span> <span class="keyword">final</span> Class&lt;T&gt; requiredType,</span></span></span><br><span class="line"><span class="params"><span class="function">                          <span class="meta">@Nullable</span> <span class="keyword">final</span> Object[] args, <span class="keyword">boolean</span> typeCheckOnly)</span> <span class="keyword">throws</span> BeansException </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">final</span> String beanName = transformedBeanName(name);</span><br><span class="line">    Object bean;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Eagerly check singleton cache for manually registered singletons.</span></span><br><span class="line">    Object sharedInstance = getSingleton(beanName);</span><br><span class="line">    </span><br><span class="line"><span class="comment">// context.getBean(&quot;person01&quot;, Person.class)的执行流程</span></span><br><span class="line">    <span class="keyword">if</span> (sharedInstance != <span class="keyword">null</span> &amp;&amp; args == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (logger.isTraceEnabled()) &#123;</span><br><span class="line">            <span class="keyword">if</span> (isSingletonCurrentlyInCreation(beanName)) &#123;</span><br><span class="line">                logger.trace(<span class="string">&quot;Returning eagerly cached instance of singleton bean &#x27;&quot;</span> + beanName +</span><br><span class="line">                             <span class="string">&quot;&#x27; that is not fully initialized yet - a consequence of a circular reference&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> &#123;</span><br><span class="line">                logger.trace(<span class="string">&quot;Returning cached instance of singleton bean &#x27;&quot;</span> + beanName + <span class="string">&quot;&#x27;&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        bean = getObjectForBeanInstance(sharedInstance, name, beanName, <span class="keyword">null</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// Fail if we&#x27;re already creating this bean instance:</span></span><br><span class="line">        <span class="comment">// We&#x27;re assumably within a circular reference.</span></span><br><span class="line">        <span class="keyword">if</span> (isPrototypeCurrentlyInCreation(beanName)) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> BeanCurrentlyInCreationException(beanName);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 先检查bean准备初始化的bean实例是否已经存在了</span></span><br><span class="line">        <span class="comment">// Check if bean definition exists in this factory.</span></span><br><span class="line">        BeanFactory parentBeanFactory = getParentBeanFactory();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 要初始化的bean实例没有父类bean并且不在已经初始化的bean队列中</span></span><br><span class="line">        <span class="keyword">if</span> (parentBeanFactory != <span class="keyword">null</span> &amp;&amp; !containsBeanDefinition(beanName)) &#123;</span><br><span class="line">            <span class="comment">// Not found -&gt; check parent.</span></span><br><span class="line">            String nameToLookup = originalBeanName(name);</span><br><span class="line">            <span class="keyword">if</span> (parentBeanFactory <span class="keyword">instanceof</span> AbstractBeanFactory) &#123;</span><br><span class="line">                <span class="keyword">return</span> ((AbstractBeanFactory) parentBeanFactory).doGetBean(</span><br><span class="line">                    nameToLookup, requiredType, args, typeCheckOnly);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (args != <span class="keyword">null</span>) &#123;</span><br><span class="line">                <span class="comment">// Delegation to parent with explicit args.</span></span><br><span class="line">                <span class="keyword">return</span> (T) parentBeanFactory.getBean(nameToLookup, args);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (requiredType != <span class="keyword">null</span>) &#123;</span><br><span class="line">                <span class="comment">// No args -&gt; delegate to standard getBean method.</span></span><br><span class="line">                <span class="keyword">return</span> parentBeanFactory.getBean(nameToLookup, requiredType);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">return</span> (T) parentBeanFactory.getBean(nameToLookup);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 标记这个bean已经被创建了，用于多线程使用</span></span><br><span class="line">        <span class="keyword">if</span> (!typeCheckOnly) &#123;</span><br><span class="line">            markBeanAsCreated(beanName);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">final</span> RootBeanDefinition mbd = getMergedLocalBeanDefinition(beanName);</span><br><span class="line">            checkMergedBeanDefinition(mbd, beanName, args);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 拿到创建当前bean需要提前创建的bean，dependsOn属性：如果有，就循环创建</span></span><br><span class="line">            <span class="comment">// Guarantee initialization of beans that the current bean depends on.</span></span><br><span class="line">            String[] dependsOn = mbd.getDependsOn();</span><br><span class="line">            <span class="keyword">if</span> (dependsOn != <span class="keyword">null</span>) &#123;</span><br><span class="line">                <span class="keyword">for</span> (String dep : dependsOn) &#123;</span><br><span class="line">                    <span class="keyword">if</span> (isDependent(beanName, dep)) &#123;</span><br><span class="line">                        <span class="keyword">throw</span> <span class="keyword">new</span> BeanCreationException(mbd.getResourceDescription(), beanName,</span><br><span class="line">                                                        <span class="string">&quot;Circular depends-on relationship between &#x27;&quot;</span> + beanName + <span class="string">&quot;&#x27; and &#x27;&quot;</span> + dep + <span class="string">&quot;&#x27;&quot;</span>);</span><br><span class="line">                    &#125;</span><br><span class="line">                    registerDependentBean(dep, beanName);</span><br><span class="line">                    <span class="keyword">try</span> &#123;</span><br><span class="line">                        getBean(dep);</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">catch</span> (NoSuchBeanDefinitionException ex) &#123;</span><br><span class="line">                        <span class="keyword">throw</span> <span class="keyword">new</span> BeanCreationException(mbd.getResourceDescription(), beanName,</span><br><span class="line">                                                        <span class="string">&quot;&#x27;&quot;</span> + beanName + <span class="string">&quot;&#x27; depends on missing bean &#x27;&quot;</span> + dep + <span class="string">&quot;&#x27;&quot;</span>, ex);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 单实例bean真正初始化的地方</span></span><br><span class="line">            <span class="comment">// Create bean instance.</span></span><br><span class="line">            <span class="keyword">if</span> (mbd.isSingleton()) &#123;</span><br><span class="line">                sharedInstance = getSingleton(beanName, () -&gt; &#123;</span><br><span class="line">                    <span class="keyword">try</span> &#123;</span><br><span class="line">                        <span class="keyword">return</span> createBean(beanName, mbd, args);</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">catch</span> (BeansException ex) &#123;</span><br><span class="line">                        <span class="comment">// Explicitly remove instance from singleton cache: It might have been put there</span></span><br><span class="line">                        <span class="comment">// eagerly by the creation process, to allow for circular reference resolution.</span></span><br><span class="line">                        <span class="comment">// Also remove any beans that received a temporary reference to the bean.</span></span><br><span class="line">                        destroySingleton(beanName);</span><br><span class="line">                        <span class="keyword">throw</span> ex;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;);</span><br><span class="line">                bean = getObjectForBeanInstance(sharedInstance, name, beanName, mbd);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (mbd.isPrototype()) &#123;</span><br><span class="line">                <span class="comment">// It&#x27;s a prototype -&gt; create a new instance.</span></span><br><span class="line">                Object prototypeInstance = <span class="keyword">null</span>;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    beforePrototypeCreation(beanName);</span><br><span class="line">                    prototypeInstance = createBean(beanName, mbd, args);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">finally</span> &#123;</span><br><span class="line">                    afterPrototypeCreation(beanName);</span><br><span class="line">                &#125;</span><br><span class="line">                bean = getObjectForBeanInstance(prototypeInstance, name, beanName, mbd);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">else</span> &#123;</span><br><span class="line">                String scopeName = mbd.getScope();</span><br><span class="line">                <span class="keyword">final</span> Scope scope = <span class="keyword">this</span>.scopes.get(scopeName);</span><br><span class="line">                <span class="keyword">if</span> (scope == <span class="keyword">null</span>) &#123;</span><br><span class="line">                    <span class="keyword">throw</span> <span class="keyword">new</span> IllegalStateException(<span class="string">&quot;No Scope registered for scope name &#x27;&quot;</span> + scopeName + <span class="string">&quot;&#x27;&quot;</span>);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    Object scopedInstance = scope.get(beanName, () -&gt; &#123;</span><br><span class="line">                        beforePrototypeCreation(beanName);</span><br><span class="line">                        <span class="keyword">try</span> &#123;</span><br><span class="line">                            <span class="keyword">return</span> createBean(beanName, mbd, args);</span><br><span class="line">                        &#125;</span><br><span class="line">                        <span class="keyword">finally</span> &#123;</span><br><span class="line">                            afterPrototypeCreation(beanName);</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;);</span><br><span class="line">                    bean = getObjectForBeanInstance(scopedInstance, name, beanName, mbd);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">catch</span> (IllegalStateException ex) &#123;</span><br><span class="line">                    <span class="keyword">throw</span> <span class="keyword">new</span> BeanCreationException(beanName,</span><br><span class="line">                                                    <span class="string">&quot;Scope &#x27;&quot;</span> + scopeName + <span class="string">&quot;&#x27; is not active for the current thread; consider &quot;</span> +</span><br><span class="line">                                                    <span class="string">&quot;defining a scoped proxy for this bean if you intend to refer to it from a singleton&quot;</span>,</span><br><span class="line">                                                    ex);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">catch</span> (BeansException ex) &#123;</span><br><span class="line">            cleanupAfterBeanCreationFailure(beanName);</span><br><span class="line">            <span class="keyword">throw</span> ex;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Check if required type matches the type of the actual bean instance.</span></span><br><span class="line">    <span class="keyword">if</span> (requiredType != <span class="keyword">null</span> &amp;&amp; !requiredType.isInstance(bean)) &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            T convertedBean = getTypeConverter().convertIfNecessary(bean, requiredType);</span><br><span class="line">            <span class="keyword">if</span> (convertedBean == <span class="keyword">null</span>) &#123;</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> BeanNotOfRequiredTypeException(name, requiredType, bean.getClass());</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> convertedBean;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">catch</span> (TypeMismatchException ex) &#123;</span><br><span class="line">            <span class="keyword">if</span> (logger.isTraceEnabled()) &#123;</span><br><span class="line">                logger.trace(<span class="string">&quot;Failed to convert bean &#x27;&quot;</span> + name + <span class="string">&quot;&#x27; to required type &#x27;&quot;</span> +</span><br><span class="line">                             ClassUtils.getQualifiedName(requiredType) + <span class="string">&quot;&#x27;&quot;</span>, ex);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> BeanNotOfRequiredTypeException(name, requiredType, bean.getClass());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line"><span class="comment">// 返回已经初始化好的单实例bean</span></span><br><span class="line">    <span class="keyword">return</span> (T) bean;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20220111110623595.png" alt="image-20220111110623595"></p>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20220111110701303.png" alt="image-20220111110701303"></p>
+<p>如此，循环执行doGetBean方法将所有的bean进行初始化</p>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20220111110804538.png" alt="image-20220111110804538"></p>
+<hr>
+<p>下面来看创建好的bean实例保存在哪里？？？</p>
+<p>在preInstantiateSingletons里面有一个回调函数：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Trigger post-initialization callback for all applicable beans...</span></span><br><span class="line"><span class="keyword">for</span> (String beanName : beanNames) &#123;</span><br><span class="line">    Object singletonInstance = getSingleton(beanName);</span><br><span class="line">    <span class="keyword">if</span> (singletonInstance <span class="keyword">instanceof</span> SmartInitializingSingleton) &#123;</span><br><span class="line">        <span class="keyword">final</span> SmartInitializingSingleton smartSingleton = (SmartInitializingSingleton) singletonInstance;</span><br><span class="line">        <span class="keyword">if</span> (System.getSecurityManager() != <span class="keyword">null</span>) &#123;</span><br><span class="line">            AccessController.doPrivileged((PrivilegedAction&lt;Object&gt;) () -&gt; &#123;</span><br><span class="line">                smartSingleton.afterSingletonsInstantiated();</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">            &#125;, getAccessControlContext());</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            smartSingleton.afterSingletonsInstantiated();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们进入getSingleton方法，它是获取bean实例的方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * Return the (raw) singleton object registered under the given name.</span></span><br><span class="line"><span class="comment">	 * &lt;p&gt;Checks already instantiated singletons and also allows for an early</span></span><br><span class="line"><span class="comment">	 * reference to a currently created singleton (resolving a circular reference).</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> beanName the name of the bean to look for</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> allowEarlyReference whether early references should be created or not</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@return</span> the registered singleton object, or &#123;<span class="doctag">@code</span> null&#125; if none found</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line"><span class="meta">@Nullable</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> Object <span class="title">getSingleton</span><span class="params">(String beanName, <span class="keyword">boolean</span> allowEarlyReference)</span> </span>&#123;</span><br><span class="line">    Object singletonObject = <span class="keyword">this</span>.singletonObjects.get(beanName);</span><br><span class="line">    <span class="keyword">if</span> (singletonObject == <span class="keyword">null</span> &amp;&amp; isSingletonCurrentlyInCreation(beanName)) &#123;</span><br><span class="line">        <span class="keyword">synchronized</span> (<span class="keyword">this</span>.singletonObjects) &#123;</span><br><span class="line">            singletonObject = <span class="keyword">this</span>.earlySingletonObjects.get(beanName);</span><br><span class="line">            <span class="keyword">if</span> (singletonObject == <span class="keyword">null</span> &amp;&amp; allowEarlyReference) &#123;</span><br><span class="line">                ObjectFactory&lt;?&gt; singletonFactory = <span class="keyword">this</span>.singletonFactories.get(beanName);</span><br><span class="line">                <span class="keyword">if</span> (singletonFactory != <span class="keyword">null</span>) &#123;</span><br><span class="line">                    </span><br><span class="line"><span class="comment">// 创建bean</span></span><br><span class="line">                    singletonObject = singletonFactory.getObject();</span><br><span class="line">                    <span class="keyword">this</span>.earlySingletonObjects.put(beanName, singletonObject);</span><br><span class="line">                    <span class="keyword">this</span>.singletonFactories.remove(beanName);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> singletonObject;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在getSingleton方法里面，可以看到，先从一个地方获取到bean。我们按住Ctrl再鼠标左键点击11行的singletonObjects跳转到它的定义：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/** Cache of singleton objects: bean name to bean instance. */</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> Map&lt;String, Object&gt; singletonObjects = <span class="keyword">new</span> ConcurrentHashMap&lt;&gt;(<span class="number">256</span>);</span><br></pre></td></tr></table></figure>
+
+<p>可以看到这是一个Map集合，集合的Map就是bean实例的id，value就是bean实例的属性值。</p>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20220111114114235.png" alt="image-20220111114114235"></p>
+<p>因此，通过这里，我们可以知道：创建好的bean实例就保存在这个map集合当中（DefaultSingletonBeanRegistry—-&gt;singletonObjects）！</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p><strong>打断点的几处地方：</strong></p>
+<blockquote>
+<ul>
+<li><p>```java<br>ApplicationContext context = new ClassPathXmlApplicationContext(“application.xml”);    // SourTest.java    14行</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- ```java</span><br><span class="line">  refresh();		// ClassPathXmlApplicationContext	144行</span><br></pre></td></tr></table></figure></li>
+<li><p>```java<br>finishBeanFactoryInitialization(beanFactory);    // AbstractApplicationContext    550行</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- ```java</span><br><span class="line">  beanFactory.preInstantiateSingletons();		// AbstractApplicationContext	878行</span><br></pre></td></tr></table></figure></li>
+<li><p>```java<br>getBean(beanName);    // DefaultListableBeanFactory    895行</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- ```java</span><br><span class="line">  final String beanName = transformedBeanName(name);	// AbstractBeanFactory	245行</span><br></pre></td></tr></table></figure></li>
+<li><pre><code class="java">Object singletonInstance = getSingleton(beanName);    // DefaultListableBeanFactory    902行
+</code></pre>
+</li>
+</ul>
+</blockquote>
+<p><strong>关于BeanFactory和ApplicationContext的区别：</strong></p>
+<blockquote>
+<ul>
+<li><p>ApplicationContext是BeanFactory的子接口</p>
+<ul>
+<li><p>BeanFactory：bean工厂接口，负责创建bean实例；容器里面保存的所有单例bean其实是一个map；也是Spring最底层的接口。</p>
+</li>
+<li><p>ApplicationContext：是容器接口，更多的是负责容器功能的实现（可以基于BeanFactory创建好的对象之上完成强大的容器）。</p>
+<p>容器可以从map获取这个bean，并且AOP、DI在ApplicationContext接口下的这些类里面。</p>
+<p>ApplicationContext是留给程序员使用的IOC容器接口。</p>
+</li>
+</ul>
+</li>
+<li><p>Spring里面最大的模式就是工厂模式。</p>
+</li>
+</ul>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/01/02/%E3%80%90%E6%BA%90%E7%A0%81%E3%80%91Spring%E2%80%94%E2%80%94bean%E7%9A%84%E5%88%9B%E5%BB%BA/" data-id="ckzb6dz58002jzwtw797c30aa" class="article-share-link">
+        Share
+      </a>
+      
+    </footer>
+
+  </div>
+
+  
+
+  
+
+</article>
+    
+    <article id="post-虚拟内存管理" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+      
+
+<h2 itemprop="name">
+  <a class="article-title" href="/2022/01/01/%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/">虚拟内存管理</a>
+</h2>
+
+
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2022/01/01/%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/" class="article-date">
+  <time datetime="2022-01-01T13:33:04.000Z" itemprop="datePublished">2022-01-01</time>
+</a>
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+        
+      
+      
+      <blockquote>
+<p>为什么要引入虚拟内存？</p>
+<p>虚拟内存空间的大小由什么因素决定？</p>
+<p>虚拟内存是怎么解决问题的？会带来什么问题？</p>
+</blockquote>
+<h1 id="1-虚拟内存的基本概念"><a href="#1-虚拟内存的基本概念" class="headerlink" title="1. 虚拟内存的基本概念"></a>1. 虚拟内存的基本概念</h1><h2 id="1-1-传统存储管理方式的特征"><a href="#1-1-传统存储管理方式的特征" class="headerlink" title="1.1 传统存储管理方式的特征"></a>1.1 传统存储管理方式的特征</h2><p>在传统的内存管理策略都是为了同时将多个进程保存在内存中，以便允许进行多道程序设计。它们都具有以下两个共同的特征：</p>
+<ul>
+<li><strong>一次性</strong>。作业必须一次性全部装入内存后，才能开始运行。这会导致两种情况：<ol>
+<li>单个作业很大而不能全部装入内存中，作业无法运行。</li>
+<li>大量作业要求运行，而内存却不足以容纳所有，只能少数先行，导致多道程序度下降。</li>
+</ol>
+</li>
+<li><strong>驻留性</strong>。作业被装入内存后，就一直驻留在内存中，其任何部分都不会被换出，直至作业运行结束。运行中的进程会因等待I/O而被阻塞，可能处于长期等待状态。</li>
+</ul>
+<p>也就是说：<strong>许多在程序运行中不用或暂时不用的程序（数据）占据了大量的内存空间，而一些需要运行的作业又无法装入运行</strong>，显然浪费了宝贵的内存资源。</p>
+<h2 id="1-2-局部性原理"><a href="#1-2-局部性原理" class="headerlink" title="1.2 局部性原理"></a>1.2 局部性原理</h2><p>Bill Joy（SUN公司CEO）说过：“在研究所时，我经常开玩笑地说高速缓存是计算机科学中唯一重要的思想。事实上，高速缓存技术确实极大地影响了计算机系统的设计。”快表、页高速缓存及虚拟内存技术从广义上讲，都属于<strong>高速缓存技术</strong>。这个技术所依赖的原理就是<strong>局部性原理</strong>。局部性原理既适用于程序结构，又适用于数据结构。</p>
+<p>局部性原理表现在以下两个方面：</p>
+<ul>
+<li><strong>时间局部性</strong>。程序中的某条指令一旦执行，不久后该指令可能再次执行；某数据被访问过，不久后该数据可能再次被访问。产生时间局部性的典型原因是<strong>程序中存在着大量的循环操作</strong>。</li>
+<li><strong>空间局部性</strong>。一旦程序访问了某个存储单元，在不久后，其附近的存储单元也将被访问，即程序在一段时间内所访问的地址，可能集中在一定的范围内，因为指令通常是顺序存放、顺序执行的，数据也一般是以向量、数组、表等形式簇聚存储的。</li>
+</ul>
+<p>时间局部性通过将最近使用的指令和数据保存到高速缓冲存储器中，并使用高速缓存的层次结构实现。</p>
+<p>空间局部性通常使用较大的高速缓存，并将预取机制集成到高速缓存控制逻辑中实现。</p>
+<p><strong>虚拟内存技术实际上建立了“内存——外存”的两级存储器结构，利用局部性原理实现高速缓存</strong>。</p>
+<h2 id="1-3-虚拟存储器的定义和特征"><a href="#1-3-虚拟存储器的定义和特征" class="headerlink" title="1.3 虚拟存储器的定义和特征"></a>1.3 虚拟存储器的定义和特征</h2><p>基于局部性原理，在程序装入时，将程序的一部分装入内存，而将剩余部分留在外存，就可以启动程序执行。当执行过程中，发现所访问的信息不再内存中，再通过OS将所需资源调入内存。如果有资源暂时不使用，OS将其换出到外存中。这样，系统好像为用户提供了一个比实际内存大得多的存储器，称为<strong>虚拟存储器</strong>。</p>
+<p>这个存储器实际是不存在的，只是由于系统提供了部分装入、请求调入和置换功能后（对用户完全透明），给用户的感觉是好像存在一个比实际物理内存大得多的存储器。虚拟存储器的大小由计算机的地址结构决定，并不是内存和外存的简单相加。它具有以下三个主要特征：</p>
+<ul>
+<li><strong>多次性</strong>。作业无须一次装入。</li>
+<li><strong>对换性</strong>。作业无须常驻内存。</li>
+<li><strong>虚拟性</strong>。从逻辑上扩充内存容量。</li>
+</ul>
+<h2 id="1-4-虚拟内存技术的实现"><a href="#1-4-虚拟内存技术的实现" class="headerlink" title="1.4 虚拟内存技术的实现"></a>1.4 虚拟内存技术的实现</h2><p>因为具有多次行的特征，所以作业肯定不是连续分配的，而是离散分配。虚拟内存的实现有以下三种方式：</p>
+<ul>
+<li>请求分页存储管理。</li>
+<li>请求分段存储管理。</li>
+<li>请求段页式存储管理。</li>
+</ul>
+<p>不管使用哪种方式，都需要一定的硬件支持，一般需要的支持有以下几个方面：</p>
+<ul>
+<li>一定容量的内存和外存。</li>
+<li>页表机制（或段表机制），作为主要的数据结构。</li>
+<li>中断机构，当用户程序要访问的部分尚未调入内存时，则产生中断。</li>
+<li>地址变换机构，逻辑地址到物理地址的转换。</li>
+</ul>
+<h1 id="2-请求分页管理方式"><a href="#2-请求分页管理方式" class="headerlink" title="2. 请求分页管理方式"></a>2. 请求分页管理方式</h1><p>请求分页系统建立在基本分页系统基础之上，为了支持虚拟存储器功能而增加了请求调页功能和页面置换功能。这也是目前最常用的一种实现虚拟存储器的方法。</p>
+<h2 id="2-1-页表机制"><a href="#2-1-页表机制" class="headerlink" title="2.1 页表机制"></a>2.1 页表机制</h2><p>因为一个作业运行之前不要求全部装入内存，那么在作业的运行过程中，必然会出现要访问的页面不在内存中的情况，如何发现和处理这种情况是请求分页系统必须解决的两个基本问题。为此，在请求页表项中增加了4个字段，如图所示：</p>
+<ul>
+<li><strong>状态为P</strong>。用于指示该页是否已调入内存，供程序访问时参考。</li>
+<li><strong>访问字段A</strong>。用于记录本页在一段时间内被访问的次数，或记录本页最近已有多长时间未被访问，供置换算法换出页面时参考。</li>
+<li><strong>修改位M</strong>。标识该页在调入内存后是否被修改过。</li>
+<li><strong>外存地址</strong>。用于指出该页在外存上的地址，通常是物理块号，供调入该页时参考。</li>
+</ul>
+<h2 id="2-2-缺页中断机构"><a href="#2-2-缺页中断机构" class="headerlink" title="2.2 缺页中断机构"></a>2.2 缺页中断机构</h2><p>每当所要访问的页面不在内存中时，便产生一个缺页中断，请求OS将所缺的页调入内存。此时应将缺页的进程阻塞（调页完成后唤醒），若内存中有空闲块，则分配一个块，将要调入的页装入，并修改页表中对应的页表项；若没有空闲块，则淘汰某页（淘汰也如果被修改过，则要将其写回外存）；</p>
+<p>缺页中断作为中断，同样要经历诸如保护CPU环境、分析中断原因、转入缺页中断处理程序、恢复CPU环境等几个步骤。但与一般的中断相比。它有以下两个明显的区别：</p>
+<ul>
+<li>在指令执行期间而非一条指令执行完后产生和处理中断信号，属于内部中断。</li>
+<li>一条指令在执行期间，可能产生多次缺页中断。</li>
+</ul>
+<h2 id="2-3-地址变换机构"><a href="#2-3-地址变换机构" class="headerlink" title="2.3 地址变换机构"></a>2.3 地址变换机构</h2><p>在进行地址变换时，先检索快表：</p>
+<ul>
+<li>若找到要访问的页，则修改页表项中的访问位（写指令还需要重置修改位），然后利用页表项中给出的物理块号和页内地址形成物理地址。</li>
+<li>没有找到，则到内存中去查找页表，再对比页表项中的状态为P，看该页是否已调入内存，未调入则产生缺页中断，请求从外存调入该页。</li>
+</ul>
+<h1 id="3-页面置换算法"><a href="#3-页面置换算法" class="headerlink" title="3. 页面置换算法"></a>3. 页面置换算法</h1><p>参见 <a target="_blank" rel="noopener" href="https://atqingke.com/index.php/archives/76/">https://atqingke.com/index.php/archives/76/</a></p>
+<h1 id="4-页面分配策略"><a href="#4-页面分配策略" class="headerlink" title="4. 页面分配策略"></a>4. 页面分配策略</h1><h2 id="4-1-驻留集大小"><a href="#4-1-驻留集大小" class="headerlink" title="4.1 驻留集大小"></a>4.1 驻留集大小</h2><p>给一个进程分配的物理页框的集合就是这个进程的驻留集。需要考虑以下几点：</p>
+<ul>
+<li>分配给一个进程的存储量越小，任何时候驻留在内存中的进程数就越多，从而可以提高处理机的时间利用效率。</li>
+<li>若一个进程在主存中的页数过少，则尽管有局部性原理，页错误率仍然会相对较高。</li>
+<li>若页数过多，则由于局部性原理，给特定的进程分配更多的主存空间对该进程的错误率没有明显的影响。</li>
+</ul>
+<p>基于这些因素，现代OS通常采用三种策略：</p>
+<ol>
+<li><strong>固定分配局部置换</strong>。它为每一个进程分配一定数目的物理块，然后在整个运行期间都不改变。如果缺页，再进行换入换出。实现这种策略，分配的物理块太少会频繁出现缺页中断，太多又会使CPU和其它资源利用率下降。</li>
+<li><strong>可变分配全局置换</strong>。最易于实现的物理块分配和置换策略，它在为系统的每个进程分配一定数量的物理块时，OS自身也保持一个空闲物理块队列。当发生缺页时，动态的增加进程的物理块，但也存在弊端，如它会盲目给进程增加物理块，从而导致系统多道程序的并发能力下降。</li>
+<li><strong>可变分配局部置换</strong>。它为每个进程分配一定数目的物理块，当某个进程发生缺页时，只允许从该进程在内存的页面中选出一页换出，因此不会影响其它进程运行。如果进程频繁缺页，则系统再为该进程分配若干物理块，直到该进程的缺页率趋于适当程度；反之，缺页率很低，则适当减少物理块的分配。相比前两种策略，它需要更复杂的实现，也需要更大的开销，但对比频繁地换入/换出所浪费的计算机资源，这种牺牲是值得的。</li>
+</ol>
+<h2 id="4-2-调入页面的时机"><a href="#4-2-调入页面的时机" class="headerlink" title="4.2 调入页面的时机"></a>4.2 调入页面的时机</h2><p>为确定系统将进程运行时所缺的页面调入内存的时机，可采取以下两种调页策略：</p>
+<ul>
+<li><strong>预调页策略</strong>。根据局部性原理，采用以预测为基础的预调页策略，将预计在不久之后便会被访问的页面预先调入内存。但目前预调页的成功了只有约50%。因此这种策略主要用于进程的首次调入，由程序员指出应先调入哪些页。</li>
+<li><strong>请求调页策略</strong>。进程在运行中需要访问的页面不在内存而提出请求，由系统将所需页面调入内存。这个缺点是每次只能调入一页，调入/调出页面多时会花费过多的I/O开销。</li>
+</ul>
+<p>预调入实际上就是运行前的调入，请求调页实际上就是运行期间调入。一般情况下，两种调页策略会同时使用。</p>
+<h2 id="4-3-从何处调入页面"><a href="#4-3-从何处调入页面" class="headerlink" title="4.3 从何处调入页面"></a>4.3 从何处调入页面</h2><p>请求分页系统中的外存分为两部分：用于存放文件的文件区和用于存放对换页面的对换区。对换区通常采用连续分配方式，而文件区采用离散分配方式，因此对换区的磁盘I/O速度比文件区的更快。这样，从何处调入页面就存在三种情况：</p>
+<ul>
+<li>系统拥有足够的对换区空间</li>
+<li>系统缺少足够的对换区空间</li>
+<li></li>
+</ul>
+<h1 id="5-抖动"><a href="#5-抖动" class="headerlink" title="5. 抖动"></a>5. 抖动</h1><h1 id="6-工作集"><a href="#6-工作集" class="headerlink" title="6. 工作集"></a>6. 工作集</h1><h1 id="7-地址翻译"><a href="#7-地址翻译" class="headerlink" title="7. 地址翻译"></a>7. 地址翻译</h1>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/01/01/%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/" data-id="ckzb6dz4u0028zwtw67v95us1" class="article-share-link">
+        Share
+      </a>
+      
+    </footer>
+
+  </div>
+
+  
+
+  
+
+</article>
+    
+    <article id="post-磁盘组织与管理" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+      
+
+<h2 itemprop="name">
+  <a class="article-title" href="/2022/01/01/%E7%A3%81%E7%9B%98%E7%BB%84%E7%BB%87%E4%B8%8E%E7%AE%A1%E7%90%86/">磁盘组织与管理</a>
+</h2>
+
+
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2022/01/01/%E7%A3%81%E7%9B%98%E7%BB%84%E7%BB%87%E4%B8%8E%E7%AE%A1%E7%90%86/" class="article-date">
+  <time datetime="2022-01-01T13:31:15.000Z" itemprop="datePublished">2022-01-01</time>
+</a>
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+        
+      
+      
+      <blockquote>
+<p>在磁盘上进行一次读写操作需要哪几部分时间？其中哪部分时间最长？</p>
+<p>存储一个文件时，当一个磁道存储不下时，剩下部分时存在同一个盘面的不同磁道好，还是存在同一个柱面上的不同盘面好？</p>
+</blockquote>
+<h1 id="1-磁盘的结构"><a href="#1-磁盘的结构" class="headerlink" title="1. 磁盘的结构"></a>1. 磁盘的结构</h1><h1 id="2-磁盘调度算法"><a href="#2-磁盘调度算法" class="headerlink" title="2. 磁盘调度算法"></a>2. 磁盘调度算法</h1><h1 id="3-磁盘的管理"><a href="#3-磁盘的管理" class="headerlink" title="3. 磁盘的管理"></a>3. 磁盘的管理</h1><h2 id="3-1-磁盘初始化"><a href="#3-1-磁盘初始化" class="headerlink" title="3.1 磁盘初始化"></a>3.1 磁盘初始化</h2><h2 id="3-2-引导块"><a href="#3-2-引导块" class="headerlink" title="3.2 引导块"></a>3.2 引导块</h2><h2 id="3-3-环块"><a href="#3-3-环块" class="headerlink" title="3.3 环块"></a>3.3 环块</h2>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/01/01/%E7%A3%81%E7%9B%98%E7%BB%84%E7%BB%87%E4%B8%8E%E7%AE%A1%E7%90%86/" data-id="ckzb6dz4p0022zwtw3qwydty1" class="article-share-link">
+        Share
+      </a>
+      
+    </footer>
+
+  </div>
+
+  
+
+  
+
+</article>
+    
+    <article id="post-文件系统基础" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+      
+
+<h2 itemprop="name">
+  <a class="article-title" href="/2022/01/01/%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%9F%BA%E7%A1%80/">文件系统基础</a>
+</h2>
+
+
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2022/01/01/%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%9F%BA%E7%A1%80/" class="article-date">
+  <time datetime="2022-01-01T13:29:37.000Z" itemprop="datePublished">2022-01-01</time>
+</a>
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+        
+      
+      
+      <blockquote>
+<p>什么是文件？什么是文件系统？</p>
+<p>文件系统要完成哪些功能？</p>
+</blockquote>
+<h1 id="1-文件的概念"><a href="#1-文件的概念" class="headerlink" title="1. 文件的概念"></a>1. 文件的概念</h1><h2 id="1-1-文件的定义"><a href="#1-1-文件的定义" class="headerlink" title="1.1 文件的定义"></a>1.1 文件的定义</h2><h2 id="1-2-文件的属性"><a href="#1-2-文件的属性" class="headerlink" title="1.2 文件的属性"></a>1.2 文件的属性</h2><h2 id="1-3-文件的基本操作"><a href="#1-3-文件的基本操作" class="headerlink" title="1.3 文件的基本操作"></a>1.3 文件的基本操作</h2><h2 id="1-4-文件的打开与关闭"><a href="#1-4-文件的打开与关闭" class="headerlink" title="1.4 文件的打开与关闭"></a>1.4 文件的打开与关闭</h2><h1 id="2-文件的逻辑结构"><a href="#2-文件的逻辑结构" class="headerlink" title="2. 文件的逻辑结构"></a>2. 文件的逻辑结构</h1><h2 id="2-1-无结构文件（流式文件）"><a href="#2-1-无结构文件（流式文件）" class="headerlink" title="2.1 无结构文件（流式文件）"></a>2.1 无结构文件（流式文件）</h2><h2 id="2-2-有结构文件（记录式文件）"><a href="#2-2-有结构文件（记录式文件）" class="headerlink" title="2.2 有结构文件（记录式文件）"></a>2.2 有结构文件（记录式文件）</h2><h3 id="2-2-1-顺序文件"><a href="#2-2-1-顺序文件" class="headerlink" title="2.2.1 顺序文件"></a>2.2.1 顺序文件</h3><h3 id="2-2-2-索引文件"><a href="#2-2-2-索引文件" class="headerlink" title="2.2.2 索引文件"></a>2.2.2 索引文件</h3><h3 id="2-2-3-索引顺序问价"><a href="#2-2-3-索引顺序问价" class="headerlink" title="2.2.3 索引顺序问价"></a>2.2.3 索引顺序问价</h3><h3 id="2-2-4-直接文件或散列文件（Hash-File）"><a href="#2-2-4-直接文件或散列文件（Hash-File）" class="headerlink" title="2.2.4 直接文件或散列文件（Hash File）"></a>2.2.4 直接文件或散列文件（Hash File）</h3><h1 id="3-目录结构"><a href="#3-目录结构" class="headerlink" title="3. 目录结构"></a>3. 目录结构</h1><h2 id="3-1-文件控制块和索引结点"><a href="#3-1-文件控制块和索引结点" class="headerlink" title="3.1 文件控制块和索引结点"></a>3.1 文件控制块和索引结点</h2><h2 id="3-2-目录结构"><a href="#3-2-目录结构" class="headerlink" title="3.2 目录结构"></a>3.2 目录结构</h2><h3 id="3-2-1-单级目录结构"><a href="#3-2-1-单级目录结构" class="headerlink" title="3.2.1 单级目录结构"></a>3.2.1 单级目录结构</h3><h3 id="3-2-2-两级目录结构"><a href="#3-2-2-两级目录结构" class="headerlink" title="3.2.2 两级目录结构"></a>3.2.2 两级目录结构</h3><h3 id="3-2-3-多级目录结构（树形目录结构）"><a href="#3-2-3-多级目录结构（树形目录结构）" class="headerlink" title="3.2.3 多级目录结构（树形目录结构）"></a>3.2.3 多级目录结构（树形目录结构）</h3><h3 id="3-2-4-无环图目录结构"><a href="#3-2-4-无环图目录结构" class="headerlink" title="3.2.4 无环图目录结构"></a>3.2.4 无环图目录结构</h3>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/01/01/%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%9F%BA%E7%A1%80/" data-id="ckzb6dz45001uzwtwa71j7ju9" class="article-share-link">
+        Share
+      </a>
+      
+    </footer>
+
+  </div>
+
+  
+
+  
+
+</article>
+    
+    <article id="post-Spring-JdbcTemplate" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+      
+
+<h2 itemprop="name">
+  <a class="article-title" href="/2022/01/01/Spring-JdbcTemplate/">Spring-JdbcTemplate</a>
+</h2>
+
+
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2022/01/01/Spring-JdbcTemplate/" class="article-date">
+  <time datetime="2022-01-01T12:59:38.000Z" itemprop="datePublished">2022-01-01</time>
+</a>
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+        
+      
+      
+      <p>了解即可！！！！！！！！！！！！</p>
+<p>sql文件：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">/*</span><br><span class="line">SQLyog Ultimate v10.00 Beta1</span><br><span class="line">MySQL - 5.7.32 : Database - jdbc_template</span><br><span class="line">*********************************************************************</span><br><span class="line">*/</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">/*!40101 SET NAMES utf8 */;</span><br><span class="line"></span><br><span class="line">/*!40101 SET SQL_MODE=&#x27;&#x27;*/;</span><br><span class="line"></span><br><span class="line">/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;</span><br><span class="line">/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE=&#x27;NO_AUTO_VALUE_ON_ZERO&#x27; */;</span><br><span class="line">/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;</span><br><span class="line">CREATE DATABASE /*!32312 IF NOT EXISTS*/`jdbc_template` /*!40100 DEFAULT CHARACTER SET gb2312 */;</span><br><span class="line"></span><br><span class="line">USE `jdbc_template`;</span><br><span class="line"></span><br><span class="line">/*Table structure for table `employee` */</span><br><span class="line"></span><br><span class="line">CREATE TABLE `employee` (</span><br><span class="line">  `emp_id` int(11) NOT NULL AUTO_INCREMENT,</span><br><span class="line">  `emp_name` char(100) DEFAULT NULL,</span><br><span class="line">  `salary` double DEFAULT NULL,</span><br><span class="line">  PRIMARY KEY (`emp_id`)</span><br><span class="line">) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=gb2312;</span><br><span class="line"></span><br><span class="line">/*Data for the table `employee` */</span><br><span class="line"></span><br><span class="line">insert  into `employee`(`emp_id`,`emp_name`,`salary`) values (1,&#x27;Susan&#x27;,5000.23);</span><br><span class="line">insert  into `employee`(`emp_id`,`emp_name`,`salary`) values (2,&#x27;Julian&#x27;,4234.77);</span><br><span class="line">insert  into `employee`(`emp_id`,`emp_name`,`salary`) values (3,&#x27;Papu&#x27;,9034.51);</span><br><span class="line">insert  into `employee`(`emp_id`,`emp_name`,`salary`) values (4,&#x27;Babala&#x27;,8054.33);</span><br><span class="line">insert  into `employee`(`emp_id`,`emp_name`,`salary`) values (5,&#x27;Kasier&#x27;,1300);</span><br><span class="line">insert  into `employee`(`emp_id`,`emp_name`,`salary`) values (6,&#x27;Owen&#x27;,7714.11);</span><br><span class="line">insert  into `employee`(`emp_id`,`emp_name`,`salary`) values (7,&#x27;zhangsan&#x27;,9999.99);</span><br><span class="line">insert  into `employee`(`emp_id`,`emp_name`,`salary`) values (8,&#x27;lisi&#x27;,8999.99);</span><br><span class="line">insert  into `employee`(`emp_id`,`emp_name`,`salary`) values (9,&#x27;wangwu&#x27;,7999.99);</span><br><span class="line">insert  into `employee`(`emp_id`,`emp_name`,`salary`) values (10,&#x27;zhaoliu&#x27;,6999.99);</span><br><span class="line">insert  into `employee`(`emp_id`,`emp_name`,`salary`) values (11,&#x27;田七&#x27;,8848.88);</span><br><span class="line">insert  into `employee`(`emp_id`,`emp_name`,`salary`) values (12,&#x27;哈哈&#x27;,5555.55);</span><br><span class="line">insert  into `employee`(`emp_id`,`emp_name`,`salary`) values (13,&#x27;哈哈2&#x27;,5555.55);</span><br><span class="line"></span><br><span class="line">/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;</span><br><span class="line">/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;</span><br><span class="line">/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;</span><br></pre></td></tr></table></figure>
+
+<p>applicationContext.xml</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://www.springframework.org/schema/beans&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns:context</span>=<span class="string">&quot;http://www.springframework.org/schema/context&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">context:property-placeholder</span> <span class="attr">location</span>=<span class="string">&quot;classpath:dbConfig.properties&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">context:component-scan</span> <span class="attr">base-package</span>=<span class="string">&quot;com.atqingke&quot;</span>/&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!--实验9：创建BookDao，自动装配JdbcTemplate对象--&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--实验8：重复实验7，以SqlParameterSource形式传入参数值--&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--实验7：使用带有具名参数的SQL语句插入一条员工记录，并以Map形式传入参数值--&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--配置一个具有具名参数功能的jdbcTemplate--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;namedParameterJdbcTemplate&quot;</span> <span class="attr">class</span>=<span class="string">&quot;org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate&quot;</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--使用构造器方式注入一个数据源--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">constructor-arg</span> <span class="attr">name</span>=<span class="string">&quot;dataSource&quot;</span> <span class="attr">ref</span>=<span class="string">&quot;dataSource&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!--实验6：查询最大salary--&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--实验5：查询salary&gt;4000的数据库记录，封装为List集合返回--&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--实验4：查询emp_id=5的数据库记录，封装为一个Java对象返回--&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--实验3：批量插入--&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--实验2：将emp_id=5的记录的salary字段更新为1300.00--&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--Spring提供了一个类JdbcTemplate，我们用它来操作数据库--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;jdbcTemplate&quot;</span> <span class="attr">class</span>=<span class="string">&quot;org.springframework.jdbc.core.JdbcTemplate&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">constructor-arg</span> <span class="attr">name</span>=<span class="string">&quot;dataSource&quot;</span> <span class="attr">ref</span>=<span class="string">&quot;dataSource&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!--实验1：测试数据源--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;dataSource&quot;</span> <span class="attr">class</span>=<span class="string">&quot;com.mchange.v2.c3p0.ComboPooledDataSource&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;user&quot;</span> <span class="attr">value</span>=<span class="string">&quot;$&#123;jdbc.user&#125;&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;password&quot;</span> <span class="attr">value</span>=<span class="string">&quot;$&#123;jdbc.password&#125;&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;jdbcUrl&quot;</span> <span class="attr">value</span>=<span class="string">&quot;$&#123;jdbc.jdbcUrl&#125;&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;driverClass&quot;</span> <span class="attr">value</span>=<span class="string">&quot;$&#123;jdbc.driverClass&#125;&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>dbConfig.properties</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">jdbc.user</span>=<span class="string">root</span></span><br><span class="line"><span class="meta">jdbc.password</span>=<span class="string">123456</span></span><br><span class="line"><span class="meta">jdbc.jdbcUrl</span>=<span class="string">jdbc:mysql://localhost:3306/jdbc_template</span></span><br><span class="line"><span class="meta">jdbc.driverClass</span>=<span class="string">com.mysql.jdbc.Driver</span></span><br></pre></td></tr></table></figure>
+
+<p>Employee</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.atqingke.bean;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> pengbin007</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2022/1/1 20:24</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Employee</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Integer empId;</span><br><span class="line">    <span class="keyword">private</span> String empName;</span><br><span class="line">    <span class="keyword">private</span> Double Salary;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Employee</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Employee</span><span class="params">(Integer empId, String empName, Double salary)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.empId = empId;</span><br><span class="line">        <span class="keyword">this</span>.empName = empName;</span><br><span class="line">        Salary = salary;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Integer <span class="title">getEmpId</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> empId;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setEmpId</span><span class="params">(Integer empId)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.empId = empId;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getEmpName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> empName;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setEmpName</span><span class="params">(String empName)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.empName = empName;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Double <span class="title">getSalary</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> Salary;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setSalary</span><span class="params">(Double salary)</span> </span>&#123;</span><br><span class="line">        Salary = salary;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Employee&#123;&quot;</span> +</span><br><span class="line">                <span class="string">&quot;empId=&quot;</span> + empId +</span><br><span class="line">                <span class="string">&quot;, empName=&#x27;&quot;</span> + empName + <span class="string">&#x27;\&#x27;&#x27;</span> +</span><br><span class="line">                <span class="string">&quot;, Salary=&quot;</span> + Salary +</span><br><span class="line">                <span class="string">&#x27;&#125;&#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>EmployeeDao</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.atqingke.dao;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.atqingke.bean.Employee;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line"><span class="keyword">import</span> org.springframework.jdbc.core.JdbcTemplate;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Repository;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> pengbin007</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2022/1/1 20:52</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Repository</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">EmployeeDao</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    JdbcTemplate jdbcTemplate;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">saveEmployee</span><span class="params">(Employee employee)</span> </span>&#123;</span><br><span class="line">        String sql = <span class="string">&quot;INSERT INTO employee(emp_name, salary) VALUES(?, ?)&quot;</span>;</span><br><span class="line">        jdbcTemplate.update(sql, employee.getEmpName(), employee.getSalary());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>TxTest</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.atqingke.test;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.atqingke.bean.Employee;</span><br><span class="line"><span class="keyword">import</span> com.atqingke.dao.EmployeeDao;</span><br><span class="line"><span class="keyword">import</span> org.junit.Test;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.ApplicationContext;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.support.ClassPathXmlApplicationContext;</span><br><span class="line"><span class="keyword">import</span> org.springframework.dao.DataAccessException;</span><br><span class="line"><span class="keyword">import</span> org.springframework.jdbc.core.BeanPropertyRowMapper;</span><br><span class="line"><span class="keyword">import</span> org.springframework.jdbc.core.JdbcTemplate;</span><br><span class="line"><span class="keyword">import</span> org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;</span><br><span class="line"><span class="keyword">import</span> org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.sql.DataSource;</span><br><span class="line"><span class="keyword">import</span> java.sql.Connection;</span><br><span class="line"><span class="keyword">import</span> java.sql.SQLException;</span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> pengbin007</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2022/1/1 20:02</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TxTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    ApplicationContext ioc = <span class="keyword">new</span> ClassPathXmlApplicationContext(<span class="string">&quot;applicationContext.xml&quot;</span>);</span><br><span class="line">    JdbcTemplate jdbcTemplate = ioc.getBean(JdbcTemplate.class);</span><br><span class="line">    NamedParameterJdbcTemplate namedJdbcTemplate = ioc.getBean(NamedParameterJdbcTemplate.class);</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 创建EmployeeDao，自动装配JdbcTemplate对象</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test09</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        EmployeeDao employeeDao = ioc.getBean(EmployeeDao.class);</span><br><span class="line">        Employee employee = <span class="keyword">new</span> Employee();</span><br><span class="line">        employee.setEmpName(<span class="string">&quot;哈哈2&quot;</span>);</span><br><span class="line">        employee.setSalary(<span class="number">5555.55</span>);</span><br><span class="line">        employeeDao.saveEmployee(employee);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 实验8：重复实验7，以SqlParameterSource形式传入参数值</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test08</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        String sql = <span class="string">&quot;INSERT INTO employee(emp_name, salary) VALUES(:empName, :salary)&quot;</span>;</span><br><span class="line">        Employee employee = <span class="keyword">new</span> Employee();</span><br><span class="line">        employee.setEmpName(<span class="string">&quot;哈哈&quot;</span>);</span><br><span class="line">        employee.setSalary(<span class="number">5555.55</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> update = namedJdbcTemplate.update(sql, <span class="keyword">new</span> BeanPropertySqlParameterSource(employee));</span><br><span class="line">        System.out.println(update);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 实验7：使用带有具名参数的SQL语句插入一条员工记录，并以Map形式传入参数值</span></span><br><span class="line"><span class="comment">     * 具名参数：具有名字的参数，参数不是占位符了，而是一个变量名</span></span><br><span class="line"><span class="comment">     *      语法格式：   :参数名</span></span><br><span class="line"><span class="comment">     * Spring有一个支持具名参数功能的JdbcTemplate</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * 占位符参数：?的顺序千万不能乱，传参的时候一定注意</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test07</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        String sql = <span class="string">&quot;INSERT INTO employee(emp_name, salary) VALUES(:empName, :salary)&quot;</span>;</span><br><span class="line">        Map&lt;String, Object&gt; paramMap = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        <span class="comment">// 将所有具名参数的值都放在map中</span></span><br><span class="line">        paramMap.put(<span class="string">&quot;empName&quot;</span>, <span class="string">&quot;田七&quot;</span>);</span><br><span class="line">        paramMap.put(<span class="string">&quot;salary&quot;</span>, <span class="number">8848.88</span>);</span><br><span class="line">        <span class="keyword">int</span> update = namedJdbcTemplate.update(sql, paramMap);</span><br><span class="line">        System.out.println(update);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 实验6：查询最大salary</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test06</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        String sql = <span class="string">&quot;SELECT MAX(salary) FROM employee&quot;</span>;</span><br><span class="line">        <span class="comment">// 无论是返回单个数据还是单个对象，都是调用queryForObject</span></span><br><span class="line">        Double aDouble = jdbcTemplate.queryForObject(sql, Double.class);</span><br><span class="line">        System.out.println(aDouble);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 实验5：查询salary&gt;4000的数据库记录，封装为List集合返回</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test05</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        String sql = <span class="string">&quot;SELECT emp_id empId, emp_name empName, salary FROM employee WHERE salary &gt; ?&quot;</span>;</span><br><span class="line">        <span class="comment">// 封装List</span></span><br><span class="line">        List&lt;Employee&gt; employees = jdbcTemplate.query(sql, <span class="keyword">new</span> BeanPropertyRowMapper&lt;&gt;(Employee.class), <span class="number">4000</span>);</span><br><span class="line">        <span class="keyword">for</span>(Employee employee : employees) &#123;</span><br><span class="line">            System.out.println(employee);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 实验4：查询emp_id=5的数据库记录，封装为一个Java对象返回</span></span><br><span class="line"><span class="comment">     * JavaBean需要和数据库中字段名一致，否则无法完成封装</span></span><br><span class="line"><span class="comment">     * jdbcTemplate在方法级别进行了区分</span></span><br><span class="line"><span class="comment">     * 查询结合：jdbcTemplate.query()</span></span><br><span class="line"><span class="comment">     * 查询单个对象：jdbcTemplate.queryForObject()</span></span><br><span class="line"><span class="comment">     *      如果查询没结果就报错</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test04</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        String sql = <span class="string">&quot;SELECT emp_id empId, emp_name empName, salary FROM employee WHERE emp_id = ?&quot;</span>;</span><br><span class="line">        <span class="comment">// 中间这个参数为每一行记录和JavaBean的属性如何映射</span></span><br><span class="line">        Employee employee = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            employee = jdbcTemplate.queryForObject(sql, <span class="keyword">new</span> BeanPropertyRowMapper&lt;&gt;(Employee.class), <span class="number">5</span>);</span><br><span class="line">            System.out.println(employee);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (DataAccessException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 实验3：批量插入</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test03</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        String sql = <span class="string">&quot;INSERT INTO employee(emp_name, salary) VALUES(?, ?)&quot;</span>;</span><br><span class="line">        <span class="comment">// List的长度就是sql语句要执行的次数</span></span><br><span class="line">        <span class="comment">// Object[]：每次执行要用的参数</span></span><br><span class="line">        List&lt;Object[]&gt; batchArgs = <span class="keyword">new</span> ArrayList&lt;Object[]&gt;();</span><br><span class="line">        batchArgs.add(<span class="keyword">new</span> Object[]&#123;<span class="string">&quot;zhangsan&quot;</span>, <span class="number">9999.99</span>&#125;);</span><br><span class="line">        batchArgs.add(<span class="keyword">new</span> Object[]&#123;<span class="string">&quot;lisi&quot;</span>, <span class="number">8999.99</span>&#125;);</span><br><span class="line">        batchArgs.add(<span class="keyword">new</span> Object[]&#123;<span class="string">&quot;wangwu&quot;</span>, <span class="number">7999.99</span>&#125;);</span><br><span class="line">        batchArgs.add(<span class="keyword">new</span> Object[]&#123;<span class="string">&quot;zhaoliu&quot;</span>, <span class="number">6999.99</span>&#125;);</span><br><span class="line">        <span class="keyword">int</span>[] batchUpdate = jdbcTemplate.batchUpdate(sql, batchArgs);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> update : batchUpdate) &#123;</span><br><span class="line">            System.out.println(update);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 实验2：将emp_id=5的记录的salary字段更新为1300.00</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test02</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        String sql = <span class="string">&quot;UPDATE employee SET salary = ? WHERE emp_id = ?&quot;</span>;</span><br><span class="line">        <span class="keyword">int</span> update = jdbcTemplate.update(sql, <span class="number">1300.00</span>, <span class="number">5</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;更新员工：&quot;</span> + update);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 实验1：测试数据源</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test01</span><span class="params">()</span> <span class="keyword">throws</span> SQLException </span>&#123;</span><br><span class="line">        DataSource dataSource = ioc.getBean(DataSource.class);</span><br><span class="line">        Connection connection = dataSource.getConnection();</span><br><span class="line">        System.out.println(connection);</span><br><span class="line">        connection.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/01/01/Spring-JdbcTemplate/" data-id="ckzb6dz34000mzwtw152vb73w" class="article-share-link">
+        Share
+      </a>
+      
+    </footer>
+
+  </div>
+
+  
+
+  
+
+</article>
+    
+    <article id="post-Spring-AOP-下" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+      
+
+<h2 itemprop="name">
+  <a class="article-title" href="/2022/01/01/Spring-AOP-%E4%B8%8B/">Spring-AOP(下)</a>
+</h2>
+
+
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2022/01/01/Spring-AOP-%E4%B8%8B/" class="article-date">
+  <time datetime="2021-12-31T17:24:21.000Z" itemprop="datePublished">2022-01-01</time>
+</a>
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+        
+      
+      
+      <p>书接上回</p>
+<h1 id="细节七：抽取可重用的切入点表达式"><a href="#细节七：抽取可重用的切入点表达式" class="headerlink" title="细节七：抽取可重用的切入点表达式"></a>细节七：抽取可重用的切入点表达式</h1><p>我们现在已经了解了四个注解@Before、@After、@AfterReturning和@AfterThrowing。现在我们考虑一个需求，我们的切入点修改了，不是在MyMathCalculator的所有方法下切入，而是MyMathCalculator的add方法中进行切入。我们当然可以对每个注解中的切入点表达式进行修改，但这样过于麻烦。</p>
+<p>我们有一个注解@Pointcut，就是专门用来解决这类业务场景的。要使用@Pointcut，首先需要一个空方法，这个方法没有实现，也没有返回值。然后在方法上添加上@Pointcut注解，将切入点表达式写入注解的属性中：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Pointcut(&quot;execution(public int com..MyMathCalculator.*(int, int))&quot;)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">myPoint</span><span class="params">()</span> </span>&#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>现在我们就有了一个可以重复使用的切入点表达式，我们可以将其它注解中的切入点表达式换成我们写的这个公共的：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Before(&quot;myPoint()&quot;)</span></span><br><span class="line"><span class="meta">@AfterReturning(value = &quot;myPoint()&quot;, returning=&quot;result&quot;)</span></span><br><span class="line"><span class="meta">@AfterThrowing(value = &quot;myPoint()&quot;, throwing=&quot;exception&quot;)</span></span><br><span class="line"><span class="meta">@After(&quot;myPoint()&quot;)</span></span><br></pre></td></tr></table></figure>
+
+<p>使用这个可重用的切入点表达式就如上面所示的那样简单，只要将切入点表达式换成我们标注有@Pointcut注解的方法名即可。这下，我们要实现这个业务需求就只需要在@Pointcut中修改即可：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Pointcut(&quot;execution(public int com..MyMathCalculator.add(int, int))&quot;)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">myPoint</span><span class="params">()</span> </span>&#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="细节八：环绕通知"><a href="#细节八：环绕通知" class="headerlink" title="细节八：环绕通知"></a>细节八：环绕通知</h1><p>经过前面的介绍，我们就只剩下最后一个注解@Around，顾名思义，这表示的就是环绕通知，我们先来看一下如何使用：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Around(&quot;myPoint()&quot;)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Object <span class="title">myAround</span><span class="params">(ProceedingJoinPoint pjp)</span> </span>&#123;</span><br><span class="line">    Object[] args = pjp.getArgs();</span><br><span class="line">    String name = pjp.getSignature().getName();</span><br><span class="line">    Object proceed = <span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="comment">// 就是利用反射调用目标方法即可</span></span><br><span class="line">        <span class="comment">// @Before</span></span><br><span class="line">        System.out.println(<span class="string">&quot;【环绕通知】&quot;</span> + name + <span class="string">&quot;方法开始&quot;</span>);</span><br><span class="line">        proceed = pjp.proceed(args);</span><br><span class="line">        <span class="comment">// @AfterReturning</span></span><br><span class="line">        System.out.println(<span class="string">&quot;【环绕通知】&quot;</span> + name + <span class="string">&quot;方法返回，返回值&quot;</span> + proceed);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (Throwable throwable) &#123;</span><br><span class="line">        <span class="comment">// @AfterThrowing</span></span><br><span class="line">        System.out.println(<span class="string">&quot;【环绕通知】&quot;</span> + name + <span class="string">&quot;方法出现异常，异常信息&quot;</span> + throwable);</span><br><span class="line">        <span class="comment">// 为了让普通通知接收到这个异常，我们需要抛出去；否则，普通通知得到的是没有异常的结果</span></span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException();</span><br><span class="line">    &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">        <span class="comment">// @After</span></span><br><span class="line">        System.out.println(<span class="string">&quot;【环绕通知】&quot;</span> + name + <span class="string">&quot;方法结束&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 反射调用后的返回值也一定返回出去</span></span><br><span class="line">    <span class="keyword">return</span> proceed;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可以看到，环绕通知就和我们一开始写的动态代理类似。ProceedingJoinPoint继承了JoinPoint，proceed方法传参利用反射去调用目标方法，反射调用完后会有返回值，这个返回值一定要返回会出去。</p>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20220101162422234.png" alt="image-20220101162422234"></p>
+<p>可以看到，如果没有返回出去，普通通知获取不到正确的目标方法返回值。</p>
+<p>在这里，我们要注意的是：如果我们在使用环绕通知的同时也开启了普通通知，且发生了异常，为了让普通通知接收到异常信息，我们在环绕通知里需要把这个异常信息抛出去，否则，普通通知得到的是没有异常的结果。</p>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20220101161603373.png" alt="image-20220101161603373"></p>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20220101161754808.png" alt="image-20220101161754808"></p>
+<h1 id="细节九：环绕通知的执行顺序"><a href="#细节九：环绕通知的执行顺序" class="headerlink" title="细节九：环绕通知的执行顺序"></a>细节九：环绕通知的执行顺序</h1><p>加入了环绕通知之后的执行顺序，通过上面的例子也可以看到：</p>
+<blockquote>
+<p>环绕前置、普通前置 —-&gt; 目标方法运行 —-&gt; 环绕正常返回/异常 —-&gt; 环绕后置 —-&gt; 普通后置 —-&gt; 普通正常返回/异常</p>
+</blockquote>
+<h1 id="细节十：多切面运行顺序"><a href="#细节十：多切面运行顺序" class="headerlink" title="细节十：多切面运行顺序"></a>细节十：多切面运行顺序</h1><p>我们现在只有一个切面类，假设我们有另外一个切面类ValidateAspect。它跟LogUtils拥有一样的功能，只是类名不一样，那么这些通知的执行顺序会是什么样的呢？</p>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20220101163845847.png" alt="image-20220101163845847"></p>
+<p>为什么是这样的顺序呢？我们来看一张图就明白了！</p>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20220101164313019.png" alt="image-20220101164313019"></p>
+<p>程序首先运行到LogUtils，LogUtils的前置通知开始工作；再到达ValidateAspect，ValidateAspect的前置通知开始工作；然后运行目标方法；目标方法运行完后，又到达ValidateAspect，ValidateAspect开始工作；最后来到LogUtils。</p>
+<p>那为什么是先到达LogUtils，再经过ValidateAspect呢？你可以简单认为就是字母L排在V前面。</p>
+<p>那如果这个顺序并不是我们想要的，我们想让ValidateAspect先运行要怎么做呢？我们可以在切面类上加一个@Order注解，它就是用来控制切面类的执行顺序。@Order注解中属性的值越小，越有执行优先权。</p>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20220101164858386.png" alt="image-20220101164858386"></p>
+<h1 id="关于环绕通知和普通通知的一些补充"><a href="#关于环绕通知和普通通知的一些补充" class="headerlink" title="关于环绕通知和普通通知的一些补充"></a>关于环绕通知和普通通知的一些补充</h1><p>通过上面的介绍，我们知道，环绕通知其实就是一个动态代理，它的 pjp.proceed(args); 就和一开始的动态代理中的 method.invoke(calculator, args); 作用一样。因此，环绕通知是可以影响目标方法的运行的。例如，在调用proceed之前，将传入的参数进行修改。而普通通知我们可以看成最初的在方法前后加输出语句，它只是在目标方法运行前后切入一段代码，但是这段代码并不会影响目标方法的运行。所以，如果我们只是做一些简单的日志记录，使用普通通知就够了；而如果我们想要对目标方法做一些干预，就选择环绕通知。</p>
+<h1 id="AOP的应用"><a href="#AOP的应用" class="headerlink" title="AOP的应用"></a>AOP的应用</h1><p>到这里，关于SpringAOP就差不多介绍完了。那么AOP可以在哪里使用呢？就像我们一开始的业务场景需求，AOP可以用于以下几个方面：</p>
+<ul>
+<li>加日志保存到数据库；</li>
+<li>做权限验证；</li>
+<li>做安全检查；</li>
+<li>做事务控制。</li>
+</ul>
+<h1 id="基于配置文件的AOP"><a href="#基于配置文件的AOP" class="headerlink" title="基于配置文件的AOP"></a>基于配置文件的AOP</h1><p>配合基于注解方式理解食用，这里不做详细解释了！</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://www.springframework.org/schema/beans&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span> <span class="attr">xmlns:aop</span>=<span class="string">&quot;http://www.springframework.org/schema/aop&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;myCalculator&quot;</span> <span class="attr">class</span>=<span class="string">&quot;com.atqingke.impl.MyMathCalculator&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;logUtils&quot;</span> <span class="attr">class</span>=<span class="string">&quot;com.atqingke.utils.LogUtils&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;validateAspect&quot;</span> <span class="attr">class</span>=<span class="string">&quot;com.atqingke.utils.ValidateAspect&quot;</span>/&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">aop:config</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">aop:pointcut</span> <span class="attr">expression</span>=<span class="string">&quot;execution(public int com..MyMathCalculator.*(int, int))&quot;</span> <span class="attr">id</span>=<span class="string">&quot;globalPoint&quot;</span>/&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">aop:aspect</span> <span class="attr">ref</span>=<span class="string">&quot;logUtils&quot;</span> <span class="attr">order</span>=<span class="string">&quot;2&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">aop:pointcut</span> <span class="attr">expression</span>=<span class="string">&quot;execution(public int com..MyMathCalculator.*(int, int))&quot;</span> <span class="attr">id</span>=<span class="string">&quot;myPoint&quot;</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">aop:before</span> <span class="attr">method</span>=<span class="string">&quot;logStart&quot;</span> <span class="attr">pointcut</span>=<span class="string">&quot;execution(public int com..MyMathCalculator.*(int, int))&quot;</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">aop:after-returning</span> <span class="attr">method</span>=<span class="string">&quot;logReturn&quot;</span> <span class="attr">pointcut-ref</span>=<span class="string">&quot;myPoint&quot;</span> <span class="attr">returning</span>=<span class="string">&quot;result&quot;</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">aop:after-throwing</span> <span class="attr">method</span>=<span class="string">&quot;logException&quot;</span> <span class="attr">pointcut-ref</span>=<span class="string">&quot;myPoint&quot;</span> <span class="attr">throwing</span>=<span class="string">&quot;exception&quot;</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">aop:after</span> <span class="attr">method</span>=<span class="string">&quot;logEnd&quot;</span> <span class="attr">pointcut-ref</span>=<span class="string">&quot;myPoint&quot;</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">aop:around</span> <span class="attr">method</span>=<span class="string">&quot;myAround&quot;</span> <span class="attr">pointcut-ref</span>=<span class="string">&quot;globalPoint&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">aop:aspect</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">aop:aspect</span> <span class="attr">ref</span>=<span class="string">&quot;validateAspect&quot;</span> <span class="attr">order</span>=<span class="string">&quot;1&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">aop:pointcut</span> <span class="attr">expression</span>=<span class="string">&quot;execution(public int com..MyMathCalculator.*(int, int))&quot;</span> <span class="attr">id</span>=<span class="string">&quot;myPoint&quot;</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">aop:before</span> <span class="attr">method</span>=<span class="string">&quot;logStart&quot;</span> <span class="attr">pointcut</span>=<span class="string">&quot;execution(public int com..MyMathCalculator.*(int, int))&quot;</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">aop:after-returning</span> <span class="attr">method</span>=<span class="string">&quot;logReturn&quot;</span> <span class="attr">pointcut-ref</span>=<span class="string">&quot;myPoint&quot;</span> <span class="attr">returning</span>=<span class="string">&quot;result&quot;</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">aop:after-throwing</span> <span class="attr">method</span>=<span class="string">&quot;logException&quot;</span> <span class="attr">pointcut-ref</span>=<span class="string">&quot;myPoint&quot;</span> <span class="attr">throwing</span>=<span class="string">&quot;exception&quot;</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">aop:after</span> <span class="attr">method</span>=<span class="string">&quot;logEnd&quot;</span> <span class="attr">pointcut-ref</span>=<span class="string">&quot;myPoint&quot;</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">aop:around</span> <span class="attr">method</span>=<span class="string">&quot;myAround&quot;</span> <span class="attr">pointcut-ref</span>=<span class="string">&quot;globalPoint&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">aop:aspect</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">aop:config</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="基于注解的AOP步骤"><a href="#基于注解的AOP步骤" class="headerlink" title="基于注解的AOP步骤"></a>基于注解的AOP步骤</h1><ol>
+<li>将目标类和切面类都加入到IOC容器中，@Component</li>
+<li>告诉Spring哪个是切面类@Aspect</li>
+<li>在切面类中使用五个通知注解来配置切面中的这些通知方法都何时何地运行</li>
+<li>开启基于注解的AOP功能，<a href="aop:aspectj-autoproxy/">aop:aspectj-autoproxy/</a></li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/01/01/Spring-AOP-%E4%B8%8B/" data-id="ckzb6dz34000lzwtwgy1gdfvr" class="article-share-link">
+        Share
+      </a>
+      
+    </footer>
+
+  </div>
+
+  
+
+  
+
+</article>
+    
+    <article id="post-Spring-AOP-中" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+      
+
+<h2 itemprop="name">
+  <a class="article-title" href="/2022/01/01/Spring-AOP-%E4%B8%AD/">Spring-AOP(中)</a>
+</h2>
+
+
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2022/01/01/Spring-AOP-%E4%B8%AD/" class="article-date">
+  <time datetime="2021-12-31T17:23:35.000Z" itemprop="datePublished">2022-01-01</time>
+</a>
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+        
+      
+      
+      <p>下面我们来讨论一些AOP的细节问题！</p>
+<h1 id="细节一：IOC容器中保存的是组件的代理对象"><a href="#细节一：IOC容器中保存的是组件的代理对象" class="headerlink" title="细节一：IOC容器中保存的是组件的代理对象"></a>细节一：IOC容器中保存的是组件的代理对象</h1><p>在上一节中如果注意到最后的测试会发现，我们获取的组件是Calculator接口类型的，而不是具体的实现类MyMathCalculator。我们可以在测试中取出这个代理对象来看一下：</p>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20220101141637841.png" alt="image-20220101141637841"></p>
+<p>可以看到AOP的底层就是动态代理，容器中保存的组件是它的代理对象$Proxy16，而不是本类的类型。</p>
+<p>那之前说过，AOP可以解决没有接口实现这个问题。我们来看一下，将接口实现取消，获取MyMathCalculator组件能否运行。</p>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20220101141912362.png" alt="image-20220101141912362"></p>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20220101142021797.png" alt="image-20220101142021797"></p>
+<p>可以看到，没有接口实现的时候，就是本类类型，并且cglib帮我们创建好了代理对象。</p>
+<h1 id="细节二：切入点表达式写法"><a href="#细节二：切入点表达式写法" class="headerlink" title="细节二：切入点表达式写法"></a>细节二：切入点表达式写法</h1><p>切入点表达式的固定格式是：execution(权限修饰符 返回类型 方法全类名(方法参数))</p>
+<p>这这里也有通配符，常用的有两种，一种是“*”号，一种是“.”号。下面我们通过几个具体例子来了解这两种通配符在这里的用法。</p>
+<ul>
+<li>匹配一个或多个字符：匹配以MyMath开头r结尾的类的所有方法</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">execution(<span class="keyword">public</span> <span class="keyword">int</span> com.atqingke.impl.MyMath*r.*(<span class="keyword">int</span>, <span class="keyword">int</span>))</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>匹配任意一个参数：匹配两个参数，第一个int类型，第二个任意类型</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">execution(<span class="keyword">public</span> <span class="keyword">int</span> com.atqingke.impl.MyMath*r.*(<span class="keyword">int</span>, *))</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>*号在路径中，只能匹配一层路径</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">execution(<span class="keyword">public</span> <span class="keyword">int</span> com.*.impl.MyMathCalculator.*(<span class="keyword">int</span>, <span class="keyword">int</span>))</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>权限位置不能使用*；权限位置不写就行；public【可选的】</p>
+</li>
+<li><p>匹配任意多个、任意类型参数</p>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">execution(<span class="keyword">public</span> <span class="keyword">int</span> com.atqingke.impl.MyMathCalculator.*(..))</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>匹配任意多层路径</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">execution(<span class="keyword">public</span> <span class="keyword">int</span> com..impl.MyMathCalculator.*(<span class="keyword">int</span>, <span class="keyword">int</span>))</span><br></pre></td></tr></table></figure>
+
+<p>在这里我们记住两种就行：</p>
+<p>最精确的：execution(public int com.atqingke.impl.MyMathCalculator.add(int, int))</p>
+<p>最模糊的：execution(* *(..))：千万别写</p>
+<p>当然，还有一些其它的通配符，比如：&amp;&amp;、||、!</p>
+<ul>
+<li>&amp;&amp;：我们要切入的位置满足这两个表达式</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">execution(<span class="keyword">public</span> <span class="keyword">int</span> com.atqingke.impl.MyMathCalculator.*(<span class="keyword">int</span>, <span class="keyword">int</span>)) </span><br><span class="line">&amp;&amp; </span><br><span class="line">execution(<span class="keyword">public</span> <span class="keyword">int</span> com.atqingke.impl.MyMathCalculator.*(<span class="keyword">int</span>, *))</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>||：满足任意一个表达式即可</li>
+<li>!：不满足即可</li>
+</ul>
+<h1 id="细节三：通知方法的执行顺序"><a href="#细节三：通知方法的执行顺序" class="headerlink" title="细节三：通知方法的执行顺序"></a>细节三：通知方法的执行顺序</h1><p>从前面的例子中我们也可以发现一些关于通知方法的执行顺序，这些通知方法相当于一开始我们写的动态代理的位置如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">     <span class="meta">@Before</span></span><br><span class="line">     method.invoke(obj, args);</span><br><span class="line">     <span class="meta">@AfterReturning</span></span><br><span class="line">&#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">     <span class="meta">@AfterThrowing</span></span><br><span class="line">&#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">     <span class="meta">@After</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>当横切关注点正常执行的时候，通知方法的执行顺序为：正常执行：@Before —–&gt; @After —–&gt; @AfterReturning</p>
+<p>而如果出现异常执行：@Before —–&gt; @After —–&gt; @AfterThrowing</p>
+<h1 id="细节四：JoinPoint获取目标方法的信息"><a href="#细节四：JoinPoint获取目标方法的信息" class="headerlink" title="细节四：JoinPoint获取目标方法的信息"></a>细节四：JoinPoint获取目标方法的信息</h1><p>现在的通知方法打印的日志跟我们最初想要的效果还差一点东西——打印的日志中没有目标方法名、目标方法参数、目标方法返回值以及出现异常时的异常信息。我们都是用“xxx”来代替这些信息的，下面我们就来说一下如何获取这些信息。</p>
+<p>在org.aspectj.lang包下有一个类JoinPoint，它就是AOP提供给我的用来获取目标方法执行时候的相关信息。其中有一个getArgs()方法，用来<strong>获取目标方法运行时使用的参数</strong>；getSignature()方法用来获取目标方法的签名，通过获取到的签名signature，我们可以通过signature.getName()<strong>获取目标方法名</strong>。关于JoinPoint以及Signature的更多方法，大家可以查看它们的源码。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Before(&quot;execution(public int com..MyMathCalculator.*(int, int))&quot;)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">logStart</span><span class="params">(JoinPoint joinPoint)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 获取到目标方法运行的时候使用的参数</span></span><br><span class="line">    Object[] args = joinPoint.getArgs();        </span><br><span class="line">    Object aThis = joinPoint.getThis();        </span><br><span class="line">    Object target = joinPoint.getTarget();        </span><br><span class="line">    SourceLocation sourceLocation = joinPoint.getSourceLocation();     </span><br><span class="line">    String kind = joinPoint.getKind();</span><br><span class="line">    System.out.println(<span class="string">&quot;joinPoint.getThis() = &quot;</span> + aThis + <span class="string">&quot;\njoinPoint.getTarget() = &quot;</span> + target + <span class="string">&quot;\njoinPoint.getSourceLocation() = &quot;</span> + sourceLocation + <span class="string">&quot;\njoinPoint.getKind() = &quot;</span> + kind);</span><br><span class="line">    <span class="comment">// 获取到方法签名</span></span><br><span class="line">    Signature signature = joinPoint.getSignature();</span><br><span class="line">    <span class="comment">// 获取方法名</span></span><br><span class="line">    String name = signature.getName();</span><br><span class="line">    <span class="keyword">int</span> modifiers = signature.getModifiers();</span><br><span class="line">    Class declaringType = signature.getDeclaringType();</span><br><span class="line">    String declaringTypeName = signature.getDeclaringTypeName();</span><br><span class="line">    System.out.println(<span class="string">&quot;【&quot;</span> + name + <span class="string">&quot;】方法开始了，它使用的参数是【&quot;</span> + Arrays.toString(args) + <span class="string">&quot;】&quot;</span>);</span><br><span class="line">    System.out.println(<span class="string">&quot;signature.getName() = &quot;</span> + name + <span class="string">&quot;\nsignature.getModifiers() = &quot;</span> + modifiers + <span class="string">&quot;\nsignature.getDeclaringType() = &quot;</span> + declaringType + <span class="string">&quot;\nsignature.getDeclaringTypeName() = &quot;</span> + declaringTypeName);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20220101153721043.png" alt="image-20220101153721043"></p>
+<h1 id="细节五：throwing-amp-returning"><a href="#细节五：throwing-amp-returning" class="headerlink" title="细节五：throwing &amp; returning"></a>细节五：throwing &amp; returning</h1><p>既然可以在通知方法上加参数，那么我们是不是也可以多加两个参数表示返回值和异常信息？答案是肯定的，只不过我们需要<strong>告诉Spring这是目标方法的返回值和异常信息</strong>，这就通过在注解中添加returning和throwing属性来解决。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@AfterReturning(value = &quot;execution(public int com..MyMathCalculator.*(int, int))&quot;, returning=&quot;result&quot;)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">logReturn</span><span class="params">(JoinPoint joinPoint, Object result)</span> </span>&#123;</span><br><span class="line">    Signature signature = joinPoint.getSignature();</span><br><span class="line">    String name = signature.getName();</span><br><span class="line">    System.out.println(<span class="string">&quot;【&quot;</span> + name + <span class="string">&quot;】方法执行完成，计算结果是：&quot;</span> + result);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@AfterThrowing(value = &quot;execution(public int com..MyMathCalculator.*(int, int))&quot;, throwing=&quot;exception&quot;)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">logException</span><span class="params">(JoinPoint joinPoint, Exception exception)</span> </span>&#123;</span><br><span class="line">    Signature signature = joinPoint.getSignature();</span><br><span class="line">    String name = signature.getName();</span><br><span class="line">    System.out.println(<span class="string">&quot;【&quot;</span> + name + <span class="string">&quot;】方法执行出现异常了，异常信息是：&quot;</span> + exception + <span class="string">&quot;；这个异常已经通知测试小组进行排查！&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="细节六：Spring对通知方法的约束"><a href="#细节六：Spring对通知方法的约束" class="headerlink" title="细节六：Spring对通知方法的约束"></a>细节六：Spring对通知方法的约束</h1><p>Spring对通知方法的要求并不是很严格，唯一要求的就是方法的参数列表一定不能乱写。通知方法是Spring利用反射调用的，每次都用都需要先确定这个方法的参数的值。也就是说，我们的告诉Spring每一个参数是什么意思。</p>
+<p>前面我们使用的joinPoint我们没有在注解的属性中说明，是因为JoinPoint是Spring自己认识的。而我们写的result和exception，Spring并不认识，因此，我们必须在注解的属性中显式的说明。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/01/01/Spring-AOP-%E4%B8%AD/" data-id="ckzb6dz32000jzwtw3mqwf9dv" class="article-share-link">
+        Share
+      </a>
+      
+    </footer>
+
+  </div>
+
+  
+
+  
+
+</article>
+    
+    <article id="post-Spring-AOP-上" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+      
+
+<h2 itemprop="name">
+  <a class="article-title" href="/2021/12/31/Spring-AOP-%E4%B8%8A/">Spring-AOP(上)</a>
+</h2>
+
+
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2021/12/31/Spring-AOP-%E4%B8%8A/" class="article-date">
+  <time datetime="2021-12-31T14:34:36.000Z" itemprop="datePublished">2021-12-31</time>
+</a>
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+        
+      
+      
+      <p>我们都知道，Java是一种OOP语言，也就是Object Oriented Programming，面向对象编程。而Spring中的AOP，则是Aspect Oriented Programming，面向切面编程——基于OOP的新的编程思想。那么什么是面向切面编程呢？我们用一句话来说就是：<strong>指在程序运行期间，将某段代码动态的切入到指定方法的指定位置进行运行的这种编程方式</strong>，就是面向切面编程。</p>
+<p>下面我们通过一个具体的业务场景来认识它！</p>
+<p>假设我们有一个计算器类MyMathCalculator，它继承于Calculator接口。MyMathCalculator实现了Calculator中的4个方法add、sub、mul和div。</p>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20220101000232218.png" alt="image-20220101000232218"></p>
+<p>现在我们想要在每个方法运行之前打印一条日志记录，日志内容为“【什么方法】开始运行了，参数为：”。在每个方法运行结束之前打印一条日志记录，日志内容为“【什么方法】结束运行了，运算结果是：”。</p>
+<p>要实现这个业务功能也很简单，我们可以简单的在这四个实现方法中的开始和结束分别加上一条System输出语句。</p>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20220101000905342.png" alt="image-20220101000905342"></p>
+<p>但是如果这是我们的需求又发生改变，我们把日志内容进行修改了，或者开始运行这条日志记录我们不需要了。这时候，我们就需要对每一个方法进行修改，而我们现在仅仅是只有四个方法，那如果有四十个、四百个方法呢？这样修改过于复杂、且没有什么实际意义。</p>
+<p>所以我们真正想要实现的目标是：业务逻辑当中，不要出现日志记录这种辅助功能。我们写一个日志模块，在核心功能运行期间，它可以自己动态地加上。</p>
+<h1 id="动态代理？？？"><a href="#动态代理？？？" class="headerlink" title="动态代理？？？"></a>动态代理？？？</h1><p>我们能想到的一种办法是可以使用动态代理来解决这个在方法运行前以及运行结束时添加日志，我们可以新建一个代理类CalculatorProxy帮助Calculator类生成代理对象：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.atqingke.proxy;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.atqingke.inter.Calculator;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.InvocationHandler;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Proxy;</span><br><span class="line"><span class="keyword">import</span> java.util.Arrays;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 帮Calculator.java生成代理对象的类</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> pengbin007</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2021/12/29 22:36</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CalculatorProxy</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 为传入的参数创建一个动态代理对象</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> calculator 被代理对象 内部类要使用参数必须将参数设置为final的</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Calculator <span class="title">getProxy</span><span class="params">(<span class="keyword">final</span> Calculator calculator)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 方法执行器，帮我们目标对象执行目标方法</span></span><br><span class="line">        InvocationHandler h = <span class="keyword">new</span> InvocationHandler() &#123;</span><br><span class="line">            <span class="comment">/**</span></span><br><span class="line"><span class="comment">             * 利用反射执行目标方法</span></span><br><span class="line"><span class="comment">             * <span class="doctag">@param</span> proxy 代理对象，给JDK使用，任何时候都不要动这个对象</span></span><br><span class="line"><span class="comment">             * <span class="doctag">@param</span> method 当前将要执行的目标对象的方法</span></span><br><span class="line"><span class="comment">             * <span class="doctag">@param</span> args 这个方法调用时外界传入的参数值</span></span><br><span class="line"><span class="comment">             * <span class="doctag">@return</span> 返回值必须返回出去外界才能拿到真正执行后的返回值</span></span><br><span class="line"><span class="comment">             */</span></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> Object <span class="title">invoke</span><span class="params">(Object proxy, Method method, Object[] args)</span> <span class="keyword">throws</span> Throwable </span>&#123;</span><br><span class="line">                Object result = <span class="keyword">null</span>;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    System.out.println(<span class="string">&quot;【&quot;</span> + method + <span class="string">&quot;】方法开始了，它使用的参数是【&quot;</span> + Arrays.toString(args) + <span class="string">&quot;】&quot;</span>);</span><br><span class="line">                    result = method.invoke(calculator, args);</span><br><span class="line">                    System.out.println(<span class="string">&quot;【&quot;</span> + method + <span class="string">&quot;】方法执行完成，计算结果是：&quot;</span> + result);</span><br><span class="line">                &#125; <span class="keyword">catch</span> (Exception exception) &#123;</span><br><span class="line">                    System.out.println(<span class="string">&quot;【&quot;</span> + method + <span class="string">&quot;】方法执行出现异常了，异常信息是：&quot;</span> + exception + <span class="string">&quot;；这个异常已经通知测试小组进行排查！&quot;</span>);</span><br><span class="line">                &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">                    System.out.println(<span class="string">&quot;【&quot;</span> + method + <span class="string">&quot;】方法最终结束了!!!&quot;</span>);</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">return</span> result;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        ClassLoader loader = calculator.getClass().getClassLoader();</span><br><span class="line">        Class&lt;?&gt;[] interfaces = calculator.getClass().getInterfaces();</span><br><span class="line">        Object proxy = Proxy.newProxyInstance(loader, interfaces, h);</span><br><span class="line">        <span class="keyword">return</span> (Calculator) proxy;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里我们讨论的是SpringAOP，关于这个代理类的具体细节就不做讨论了！</p>
+<p>这样做看起来很方便，也很好用，但是实际中还是由两个问题：</p>
+<ul>
+<li>第一个问题就是这个代理类写起来难。</li>
+<li>第二个问题是JDK默认的动态代理，如果目标对象没有实现任何接口，是无法为它创建代理对象的。</li>
+</ul>
+<p>关于第一个问题我们不做详细探讨，我们来看第二个问题。我们将MyMathCalculator类取消对Calculator的实现</p>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20220101002841522.png" alt="image-20220101002841522"></p>
+<p>这是我们再进行测试，可以看到没有任何日志打印</p>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20220101002920130.png" alt="image-20220101002920130"></p>
+<p>因此，使用动态代理也不能很好的解决我们所遇到的问题。</p>
+<p>接下来我们看使用Spring的AOP！</p>
+<h1 id="AOP！！！"><a href="#AOP！！！" class="headerlink" title="AOP！！！"></a>AOP！！！</h1><p>首先，我们先在配置文件中开启基于注解的AOP功能：</p>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20220101003206313.png" alt="image-20220101003206313"></p>
+<p>接下来，我们来看一下AOP中有哪些注解：</p>
+<blockquote>
+<p>@Before 在目标方法之前运行                                         前置通知</p>
+<p>@After 在目标方法结束之后运行                                     后置通知</p>
+<p>@AfterReturning 在目标方法正常返回之后运行           返回通知</p>
+<p>@AfterThrowing 在目标方法抛出异常之后运行            异常通知</p>
+<p>@Around                                                                          环绕通知</p>
+</blockquote>
+<p>现在，我们就来写一个类LogUtils来使用AOP：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.atqingke.utils;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.aspectj.lang.annotation.Aspect;</span><br><span class="line"><span class="keyword">import</span> org.aspectj.lang.annotation.Before;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Component;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Arrays;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> pengbin007</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2021/12/31 16:40</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Aspect</span>	<span class="comment">// 告诉Spring这是一个切面类</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LogUtils</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Before(&quot;execution(public int com.atqingke.impl.MyMathCalculator.*(int, int))&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">logStart</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;【xxx】方法开始了，它使用的参数是【xxx】&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@AfterReturning(&quot;execution(public int com.atqingke.impl.MyMathCalculator.*(int, int))&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">logReturn</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;【xxx】方法执行完成，计算结果是：【xxx】&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@AfterThrowing(&quot;execution(public int com.atqingke.impl.MyMathCalculator.*(int, int))&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">logException</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;【xxx】方法执行出现异常了，异常信息是：【xxx】；这个异常已经通知测试小组进行排查！&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@After(&quot;execution(public int com.atqingke.impl.MyMathCalculator.*(int, int))&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">logEnd</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;【xxx】方法最终结束了!!!&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20220101010756196.png" alt="image-20220101010756196"></p>
+<p>在这里，我们先不讨论关于参数的问题。我们可以看到，通过这几个注解，我们得到了我们想要的效果！</p>
+<p>下面我们来看几个关于AOP的术语：</p>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20220101005534247.png" alt="image-20220101005534247"></p>
+<ul>
+<li><strong>横切关注点</strong>。在图中，我们可以清楚的看到，所谓的横切关注点，就是指从每个方法中抽取出来的同一类非核心业务。在这里，有四个抽取出来的业务，分别是方法开始时、方法返回时、方法出现异常时、方法结束时需要执行的一系列操作。</li>
+<li><strong>通知方法</strong>。实现横切关注点的方法。</li>
+<li><strong>切入点</strong>。假设我们只需要在add方法结束时、mul方法返回时、div方法异常时打印日志，其它位置或者其它方法我们不进行任何操作。那么这三个点就是我们需要执行操作的地方，也就是我们的切入点。</li>
+<li><strong>连接点</strong>。见图。</li>
+<li><strong>切入点表达式</strong>。通过一个表达式，告诉通知方法需要对业务中的哪些方法进行切入。</li>
+<li><strong>切面类</strong>。横切关注点 + 通知方法 = 切面类。</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/12/31/Spring-AOP-%E4%B8%8A/" data-id="ckzb6dz33000kzwtwdf9hfeoe" class="article-share-link">
+        Share
+      </a>
+      
+    </footer>
+
+  </div>
+
+  
+
+  
+
+</article>
+    
+  </article>
+  
+
+  
+  <nav class="page-nav">
+    <a class="extend prev" rel="prev" href="/page/5/">Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/7/">Next</a>
+  </nav>
+  
+</section>
+</div>
+    <footer class="footer">
+  <div class="outer">
+    <div class="float-right">
+      <ul class="list-inline">
+  
+  <li><i class="fe fe-bar-chart"></i> <span id="busuanzi_value_site_pv"></span></li>
+  
+  <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
+  
+</ul>
+    </div>
+    <ul class="list-inline">
+      <li>青稞 &copy; 2022</li>
+      
+        <li>ZHWANGART</li>
+      
+      <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
+      <li>theme  <a target="_blank" rel="noopener" href="https://github.com/zhwangart/hexo-theme-ocean">Ocean</a></li>
+    </ul>
+  </div>
+</footer>
+  </main>
+  <aside class="sidebar">
+    <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/hexo.svg" alt="青稞"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">Home</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">Archives</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/gallery">Gallery</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about">About</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="Search">
+        <i class="fe fe-search"></i>
+        Search
+      </a>
+    </li>
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      <div class="totop" id="totop">
+  <i class="fe fe-rocket"></i>
+</div>
+    </li>
+    <li class="nav-item">
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="fe fe-feed"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+  </aside>
+  
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/copybtn.js"></script>
+
+
+
+
+
+
+<script src="/js/ocean.js"></script>
+
+</body>
+
+</html>

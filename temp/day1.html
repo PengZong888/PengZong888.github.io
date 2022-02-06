@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  
+  
+  <title>
+    day1 |
+    
+    青稞
+  </title>
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+    
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<script src="/js/pace.min.js"></script>
+
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="青稞" type="application/atom+xml">
+</head>
+
+<body>
+  <main class="content">
+    <section class="outer">
+  <article id="page-" class="article article-type-page" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+      
+
+<h1 class="article-title" itemprop="name">
+  day1
+</h1>
+
+
+
+    </header>
+    
+
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+      
+      <h1 id="1-vue-cli-脚手架初始化项目"><a href="#1-vue-cli-脚手架初始化项目" class="headerlink" title="1. vue-cli 脚手架初始化项目"></a>1. vue-cli 脚手架初始化项目</h1><p>vue create app</p>
+<p>node + webpack + 淘宝镜像</p>
+<p>node_modules 文件夹：项目依赖文件夹</p>
+<p>public 文件夹：一般放置一些静态资源（图片），需要注意的是，放在 public 文件夹中的静态资源，webpack 进行打包的时候，会原封不动打包到 dist 文件夹中。</p>
+<p>src 文件夹(程序员源代码文件夹)：</p>
+<p>assets 文件夹：一般也是放置静态资源（一般放置多个组件共用的静态资源），需要注意的是，放置在 assets 文件夹里面静态资源，在 webpack 打包时，webpack 会把静态资源当成一个模块，打包 JS 文件里面</p>
+<p>components 文件夹：一般放置的是非路由组件（全局组件）</p>
+<p>App.vue：项目中唯一的根组件</p>
+<p>main.js：程序入口文件，也是整个程序当中最先执行的文件</p>
+<p>babel.config：配置文件（babel 相关）</p>
+<p>package.json：认为项目‘身份证’，记录项目叫什么，有哪些依赖，怎么运行</p>
+<p>package-lock.json：</p>
+<h1 id="2-项目的其它配置"><a href="#2-项目的其它配置" class="headerlink" title="2. 项目的其它配置"></a>2. 项目的其它配置</h1><h3 id="让项目启动的时候自动打开浏览器"><a href="#让项目启动的时候自动打开浏览器" class="headerlink" title="让项目启动的时候自动打开浏览器"></a>让项目启动的时候自动打开浏览器</h3><p>package.json:</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;scripts&quot;</span>: &#123;</span><br><span class="line">    <span class="attr">&quot;serve&quot;</span>: <span class="string">&quot;vue-cli-service serve --open&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;build&quot;</span>: <span class="string">&quot;vue-cli-service build&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;lint&quot;</span>: <span class="string">&quot;vue-cli-service lint&quot;</span></span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+
+<h3 id="关闭eslint校验功能"><a href="#关闭eslint校验功能" class="headerlink" title="关闭eslint校验功能"></a>关闭eslint校验功能</h3><p>在根目录下常见文件vue.config.js：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  <span class="comment">// 关闭eslint</span></span><br><span class="line">  <span class="attr">lintOnSave</span>: <span class="literal">false</span>,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="src文件夹目录简写方法，配置别名"><a href="#src文件夹目录简写方法，配置别名" class="headerlink" title="src文件夹目录简写方法，配置别名@"></a>src文件夹目录简写方法，配置别名@</h3><p>@代表src文件夹，这样将来文件过多，方便。</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">&quot;compilerOptions&quot;</span>: &#123;</span><br><span class="line">    <span class="attr">&quot;baseUrl&quot;</span>: <span class="string">&quot;./&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;paths&quot;</span>: &#123;</span><br><span class="line">      <span class="attr">&quot;@/*&quot;</span>: [<span class="string">&quot;src/*&quot;</span>]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">&quot;exclude&quot;</span>: [<span class="string">&quot;node_modules&quot;</span>, <span class="string">&quot;dist&quot;</span>]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="3-路由分析"><a href="#3-路由分析" class="headerlink" title="3. 路由分析"></a>3. 路由分析</h1><p>vue-router</p>
+<p>前端所谓路由：kv键值对</p>
+<p>key：URL</p>
+<p>value：相应的路由组件</p>
+<p>注意：项目上中下结构</p>
+<p>路由组件：</p>
+<p>Home首页路由组件、Search路由组件、login登录路由、Register注册路由</p>
+<p>非路由组件：</p>
+<p>Header【首页、搜索页】、</p>
+<p>Footer【在首页、搜索页】登录|注册页没有</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/temp/day1.html" data-id="ckzb6dz1l0000zwtw68o68gxb" class="article-share-link">
+        Share
+      </a>
+      
+    </footer>
+
+  </div>
+
+  
+  
+  
+
+  
+
+</article>
+</section>
+    <footer class="footer">
+  <div class="outer">
+    <div class="float-right">
+      <ul class="list-inline">
+  
+  <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
+  
+</ul>
+    </div>
+    <ul class="list-inline">
+      <li>青稞 &copy; 2022</li>
+      
+        <li>ZHWANGART</li>
+      
+      <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
+      <li>theme  <a target="_blank" rel="noopener" href="https://github.com/zhwangart/hexo-theme-ocean">Ocean</a></li>
+    </ul>
+  </div>
+</footer>
+  </main>
+  <aside class="sidebar">
+    <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/hexo.svg" alt="青稞"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">Home</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">Archives</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/gallery">Gallery</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about">About</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="Search">
+        <i class="fe fe-search"></i>
+        Search
+      </a>
+    </li>
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      <div class="totop" id="totop">
+  <i class="fe fe-rocket"></i>
+</div>
+    </li>
+    <li class="nav-item">
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="fe fe-feed"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+  </aside>
+  
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/copybtn.js"></script>
+
+
+
+
+
+
+<script src="/js/ocean.js"></script>
+
+</body>
+
+</html>

@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2021-12-06T05:00:27.984Z</updated>
+  <updated>2022-02-06T03:43:59.820Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -17,17 +17,12 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>！！！！！</title>
-    <link href="http://example.com/2021/12/06/%EF%BC%81%EF%BC%81%EF%BC%81%EF%BC%81%EF%BC%81/"/>
-    <id>http://example.com/2021/12/06/%EF%BC%81%EF%BC%81%EF%BC%81%EF%BC%81%EF%BC%81/</id>
-    <published>2021-12-05T16:34:35.000Z</published>
-    <updated>2021-12-06T05:00:27.984Z</updated>
+    <title>Spring注解驱动开发【源码】——AOP原理——链式调用通知方法</title>
+    <link href="http://example.com/2022/02/06/Spring%E6%B3%A8%E8%A7%A3%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91%E3%80%90%E6%BA%90%E7%A0%81%E3%80%91%E2%80%94%E2%80%94AOP%E5%8E%9F%E7%90%86%E2%80%94%E2%80%94%E9%93%BE%E5%BC%8F%E8%B0%83%E7%94%A8%E9%80%9A%E7%9F%A5%E6%96%B9%E6%B3%95/"/>
+    <id>http://example.com/2022/02/06/Spring%E6%B3%A8%E8%A7%A3%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91%E3%80%90%E6%BA%90%E7%A0%81%E3%80%91%E2%80%94%E2%80%94AOP%E5%8E%9F%E7%90%86%E2%80%94%E2%80%94%E9%93%BE%E5%BC%8F%E8%B0%83%E7%94%A8%E9%80%9A%E7%9F%A5%E6%96%B9%E6%B3%95/</id>
+    <published>2022-02-06T03:43:59.000Z</published>
+    <updated>2022-02-06T03:43:59.820Z</updated>
     
-    
-    <summary type="html">&lt;ol&gt;
-&lt;li&gt;图床使用的github，所以图片可能加载不会很顺利，多刷新就可以了。&lt;/li&gt;
-&lt;li&gt;如发现有任何争议，请联系作者进行修改。&lt;/li&gt;
-&lt;/ol&gt;</summary>
     
     
     
@@ -35,159 +30,360 @@
   </entry>
   
   <entry>
-    <title>异常处理</title>
-    <link href="http://example.com/2021/12/05/%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/"/>
-    <id>http://example.com/2021/12/05/%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/</id>
-    <published>2021-12-05T14:55:25.000Z</published>
-    <updated>2021-12-06T11:30:38.244Z</updated>
+    <title>Spring注解驱动开发【源码】——AOP原理——获取拦截器链</title>
+    <link href="http://example.com/2022/02/06/Spring%E6%B3%A8%E8%A7%A3%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91%E3%80%90%E6%BA%90%E7%A0%81%E3%80%91%E2%80%94%E2%80%94AOP%E5%8E%9F%E7%90%86%E2%80%94%E2%80%94%E8%8E%B7%E5%8F%96%E6%8B%A6%E6%88%AA%E5%99%A8%E9%93%BE/"/>
+    <id>http://example.com/2022/02/06/Spring%E6%B3%A8%E8%A7%A3%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91%E3%80%90%E6%BA%90%E7%A0%81%E3%80%91%E2%80%94%E2%80%94AOP%E5%8E%9F%E7%90%86%E2%80%94%E2%80%94%E8%8E%B7%E5%8F%96%E6%8B%A6%E6%88%AA%E5%99%A8%E9%93%BE/</id>
+    <published>2022-02-06T03:43:29.000Z</published>
+    <updated>2022-02-06T03:43:29.693Z</updated>
     
     
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Spring注解驱动开发【源码】——AOP原理——创建AOP代理</title>
+    <link href="http://example.com/2022/02/06/Spring%E6%B3%A8%E8%A7%A3%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91%E3%80%90%E6%BA%90%E7%A0%81%E3%80%91%E2%80%94%E2%80%94AOP%E5%8E%9F%E7%90%86%E2%80%94%E2%80%94%E5%88%9B%E5%BB%BAAOP%E4%BB%A3%E7%90%86/"/>
+    <id>http://example.com/2022/02/06/Spring%E6%B3%A8%E8%A7%A3%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91%E3%80%90%E6%BA%90%E7%A0%81%E3%80%91%E2%80%94%E2%80%94AOP%E5%8E%9F%E7%90%86%E2%80%94%E2%80%94%E5%88%9B%E5%BB%BAAOP%E4%BB%A3%E7%90%86/</id>
+    <published>2022-02-06T03:43:13.000Z</published>
+    <updated>2022-02-06T03:43:13.520Z</updated>
+    
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Spring注解驱动开发【源码】——AOP原理——AnnotationAwareAspectJAutoProxyCreator</title>
+    <link href="http://example.com/2022/02/06/Spring%E6%B3%A8%E8%A7%A3%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91%E3%80%90%E6%BA%90%E7%A0%81%E3%80%91%E2%80%94%E2%80%94AOP%E5%8E%9F%E7%90%86%E2%80%94%E2%80%94AnnotationAwareAspectJAutoProxyCreator/"/>
+    <id>http://example.com/2022/02/06/Spring%E6%B3%A8%E8%A7%A3%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91%E3%80%90%E6%BA%90%E7%A0%81%E3%80%91%E2%80%94%E2%80%94AOP%E5%8E%9F%E7%90%86%E2%80%94%E2%80%94AnnotationAwareAspectJAutoProxyCreator/</id>
+    <published>2022-02-06T03:42:40.000Z</published>
+    <updated>2022-02-06T03:42:40.266Z</updated>
+    
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Spring注解驱动开发【源码】——AOP原理——@EnableAspectJAutoProxy</title>
+    <link href="http://example.com/2022/02/06/Spring%E6%B3%A8%E8%A7%A3%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91%E3%80%90%E6%BA%90%E7%A0%81%E3%80%91%E2%80%94%E2%80%94AOP%E5%8E%9F%E7%90%86%E2%80%94%E2%80%94-EnableAspectJAutoProxy/"/>
+    <id>http://example.com/2022/02/06/Spring%E6%B3%A8%E8%A7%A3%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91%E3%80%90%E6%BA%90%E7%A0%81%E3%80%91%E2%80%94%E2%80%94AOP%E5%8E%9F%E7%90%86%E2%80%94%E2%80%94-EnableAspectJAutoProxy/</id>
+    <published>2022-02-06T03:41:52.000Z</published>
+    <updated>2022-02-06T05:54:44.474Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;要实现注解版的AOP功能，最核心的注解就是@EnableAspectJAutoProxy了，有了它，AOP模式才生效。&lt;/p&gt;
+&lt;h4 id=&quot;流程分析图&quot;&gt;&lt;a href=&quot;#流程分析图&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Spring注解驱动开发——AOP功能测试</title>
+    <link href="http://example.com/2022/02/06/Spring%E6%B3%A8%E8%A7%A3%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91%E2%80%94%E2%80%94AOP%E5%8A%9F%E8%83%BD%E6%B5%8B%E8%AF%95/"/>
+    <id>http://example.com/2022/02/06/Spring%E6%B3%A8%E8%A7%A3%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91%E2%80%94%E2%80%94AOP%E5%8A%9F%E8%83%BD%E6%B5%8B%E8%AF%95/</id>
+    <published>2022-02-06T03:40:43.000Z</published>
+    <updated>2022-02-06T03:54:40.232Z</updated>
+    
+    
+      
+      
+        
+        
     <summary type="html">&lt;blockquote&gt;
-&lt;p&gt;世界上最遥远的距离，是我在if里你在else里，似乎一直相伴又永远分离； &lt;/p&gt;
-&lt;p&gt;世界上最痴心的等待，是我当case你是switch，或许永远都选不上自己； &lt;/p&gt;
-&lt;p&gt;世界上最真情的相依，是你在try我在catch。无论你发神马脾气，我都默 默承受，静静处理。到那时，再来期待我们的finally。&lt;/p&gt;
-&lt;/blockquote&gt;</summary>
+&lt;p&gt;Prev： &lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://atqingke.com/index.php/archives/272/&quot;&gt;Spring-AOP(上)&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a</summary>
+        
+      
     
     
     
-    
-    <category term="Java" scheme="http://example.com/tags/Java/"/>
-    
-    <category term="异常" scheme="http://example.com/tags/%E5%BC%82%E5%B8%B8/"/>
     
   </entry>
   
   <entry>
-    <title>深入Java集合系列之——HashMap</title>
-    <link href="http://example.com/2021/12/04/%E6%B7%B1%E5%85%A5Java%E9%9B%86%E5%90%88%E7%B3%BB%E5%88%97%E4%B9%8B%E2%80%94%E2%80%94HashMap/"/>
-    <id>http://example.com/2021/12/04/%E6%B7%B1%E5%85%A5Java%E9%9B%86%E5%90%88%E7%B3%BB%E5%88%97%E4%B9%8B%E2%80%94%E2%80%94HashMap/</id>
-    <published>2021-12-04T01:32:40.000Z</published>
-    <updated>2021-12-05T13:07:33.451Z</updated>
+    <title>Redis——配置文件介绍</title>
+    <link href="http://example.com/2022/02/05/Redis%E2%80%94%E2%80%94%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E4%BB%8B%E7%BB%8D/"/>
+    <id>http://example.com/2022/02/05/Redis%E2%80%94%E2%80%94%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E4%BB%8B%E7%BB%8D/</id>
+    <published>2022-02-05T13:25:57.000Z</published>
+    <updated>2022-02-06T03:11:49.792Z</updated>
     
     
-    <summary type="html">&lt;h2 id=&quot;1-传统HashMap的缺点&quot;&gt;&lt;a href=&quot;#1-传统HashMap的缺点&quot; class=&quot;headerlink&quot; title=&quot;1. 传统HashMap的缺点&quot;&gt;&lt;/a&gt;1. 传统HashMap的缺点&lt;/h2&gt;&lt;p&gt;HashMap是基于哈希表的Map接口的非同步实现。此实现提供所有可选的映射操作，并允许使用null值和null键。此类不保证映射的顺序，特别是它不保证该顺序恒久不变。&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;&lt;p&gt;JDK1.8以前HashMap的实现是 数组 + 链表，即使哈希函数取得再好，也很难达到元素百分百均与分布。&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;当HashMap中有大量的元素都存放到同一个桶中时，这个桶下由一条长长的链表，这个时候HashMap就相当于一个单链表，加入单链表有n个元素，遍历的时间复杂度就是O(n)，完全失去了它的优势。&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;针对这种情况，JDK1.8中引入了红黑树(查找时间复杂度为O(logn))来优化这个问题。&lt;/p&gt;</summary>
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;来到我们的拷贝的配置文件/etc/redis/6379.conf&lt;/p&gt;
+&lt;figure class=&quot;highlight shell&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span</summary>
+        
+      
     
     
     
-    
-    <category term="Java" scheme="http://example.com/tags/Java/"/>
-    
-    <category term="集合" scheme="http://example.com/tags/%E9%9B%86%E5%90%88/"/>
     
   </entry>
   
   <entry>
-    <title>深入Java集合系列之——ArrayList</title>
-    <link href="http://example.com/2021/12/03/%E6%B7%B1%E5%85%A5Java%E9%9B%86%E5%90%88%E7%B3%BB%E5%88%97%E4%B9%8B%E2%80%94%E2%80%94ArrayList/"/>
-    <id>http://example.com/2021/12/03/%E6%B7%B1%E5%85%A5Java%E9%9B%86%E5%90%88%E7%B3%BB%E5%88%97%E4%B9%8B%E2%80%94%E2%80%94ArrayList/</id>
-    <published>2021-12-03T11:25:50.000Z</published>
-    <updated>2021-12-03T14:47:45.414Z</updated>
+    <title>Redis——常用数据类型</title>
+    <link href="http://example.com/2022/02/05/Redis%E2%80%94%E2%80%94%E5%B8%B8%E7%94%A8%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/"/>
+    <id>http://example.com/2022/02/05/Redis%E2%80%94%E2%80%94%E5%B8%B8%E7%94%A8%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</id>
+    <published>2022-02-05T06:37:57.000Z</published>
+    <updated>2022-02-05T13:26:45.943Z</updated>
     
     
+      
+      
+        
+        
     <summary type="html">&lt;blockquote&gt;
-&lt;h2 id=&quot;6-总结&quot;&gt;&lt;a href=&quot;#6-总结&quot; class=&quot;headerlink&quot; title=&quot;6. 总结&quot;&gt;&lt;/a&gt;6. 总结&lt;/h2&gt;&lt;ol&gt;
-&lt;li&gt;ArrayList创建时的大小为0，当加入第一个元素时，进行第一次扩容，默认容量大小为10。（Java8之前为饿汉式，Java为懒汉式）&lt;/li&gt;
-&lt;li&gt;ArrayList每次扩容都以当前数组大小的1.5倍去扩容。&lt;/li&gt;
-&lt;li&gt;Vector创建时默认大小为10（饿汉式）。</summary>
+&lt;p&gt;Redis操作命令见：&lt;a</summary>
+        
+      
     
     
     
-    
-    <category term="Java" scheme="http://example.com/tags/Java/"/>
-    
-    <category term="集合" scheme="http://example.com/tags/%E9%9B%86%E5%90%88/"/>
     
   </entry>
   
   <entry>
-    <title>Map接口继承树</title>
-    <link href="http://example.com/2021/12/03/Map%E6%8E%A5%E5%8F%A3%E7%BB%A7%E6%89%BF%E6%A0%91/"/>
-    <id>http://example.com/2021/12/03/Map%E6%8E%A5%E5%8F%A3%E7%BB%A7%E6%89%BF%E6%A0%91/</id>
-    <published>2021-12-03T03:12:55.000Z</published>
-    <updated>2021-12-03T10:27:52.766Z</updated>
+    <title>Redis——配置后台启动</title>
+    <link href="http://example.com/2022/02/04/Redis%E2%80%94%E2%80%94%E9%85%8D%E7%BD%AE%E5%90%8E%E5%8F%B0%E5%90%AF%E5%8A%A8/"/>
+    <id>http://example.com/2022/02/04/Redis%E2%80%94%E2%80%94%E9%85%8D%E7%BD%AE%E5%90%8E%E5%8F%B0%E5%90%AF%E5%8A%A8/</id>
+    <published>2022-02-04T14:47:32.000Z</published>
+    <updated>2022-02-04T14:47:57.295Z</updated>
     
     
-    <summary type="html">&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20211203111736182.png&quot; alt=&quot;image-20211203111736182&quot;&gt;&lt;/p&gt;
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;进入/usr/local/redis/redis-6.2.6/utils目录下执行脚本&lt;/p&gt;
+&lt;figure class=&quot;highlight shell&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Redis——安装</title>
+    <link href="http://example.com/2022/02/03/Redis%E2%80%94%E2%80%94%E5%AE%89%E8%A3%85/"/>
+    <id>http://example.com/2022/02/03/Redis%E2%80%94%E2%80%94%E5%AE%89%E8%A3%85/</id>
+    <published>2022-02-03T06:55:40.000Z</published>
+    <updated>2022-02-05T06:47:41.438Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;blockquote&gt;
 &lt;ul&gt;
-&lt;li&gt;Map与Collection并列存在。用于保存具有**==映射关系==**得数据：key-value。&lt;/li&gt;
-&lt;li&gt;Map中的key和value都可以是任何引用类型得数据。&lt;/li&gt;
-&lt;li&gt;Map中的**==key用Set来存放，不允许重复==**，即同一个Map对象所对应的类，须重写hashCode和equals方法。&lt;/li&gt;
-&lt;/ul&gt;</summary>
+&lt;li&gt;英文官网：&lt;a href=&quot;https://redis.io/&quot;&gt;https://redis.io/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;中文官网：&lt;a</summary>
+        
+      
     
     
     
-    
-    <category term="Java" scheme="http://example.com/tags/Java/"/>
-    
-    <category term="集合" scheme="http://example.com/tags/%E9%9B%86%E5%90%88/"/>
     
   </entry>
   
   <entry>
-    <title>集合面试题</title>
-    <link href="http://example.com/2021/12/02/%E9%9B%86%E5%90%88%E9%9D%A2%E8%AF%95%E9%A2%98/"/>
-    <id>http://example.com/2021/12/02/%E9%9B%86%E5%90%88%E9%9D%A2%E8%AF%95%E9%A2%98/</id>
-    <published>2021-12-02T14:11:55.000Z</published>
-    <updated>2021-12-05T13:10:13.492Z</updated>
+    <title>Redis——NoSQL数据库简介</title>
+    <link href="http://example.com/2022/02/03/Redis%E2%80%94%E2%80%94NoSQL%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AE%80%E4%BB%8B/"/>
+    <id>http://example.com/2022/02/03/Redis%E2%80%94%E2%80%94NoSQL%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AE%80%E4%BB%8B/</id>
+    <published>2022-02-03T06:55:11.000Z</published>
+    <updated>2022-02-03T09:12:15.923Z</updated>
     
     
-    <summary type="html">&lt;h3 id=&quot;&quot;&gt;&lt;a href=&quot;#&quot; class=&quot;headerlink&quot; title=&quot;&quot;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;h3 id=&quot;请问ArrayList-LinkedList-Vector的异同？谈谈你的理解？ArrayList底层是什么？扩容机制？Vector和ArrayList的最大区别？&quot;&gt;&lt;a href=&quot;#请问ArrayList-LinkedList-Vector的异同？谈谈你的理解？ArrayList底层是什么？扩容机制？Vector和ArrayList的最大区别？&quot; class=&quot;headerlink&quot; title=&quot;请问ArrayList/LinkedList/Vector的异同？谈谈你的理解？ArrayList底层是什么？扩容机制？Vector和ArrayList的最大区别？&quot;&gt;&lt;/a&gt;请问ArrayList/LinkedList/Vector的异同？谈谈你的理解？ArrayList底层是什么？扩容机制？Vector和ArrayList的最大区别？&lt;/h3&gt;</summary>
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;技术发展&quot;&gt;&lt;a href=&quot;#技术发展&quot; class=&quot;headerlink&quot;</summary>
+        
+      
     
     
     
-    
-    <category term="Java" scheme="http://example.com/tags/Java/"/>
-    
-    <category term="集合" scheme="http://example.com/tags/%E9%9B%86%E5%90%88/"/>
-    
-    <category term="面经" scheme="http://example.com/tags/%E9%9D%A2%E7%BB%8F/"/>
     
   </entry>
   
   <entry>
-    <title>Collection接口继承树</title>
-    <link href="http://example.com/2021/12/02/Collection%E6%8E%A5%E5%8F%A3%E7%BB%A7%E6%89%BF%E6%A0%91/"/>
-    <id>http://example.com/2021/12/02/Collection%E6%8E%A5%E5%8F%A3%E7%BB%A7%E6%89%BF%E6%A0%91/</id>
-    <published>2021-12-02T12:50:18.000Z</published>
-    <updated>2021-12-03T03:28:01.272Z</updated>
+    <title>SpringBoot——自动配置</title>
+    <link href="http://example.com/2022/02/02/SpringBoot%E2%80%94%E2%80%94%E8%87%AA%E5%8A%A8%E9%85%8D%E7%BD%AE/"/>
+    <id>http://example.com/2022/02/02/SpringBoot%E2%80%94%E2%80%94%E8%87%AA%E5%8A%A8%E9%85%8D%E7%BD%AE/</id>
+    <published>2022-02-02T06:58:29.000Z</published>
+    <updated>2022-02-04T11:22:52.634Z</updated>
     
     
-    <summary type="html">&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20211202210335782.png&quot; alt=&quot;image-20211202210335782&quot;&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;Collection接口是List、Set和Queue接口的父接口，该接口里定义的方法既可用于操作Set集合，也可用于操作List和Queue集合。&lt;/p&gt;</summary>
+      
+      
+        
+        
+    <summary type="html">&lt;h4 id=&quot;SpringBootApplication流程分析图：&quot;&gt;&lt;a href=&quot;#SpringBootApplication流程分析图：&quot; class=&quot;headerlink&quot;</summary>
+        
+      
     
     
     
-    
-    <category term="Java" scheme="http://example.com/tags/Java/"/>
-    
-    <category term="集合" scheme="http://example.com/tags/%E9%9B%86%E5%90%88/"/>
     
   </entry>
   
   <entry>
-    <title>Java集合框架概述</title>
-    <link href="http://example.com/2021/12/02/Java%E9%9B%86%E5%90%88%E6%A1%86%E6%9E%B6%E6%A6%82%E8%BF%B0/"/>
-    <id>http://example.com/2021/12/02/Java%E9%9B%86%E5%90%88%E6%A1%86%E6%9E%B6%E6%A6%82%E8%BF%B0/</id>
-    <published>2021-12-02T05:40:01.000Z</published>
-    <updated>2021-12-05T13:10:18.478Z</updated>
+    <title>SpringBoot——底层注解</title>
+    <link href="http://example.com/2022/02/02/SpringBoot%E2%80%94%E2%80%94%E5%BA%95%E5%B1%82%E6%B3%A8%E8%A7%A3/"/>
+    <id>http://example.com/2022/02/02/SpringBoot%E2%80%94%E2%80%94%E5%BA%95%E5%B1%82%E6%B3%A8%E8%A7%A3/</id>
+    <published>2022-02-02T06:57:47.000Z</published>
+    <updated>2022-02-03T13:55:05.386Z</updated>
     
     
-    <summary type="html">&lt;h2 id=&quot;Java集合框架&quot;&gt;&lt;a href=&quot;#Java集合框架&quot; class=&quot;headerlink&quot; title=&quot;Java集合框架&quot;&gt;&lt;/a&gt;Java集合框架&lt;/h2&gt;&lt;p&gt;Java最初的版本只为最常用的数据结构提供了很少的一组类：Vector、Stack、Hashtable、BitSet与Enumeration接口，其中的Enumeration接口提供了一种用于访问任意容器中各个元素的抽象机制。&lt;/p&gt;
-&lt;p&gt;随着JavaSE1.2的问世，设计人员感到是推出一组功能完善的数据结构的时机了。面对一大堆相互矛盾的设计策略，他们希望让类库规模小且易于学习，而不希望像C++的“标准模板库”（即STL）那样复杂，但却又希望能够得到STL率先推出的“泛型算法”所具有的优点。本节将介绍Java集合框架的基本设计，展示使用它们的方法，并解释一些颇具争议的特性背后的考虑。&lt;/p&gt;</summary>
+      
+      
+        
+        
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&quot;https://atqingke.com/index.php/archives/380/&quot;&gt;Spring注解驱动开发——组件注册&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;Configuration&quot;&gt;&lt;a</summary>
+        
+      
     
     
     
     
-    <category term="Java" scheme="http://example.com/tags/Java/"/>
+  </entry>
+  
+  <entry>
+    <title>Hadoop集群搭建</title>
+    <link href="http://example.com/2022/02/01/Hadoop%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/"/>
+    <id>http://example.com/2022/02/01/Hadoop%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/</id>
+    <published>2022-02-01T14:04:48.000Z</published>
+    <updated>2022-02-01T14:04:48.858Z</updated>
     
-    <category term="集合" scheme="http://example.com/tags/%E9%9B%86%E5%90%88/"/>
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>VMWare安装CentOS</title>
+    <link href="http://example.com/2022/02/01/VMWare%E5%AE%89%E8%A3%85CentOS/"/>
+    <id>http://example.com/2022/02/01/VMWare%E5%AE%89%E8%A3%85CentOS/</id>
+    <published>2022-02-01T14:01:30.000Z</published>
+    <updated>2022-02-01T14:20:16.872Z</updated>
+    
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>nginx——原理及优化参数配置</title>
+    <link href="http://example.com/2022/02/01/nginx%E2%80%94%E2%80%94%E5%8E%9F%E7%90%86%E5%8F%8A%E4%BC%98%E5%8C%96%E5%8F%82%E6%95%B0%E9%85%8D%E7%BD%AE/"/>
+    <id>http://example.com/2022/02/01/nginx%E2%80%94%E2%80%94%E5%8E%9F%E7%90%86%E5%8F%8A%E4%BC%98%E5%8C%96%E5%8F%82%E6%95%B0%E9%85%8D%E7%BD%AE/</id>
+    <published>2022-02-01T05:07:03.000Z</published>
+    <updated>2022-02-01T05:07:03.793Z</updated>
+    
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>nginx简介</title>
+    <link href="http://example.com/2022/02/01/nginx%E7%AE%80%E4%BB%8B/"/>
+    <id>http://example.com/2022/02/01/nginx%E7%AE%80%E4%BB%8B/</id>
+    <published>2022-02-01T05:05:49.000Z</published>
+    <updated>2022-02-01T05:07:39.472Z</updated>
+    
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Gitee + PicGo实现博客图床</title>
+    <link href="http://example.com/2022/01/31/Gitee-PicGo%E5%AE%9E%E7%8E%B0%E5%8D%9A%E5%AE%A2%E5%9B%BE%E5%BA%8A/"/>
+    <id>http://example.com/2022/01/31/Gitee-PicGo%E5%AE%9E%E7%8E%B0%E5%8D%9A%E5%AE%A2%E5%9B%BE%E5%BA%8A/</id>
+    <published>2022-01-31T09:52:00.000Z</published>
+    <updated>2022-02-01T00:42:52.214Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;前置准备：&quot;&gt;&lt;a href=&quot;#前置准备：&quot; class=&quot;headerlink&quot; title=&quot;前置准备：&quot;&gt;&lt;/a&gt;前置准备：&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;Gitee注册账号&lt;a href=&quot;https://gitee.com/&quot;&gt;Gitee - 基于</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>SpringBoot——HelloWorld</title>
+    <link href="http://example.com/2022/01/31/SpringBoot%E2%80%94%E2%80%94HelloWorld/"/>
+    <id>http://example.com/2022/01/31/SpringBoot%E2%80%94%E2%80%94HelloWorld/</id>
+    <published>2022-01-31T07:51:08.000Z</published>
+    <updated>2022-02-01T05:07:32.367Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;HelloWorld&quot;&gt;&lt;a href=&quot;#HelloWorld&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>【源码】Spring——AOP</title>
+    <link href="http://example.com/2022/01/29/%E3%80%90%E6%BA%90%E7%A0%81%E3%80%91Spring%E2%80%94%E2%80%94AOP/"/>
+    <id>http://example.com/2022/01/29/%E3%80%90%E6%BA%90%E7%A0%81%E3%80%91Spring%E2%80%94%E2%80%94AOP/</id>
+    <published>2022-01-29T12:18:44.000Z</published>
+    <updated>2022-01-30T06:19:36.495Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;f&lt;/p&gt;
+</summary>
+        
+      
+    
+    
+    
     
   </entry>
   

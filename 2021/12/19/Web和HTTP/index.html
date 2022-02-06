@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  
+  
+  <title>
+    Web和HTTP |
+    
+    青稞
+  </title>
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+    
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<script src="/js/pace.min.js"></script>
+
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="青稞" type="application/atom+xml">
+</head>
+
+<body>
+  <main class="content">
+    <section class="outer">
+  <article id="post-Web和HTTP" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+      
+
+<h1 class="article-title" itemprop="name">
+  Web和HTTP
+</h1>
+
+
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2021/12/19/Web%E5%92%8CHTTP/" class="article-date">
+  <time datetime="2021-12-19T08:44:33.000Z" itemprop="datePublished">2021-12-19</time>
+</a>
+      
+    </div>
+    
+
+    
+    
+<div class="tocbot"></div>
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+      
+      <p>Web是一个引起公众注意的因特网应用，它极大地改变了人们与工作环境内外交流的方式。它将因特网从只是很多数据网之一的地位提升为仅有的一个数据网。也许对大多数用户来说，最具吸引力的就是Web的<strong>按需</strong>操作。</p>
+<h1 id="1-HTTP概况"><a href="#1-HTTP概况" class="headerlink" title="1. HTTP概况"></a>1. HTTP概况</h1><p>Web的应用层协议是<strong>超文本传输协议</strong>（HyperText Transfer Protocol，HTTP），它是Web的核心，在[RFC 1945]和[RFC 2616]中进行了定义。HTTP由两个程序实现：一个客户程序和一个服务器程序。客户程序和服务器程序运行在不同的端系统中，通过交换HTTP报文进行会话。HTTP定义了这些报文的结构以及客户和服务器进行报文交换的方式。</p>
+<p><strong>Web页面</strong>（也叫文档）是由对象组成的。一个<strong>对象</strong>只是一个文件，且它们可通过一个<strong>URL地址寻址</strong>。多数Web页面含有一个<strong>HTML基本组件</strong>以及几个引用对象。例如，如果一个Web页面包含HTML文本和5个JPEG图形，那么这个Web页面有6个对象。HTML基本文件通过对象的URL地址引用页面中的其它对象。<strong>每个URL地址由两部分组成：存放对象的服务器主机名和对象的路径名</strong>。因为Web浏览器实现了HTTP的客户端，所以在Web环境中我们经常交替使用“浏览器”和“客户”这两个术语。Web服务器实现了HTTP的服务器端，它用于存储Web对象，每个对象由URL寻址。</p>
+<p>HTTP定义了<strong>Web客户向Web服务器请求Web页面的方式，以及服务器向客户传送Web页面的方式</strong>。它使用<strong>TCP作为它的支撑运输协议</strong>。HTTP客户首先发起一个与服务器的TCP连接。一旦连接建立，该浏览器和服务器进程就可以通过套接字接口访问TCP。在这个过程中，TCP为HTTP提供可靠数据传输服务。这意味着，一个客户进程发出的每个HTTP请求报文最终能完整地到达服务器；类似地，服务器进程发出的每一个HTTP响应报文最终能完整地到达客户。在这里，我们看到了分层体系结构最大的优点，即HTTP协议不用担心数据丢失，也不关注TCP从网络的数据丢失和乱序故障中恢复的细节。而这是TCP以及协议栈较低层协议的工作。</p>
+<p>现在我们考虑一个现象：服务器向客户发送被请求的文件，而不存储任何关于该客户的状态信息。假如某个特定的客户在短短的几秒钟内两次请求同一个对象，服务器并不会因为刚刚为该客户提供了该对象就不再做反应，而是重新发送该对象，就像服务器已经完全忘记不久之前所做过的事一样。因为HTTP服务器并不保存关于客户的任何信息，所以我们说HTTP是一个<strong>无状态协议</strong>。</p>
+<h1 id="2-非持续连接和持续连接"><a href="#2-非持续连接和持续连接" class="headerlink" title="2. 非持续连接和持续连接"></a>2. 非持续连接和持续连接</h1><p>所谓非持续连接和持续连接就是指每个请求/响应对在一个长时间内通信时，是经过一个单独的TCP连接发送，还是所有请求及其响应经相同的TCP连接发送。HTTP既能够使用非持续连接，也能够使用持续连接，默认使用持续连接。（对应的在下面对请求报文中的介绍有一个Connection：keep-alive首部行）</p>
+<h2 id="2-1-采用非持续连接的HTTP"><a href="#2-1-采用非持续连接的HTTP" class="headerlink" title="2.1 采用非持续连接的HTTP"></a>2.1 采用非持续连接的HTTP</h2><p>假设页面含有一个HTML基本文件和10个JPEG图形，并且这11个对象位于同一台服务器上。该HTML文件的URL为：<a target="_blank" rel="noopener" href="http://www.atqingke.com/someDepartment/home.index%E3%80%82">http://www.atqingke.com/someDepartment/home.index。</a></p>
+<p>我们看看发生了什么情况：</p>
+<ul>
+<li>HTTP客户进程在端口号80发起一个到服务器<a target="_blank" rel="noopener" href="http://www.atqingke.com的tcp连接,该端口号是http的默认端口.在客户和服务器上分别有一个套接字与该连接相关联./">www.atqingke.com的TCP连接，该端口号是HTTP的默认端口。在客户和服务器上分别有一个套接字与该连接相关联。</a></li>
+<li>HTTP客户经它的套接字向该服务器发送一个HTTP请求报文。请求报文中包含了路径名/someDepartment/home.index。</li>
+<li>HTTP服务器进程经它的套接字接收该请求报文，从其存储器中检索出对象<a target="_blank" rel="noopener" href="http://www.atqingke.com/someDepartment/home.index%EF%BC%8C%E5%9C%A8%E4%B8%80%E4%B8%AAHTTP%E5%93%8D%E5%BA%94%E6%8A%A5%E6%96%87%E4%B8%AD%E5%B0%81%E8%A3%85%E5%AF%B9%E8%B1%A1%EF%BC%8C%E5%B9%B6%E9%80%9A%E8%BF%87%E5%85%B6%E5%A5%97%E6%8E%A5%E5%AD%97%E5%90%91%E5%AE%A2%E6%88%B7%E5%8F%91%E9%80%81%E5%93%8D%E5%BA%94%E6%8A%A5%E6%96%87%E3%80%82">www.atqingke.com/someDepartment/home.index，在一个HTTP响应报文中封装对象，并通过其套接字向客户发送响应报文。</a></li>
+<li>HTTP服务器进程通知TCP断开该TCP连接。</li>
+<li>HTTP客户接收响应报文，TCP连接关闭。该报文指出封装的对象是一个HTML文件，客户从响应报文中提取出该文件并检查，得到对10个JPEG图形的引用。</li>
+<li>对每个引用的JPEG图形对象重复前4个步骤。</li>
+</ul>
+<p>在上面的步骤中，每个TCP连接只传输一个请求报文和响应报文。因此，当用户请求该Web页面时，要产生11个TCP连接。</p>
+<p>在上面的步骤中，并没有明确给出获得这10个JPEG图形对象是串行还是并行。事实上，用户能够配置现代浏览器以控制并行度。默认方式下大部分浏览器打开5~10个并行的TCP连接，而每条连接处理一个请求响应事务。</p>
+<p>我们来简单估算一下从客户请求HTML基本文件起到客户收到整个文件所花费的时间。为此，我们给出<strong>往返时间（Round-Trip Time，RTT）</strong>的定义，该时间是指<strong>一个短分组从客户到服务器然后再返回客户所花费的时间</strong>。RTT包括分组传播时延、分组在中间路由器和交换机上的排队时延以及分组处理时延。现在考虑用户点击超链接会发生什么现象。如图所示，这引起浏览器在它和Web服务器之间发起一个TCP连接；这涉及一次”三次握手“过程，即客户向服务器发送一个小TCP报文段，服务器用一个小TCP报文段做出确认和响应，最后，客户向服务器返回确认。三次握手中前两个部分所耗费的时间占用了一个RTT。完成前两个部分后，客户结合三次握手的第三部分向该TCP连接发送一个HTTP请求报文。一旦该请求报文到达服务器，服务器就在该TCP连接上发送HTML文件。该HTTP请求/响应用用去了另一个RTT。因此，粗略地讲，总的响应时间就是两个RTT加上服务器传输HTML文件的时间。</p>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20211222005616390.png" alt="image-20211222005616390"></p>
+<h2 id="2-2-采用持续连接的HTTP"><a href="#2-2-采用持续连接的HTTP" class="headerlink" title="2.2 采用持续连接的HTTP"></a>2.2 采用持续连接的HTTP</h2><p>非持续连接有一些缺点：</p>
+<ul>
+<li>必须为每一个请求的对象建立和维护一个全新的连接。对于每个这样的连接，在客户和服务器中都要分配TCP的缓冲区和保持TCP变量，这个Web服务器带来了严重的负担。</li>
+<li>每个对象经受两倍RTT的交付时延，即一个RTT用于创建TCP，另一个RTT用于请求和接收一个对象。</li>
+</ul>
+<p>在采用持续连接的情况下，服务器在发送响应后保持该TCP连接打开。在相同的客户与服务器之间的后续请求和响应报文能够通过相同的连接进行传送。特别是，一个完整的Web页面可以用单个持续TCP连接进行传送，更有甚者，位于同一台服务器的多个Web页面在从该服务器发送给同一个客户时，可以在单个持续TCP连接上进行。可以一个接一个的发出对对象的这些请求，而不必等待对未决请求（流水线）的回答。一般来说，如果一条连接经过一定时间间隔仍未被使用，HTTP服务器就关闭该连接。</p>
+<h1 id="3-HTTP报文格式"><a href="#3-HTTP报文格式" class="headerlink" title="3. HTTP报文格式"></a>3. HTTP报文格式</h1><p>HTTP规范【RFC 1945；RFC 2616】包含了对HTTP报文格式的定义。HTTP报文请求有两种：请求报文和响应报文。</p>
+<h2 id="3-1-HTTP请求报文"><a href="#3-1-HTTP请求报文" class="headerlink" title="3.1 HTTP请求报文"></a>3.1 HTTP请求报文</h2><p>我们通过wireshark进行抓包得到一个HTTP的请求报文如下所示：（每行都有一个\r\n结束）</p>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20211221221924118.png" alt="image-20211221221924118"></p>
+<p>其中，请求行的方法字段可以取的值包括GET、POST、HEAD、PUT和DELETE。绝大部分的HTTP请求报文使用GET方法。</p>
+<p>在首部行Host中，我们也许认为该首部行是不必要的，因为在该主机中已经有一条TCP连接存在了。但是，在后面的Web缓存的介绍中我们可以知道，该首部行提供的信息是Web代理高速缓存所要求的。Accept-language：首部行是HTTP中可用的众多内容协商首部之一。</p>
+<p>我们再来看一个请求报文的通用格式：</p>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20211221223651918.png" alt="image-20211221223651918"></p>
+<p>在这张图里我们可以看到，在首部行后面还有一个“实体体”（entity body）。使用GET方法时实体体为空，而使用POST方法时才使用该实体体。</p>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20211221224126555.png" alt="image-20211221224126555"></p>
+<p>通过wireshark抓包可以看到，上图中的使用GET方法请求，空行后面没有实体体。而下图中的POST方法请求时，空行后面就是实体体。</p>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20211221224421953.png" alt="image-20211221224421953"></p>
+<p>当用户提交表单时，HTTP客户常常使用POST方法，例如当用户向搜索引擎提供搜索关键词时。使用POST报文时，用户仍可以向服务器请求一个Web页面，但Web页面的特定内容依赖于用户在表单字段中输入的内容。如果方法字段的值为POST时，则实体体中包含的就是用户在表单字段中的输入值。</p>
+<p>当然，HTML表单也经常使用GET方法，并在所请求的URL中包括输入的数据，如图：</p>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20211221224933910.png" alt="image-20211221224933910"></p>
+<p>HEAD方法类似于GET方法。当服务器收到使用HEAD方法的请求时，将会用一个HTTP报文进行响应，但是并不返回请求对象。应用程序开发者常用HEAD方法进行调试跟踪。PUT方法常与Web发行工具联合使用，它允许用户上传对象到指定的Web服务器上指定的路径。PUT方法也被那些需要向Web服务器上传对象的应用程序使用。DELETE方法允许用户或者应用程序删除Web服务器上的对象。</p>
+<h2 id="3-2-HTTP响应报文"><a href="#3-2-HTTP响应报文" class="headerlink" title="3.2 HTTP响应报文"></a>3.2 HTTP响应报文</h2><p>使用wireshark抓取的一条HTTP响应报文：</p>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20211221230250851.png" alt="image-20211221230250851"></p>
+<p>再看一下响应报文的通用格式：</p>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20211221230632598.png" alt="image-20211221230632598"></p>
+<p>在这里，我们补充说明一下状态码和它们对应的短语。状态码及其相应的短语指示了请求的结果。一些常见的状态码和相关的短语包括：</p>
+<ul>
+<li>200    OK：请求成功，信息在返回的响应报文中。</li>
+<li>301    Moved Permanently：请求的对象已经被永久转移了，新的URL定义在响应报文的Location：首部行中。客户软件将自动获取新的URL。</li>
+<li>400    Bad Request：一个通用差错代码，指示该请求不能被服务器理解。</li>
+<li>404    Not Found：被请求的文档不在服务器上。</li>
+<li>505    HTTP Version Not Supported：服务器不支持请求报文使用的HTTP协议版本。</li>
+</ul>
+<h1 id="4-用户与服务器的交互：cookie"><a href="#4-用户与服务器的交互：cookie" class="headerlink" title="4. 用户与服务器的交互：cookie"></a>4. 用户与服务器的交互：cookie</h1><p>前面提到了HTTP服务器是无状态的。而一个Web站点通常希望能够识别用户，可能是因为它希望把内容与用户身份联系起来。为此，HTTP使用了cookie。cookie在【RFC 6265】中定义，它允许站点对用户进行跟踪。</p>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20211223152406114.png" alt="image-20211223152406114"></p>
+<p>如图，cookie技术有4个组件：</p>
+<ol>
+<li>在HTTP响应报文中的一个cookie首部行；</li>
+<li>在HTTP请求报文中的一个cookie首部行；</li>
+<li>在用户端系统中保留有一个cookie文件，并由用户的浏览器进行管理；</li>
+<li>位于Web站点的一个后端数据库。</li>
+</ol>
+<p>我们通过这个图来看看cookie的工作过程。假设Lucy总是从家中PC使用Internet Explorer上网，她首次与taobao.com联系。我们假定过去她已经访问过bay站点。当请求报文到达该taobao Web服务器时，该Web站点将产生一个唯一识别码，并以此作为索引在它的后端数据库中产生一个表项。接下来taobao Web服务器用一个包含Set-cookie: 首部的HTTP响应报文对Lucy的浏览器进行响应，其中Set-cookie：首部含有该识别码。例如，该首部行可能是</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Set-cookie: 1633</span><br></pre></td></tr></table></figure>
+
+<p>当Lucy的浏览器收到了该HTTP响应报文时，它会看到Set-cookie：首部。该浏览器在它管理的规定cookie文件中添加一行，该行包含服务器的主机名和在Set-cookie：首部中的识别码。值得注意的是该cookie文件已经有了用于bay的表项，因为Lucy过去访问过该站点。当Lucy继续浏览taobao网站时，每请求一个Web页面，其浏览器会从该cookie文件中获取她对这个网站的识别码，并放到HTTP请求报文中包括识别码的cookie首部行中。</p>
+<h1 id="5-Web缓存"><a href="#5-Web缓存" class="headerlink" title="5. Web缓存"></a>5. Web缓存</h1><p>Web缓存器（Web cache）也叫代理服务器（proxy server），它是能够代表初始Web服务器来满足HTTP请求的网络实体。Web缓存器有自己的磁盘存储空间，并在存储空间中保存最近请求过的对象的副本。如图，可以配置用户的浏览器，使得用户的所有HTTP请求首先指向Web缓存器。一旦某浏览器被配置，每个对某对象的浏览器请求首先被定向到该Web缓存器。</p>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20211223150002667.png" alt="image-20211223150002667"></p>
+<p>值得注意的是Web缓存器是服务器同时又是客户。当它接收浏览器的请求并发回响应时，它是一个服务器。当它项初始服务器发出请求并接收响应时，它是一个客户。</p>
+<p>在因特网上部署Web缓存器有两个原因。首先，Web缓存器可以大大减少对客户请求的响应时间，特别是当客户与初始服务器之间的瓶颈带宽远低于客户与Web缓存器之间的瓶颈带宽时更是如此。其次，Web缓存器能够大大减少一个机构的接入链路到因特网的通信量。通过减少通信量，该机构就不必急于增加带宽，因此降低了费用。此外，Web缓存器能从整体上大大减低因特网上的Web流量，从而改善了所有应用的性能。</p>
+<h1 id="6-条件GET方法"><a href="#6-条件GET方法" class="headerlink" title="6. 条件GET方法"></a>6. 条件GET方法</h1><p>尽管高速缓存能减少用户感受到的响应时间，但也引入了一个新的问题，即存放在缓存器中的对象副本可能并不是最新的。为此，HTTP协议有一种机制，允许缓存器证实它的对象是最新的。这种机制就是<strong>条件GET方法</strong>。如果：①请求报文使用GET方法；并且②请求报文中包含一个”If-Modified-Since:“首部行。那么，这个HTTP请求报文就是一个条件GET请求报文。</p>
+<p>我们看一个例子。首先，一个proxy cache代表一个请求浏览器，向某Web服务器发送一个请求报文：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">GET /fruit/kiwi.git HTTP/1.1</span><br><span class="line">Host: www.exotiquecuisine.com</span><br></pre></td></tr></table></figure>
+
+<p>其次，该Web服务器向缓存器发送具有被请求的对象的响应报文：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">HTTP/1.1 200 OK</span><br><span class="line">Date: Sat, 8 Oct 2021 15:39:29</span><br><span class="line">Server: nginx</span><br><span class="line">Last-Modified: Wed, 7 Sep 2021 09:23:24</span><br><span class="line">Content-Type: image/gif</span><br><span class="line"></span><br><span class="line">(data data data data data data ......)</span><br></pre></td></tr></table></figure>
+
+<p>该缓存器在将对象转发到请求的浏览器的同时，也在本地缓存了该对象。重要的是，缓存器在存储该对象时也存储了最后修改日期。一个星期后，另一个哟用户经过该缓存器请求同一个对象，该对象仍在这个缓存器中。由于在过去的一个星期中位于Web服务器上的该对象可能已经被修改了，该缓存器通过发送一个条件GET执行最新检查：</p>
+<figure class="highlight d"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">GET /fruit/kiwi.git HTTP/<span class="number">1.1</span></span><br><span class="line">Host: www.exotiquecuisine.com</span><br><span class="line">If-Modified-Since: Wed, <span class="number">7</span> Sep <span class="number">2021</span> <span class="number">0</span>9:<span class="number">23</span>:<span class="number">24</span></span><br></pre></td></tr></table></figure>
+
+<p>我们可以看到：If-Modified-Since: 首部行的值正好等于一星期前服务器发送的响应报文中的Last-Modified: 首部行的值。该条件GET报文告诉服务器，仅当自指定日期之后该对象被修改过，才发送该对象。而如果没有被修改，Web服务器向该缓存器发送一个响应报文：</p>
+<figure class="highlight tcl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">HTTP/<span class="number">1.1</span> <span class="number">304</span> Not Modified</span><br><span class="line">Date: Sat, <span class="number">15</span> Oct <span class="number">2021</span> <span class="number">15</span>:<span class="number">39</span>:<span class="number">29</span></span><br><span class="line">Server: nginx</span><br><span class="line"></span><br><span class="line">(empty entity body)</span><br></pre></td></tr></table></figure>
+
+<p>我们看到，作为对该条件GET方法的响应，该Web服务器仍发送一个响应报文，但并没有在该响应报文中包含所请求的对象。包含该对象只会浪费带宽，并增加用户感受到的响应时间，特别是如果对象很大。最后的状态行中的304 Not Modified就告诉缓存器可以使用该对象，能向请求的浏览器转发proxy cache缓存的该对象副本。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/12/19/Web%E5%92%8CHTTP/" data-id="ckzb6dz56002izwtw9z9e97wd" class="article-share-link">
+        Share
+      </a>
+      
+    </footer>
+
+  </div>
+
+  
+  
+<nav class="article-nav">
+  
+  <a href="/2021/12/20/meta%E6%A0%87%E7%AD%BE/" class="article-nav-link">
+    <strong class="article-nav-caption">Newer</strong>
+    <div class="article-nav-title">
+      
+      meta标签
+      
+    </div>
+  </a>
+  
+  
+  <a href="/2021/12/19/%E5%88%86%E7%BB%84%E4%BA%A4%E6%8D%A2%E7%BD%91%E4%B8%AD%E7%9A%84%E6%97%B6%E5%BB%B6%E3%80%81%E4%B8%A2%E5%8C%85%E5%92%8C%E5%90%9E%E5%90%90%E9%87%8F/" class="article-nav-link">
+    <strong class="article-nav-caption">Older</strong>
+    <div class="article-nav-title">分组交换网中的时延、丢包和吞吐量</div>
+  </a>
+  
+</nav>
+
+  
+
+  
+  
+  
+  
+
+</article>
+</section>
+    <footer class="footer">
+  <div class="outer">
+    <div class="float-right">
+      <ul class="list-inline">
+  
+  <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
+  
+  <li><i class="fe fe-bookmark"></i> <span id="busuanzi_value_page_pv"></span></li>
+  
+</ul>
+    </div>
+    <ul class="list-inline">
+      <li>青稞 &copy; 2022</li>
+      
+        <li>ZHWANGART</li>
+      
+      <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
+      <li>theme  <a target="_blank" rel="noopener" href="https://github.com/zhwangart/hexo-theme-ocean">Ocean</a></li>
+    </ul>
+  </div>
+</footer>
+  </main>
+  <aside class="sidebar">
+    <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/hexo.svg" alt="青稞"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">Home</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">Archives</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/gallery">Gallery</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about">About</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="Search">
+        <i class="fe fe-search"></i>
+        Search
+      </a>
+    </li>
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      <div class="totop" id="totop">
+  <i class="fe fe-rocket"></i>
+</div>
+    </li>
+    <li class="nav-item">
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="fe fe-feed"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+  </aside>
+  
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/copybtn.js"></script>
+
+
+
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto',
+  });
+</script>
+
+
+
+<script src="/js/ocean.js"></script>
+
+</body>
+
+</html>

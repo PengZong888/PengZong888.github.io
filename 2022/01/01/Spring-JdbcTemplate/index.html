@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  
+  
+  <title>
+    Spring-JdbcTemplate |
+    
+    青稞
+  </title>
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+    
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<script src="/js/pace.min.js"></script>
+
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="青稞" type="application/atom+xml">
+</head>
+
+<body>
+  <main class="content">
+    <section class="outer">
+  <article id="post-Spring-JdbcTemplate" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+      
+
+<h1 class="article-title" itemprop="name">
+  Spring-JdbcTemplate
+</h1>
+
+
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2022/01/01/Spring-JdbcTemplate/" class="article-date">
+  <time datetime="2022-01-01T12:59:38.000Z" itemprop="datePublished">2022-01-01</time>
+</a>
+      
+    </div>
+    
+
+    
+    
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+      
+      <p>了解即可！！！！！！！！！！！！</p>
+<p>sql文件：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">/*</span><br><span class="line">SQLyog Ultimate v10.00 Beta1</span><br><span class="line">MySQL - 5.7.32 : Database - jdbc_template</span><br><span class="line">*********************************************************************</span><br><span class="line">*/</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">/*!40101 SET NAMES utf8 */;</span><br><span class="line"></span><br><span class="line">/*!40101 SET SQL_MODE=&#x27;&#x27;*/;</span><br><span class="line"></span><br><span class="line">/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;</span><br><span class="line">/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE=&#x27;NO_AUTO_VALUE_ON_ZERO&#x27; */;</span><br><span class="line">/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;</span><br><span class="line">CREATE DATABASE /*!32312 IF NOT EXISTS*/`jdbc_template` /*!40100 DEFAULT CHARACTER SET gb2312 */;</span><br><span class="line"></span><br><span class="line">USE `jdbc_template`;</span><br><span class="line"></span><br><span class="line">/*Table structure for table `employee` */</span><br><span class="line"></span><br><span class="line">CREATE TABLE `employee` (</span><br><span class="line">  `emp_id` int(11) NOT NULL AUTO_INCREMENT,</span><br><span class="line">  `emp_name` char(100) DEFAULT NULL,</span><br><span class="line">  `salary` double DEFAULT NULL,</span><br><span class="line">  PRIMARY KEY (`emp_id`)</span><br><span class="line">) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=gb2312;</span><br><span class="line"></span><br><span class="line">/*Data for the table `employee` */</span><br><span class="line"></span><br><span class="line">insert  into `employee`(`emp_id`,`emp_name`,`salary`) values (1,&#x27;Susan&#x27;,5000.23);</span><br><span class="line">insert  into `employee`(`emp_id`,`emp_name`,`salary`) values (2,&#x27;Julian&#x27;,4234.77);</span><br><span class="line">insert  into `employee`(`emp_id`,`emp_name`,`salary`) values (3,&#x27;Papu&#x27;,9034.51);</span><br><span class="line">insert  into `employee`(`emp_id`,`emp_name`,`salary`) values (4,&#x27;Babala&#x27;,8054.33);</span><br><span class="line">insert  into `employee`(`emp_id`,`emp_name`,`salary`) values (5,&#x27;Kasier&#x27;,1300);</span><br><span class="line">insert  into `employee`(`emp_id`,`emp_name`,`salary`) values (6,&#x27;Owen&#x27;,7714.11);</span><br><span class="line">insert  into `employee`(`emp_id`,`emp_name`,`salary`) values (7,&#x27;zhangsan&#x27;,9999.99);</span><br><span class="line">insert  into `employee`(`emp_id`,`emp_name`,`salary`) values (8,&#x27;lisi&#x27;,8999.99);</span><br><span class="line">insert  into `employee`(`emp_id`,`emp_name`,`salary`) values (9,&#x27;wangwu&#x27;,7999.99);</span><br><span class="line">insert  into `employee`(`emp_id`,`emp_name`,`salary`) values (10,&#x27;zhaoliu&#x27;,6999.99);</span><br><span class="line">insert  into `employee`(`emp_id`,`emp_name`,`salary`) values (11,&#x27;田七&#x27;,8848.88);</span><br><span class="line">insert  into `employee`(`emp_id`,`emp_name`,`salary`) values (12,&#x27;哈哈&#x27;,5555.55);</span><br><span class="line">insert  into `employee`(`emp_id`,`emp_name`,`salary`) values (13,&#x27;哈哈2&#x27;,5555.55);</span><br><span class="line"></span><br><span class="line">/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;</span><br><span class="line">/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;</span><br><span class="line">/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;</span><br></pre></td></tr></table></figure>
+
+<p>applicationContext.xml</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://www.springframework.org/schema/beans&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns:context</span>=<span class="string">&quot;http://www.springframework.org/schema/context&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">context:property-placeholder</span> <span class="attr">location</span>=<span class="string">&quot;classpath:dbConfig.properties&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">context:component-scan</span> <span class="attr">base-package</span>=<span class="string">&quot;com.atqingke&quot;</span>/&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!--实验9：创建BookDao，自动装配JdbcTemplate对象--&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--实验8：重复实验7，以SqlParameterSource形式传入参数值--&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--实验7：使用带有具名参数的SQL语句插入一条员工记录，并以Map形式传入参数值--&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--配置一个具有具名参数功能的jdbcTemplate--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;namedParameterJdbcTemplate&quot;</span> <span class="attr">class</span>=<span class="string">&quot;org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate&quot;</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--使用构造器方式注入一个数据源--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">constructor-arg</span> <span class="attr">name</span>=<span class="string">&quot;dataSource&quot;</span> <span class="attr">ref</span>=<span class="string">&quot;dataSource&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!--实验6：查询最大salary--&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--实验5：查询salary&gt;4000的数据库记录，封装为List集合返回--&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--实验4：查询emp_id=5的数据库记录，封装为一个Java对象返回--&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--实验3：批量插入--&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--实验2：将emp_id=5的记录的salary字段更新为1300.00--&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--Spring提供了一个类JdbcTemplate，我们用它来操作数据库--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;jdbcTemplate&quot;</span> <span class="attr">class</span>=<span class="string">&quot;org.springframework.jdbc.core.JdbcTemplate&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">constructor-arg</span> <span class="attr">name</span>=<span class="string">&quot;dataSource&quot;</span> <span class="attr">ref</span>=<span class="string">&quot;dataSource&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!--实验1：测试数据源--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;dataSource&quot;</span> <span class="attr">class</span>=<span class="string">&quot;com.mchange.v2.c3p0.ComboPooledDataSource&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;user&quot;</span> <span class="attr">value</span>=<span class="string">&quot;$&#123;jdbc.user&#125;&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;password&quot;</span> <span class="attr">value</span>=<span class="string">&quot;$&#123;jdbc.password&#125;&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;jdbcUrl&quot;</span> <span class="attr">value</span>=<span class="string">&quot;$&#123;jdbc.jdbcUrl&#125;&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;driverClass&quot;</span> <span class="attr">value</span>=<span class="string">&quot;$&#123;jdbc.driverClass&#125;&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>dbConfig.properties</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">jdbc.user</span>=<span class="string">root</span></span><br><span class="line"><span class="meta">jdbc.password</span>=<span class="string">123456</span></span><br><span class="line"><span class="meta">jdbc.jdbcUrl</span>=<span class="string">jdbc:mysql://localhost:3306/jdbc_template</span></span><br><span class="line"><span class="meta">jdbc.driverClass</span>=<span class="string">com.mysql.jdbc.Driver</span></span><br></pre></td></tr></table></figure>
+
+<p>Employee</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.atqingke.bean;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> pengbin007</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2022/1/1 20:24</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Employee</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Integer empId;</span><br><span class="line">    <span class="keyword">private</span> String empName;</span><br><span class="line">    <span class="keyword">private</span> Double Salary;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Employee</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Employee</span><span class="params">(Integer empId, String empName, Double salary)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.empId = empId;</span><br><span class="line">        <span class="keyword">this</span>.empName = empName;</span><br><span class="line">        Salary = salary;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Integer <span class="title">getEmpId</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> empId;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setEmpId</span><span class="params">(Integer empId)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.empId = empId;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getEmpName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> empName;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setEmpName</span><span class="params">(String empName)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.empName = empName;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Double <span class="title">getSalary</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> Salary;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setSalary</span><span class="params">(Double salary)</span> </span>&#123;</span><br><span class="line">        Salary = salary;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Employee&#123;&quot;</span> +</span><br><span class="line">                <span class="string">&quot;empId=&quot;</span> + empId +</span><br><span class="line">                <span class="string">&quot;, empName=&#x27;&quot;</span> + empName + <span class="string">&#x27;\&#x27;&#x27;</span> +</span><br><span class="line">                <span class="string">&quot;, Salary=&quot;</span> + Salary +</span><br><span class="line">                <span class="string">&#x27;&#125;&#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>EmployeeDao</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.atqingke.dao;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.atqingke.bean.Employee;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line"><span class="keyword">import</span> org.springframework.jdbc.core.JdbcTemplate;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Repository;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> pengbin007</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2022/1/1 20:52</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Repository</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">EmployeeDao</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    JdbcTemplate jdbcTemplate;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">saveEmployee</span><span class="params">(Employee employee)</span> </span>&#123;</span><br><span class="line">        String sql = <span class="string">&quot;INSERT INTO employee(emp_name, salary) VALUES(?, ?)&quot;</span>;</span><br><span class="line">        jdbcTemplate.update(sql, employee.getEmpName(), employee.getSalary());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>TxTest</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.atqingke.test;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.atqingke.bean.Employee;</span><br><span class="line"><span class="keyword">import</span> com.atqingke.dao.EmployeeDao;</span><br><span class="line"><span class="keyword">import</span> org.junit.Test;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.ApplicationContext;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.support.ClassPathXmlApplicationContext;</span><br><span class="line"><span class="keyword">import</span> org.springframework.dao.DataAccessException;</span><br><span class="line"><span class="keyword">import</span> org.springframework.jdbc.core.BeanPropertyRowMapper;</span><br><span class="line"><span class="keyword">import</span> org.springframework.jdbc.core.JdbcTemplate;</span><br><span class="line"><span class="keyword">import</span> org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;</span><br><span class="line"><span class="keyword">import</span> org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.sql.DataSource;</span><br><span class="line"><span class="keyword">import</span> java.sql.Connection;</span><br><span class="line"><span class="keyword">import</span> java.sql.SQLException;</span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> pengbin007</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2022/1/1 20:02</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TxTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    ApplicationContext ioc = <span class="keyword">new</span> ClassPathXmlApplicationContext(<span class="string">&quot;applicationContext.xml&quot;</span>);</span><br><span class="line">    JdbcTemplate jdbcTemplate = ioc.getBean(JdbcTemplate.class);</span><br><span class="line">    NamedParameterJdbcTemplate namedJdbcTemplate = ioc.getBean(NamedParameterJdbcTemplate.class);</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 创建EmployeeDao，自动装配JdbcTemplate对象</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test09</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        EmployeeDao employeeDao = ioc.getBean(EmployeeDao.class);</span><br><span class="line">        Employee employee = <span class="keyword">new</span> Employee();</span><br><span class="line">        employee.setEmpName(<span class="string">&quot;哈哈2&quot;</span>);</span><br><span class="line">        employee.setSalary(<span class="number">5555.55</span>);</span><br><span class="line">        employeeDao.saveEmployee(employee);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 实验8：重复实验7，以SqlParameterSource形式传入参数值</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test08</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        String sql = <span class="string">&quot;INSERT INTO employee(emp_name, salary) VALUES(:empName, :salary)&quot;</span>;</span><br><span class="line">        Employee employee = <span class="keyword">new</span> Employee();</span><br><span class="line">        employee.setEmpName(<span class="string">&quot;哈哈&quot;</span>);</span><br><span class="line">        employee.setSalary(<span class="number">5555.55</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> update = namedJdbcTemplate.update(sql, <span class="keyword">new</span> BeanPropertySqlParameterSource(employee));</span><br><span class="line">        System.out.println(update);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 实验7：使用带有具名参数的SQL语句插入一条员工记录，并以Map形式传入参数值</span></span><br><span class="line"><span class="comment">     * 具名参数：具有名字的参数，参数不是占位符了，而是一个变量名</span></span><br><span class="line"><span class="comment">     *      语法格式：   :参数名</span></span><br><span class="line"><span class="comment">     * Spring有一个支持具名参数功能的JdbcTemplate</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * 占位符参数：?的顺序千万不能乱，传参的时候一定注意</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test07</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        String sql = <span class="string">&quot;INSERT INTO employee(emp_name, salary) VALUES(:empName, :salary)&quot;</span>;</span><br><span class="line">        Map&lt;String, Object&gt; paramMap = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        <span class="comment">// 将所有具名参数的值都放在map中</span></span><br><span class="line">        paramMap.put(<span class="string">&quot;empName&quot;</span>, <span class="string">&quot;田七&quot;</span>);</span><br><span class="line">        paramMap.put(<span class="string">&quot;salary&quot;</span>, <span class="number">8848.88</span>);</span><br><span class="line">        <span class="keyword">int</span> update = namedJdbcTemplate.update(sql, paramMap);</span><br><span class="line">        System.out.println(update);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 实验6：查询最大salary</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test06</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        String sql = <span class="string">&quot;SELECT MAX(salary) FROM employee&quot;</span>;</span><br><span class="line">        <span class="comment">// 无论是返回单个数据还是单个对象，都是调用queryForObject</span></span><br><span class="line">        Double aDouble = jdbcTemplate.queryForObject(sql, Double.class);</span><br><span class="line">        System.out.println(aDouble);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 实验5：查询salary&gt;4000的数据库记录，封装为List集合返回</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test05</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        String sql = <span class="string">&quot;SELECT emp_id empId, emp_name empName, salary FROM employee WHERE salary &gt; ?&quot;</span>;</span><br><span class="line">        <span class="comment">// 封装List</span></span><br><span class="line">        List&lt;Employee&gt; employees = jdbcTemplate.query(sql, <span class="keyword">new</span> BeanPropertyRowMapper&lt;&gt;(Employee.class), <span class="number">4000</span>);</span><br><span class="line">        <span class="keyword">for</span>(Employee employee : employees) &#123;</span><br><span class="line">            System.out.println(employee);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 实验4：查询emp_id=5的数据库记录，封装为一个Java对象返回</span></span><br><span class="line"><span class="comment">     * JavaBean需要和数据库中字段名一致，否则无法完成封装</span></span><br><span class="line"><span class="comment">     * jdbcTemplate在方法级别进行了区分</span></span><br><span class="line"><span class="comment">     * 查询结合：jdbcTemplate.query()</span></span><br><span class="line"><span class="comment">     * 查询单个对象：jdbcTemplate.queryForObject()</span></span><br><span class="line"><span class="comment">     *      如果查询没结果就报错</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test04</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        String sql = <span class="string">&quot;SELECT emp_id empId, emp_name empName, salary FROM employee WHERE emp_id = ?&quot;</span>;</span><br><span class="line">        <span class="comment">// 中间这个参数为每一行记录和JavaBean的属性如何映射</span></span><br><span class="line">        Employee employee = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            employee = jdbcTemplate.queryForObject(sql, <span class="keyword">new</span> BeanPropertyRowMapper&lt;&gt;(Employee.class), <span class="number">5</span>);</span><br><span class="line">            System.out.println(employee);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (DataAccessException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 实验3：批量插入</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test03</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        String sql = <span class="string">&quot;INSERT INTO employee(emp_name, salary) VALUES(?, ?)&quot;</span>;</span><br><span class="line">        <span class="comment">// List的长度就是sql语句要执行的次数</span></span><br><span class="line">        <span class="comment">// Object[]：每次执行要用的参数</span></span><br><span class="line">        List&lt;Object[]&gt; batchArgs = <span class="keyword">new</span> ArrayList&lt;Object[]&gt;();</span><br><span class="line">        batchArgs.add(<span class="keyword">new</span> Object[]&#123;<span class="string">&quot;zhangsan&quot;</span>, <span class="number">9999.99</span>&#125;);</span><br><span class="line">        batchArgs.add(<span class="keyword">new</span> Object[]&#123;<span class="string">&quot;lisi&quot;</span>, <span class="number">8999.99</span>&#125;);</span><br><span class="line">        batchArgs.add(<span class="keyword">new</span> Object[]&#123;<span class="string">&quot;wangwu&quot;</span>, <span class="number">7999.99</span>&#125;);</span><br><span class="line">        batchArgs.add(<span class="keyword">new</span> Object[]&#123;<span class="string">&quot;zhaoliu&quot;</span>, <span class="number">6999.99</span>&#125;);</span><br><span class="line">        <span class="keyword">int</span>[] batchUpdate = jdbcTemplate.batchUpdate(sql, batchArgs);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> update : batchUpdate) &#123;</span><br><span class="line">            System.out.println(update);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 实验2：将emp_id=5的记录的salary字段更新为1300.00</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test02</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        String sql = <span class="string">&quot;UPDATE employee SET salary = ? WHERE emp_id = ?&quot;</span>;</span><br><span class="line">        <span class="keyword">int</span> update = jdbcTemplate.update(sql, <span class="number">1300.00</span>, <span class="number">5</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;更新员工：&quot;</span> + update);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 实验1：测试数据源</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test01</span><span class="params">()</span> <span class="keyword">throws</span> SQLException </span>&#123;</span><br><span class="line">        DataSource dataSource = ioc.getBean(DataSource.class);</span><br><span class="line">        Connection connection = dataSource.getConnection();</span><br><span class="line">        System.out.println(connection);</span><br><span class="line">        connection.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/01/01/Spring-JdbcTemplate/" data-id="ckzb6dz34000mzwtw152vb73w" class="article-share-link">
+        Share
+      </a>
+      
+    </footer>
+
+  </div>
+
+  
+  
+<nav class="article-nav">
+  
+  <a href="/2022/01/01/%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%9F%BA%E7%A1%80/" class="article-nav-link">
+    <strong class="article-nav-caption">Newer</strong>
+    <div class="article-nav-title">
+      
+      文件系统基础
+      
+    </div>
+  </a>
+  
+  
+  <a href="/2022/01/01/Spring-AOP-%E4%B8%8B/" class="article-nav-link">
+    <strong class="article-nav-caption">Older</strong>
+    <div class="article-nav-title">Spring-AOP(下)</div>
+  </a>
+  
+</nav>
+
+  
+
+  
+  
+  
+  
+
+</article>
+</section>
+    <footer class="footer">
+  <div class="outer">
+    <div class="float-right">
+      <ul class="list-inline">
+  
+  <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
+  
+  <li><i class="fe fe-bookmark"></i> <span id="busuanzi_value_page_pv"></span></li>
+  
+</ul>
+    </div>
+    <ul class="list-inline">
+      <li>青稞 &copy; 2022</li>
+      
+        <li>ZHWANGART</li>
+      
+      <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
+      <li>theme  <a target="_blank" rel="noopener" href="https://github.com/zhwangart/hexo-theme-ocean">Ocean</a></li>
+    </ul>
+  </div>
+</footer>
+  </main>
+  <aside class="sidebar">
+    <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/hexo.svg" alt="青稞"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">Home</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">Archives</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/gallery">Gallery</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about">About</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="Search">
+        <i class="fe fe-search"></i>
+        Search
+      </a>
+    </li>
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      <div class="totop" id="totop">
+  <i class="fe fe-rocket"></i>
+</div>
+    </li>
+    <li class="nav-item">
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="fe fe-feed"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+  </aside>
+  
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/copybtn.js"></script>
+
+
+
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto',
+  });
+</script>
+
+
+
+<script src="/js/ocean.js"></script>
+
+</body>
+
+</html>

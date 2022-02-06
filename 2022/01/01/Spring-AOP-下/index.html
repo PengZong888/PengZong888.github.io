@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  
+  
+  <title>
+    Spring-AOP(下) |
+    
+    青稞
+  </title>
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+    
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<script src="/js/pace.min.js"></script>
+
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="青稞" type="application/atom+xml">
+</head>
+
+<body>
+  <main class="content">
+    <section class="outer">
+  <article id="post-Spring-AOP-下" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+      
+
+<h1 class="article-title" itemprop="name">
+  Spring-AOP(下)
+</h1>
+
+
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2022/01/01/Spring-AOP-%E4%B8%8B/" class="article-date">
+  <time datetime="2021-12-31T17:24:21.000Z" itemprop="datePublished">2022-01-01</time>
+</a>
+      
+    </div>
+    
+
+    
+    
+<div class="tocbot"></div>
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+      
+      <p>书接上回</p>
+<h1 id="细节七：抽取可重用的切入点表达式"><a href="#细节七：抽取可重用的切入点表达式" class="headerlink" title="细节七：抽取可重用的切入点表达式"></a>细节七：抽取可重用的切入点表达式</h1><p>我们现在已经了解了四个注解@Before、@After、@AfterReturning和@AfterThrowing。现在我们考虑一个需求，我们的切入点修改了，不是在MyMathCalculator的所有方法下切入，而是MyMathCalculator的add方法中进行切入。我们当然可以对每个注解中的切入点表达式进行修改，但这样过于麻烦。</p>
+<p>我们有一个注解@Pointcut，就是专门用来解决这类业务场景的。要使用@Pointcut，首先需要一个空方法，这个方法没有实现，也没有返回值。然后在方法上添加上@Pointcut注解，将切入点表达式写入注解的属性中：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Pointcut(&quot;execution(public int com..MyMathCalculator.*(int, int))&quot;)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">myPoint</span><span class="params">()</span> </span>&#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>现在我们就有了一个可以重复使用的切入点表达式，我们可以将其它注解中的切入点表达式换成我们写的这个公共的：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Before(&quot;myPoint()&quot;)</span></span><br><span class="line"><span class="meta">@AfterReturning(value = &quot;myPoint()&quot;, returning=&quot;result&quot;)</span></span><br><span class="line"><span class="meta">@AfterThrowing(value = &quot;myPoint()&quot;, throwing=&quot;exception&quot;)</span></span><br><span class="line"><span class="meta">@After(&quot;myPoint()&quot;)</span></span><br></pre></td></tr></table></figure>
+
+<p>使用这个可重用的切入点表达式就如上面所示的那样简单，只要将切入点表达式换成我们标注有@Pointcut注解的方法名即可。这下，我们要实现这个业务需求就只需要在@Pointcut中修改即可：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Pointcut(&quot;execution(public int com..MyMathCalculator.add(int, int))&quot;)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">myPoint</span><span class="params">()</span> </span>&#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="细节八：环绕通知"><a href="#细节八：环绕通知" class="headerlink" title="细节八：环绕通知"></a>细节八：环绕通知</h1><p>经过前面的介绍，我们就只剩下最后一个注解@Around，顾名思义，这表示的就是环绕通知，我们先来看一下如何使用：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Around(&quot;myPoint()&quot;)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Object <span class="title">myAround</span><span class="params">(ProceedingJoinPoint pjp)</span> </span>&#123;</span><br><span class="line">    Object[] args = pjp.getArgs();</span><br><span class="line">    String name = pjp.getSignature().getName();</span><br><span class="line">    Object proceed = <span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="comment">// 就是利用反射调用目标方法即可</span></span><br><span class="line">        <span class="comment">// @Before</span></span><br><span class="line">        System.out.println(<span class="string">&quot;【环绕通知】&quot;</span> + name + <span class="string">&quot;方法开始&quot;</span>);</span><br><span class="line">        proceed = pjp.proceed(args);</span><br><span class="line">        <span class="comment">// @AfterReturning</span></span><br><span class="line">        System.out.println(<span class="string">&quot;【环绕通知】&quot;</span> + name + <span class="string">&quot;方法返回，返回值&quot;</span> + proceed);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (Throwable throwable) &#123;</span><br><span class="line">        <span class="comment">// @AfterThrowing</span></span><br><span class="line">        System.out.println(<span class="string">&quot;【环绕通知】&quot;</span> + name + <span class="string">&quot;方法出现异常，异常信息&quot;</span> + throwable);</span><br><span class="line">        <span class="comment">// 为了让普通通知接收到这个异常，我们需要抛出去；否则，普通通知得到的是没有异常的结果</span></span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException();</span><br><span class="line">    &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">        <span class="comment">// @After</span></span><br><span class="line">        System.out.println(<span class="string">&quot;【环绕通知】&quot;</span> + name + <span class="string">&quot;方法结束&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 反射调用后的返回值也一定返回出去</span></span><br><span class="line">    <span class="keyword">return</span> proceed;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可以看到，环绕通知就和我们一开始写的动态代理类似。ProceedingJoinPoint继承了JoinPoint，proceed方法传参利用反射去调用目标方法，反射调用完后会有返回值，这个返回值一定要返回会出去。</p>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20220101162422234.png" alt="image-20220101162422234"></p>
+<p>可以看到，如果没有返回出去，普通通知获取不到正确的目标方法返回值。</p>
+<p>在这里，我们要注意的是：如果我们在使用环绕通知的同时也开启了普通通知，且发生了异常，为了让普通通知接收到异常信息，我们在环绕通知里需要把这个异常信息抛出去，否则，普通通知得到的是没有异常的结果。</p>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20220101161603373.png" alt="image-20220101161603373"></p>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20220101161754808.png" alt="image-20220101161754808"></p>
+<h1 id="细节九：环绕通知的执行顺序"><a href="#细节九：环绕通知的执行顺序" class="headerlink" title="细节九：环绕通知的执行顺序"></a>细节九：环绕通知的执行顺序</h1><p>加入了环绕通知之后的执行顺序，通过上面的例子也可以看到：</p>
+<blockquote>
+<p>环绕前置、普通前置 —-&gt; 目标方法运行 —-&gt; 环绕正常返回/异常 —-&gt; 环绕后置 —-&gt; 普通后置 —-&gt; 普通正常返回/异常</p>
+</blockquote>
+<h1 id="细节十：多切面运行顺序"><a href="#细节十：多切面运行顺序" class="headerlink" title="细节十：多切面运行顺序"></a>细节十：多切面运行顺序</h1><p>我们现在只有一个切面类，假设我们有另外一个切面类ValidateAspect。它跟LogUtils拥有一样的功能，只是类名不一样，那么这些通知的执行顺序会是什么样的呢？</p>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20220101163845847.png" alt="image-20220101163845847"></p>
+<p>为什么是这样的顺序呢？我们来看一张图就明白了！</p>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20220101164313019.png" alt="image-20220101164313019"></p>
+<p>程序首先运行到LogUtils，LogUtils的前置通知开始工作；再到达ValidateAspect，ValidateAspect的前置通知开始工作；然后运行目标方法；目标方法运行完后，又到达ValidateAspect，ValidateAspect开始工作；最后来到LogUtils。</p>
+<p>那为什么是先到达LogUtils，再经过ValidateAspect呢？你可以简单认为就是字母L排在V前面。</p>
+<p>那如果这个顺序并不是我们想要的，我们想让ValidateAspect先运行要怎么做呢？我们可以在切面类上加一个@Order注解，它就是用来控制切面类的执行顺序。@Order注解中属性的值越小，越有执行优先权。</p>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20220101164858386.png" alt="image-20220101164858386"></p>
+<h1 id="关于环绕通知和普通通知的一些补充"><a href="#关于环绕通知和普通通知的一些补充" class="headerlink" title="关于环绕通知和普通通知的一些补充"></a>关于环绕通知和普通通知的一些补充</h1><p>通过上面的介绍，我们知道，环绕通知其实就是一个动态代理，它的 pjp.proceed(args); 就和一开始的动态代理中的 method.invoke(calculator, args); 作用一样。因此，环绕通知是可以影响目标方法的运行的。例如，在调用proceed之前，将传入的参数进行修改。而普通通知我们可以看成最初的在方法前后加输出语句，它只是在目标方法运行前后切入一段代码，但是这段代码并不会影响目标方法的运行。所以，如果我们只是做一些简单的日志记录，使用普通通知就够了；而如果我们想要对目标方法做一些干预，就选择环绕通知。</p>
+<h1 id="AOP的应用"><a href="#AOP的应用" class="headerlink" title="AOP的应用"></a>AOP的应用</h1><p>到这里，关于SpringAOP就差不多介绍完了。那么AOP可以在哪里使用呢？就像我们一开始的业务场景需求，AOP可以用于以下几个方面：</p>
+<ul>
+<li>加日志保存到数据库；</li>
+<li>做权限验证；</li>
+<li>做安全检查；</li>
+<li>做事务控制。</li>
+</ul>
+<h1 id="基于配置文件的AOP"><a href="#基于配置文件的AOP" class="headerlink" title="基于配置文件的AOP"></a>基于配置文件的AOP</h1><p>配合基于注解方式理解食用，这里不做详细解释了！</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://www.springframework.org/schema/beans&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span> <span class="attr">xmlns:aop</span>=<span class="string">&quot;http://www.springframework.org/schema/aop&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;myCalculator&quot;</span> <span class="attr">class</span>=<span class="string">&quot;com.atqingke.impl.MyMathCalculator&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;logUtils&quot;</span> <span class="attr">class</span>=<span class="string">&quot;com.atqingke.utils.LogUtils&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;validateAspect&quot;</span> <span class="attr">class</span>=<span class="string">&quot;com.atqingke.utils.ValidateAspect&quot;</span>/&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">aop:config</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">aop:pointcut</span> <span class="attr">expression</span>=<span class="string">&quot;execution(public int com..MyMathCalculator.*(int, int))&quot;</span> <span class="attr">id</span>=<span class="string">&quot;globalPoint&quot;</span>/&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">aop:aspect</span> <span class="attr">ref</span>=<span class="string">&quot;logUtils&quot;</span> <span class="attr">order</span>=<span class="string">&quot;2&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">aop:pointcut</span> <span class="attr">expression</span>=<span class="string">&quot;execution(public int com..MyMathCalculator.*(int, int))&quot;</span> <span class="attr">id</span>=<span class="string">&quot;myPoint&quot;</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">aop:before</span> <span class="attr">method</span>=<span class="string">&quot;logStart&quot;</span> <span class="attr">pointcut</span>=<span class="string">&quot;execution(public int com..MyMathCalculator.*(int, int))&quot;</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">aop:after-returning</span> <span class="attr">method</span>=<span class="string">&quot;logReturn&quot;</span> <span class="attr">pointcut-ref</span>=<span class="string">&quot;myPoint&quot;</span> <span class="attr">returning</span>=<span class="string">&quot;result&quot;</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">aop:after-throwing</span> <span class="attr">method</span>=<span class="string">&quot;logException&quot;</span> <span class="attr">pointcut-ref</span>=<span class="string">&quot;myPoint&quot;</span> <span class="attr">throwing</span>=<span class="string">&quot;exception&quot;</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">aop:after</span> <span class="attr">method</span>=<span class="string">&quot;logEnd&quot;</span> <span class="attr">pointcut-ref</span>=<span class="string">&quot;myPoint&quot;</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">aop:around</span> <span class="attr">method</span>=<span class="string">&quot;myAround&quot;</span> <span class="attr">pointcut-ref</span>=<span class="string">&quot;globalPoint&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">aop:aspect</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">aop:aspect</span> <span class="attr">ref</span>=<span class="string">&quot;validateAspect&quot;</span> <span class="attr">order</span>=<span class="string">&quot;1&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">aop:pointcut</span> <span class="attr">expression</span>=<span class="string">&quot;execution(public int com..MyMathCalculator.*(int, int))&quot;</span> <span class="attr">id</span>=<span class="string">&quot;myPoint&quot;</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">aop:before</span> <span class="attr">method</span>=<span class="string">&quot;logStart&quot;</span> <span class="attr">pointcut</span>=<span class="string">&quot;execution(public int com..MyMathCalculator.*(int, int))&quot;</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">aop:after-returning</span> <span class="attr">method</span>=<span class="string">&quot;logReturn&quot;</span> <span class="attr">pointcut-ref</span>=<span class="string">&quot;myPoint&quot;</span> <span class="attr">returning</span>=<span class="string">&quot;result&quot;</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">aop:after-throwing</span> <span class="attr">method</span>=<span class="string">&quot;logException&quot;</span> <span class="attr">pointcut-ref</span>=<span class="string">&quot;myPoint&quot;</span> <span class="attr">throwing</span>=<span class="string">&quot;exception&quot;</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">aop:after</span> <span class="attr">method</span>=<span class="string">&quot;logEnd&quot;</span> <span class="attr">pointcut-ref</span>=<span class="string">&quot;myPoint&quot;</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">aop:around</span> <span class="attr">method</span>=<span class="string">&quot;myAround&quot;</span> <span class="attr">pointcut-ref</span>=<span class="string">&quot;globalPoint&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">aop:aspect</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">aop:config</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="基于注解的AOP步骤"><a href="#基于注解的AOP步骤" class="headerlink" title="基于注解的AOP步骤"></a>基于注解的AOP步骤</h1><ol>
+<li>将目标类和切面类都加入到IOC容器中，@Component</li>
+<li>告诉Spring哪个是切面类@Aspect</li>
+<li>在切面类中使用五个通知注解来配置切面中的这些通知方法都何时何地运行</li>
+<li>开启基于注解的AOP功能，<a href="aop:aspectj-autoproxy/">aop:aspectj-autoproxy/</a></li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/01/01/Spring-AOP-%E4%B8%8B/" data-id="ckzb6dz34000lzwtwgy1gdfvr" class="article-share-link">
+        Share
+      </a>
+      
+    </footer>
+
+  </div>
+
+  
+  
+<nav class="article-nav">
+  
+  <a href="/2022/01/01/Spring-JdbcTemplate/" class="article-nav-link">
+    <strong class="article-nav-caption">Newer</strong>
+    <div class="article-nav-title">
+      
+      Spring-JdbcTemplate
+      
+    </div>
+  </a>
+  
+  
+  <a href="/2022/01/01/Spring-AOP-%E4%B8%AD/" class="article-nav-link">
+    <strong class="article-nav-caption">Older</strong>
+    <div class="article-nav-title">Spring-AOP(中)</div>
+  </a>
+  
+</nav>
+
+  
+
+  
+  
+  
+  
+
+</article>
+</section>
+    <footer class="footer">
+  <div class="outer">
+    <div class="float-right">
+      <ul class="list-inline">
+  
+  <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
+  
+  <li><i class="fe fe-bookmark"></i> <span id="busuanzi_value_page_pv"></span></li>
+  
+</ul>
+    </div>
+    <ul class="list-inline">
+      <li>青稞 &copy; 2022</li>
+      
+        <li>ZHWANGART</li>
+      
+      <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
+      <li>theme  <a target="_blank" rel="noopener" href="https://github.com/zhwangart/hexo-theme-ocean">Ocean</a></li>
+    </ul>
+  </div>
+</footer>
+  </main>
+  <aside class="sidebar">
+    <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/hexo.svg" alt="青稞"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">Home</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">Archives</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/gallery">Gallery</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about">About</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="Search">
+        <i class="fe fe-search"></i>
+        Search
+      </a>
+    </li>
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      <div class="totop" id="totop">
+  <i class="fe fe-rocket"></i>
+</div>
+    </li>
+    <li class="nav-item">
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="fe fe-feed"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+  </aside>
+  
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/copybtn.js"></script>
+
+
+
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto',
+  });
+</script>
+
+
+
+<script src="/js/ocean.js"></script>
+
+</body>
+
+</html>

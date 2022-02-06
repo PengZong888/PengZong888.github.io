@@ -1,0 +1,1206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  
+  
+  <title>
+    
+    青稞
+  </title>
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+    
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<script src="/js/pace.min.js"></script>
+
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="青稞" type="application/atom+xml">
+</head>
+
+<body>
+  <main class="content">
+    <section class="jumbotron">
+  <div class="video">
+    
+    <div class="video-frame">
+      <img src="/images/ocean/overlay-hero.png" alt="Decorative image frame">
+    </div>
+    
+    <div class="video-media">
+      <video playsinline="" autoplay="" loop="" muted="" data-autoplay="" poster="/images/ocean/ocean.png"
+        x5-video-player-type="h5">
+        <source src="/images/ocean/ocean.mp4" type="video/mp4">
+        <source src="/images/ocean/ocean.ogv" type="video/ogg">
+        <source src="/images/ocean/ocean.webm" type="video/webm">
+        <p>Your user agent does not support the HTML5 Video element.</p>
+      </video>
+      <div class="video-overlay"></div>
+    </div>
+    <div class="video-inner text-center text-white">
+      <h1><a href="/">青稞</a></h1>
+      <p></p>
+      <div><img src="/images/hexo-inverted.svg" class="brand" alt="青稞"></div>
+    </div>
+    <div class="video-learn-more">
+      <a class="anchor" href="#landingpage"><i class="fe fe-mouse"></i></a>
+    </div>
+  </div>
+</section>
+<div id="landingpage">
+  <section class="outer">
+  <article class="articles">
+    
+    <h1 class="page-type-title"></h1>
+    
+    
+    <article id="post-进程-线程" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+      
+
+<h2 itemprop="name">
+  <a class="article-title" href="/2021/12/10/%E8%BF%9B%E7%A8%8B-%E7%BA%BF%E7%A8%8B/">进程 &amp; 线程</a>
+</h2>
+
+
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2021/12/10/%E8%BF%9B%E7%A8%8B-%E7%BA%BF%E7%A8%8B/" class="article-date">
+  <time datetime="2021-12-10T07:44:40.000Z" itemprop="datePublished">2021-12-10</time>
+</a>
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+        
+      
+      
+      <h2 id="1-进程"><a href="#1-进程" class="headerlink" title="1. 进程"></a>1. 进程</h2><p>进程是程序的依次执行过程，或是正在运行的一个程序。是一个动态的过程：有它自身的产生、存在和消亡的过程——生命周期。</p>
+<ul>
+<li>程序由指令和数据组成，但这些指令要允许，数据要读写，就必须将指令加载至CPU，数据加载至内存。在指令允许过程中还需要用到磁盘、网络等设备。进程就是用来加载指令、管理内存、管理IO的。</li>
+<li>当一个程序被允许，从磁盘加载这个程序的代码至内存，这时就开启了一个进程。</li>
+<li>进程就可以视为程序的一个实例。大部分程序可以同时运行多个实例进程，也有的程序只能启动一个实例进程。</li>
+<li><strong>进程作为资源分配的单位</strong>，系统在运行时会为每个进程分配不同的内存区域。</li>
+</ul>
+<h2 id="2-线程"><a href="#2-线程" class="headerlink" title="2. 线程"></a>2. 线程</h2><ul>
+<li>一个进程内可以分为一到多个进程。</li>
+<li>一个线程就是一个指令流，将指令流中的一条条指令以一定的顺序交给CPU执行。</li>
+<li>若一个进程同一时间并行执行多个线程，就是支持多线程的。</li>
+<li><strong>线程作为调度和执行的单位</strong>，每个线程拥有独立的运行栈和程序计数器，线程切换的开销小。</li>
+<li>一个进程中的多个线程共享相同的内存单元/内存地址空间——它们从同一堆中分配对象，可以访问相同的变量和对象。这就使得线程间通信更简便、高效。但多个线程操作共享的系统资源可能就会带来安全的隐患。</li>
+<li>在windows中进程是不活动的，只是作为线程的容器。</li>
+</ul>
+<h2 id="进程-amp-线程"><a href="#进程-amp-线程" class="headerlink" title="进程 &amp; 线程"></a>进程 &amp; 线程</h2><ul>
+<li>线程基本上相互独立的，而线程存在于进程内，是进程的一个子集。</li>
+<li>进程拥有共享的资源，如内存空间等，供其内部的线程共享。</li>
+<li>进程间通信较为复杂：<ul>
+<li>同一台计算机的进程通信称为IPC（Inter-precess communication）。</li>
+<li>不同计算机之间的进程通信，需要通过网络，并遵守共同的协议，例如HTTP。</li>
+</ul>
+</li>
+<li>线程通信相对简单，因为它们共享进程内的内存，一个例子是多个线程可以访问同一个共享变量。</li>
+<li>线程更轻量，线程上下文切换成本一般要比进程上下文切换你低。</li>
+</ul>
+<h2 id="3-并行-amp-并发"><a href="#3-并行-amp-并发" class="headerlink" title="3. 并行 &amp; 并发"></a>3. 并行 &amp; 并发</h2><h3 id="3-1-单核CPU和多核CPU的理解"><a href="#3-1-单核CPU和多核CPU的理解" class="headerlink" title="3.1 单核CPU和多核CPU的理解"></a>3.1 单核CPU和多核CPU的理解</h3><ul>
+<li>单核CPU：其实是一种假的多线程，因为在一个时间单元内，也只能执行一个线程的任务。例如：虽然有多车道，但是收费站只有一个工作人员在收费，只有收了费才能通过，那么CPU就好比收费人员。如果有某个人不想交钱，那么收费人员可以把他“挂起”（晾着他，等他想通了，准备好了钱，再去收费）。但是因为CPU时间单元特别短，因此感觉不出来。</li>
+<li>如果是多核的话，才能更好的发挥出多线程的效率。</li>
+<li>一个Java应用程序java.exe，其实至少有三个线程：main()主线程，gc()垃圾回收线程，异常处理线程。</li>
+</ul>
+<h3 id="3-2-并行"><a href="#3-2-并行" class="headerlink" title="3.2 并行"></a>3.2 并行</h3><p>所谓并行，就是指多个CPU同时执行多个任务。单核CPU下，线程实际上还是<strong>串行执行</strong>的。操作系统中有个组件叫做任务调度器，将CPU的时间片分给不同的程序使用，只是由于CPU在线程之间的切换非常快，人类感觉是<strong>同步运行</strong>的。总结为一句话就是：<strong>微观串行，宏观并行</strong>。</p>
+<h3 id="3-3-并发"><a href="#3-3-并发" class="headerlink" title="3.3 并发"></a>3.3 并发</h3><p>并发就是一个CPU（采用时间片）同时执行多个任务。比如：秒杀、多个人做同一件事。</p>
+<p>并发是同一时间应对多件事情的能力，而并行是同一时间动手做多件事情的能力。</p>
+<h2 id="4-应用"><a href="#4-应用" class="headerlink" title="4. 应用"></a>4. 应用</h2><h3 id="4-1-异步调用"><a href="#4-1-异步调用" class="headerlink" title="4.1 异步调用"></a>4.1 异步调用</h3><p>以调用方角度来讲，如果：</p>
+<ul>
+<li>需要等待结果返回，才能继续运行就是同步</li>
+<li>不需要等待结果返回，就能继续运行就是异步</li>
+</ul>
+<p>多线程可以让方法执行变为异步的，比如说读取磁盘文件时，假设读取操作花费了5秒钟，如果没有线程调度机制的话，在这5秒内CPU被占用，不能处理其它事情，导致其它代码都得暂停。</p>
+<p>Tomcat的异步servlet，它让用户线程处理耗时较长的操作，避免阻塞Tomcat的工作线程。</p>
+<h3 id="5-2-提高效率"><a href="#5-2-提高效率" class="headerlink" title="5.2 提高效率"></a>5.2 提高效率</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">gantt</span><br><span class="line">        dateFormat  </span><br><span class="line">        title 单道运行时三道程序时间关系图</span><br><span class="line">        section A</span><br><span class="line">        计算                      :2021-09-16,20d</span><br><span class="line">        I/O操作					: 30d</span><br><span class="line">        计算						: 10d</span><br><span class="line">    	section B</span><br><span class="line">    	</span><br><span class="line">        计算                      : 30d</span><br><span class="line">        I/O操作					: 50d</span><br><span class="line">        计算						: 20d</span><br><span class="line">    	section C</span><br><span class="line">        计算                      : 10d</span><br><span class="line">        I/O操作					: 20d</span><br><span class="line">        计算						: 10d</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">gantt</span><br><span class="line">        dateFormat  </span><br><span class="line">        title 多道运行时三道程序时间关系图</span><br><span class="line">        section A</span><br><span class="line">        I/O操作					: 2021-09-16,30d</span><br><span class="line">        计算                      : 20d</span><br><span class="line">        计算						: 10d</span><br><span class="line">    	section B	</span><br><span class="line">        计算                      : 2021-09-16,30d</span><br><span class="line">        I/O操作					: 50d</span><br><span class="line">        计算						: 20d</span><br><span class="line">    	section C</span><br><span class="line">        计算						: 2021-11-15,10d</span><br><span class="line">        计算                      : 10d</span><br><span class="line">        I/O操作					: 20d</span><br></pre></td></tr></table></figure>
+
+<p>单核CPU下，多线程不能实际提高程序运行效率，只是为了能够在不同的任务之间切换，不同线程轮流使用CPU，不至于一个线程总是占用CPU，别的线程没法干活。</p>
+<p>而在多核CPU中可以并行跑多个线程，但能否提高程序运行效率还是要分情况的：</p>
+<ul>
+<li>有些任务，经过精心设计，将任务拆分，并行执行，当然可以提高程序的运行效率。但不是所有计算任务都能拆分。</li>
+<li>也不是所有任务都需要拆分，任务的目的如果不同，谈拆分和效率没啥意义。</li>
+</ul>
+<p>IO操作不占用CPU，只是我们一般拷贝文件使用的阻塞IO，这是相当于线程虽然不用CPU，但需要一直等待IO结束，没能充分利用线程。所有才有后面的非阻塞IO和异步IO优化。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/12/10/%E8%BF%9B%E7%A8%8B-%E7%BA%BF%E7%A8%8B/" data-id="ckx2yjv9k0009pgtw30a34e3f" class="article-share-link">
+        Share
+      </a>
+      
+    </footer>
+
+  </div>
+
+  
+
+  
+
+</article>
+    
+    <article id="post-乐观锁-悲观锁" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+      
+
+<h2 itemprop="name">
+  <a class="article-title" href="/2021/12/10/%E4%B9%90%E8%A7%82%E9%94%81-%E6%82%B2%E8%A7%82%E9%94%81/">乐观锁 &amp; 悲观锁</a>
+</h2>
+
+
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2021/12/10/%E4%B9%90%E8%A7%82%E9%94%81-%E6%82%B2%E8%A7%82%E9%94%81/" class="article-date">
+  <time datetime="2021-12-10T02:03:42.000Z" itemprop="datePublished">2021-12-10</time>
+</a>
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+        
+      
+      
+      <blockquote>
+<p>乐观锁对应于生活中乐观的人总是想着事情往好的方向发展，悲观锁对应于生活中悲观的人总是想着事情往坏的方向发展。这两种人各有优缺点，不能以偏概全的说一种人好于另外一种人。</p>
+</blockquote>
+<h2 id="1-两种锁的使用场景"><a href="#1-两种锁的使用场景" class="headerlink" title="1. 两种锁的使用场景"></a>1. 两种锁的使用场景</h2><ul>
+<li><p><strong>悲观锁</strong></p>
+<p>总是假设最坏的情况，每次去拿数据的时候都认为别人会修改，所以每次在拿数据的时候都会上锁，这样别人想拿这个数据就会阻塞直到它拿到锁（共享资源每次只给一个线程使用，其它线程阻塞，用完后再把资源转让给其它线程）。传统的关系型数据库里边就用到了很多这种锁机制，比如行锁、表锁、读锁、写锁等，都是在做操作之前先上锁。Java中synchronized和ReentrantLock等独占锁就是悲观锁的实现。</p>
+</li>
+<li><p><strong>乐观锁</strong></p>
+<p>总是假设最好的情况，每次去拿数据的时候都认为别人不会修改，所以不会上锁，但是在更新的时候会判断以下在此期间别人有没有去更新这个数据，可以使用版本号机制和CAS算法实现。乐观锁适用于多读的应用类型，这样可以提高吞吐量。像数据库提供的write_condition机制，其实就是提供的乐观锁。在Java中java.util.concurrent.atomic包下面的原子变量类就是使用了乐观锁的一种实现方式CAS实现的。</p>
+</li>
+</ul>
+<p>乐观锁适用于写比较少的情况下（多读场景），即冲突真的很少发生的时候，这样可以省去了锁的开销，加大了系统的整个吞吐量。但如果是多写的情况，一般会经常产生冲突，这就会导致上层应用会不断的进行retry，所以一般多写场景下用悲观锁。</p>
+<h2 id="2-乐观锁常见的两种实现方式"><a href="#2-乐观锁常见的两种实现方式" class="headerlink" title="2. 乐观锁常见的两种实现方式"></a>2. 乐观锁常见的两种实现方式</h2><h3 id="2-1-版本号机制"><a href="#2-1-版本号机制" class="headerlink" title="2.1 版本号机制"></a>2.1 版本号机制</h3><p>一般是在数据库表中加上一个数据版本号version字段，表示数据被修改的次数，当数据被修改时，version值会加一。当线程A要更新数据值时，在读取数据的同时也会读取version值，在提交更新时，若刚才读取到的version值为当前数据库中的version值相等时才更新，否则重试更新操作，直到更新成功。</p>
+<h3 id="2-2-CAS算法"><a href="#2-2-CAS算法" class="headerlink" title="2.2 CAS算法"></a>2.2 CAS算法</h3><p>即compare and swap（比较与交换），是一种有名的无锁算法。无锁编程，即不使用锁的情况下实现多线程之间的变量同步，也就是在没有线程被阻塞的情况下实现变量的同步，所以也叫非阻塞同步（Non-blocking Synchronization）。CAS算法涉及到三个操作数：</p>
+<ul>
+<li>需要读写的内存值 V</li>
+<li>进行比较的值 A</li>
+<li>拟写入的新值 B</li>
+</ul>
+<p>当且仅当V的值等于A时，CAS通过原子方式用新值来更新V的值，否则不会执行任何操作（比较和替换是一个原子操作）。一般情况下是一个自旋操作，即不断的重试。</p>
+<h2 id="3-乐观锁的缺点"><a href="#3-乐观锁的缺点" class="headerlink" title="3. 乐观锁的缺点"></a>3. 乐观锁的缺点</h2><h4 id="3-1-ABA问题"><a href="#3-1-ABA问题" class="headerlink" title="3.1 ABA问题"></a>3.1 ABA问题</h4><p>ABA问题是乐观锁一个常见的问题。如果一个变量V初次读取的时候是A值，并且在准备赋值的时候检查到它依然是A值，那我们就一定能说明它的值没有被其它线程修改过吗?</p>
+<p>很明显这是不能保证的。因为在这段时间它的值可能被其它线程改为其它值，然后又改回A，那么CAS操作就会误认为它从来没有被修改过。这个问题被称为CAS操作的”ABA“问题。JDK1.5以后的AtomicStampedReference类就提供了这种能力，其中的compareAndSet方法就是首先检查当前引用是否等于预期引用，并且当前标志是否等于预期标志，如果全部相等，则以原子方式将该引用和该标志的值设置为给定的更新值。</p>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20211210142529751.png" alt="image-20211210142529751"></p>
+<h4 id="3-2-循环时间开销大"><a href="#3-2-循环时间开销大" class="headerlink" title="3.2 循环时间开销大"></a>3.2 循环时间开销大</h4><p>自旋CAS如果长时间不成功，会给CPU带来非常大的执行开销。如果JVM能支持处理器提供的pause指令那么效率会有一定的提升，pause指令由两个作用，第一它可以延迟流水线执行指令（de-pipeline），使CPU不会消耗过多的执行资源，延迟的时间取决于具体实现的版本，在一些处理器上延迟时间是零。第二它可以避免在退出循环的时候因内存顺序冲突（memory order violation）而引起CPU流水线被清空（CPU pipeline flush），从而提高CPU的执行效率。</p>
+<h4 id="3-3-只能保证一个共享变量的原子操作"><a href="#3-3-只能保证一个共享变量的原子操作" class="headerlink" title="3.3 只能保证一个共享变量的原子操作"></a>3.3 只能保证一个共享变量的原子操作</h4><p>CAS只对单个共享变量有效，当操作涉及跨多个共享变量时CAS无效。但是从JDK1.5开始，提供了AtomicReference类来保证引用对象之间的原子性，你可以把多个变量放在一个对象里来进行CAS操作。所以我们可以使用锁或者利用AtomicReference类把多个共享变量合并称一个共享变量来操作。</p>
+<h2 id="4-CAS与synchronized的使用场景"><a href="#4-CAS与synchronized的使用场景" class="headerlink" title="4.CAS与synchronized的使用场景"></a>4.CAS与synchronized的使用场景</h2><p>简单的来说CAS适用于写比较少的情况下（多读场景，冲突一般较少），synchronized适用于写比较多的情况下（多写场景，冲突一般比较多）</p>
+<p>对于资源竞争较少的情况，使用synchronized同步锁进行线程阻塞、唤醒切换以及用户态内核态间的切换操作额外浪费、消耗CPU资源；而CAS基于硬件实现、不需要进入内核、不需要切换线程、操作自旋几率较少，因此可以获得更高的性能。</p>
+<p>对于资源竞争严重的情况，CAS自旋的概率会比较大，从而浪费更多的CPU资源，效率低于synchronized。</p>
+<blockquote>
+<p>补充：Java并发编程这个领域中synchronized关键字一直都是元老级的角色，很久之前很多人都会称它为”<strong>重量级锁</strong>“。但是，在Java1.6之后进行了主要包括为了减少获得锁和释放锁带来的性能消耗而引入的<strong>偏向锁</strong>和<strong>轻量级锁</strong>以及其它<strong>各种优化</strong>之后变得在某些情况下并不是那么重了。synchronized的底层实现主要依靠Lock-Free的队列，基本思路是：<strong>自旋后阻塞，竞争切换后继续竞争锁，稍微牺牲了公平性，但获得了高吞吐量</strong>。在线程冲突较少的情况下，可以获得和CAS类似的性能；而线程冲突的情况下，性能远高于CAS。</p>
+</blockquote>
+<h2 id="5-使用MyBatisPlus乐观锁插件"><a href="#5-使用MyBatisPlus乐观锁插件" class="headerlink" title="5. 使用MyBatisPlus乐观锁插件"></a>5. 使用MyBatisPlus乐观锁插件</h2><h3 id="5-1-主要适用场景"><a href="#5-1-主要适用场景" class="headerlink" title="5.1 主要适用场景"></a>5.1 主要适用场景</h3><p>当要更新一条记录的时候，希望这条记录没有被别人更新。</p>
+<p>实现方式：</p>
+<ul>
+<li>取出记录时，获取当前version</li>
+<li>更新时，带上这个version</li>
+<li>执行更新时，set version = newVersion where version = oldVersion</li>
+<li>如果version不对，就更新不对</li>
+</ul>
+<h3 id="5-2-插件配置"><a href="#5-2-插件配置" class="headerlink" title="5.2 插件配置"></a>5.2 插件配置</h3><p>Spring XML：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">class</span>=<span class="string">&quot;com.baomidou.mybatisplus.extension.plugins.OptimisticLockerInterceptor&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>Spring Boot：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> OptimisticLockerInterceptor <span class="title">optimisticLockerInterceptor</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">new</span> OptimisticLockerInterceptor();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="5-3-注解实体字段"><a href="#5-3-注解实体字段" class="headerlink" title="5.3 注解实体字段"></a>5.3 注解实体字段</h3><p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20211210150455245.png" alt="image-20211210150455245"></p>
+<p>需要为实体字段添加@Version注解（对应表中要有对应version字段）</p>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20211210144526594.png" alt="image-20211210144526594"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Version</span></span><br><span class="line"><span class="keyword">private</span> Integer version;</span><br></pre></td></tr></table></figure>
+
+<h3 id="5-4-特别说明"><a href="#5-4-特别说明" class="headerlink" title="5.4 特别说明"></a>5.4 特别说明</h3><ul>
+<li>支持的数据类型只有：int、Integer、long、Long、Date、Timestamp、LocalDateTime。</li>
+<li>整数类型下newVersion = oldVersion + 1；</li>
+<li>newVersion会回到entity中。</li>
+<li>仅支持updateById(id)与update(entity, wrapper)方法。</li>
+<li>在update(entity, wrapper)方法下，wrapper不能复用。</li>
+</ul>
+<h2 id="6-模拟CAS算法"><a href="#6-模拟CAS算法" class="headerlink" title="6. 模拟CAS算法"></a>6. 模拟CAS算法</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestCompareAndSwap</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">final</span> CompareAndSwap cas = <span class="keyword">new</span> CompareAndSwap();</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++) &#123;</span><br><span class="line">			<span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">				</span><br><span class="line">				<span class="meta">@Override</span></span><br><span class="line">				<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">					<span class="keyword">int</span> expectedValue = cas.get();</span><br><span class="line">					<span class="keyword">boolean</span> b = cas.compareAndSet(expectedValue, (<span class="keyword">int</span>)(Math.random() * <span class="number">101</span>));</span><br><span class="line">					System.out.println(b);</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;).start();</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CompareAndSwap</span></span>&#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span> value;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//获取内存值</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">int</span> <span class="title">get</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">return</span> value;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//比较</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">int</span> <span class="title">compareAndSwap</span><span class="params">(<span class="keyword">int</span> expectedValue, <span class="keyword">int</span> newValue)</span></span>&#123;</span><br><span class="line">		<span class="keyword">int</span> oldValue = value;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">if</span>(oldValue == expectedValue)&#123;</span><br><span class="line">			<span class="keyword">this</span>.value = newValue;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">return</span> oldValue;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//设置</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">boolean</span> <span class="title">compareAndSet</span><span class="params">(<span class="keyword">int</span> expectedValue, <span class="keyword">int</span> newValue)</span></span>&#123;</span><br><span class="line">		<span class="keyword">return</span> expectedValue == compareAndSwap(expectedValue, newValue);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/12/10/%E4%B9%90%E8%A7%82%E9%94%81-%E6%82%B2%E8%A7%82%E9%94%81/" data-id="ckx2yjv9h0004pgtweu0o190r" class="article-share-link">
+        Share
+      </a>
+      
+    </footer>
+
+  </div>
+
+  
+
+  
+
+</article>
+    
+    <article id="post-Java中的锁——Lock接口和队列同步器" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+      
+
+<h2 itemprop="name">
+  <a class="article-title" href="/2021/12/09/Java%E4%B8%AD%E7%9A%84%E9%94%81%E2%80%94%E2%80%94Lock%E6%8E%A5%E5%8F%A3%E5%92%8C%E9%98%9F%E5%88%97%E5%90%8C%E6%AD%A5%E5%99%A8/">Java中的锁——Lock接口和队列同步器</a>
+</h2>
+
+
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2021/12/09/Java%E4%B8%AD%E7%9A%84%E9%94%81%E2%80%94%E2%80%94Lock%E6%8E%A5%E5%8F%A3%E5%92%8C%E9%98%9F%E5%88%97%E5%90%8C%E6%AD%A5%E5%99%A8/" class="article-date">
+  <time datetime="2021-12-09T14:09:26.000Z" itemprop="datePublished">2021-12-09</time>
+</a>
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+        
+      
+      
+      <h2 id="1-Lock接口"><a href="#1-Lock接口" class="headerlink" title="1. Lock接口"></a>1. Lock接口</h2><p>锁是用来控制多个线程访问共享资源的方式，一般来说，一个锁能够防止多个线程同时访问共享资源（有些锁允许并发访问，比如读写锁）。在Lock接口出现之前，Java程序是靠synchronized关键字实现锁功能的，而Java5之后，并发包中新增了Lock接口用来实现锁功能，它提供了与synchronized关键字类似的同步功能，只是在使用时需要显式的获取和释放锁。虽然它缺少了隐式获取释放锁的便捷性，但是却拥有了锁获取和释放的可操作性、可中断的获取锁以及超时获取锁等多种synchronized关键字所不具备的同步特性。</p>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20211210072342912.png" alt="image-20211210072342912"></p>
+<p>看一个简单的使用：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Lock lock = <span class="keyword">new</span> ReentrantLock();</span><br><span class="line">lock.lock();</span><br><span class="line"><span class="keyword">try</span> &#123;&#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">    lock.unlock();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>锁也是一种资源，所以它的释放我们放在finally中，确保最终能够被释放。同时，防止锁被无故释放（放在try中，如果发生异常，在异常抛出的同时，也会导致锁无故释放）。</p>
+<p>Lock接口提供的synchronized关键字所不具备的主要特性如下表：</p>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>尝试非阻塞地获取锁</td>
+<td>当前线程尝试获取锁，如果这一时刻锁没有被其它线程获取到，则成功获取并持有锁</td>
+</tr>
+<tr>
+<td>能被中断地获取锁</td>
+<td>与synchronized不同，获取到锁的线程能够被响应中断，当获取到锁的线程被中断时，中断异常将会别抛出，同时锁会被释放</td>
+</tr>
+<tr>
+<td>超时获取锁</td>
+<td>在指定的截止时间之前获取锁，如果截止时间到了仍旧无法获取锁，则返回</td>
+</tr>
+</tbody></table>
+<p>Lock是一个接口，它定义了获取和释放锁的基本操作</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 获取锁，调用该方法当前线程将会获取锁，当锁获得后，从该方法返回</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">lock</span><span class="params">()</span></span>;</span><br><span class="line"><span class="comment">// 可以中断地获取锁，和lock()方法不同之处在于该方法会响应中断，即在锁的获取中可以中断当前线程</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">lockInterruptibly</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException</span>;</span><br><span class="line"><span class="comment">// 尝试非阻塞的获取锁，调用该方法后立刻返回，如果能够获取则返回true，否则返回false</span></span><br><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">tryLock</span><span class="params">()</span></span>;</span><br><span class="line"><span class="comment">// 超时的获取锁，当前线程在以下三种情况下会返回：</span></span><br><span class="line"><span class="comment">// ①当前线程在超时时间内获得了锁</span></span><br><span class="line"><span class="comment">// ②当前线程在超时时间内被中断（抛异常InterruptedException）</span></span><br><span class="line"><span class="comment">// ③超时时间结束，返回false</span></span><br><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">tryLock</span><span class="params">(<span class="keyword">long</span> time, TimeUnit unit)</span> <span class="keyword">throws</span> InterruptedException</span>;</span><br><span class="line"><span class="comment">// 释放锁</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">unlock</span><span class="params">()</span></span>;</span><br><span class="line"><span class="comment">// 获取等待通知组件，该组件和当前的锁绑定，当前线程只有获得了锁，才能调用该组件的wait()方法，而调用后，当前线程将释放锁</span></span><br><span class="line"><span class="function">Condition <span class="title">newCondition</span><span class="params">()</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>Lock接口的实现基本都是通过聚合了一个同步器的子类来完成线程访问控制的。</p>
+<h2 id="2-队列同步器"><a href="#2-队列同步器" class="headerlink" title="2. 队列同步器"></a>2. 队列同步器</h2><p>队列同步器AbstractQueuedSynchronizer(以下简称同步器)，是用来构建锁或者其它同步组件的基础框架，它使用了一个int成员变量表示同步状态，通过内置的FIFO队列来完成资源获取线程的排队工作。</p>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20211210082331997.png" alt="image-20211210082331997"></p>
+<p>同步器的主要使用方式是继承，子类通过继承同步器并实现它的抽象方法来管理同步状态。而子类推荐被定义为自定义同步组件的静态内部类，同步器自身没有实现任何同步接口，它仅仅是定义了若干同步状态获取和释放的方法来供自定义同步组件使用，同步器既可以支持独占式地获取同步状态，也可以支持共享式地获取同步状态，这样就可以方便实现不同类型的同步组件。</p>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20211210084125565.png" alt="image-20211210084125565"></p>
+<p>同步器是实现锁的关键，在锁的实现中聚合同步器，利用同步器实现锁的语义。可以这样理解二者之间的关系：锁是面向使用者的，它定义了使用者与锁交互的接口，隐藏了实现细节；同步器面向的是锁的实现者，它简化了锁的实现方式，屏蔽了同步状态管理、线程的排队、等待与唤醒等底层操作。锁和同步器很好地隔离了使用者和实现者所需关注的领域。</p>
+<h3 id="2-1-队列同步器的接口与示例"><a href="#2-1-队列同步器的接口与示例" class="headerlink" title="2.1 队列同步器的接口与示例"></a>2.1 队列同步器的接口与示例</h3><p>重写同步器指定方法时，需要使用同步器提供的如下3个方法来访问或修改同步状态：</p>
+<blockquote>
+<p>getState()：获取当前同步状态。</p>
+<p>setState()：设置当前同步状态。</p>
+<p>compareAndSetState(int expect, int update)：使用CAS设置当前状态，该方法能够保证状态设置的原子性。</p>
+</blockquote>
+<p>同步器可重写的方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 独占式获取同步状态，实现该方法需要查询当前状态并判断同步状态是否符合预期，然后再进行CAS设置同步状态</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">boolean</span> <span class="title">tryAcquire</span><span class="params">(<span class="keyword">int</span> arg)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> UnsupportedOperationException();</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 独占式释放同步状态，等待获取同步状态的线程将有机会获取同步状态</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">boolean</span> <span class="title">tryRelease</span><span class="params">(<span class="keyword">int</span> arg)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> UnsupportedOperationException();</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 共享式获取同步状态，返回大于等于0的值，表示获取成功，反之，获取失败</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">int</span> <span class="title">tryAcquireShared</span><span class="params">(<span class="keyword">int</span> arg)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> UnsupportedOperationException();</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 共享式释放同步状态</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">boolean</span> <span class="title">tryReleaseShared</span><span class="params">(<span class="keyword">int</span> arg)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> UnsupportedOperationException();</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 当前同步器是否在独占模式下被线程占用，一般该方法表示是否被当前线程所独占</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">boolean</span> <span class="title">isHeldExclusively</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> UnsupportedOperationException();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>实现自定义同步组件时，将会调用同步器提供的模板方法，部分方法如下所示：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 独占式获取同步状态，如果当前线程获取成功，则由该方法返回，否则，将会进入同步队列等待，该方法将会调用重写的tryAcquire(int arg)方法</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">acquire</span><span class="params">(<span class="keyword">int</span> arg)</span> </span>&#123;&#125;</span><br><span class="line"><span class="comment">// 与acquire(int arg)相同，但是该方法响应中断，当前线程未获取到同步状态而进入同步队列中，如果当前线程别中断，则该方法会抛出InterruptedException并返回</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">acquireInterruptibly</span><span class="params">(<span class="keyword">int</span> arg)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;&#125;</span><br><span class="line"><span class="comment">// 在acquireInterruptibly(int arg)基础上增加了超时限制，如果当前线程在超时时间内没有获取到同步状态，那么将会返回false，如果获取到了返回true</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">boolean</span> <span class="title">tryAcquireNanos</span><span class="params">(<span class="keyword">int</span> arg, <span class="keyword">long</span> nanosTimeout)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;&#125;</span><br><span class="line"><span class="comment">// 独占式的释放同步状态，该方法会在释放同步状态之后，将同步队列中第一个节点包含的线程唤醒</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">boolean</span> <span class="title">release</span><span class="params">(<span class="keyword">int</span> arg)</span> </span>&#123;&#125;</span><br><span class="line"><span class="comment">// 共享式获取同步状态，如果当前线程未获取到同步状态，将会进入同步队列等待，与独占式获取的主要区别是在同一时刻可以有多个线程获取到同步状态</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">acquireShared</span><span class="params">(<span class="keyword">int</span> arg)</span> </span>&#123;&#125;</span><br><span class="line"><span class="comment">// 与acquireShared(int arg)相同，该方法响应中断</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">acquireSharedInterruptibly</span><span class="params">(<span class="keyword">int</span> arg)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;&#125;</span><br><span class="line"><span class="comment">// 在acquireSharedInterruptibly(int arg)基础上增加了超时限制</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">boolean</span> <span class="title">tryAcquireSharedNanos</span><span class="params">(<span class="keyword">int</span> arg, <span class="keyword">long</span> nanosTimeout)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;&#125;</span><br><span class="line"><span class="comment">// 共享式的释放同步状态</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">boolean</span> <span class="title">releaseShared</span><span class="params">(<span class="keyword">int</span> arg)</span> </span>&#123;&#125;</span><br><span class="line"><span class="comment">// 获取等待在同步队列上的线程集合</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> Collection&lt;Thread&gt; <span class="title">getQueuedThreads</span><span class="params">()</span> </span>&#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>同步器提供的模板方法基本上分为3类：独占式获取与释放同步状态、共享式获取与释放同步状态和查询同步队列中的等待线程情况。自定义同步组件将使用同步器提供的模板方法来实现自己的同步语义。</p>
+<p>我们先看一个独占锁的示例：</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/12/09/Java%E4%B8%AD%E7%9A%84%E9%94%81%E2%80%94%E2%80%94Lock%E6%8E%A5%E5%8F%A3%E5%92%8C%E9%98%9F%E5%88%97%E5%90%8C%E6%AD%A5%E5%99%A8/" data-id="ckx2ykbov000dpgtwbotg7ld3" class="article-share-link">
+        Share
+      </a>
+      
+    </footer>
+
+  </div>
+
+  
+
+  
+
+</article>
+    
+    <article id="post-Java内存模型的基础" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+      
+
+<h2 itemprop="name">
+  <a class="article-title" href="/2021/12/09/Java%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B%E7%9A%84%E5%9F%BA%E7%A1%80/">Java内存模型的基础</a>
+</h2>
+
+
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2021/12/09/Java%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B%E7%9A%84%E5%9F%BA%E7%A1%80/" class="article-date">
+  <time datetime="2021-12-09T01:23:36.000Z" itemprop="datePublished">2021-12-09</time>
+</a>
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+        
+      
+      
+      <p>Java线程之间的通信对程序员完全透明，内存可见性问题很容易困扰Java程序员。</p>
+<h2 id="1-并发编程模型的两个关键问题"><a href="#1-并发编程模型的两个关键问题" class="headerlink" title="1. 并发编程模型的两个关键问题"></a>1. 并发编程模型的两个关键问题</h2><ul>
+<li><p>线程之间如何通信</p>
+<p>通信是指线程之间以何种机制来交换信息。在命令式编程中，线程之间的通信机制有两种：共享内存和消息传递。</p>
+<p>在共享内存的并发模型里，线程之间共享程序的公共状态，通过写-读内存中的公共状态进行隐式通信。在消息传递的并发模型里，线程之间没有公共状态，线程之间必须通过发送消息来显式进行通信。</p>
+</li>
+<li><p>线程之间如何同步</p>
+<p>同步是指程序中用于控制不同线程间操作发生相对顺序的机制。在共享内存并发模型里，同步是显式进行的。程序员必须显式指定某个方法或某段代码需要在线程之间互斥执行。在消息传递的并发模型里，由于消息的发送必须在消息的接收之前，因此同步是隐式进行的。</p>
+</li>
+</ul>
+<p>Java的并发采用的是共享内存模型，Java线程之间的通信总是隐式进行，这个通信过程对程序员完全透明。如果编写多线程程序的Java程序员不理解隐式进行的线程之间通信的工作机制，很可能会遇到各种奇怪的内存可见性问题。</p>
+<h2 id="2-Java内存模型的抽象结构"><a href="#2-Java内存模型的抽象结构" class="headerlink" title="2. Java内存模型的抽象结构"></a>2. Java内存模型的抽象结构</h2><p>在Java中，所有实例域、静态域和数组元素都存储在堆内存中，对内存在线程之间共享(下面用共享变量代指三者)。局部变量，方法定义参数和异常处理器参数不会在线程之间共享，它们不会有内存可见性问题，也不受内存模型的影响。</p>
+<p>Java线程之间的通信由Java内存模型（本文简称为JMM）控制，JMM决定一个线程对共享变量的写入何时对另一个线程可见。从抽象的角度来看，JMM定义了线程和主内存之间的抽象关系：线程之间的共享变量存储在主内存中，每个线程都由一个私有的本地内存，本地内存中存储该线程已读/写共享变量的副本。本地内存是JMM的一个抽象概念，并不真实存在。它涵盖了缓存、写缓冲区、寄存器以及其它的硬件和编译器优化。Java内存模型的抽象示意图：</p>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20211209193054163.png" alt="image-20211209193054163"></p>
+<p>从图中来看，如果线程A和线程B之间要通信的话，必须要经历下面两个步骤。</p>
+<ol>
+<li>线程A把本地内存A中更新过的共享变量刷新到主存中去。</li>
+<li>线程B到主存中去读取线程A之前已经更新过的共享变量。</li>
+</ol>
+<p>线程之间通信如图：</p>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20211209194936096.png" alt="image-20211209194936096"></p>
+<p>从整体来看，这两个步骤实质上是线程A在向线程B发送消息，而且这个通信过程必须要经过主内存。JMM通过控制主内存与每个线程的本地内存之间的交互，来为Java程序员提供内存可见性保证。</p>
+<h2 id="3-从源代码到指令序列的重排序"><a href="#3-从源代码到指令序列的重排序" class="headerlink" title="3. 从源代码到指令序列的重排序"></a>3. 从源代码到指令序列的重排序</h2><p>在执行程序时，为了提高性能，编译器和处理器常常会对指令做重排序。重排序分3种类型。</p>
+<ol>
+<li>编译器优化的重排序。编译器在不改变单线程程序语义的前提下，可以重新安排语句的执行顺序。</li>
+<li>指令级并行的重排序。现代处理器采用了指令级并行技术（Instruction-Level Parallelism，ILP）来将多条指令重叠执行。如果不存在数据依赖性，处理器可以改变语句对应及其指令的执行顺序。</li>
+<li>内存系统的重排序。由于处理器使用缓存和读/写缓冲区，这使得加载和存储操作看上去可能是在乱序执行。</li>
+</ol>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20211209200421067.png" alt="image-20211209200421067"></p>
+<p>在这些重排序中可能会导致对线程程序出现内存可见性问题。对于编译器，JMM的编译器重排序规则会禁止特定类型的编译器重排序（不是所有的都要禁止）。对于处理器重排序，JMM的处理器重排序规则会要求Java编译器在生成指令序列时，插入特定类型的内存屏障指令，通过内存屏障指令来禁止特定类型的处理器重排序。</p>
+<p>JMM属于语句级的内存模型，它确保在不同的编译器和不同的处理器平台之上，通过禁止特定类型的编译器重排序和处理器重排序，为程序员提供一致的内存可见性保证。</p>
+<h2 id="4-并发编程模型的分类"><a href="#4-并发编程模型的分类" class="headerlink" title="4. 并发编程模型的分类"></a>4. 并发编程模型的分类</h2><p>我们先看一个处理器操作内存的执行结果：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Processor A</th>
+<th>Processor B</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>代码</td>
+<td>a = 1; // A1<br />x = b; // A2</td>
+<td>b = 2; // B1<br />y = a; // B2</td>
+</tr>
+<tr>
+<td>运行结果</td>
+<td>初始状态：a = b = 0</td>
+<td>处理器允许执行后得到结果：x = y = 0</td>
+</tr>
+</tbody></table>
+<p> 假设处理器A和处理器B按程序的顺序并行执行内存访问，最终可能得到x = y = 0的结果。具体原因如下图：</p>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20211209211248724.png" alt="image-20211209211248724"></p>
+<p>在这里，处理器A和B可以同时把共享变量a和b写入自己的写缓冲区，然后从内存中读取另一个共享变量，最后才把自己写缓冲区中保存的脏数据刷新到内存中。所以这就得到了 x = y = 0 的结果。</p>
+<p>从内存操作实际发生的顺序来看，直到处理器A执行A3来刷新自己的写缓冲区，写操作A1才算真正执行了。虽然执行顺序为：A1→A2，但内存操作实际发生顺序却是A2→A1。此时，处理器A的内存操作顺序被重排序了（B与A的情况一样）。</p>
+<p>这里的关键是，由于写缓冲区仅对自己的处理器可见，它会导致处理器执行内存操作的顺序可能会与内存实际的操作执行顺序不一致。由于现代的处理器都会使用写缓冲区，因此都会允许对写-读操作进行重排序。</p>
+<p>下表是常见处理器允许的重排序类型的列表</p>
+<table>
+<thead>
+<tr>
+<th align="center">处理器</th>
+<th align="center">Load-Load</th>
+<th align="center">Load-Store</th>
+<th align="center">Store-Store</th>
+<th align="center">Store-Load</th>
+<th align="center">数据依赖</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">SPARC-TSO</td>
+<td align="center">N</td>
+<td align="center">N</td>
+<td align="center">N</td>
+<td align="center">Y</td>
+<td align="center">N</td>
+</tr>
+<tr>
+<td align="center">x86</td>
+<td align="center">N</td>
+<td align="center">N</td>
+<td align="center">N</td>
+<td align="center">Y</td>
+<td align="center">N</td>
+</tr>
+<tr>
+<td align="center">IA64</td>
+<td align="center">Y</td>
+<td align="center">Y</td>
+<td align="center">Y</td>
+<td align="center">Y</td>
+<td align="center">N</td>
+</tr>
+<tr>
+<td align="center">PowerPC</td>
+<td align="center">Y</td>
+<td align="center">Y</td>
+<td align="center">Y</td>
+<td align="center">Y</td>
+<td align="center">N</td>
+</tr>
+</tbody></table>
+<p>从表中可以看出：常见的处理器都运行Store-Load重排序，而不允许对存在数据依赖的操作进行重排序。sparc-TSO和X86拥有相对较强的处理器内存模型，它们仅允许对写-读操作进行重排序（因为它们都使用了写缓冲区）。</p>
+<p>为了保证内存可见性，Java编译器在生成指令序列的适当位置会插入内存屏障指令来禁止特定类型的处理器重排序。JMM把内存屏障指令分为4类，如表所示。</p>
+<table>
+<thead>
+<tr>
+<th>屏障类型</th>
+<th>指令示例</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>LoadLoad Barriers</td>
+<td>Load1;LoadLoad;Load2</td>
+<td>确保Load1数据的装载先于Load2及所有后续装载指令的装载</td>
+</tr>
+<tr>
+<td>StoreStore Barriers</td>
+<td>Store1;StoreStore;Store2</td>
+<td>确保Store1数据对其它处理器可见(刷新到内存)先于Store2及所有后续存储指令的存储</td>
+</tr>
+<tr>
+<td>LoadStore Barriers</td>
+<td>Load1;LoadStore;Store2;</td>
+<td>确保Load1数据装载先于Store2及所有后续的存储指令刷新到内存</td>
+</tr>
+<tr>
+<td>StoreLoad Barriers</td>
+<td>Store1;StoreLoad;Load2;</td>
+<td>确保Store1数据对其它处理器变得可见(指刷新到内存)先于Load2及所有后续装载指令的装载。StoreLoad Barriers会使该屏障之前的所有内存访问指令(存储和装载指令)完成之后，才执行该屏障之后的内存访问指令</td>
+</tr>
+</tbody></table>
+<p>StoreLoad Barriers是一个”全能型“的屏障，它同时具有其它3个屏障的效果。现代的多处理器大多支持该屏障。执行该屏障开销会很昂贵，因为当前处理器通常要把写缓冲区中的数据全部刷新到内存中（Buffer Fully Flush）。</p>
+<h2 id="5-happens-before简介"><a href="#5-happens-before简介" class="headerlink" title="5. happens-before简介"></a>5. happens-before简介</h2><p>从JDK5开始，Java使用新的JSR-133内存模型。JSR-133使用happens-before的概念来阐述操作之间的内存可见性。在JMM中如果一个操作执行的结果需要对另一个操作可见，那么这两个操作之间必须要存在happens-before关系。这里的两个操作既可以是在一个线程之内，也可以是在不同线程之间。</p>
+<p>与程序员密切相关的happens-before规则如下：</p>
+<ul>
+<li>程序顺序规则：一个线程中的每个操作，happens-before于该线程中的任意后续操作。</li>
+<li>监视器锁规则：对一个锁的解锁，happens-before于随后对这个锁的加锁。</li>
+<li>volatile变量规则：对一个volatile域的写，happens-before于任意后续对这个volatile域的读。</li>
+<li>传递性：如果A happens-before B，且B happens-before C，那么A happens-before C。</li>
+</ul>
+<blockquote>
+<p>注意：两个操作之间具有happens-before关系，并不意味着前一个操作必须要在后一个操作之前执行！happens-before仅仅要求前一个操作（执行的结果）对后一个操作可见，且前一个操作按顺序排在第二个操作之前。</p>
+</blockquote>
+<p>happens-before与JMM的关系如图所示：</p>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20211209215601271.png" alt="image-20211209215601271"></p>
+<p>一个happens-before规则对应于一个或多个编译器和处理器重排序规则。对于Java程序员来说，happens-before规则简单易懂，它避免Java程序员为了理解JMM提供的内存可见性保证而去学习复杂的重排序规则以及这些规则的具体实现方法。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/12/09/Java%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B%E7%9A%84%E5%9F%BA%E7%A1%80/" data-id="ckx2yjv810000pgtwgy2ugxea" class="article-share-link">
+        Share
+      </a>
+      
+    </footer>
+
+  </div>
+
+  
+
+  
+
+</article>
+    
+    <article id="post-初见设计模式" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+      
+
+<h2 itemprop="name">
+  <a class="article-title" href="/2021/12/09/%E5%88%9D%E8%A7%81%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">初见设计模式</a>
+</h2>
+
+
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2021/12/09/%E5%88%9D%E8%A7%81%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="article-date">
+  <time datetime="2021-12-09T00:32:00.000Z" itemprop="datePublished">2021-12-09</time>
+</a>
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+        
+      
+      
+      <p>设计模式最初是在建筑学中被提出的，建筑师克里斯托弗·亚历山大在1970年代编撰了一本汇集设计模式的书，但是设计模式的思想在建筑设计领域里的影响远没有后来在软件开发领域里传播的广泛和深远。</p>
+<p>软件设计中的设计模式是在GoF（”四人帮“，指Gamma、Helm、Johnson &amp; Vlissides、Addison-Wesley四人）合著的《设计模式》一书中第一次提出的，随后被规范化。</p>
+<h2 id="1-为什么要使用"><a href="#1-为什么要使用" class="headerlink" title="1. 为什么要使用"></a>1. 为什么要使用</h2><p>设计模式优点如下：</p>
+<ul>
+<li><strong>复用解决方案</strong></li>
+<li><strong>设计模式将设计方法标准化</strong></li>
+<li><strong>设计模式可以提高个人和团队的设计能力</strong></li>
+<li><strong>设计模式使软件更容易修改和维护</strong></li>
+</ul>
+<h2 id="2-设计模式分类"><a href="#2-设计模式分类" class="headerlink" title="2. 设计模式分类"></a>2. 设计模式分类</h2><ul>
+<li>创建型模式：用于创建对象。对象的创建会消耗掉系统的很多资源，所以单独对对象的创建进行研究，以便能够高效地创建对象就是创建型模式要探讨的问题。</li>
+<li>结构型模式：用于构建类间的关系。如何设计对象的结构、继承和依赖关系会影响到后续程序的维护性，代码的健壮性、耦合性等。这些因素需要使用结构型模式来优化。</li>
+<li>行为型模式：用于控制对象的行为。如果对象的行为设计的号，那么对象的行为就会更清晰，它们之间的协作效率就会更高。</li>
+</ul>
+<p>具体分类见下23种：</p>
+<blockquote>
+<ul>
+<li>创建型模式<ul>
+<li>工厂方法模式</li>
+<li>抽象工厂模式</li>
+<li>建造者模式</li>
+<li>原型模式</li>
+<li>单例模式</li>
+</ul>
+</li>
+<li>结构型模式<ul>
+<li>适配器模式</li>
+<li>桥接模式</li>
+<li>代理模式</li>
+<li>外观模式</li>
+<li>装饰模式</li>
+<li>组合模式</li>
+<li>享元模式</li>
+</ul>
+</li>
+<li>行为型模式<ul>
+<li>命令模式</li>
+<li>观察者模式</li>
+<li>责任链模式</li>
+<li>迭代器模式</li>
+<li>访问者模式</li>
+<li>状态模式</li>
+<li>备忘录模式</li>
+<li>策略模式</li>
+<li>调停者模式</li>
+<li>模板方法模式</li>
+<li>解释器模式</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h2 id="3-七大原则"><a href="#3-七大原则" class="headerlink" title="3. 七大原则"></a>3. 七大原则</h2><p>设计模式原则，其实就是程序员在编程时，应当遵守的原则，也是各种设计模式的基础。</p>
+<h3 id="3-1-单一职责原则"><a href="#3-1-单一职责原则" class="headerlink" title="3.1 单一职责原则"></a>3.1 单一职责原则</h3><p>对类来说，即一个类应该只负责一项职责。如：类A负责两个不同职责1和2，当职责1需求变更而改变A时，可能造成职责2执行错误，所以需要将类A的粒度分解为A1和A2。</p>
+<p>注意事项和细节：</p>
+<ul>
+<li>降低类的复杂度，一个类只负责一项职责。</li>
+<li>提高类的可读性，可维护性。</li>
+<li>降低变更引起的风险。</li>
+<li>通常情况下，我们应当遵守单一职责原则，只有逻辑足够简单，才可以在代码级违反单一职责原则；只有类中方法数量足够少，可以在方法级别保持单一职责原则。</li>
+</ul>
+<h3 id="3-2-接口隔离原则"><a href="#3-2-接口隔离原则" class="headerlink" title="3.2 接口隔离原则"></a>3.2 接口隔离原则</h3><p>客户端不应该依赖它不需要的接口，即一个类对另一个类的依赖应该建立在最小的接口上。</p>
+<h3 id="3-3-依赖倒转原则"><a href="#3-3-依赖倒转原则" class="headerlink" title="3.3 依赖倒转原则"></a>3.3 依赖倒转原则</h3><ol>
+<li>高层模块不应该依赖低层模块，二者都应该依赖其抽象。</li>
+<li>抽象不应该依赖细节，细节应该依赖抽象。</li>
+<li>依赖倒转的中心思想是面向接口编程。</li>
+<li>依赖倒转原则的设计理念：相对于细节的多变性，抽象的东西要稳定的多。以抽象为基础搭建的架构比以细节为基础的架构要稳定的多。在Java中，抽象是指接口或抽象类，细节就是具体的实现类。</li>
+<li>使用接口或抽象类的目的是指定好规范，而不涉及任何具体的操作，把展现细节的任务交给它们的实现类去完成。</li>
+</ol>
+<p>依赖关系传递方式：</p>
+<ul>
+<li>接口传递</li>
+<li>构造方法传递</li>
+<li>setter方式传递</li>
+</ul>
+<p>注意事项和细节：</p>
+<ul>
+<li>低层模块尽量都要有抽象类或接口，或者两者都有，程序稳定性更好。</li>
+<li>变量的声明类型尽量是抽象类或接口，这样我们的变量引用和实际对象间，就存在一个缓冲层，利于程序扩展和优化。</li>
+<li>继承时遵循里氏替换原则。</li>
+</ul>
+<h3 id="3-4-里氏替换原则"><a href="#3-4-里氏替换原则" class="headerlink" title="3.4 里氏替换原则"></a>3.4 里氏替换原则</h3><h4 id="3-4-1-OO中的继承性的思考和说明"><a href="#3-4-1-OO中的继承性的思考和说明" class="headerlink" title="3.4.1 OO中的继承性的思考和说明"></a>3.4.1 OO中的继承性的思考和说明</h4><ul>
+<li>继承包含这样一层含义：父类中凡是已经实现好的方法，实际上是在设定规范和契约，虽然它不强要求所有的子类必须遵循这些契约，但是如果子类对这些已经实现的方法任意修改，就会对整个继承体系造成破坏。</li>
+<li>继承在给程序设计带来便利的同时，也带来了弊端。比如使用继承会给程序带来侵入性，程序的可移植性降低，增加对象间的耦合性，如果一个类被其它的类所继承，则当这个类需要修改时，必须考虑到所有的子类，并且父类修改后，所有涉及到子类的功能都有可能产生故障。</li>
+</ul>
+<p>而在编程中，为了正确的使用继承，我们需要用到里氏替换原则。</p>
+<h4 id="3-4-2-基本介绍"><a href="#3-4-2-基本介绍" class="headerlink" title="3.4.2 基本介绍"></a>3.4.2 基本介绍</h4><p>里氏替换原则在1988年，由麻省理工学院的一位姓里的女士提出的。</p>
+<p>如果对每个类型为T1的对象o1，都有类型为T2的对象o2，使得以T1定义的所有程序P在所有的对象o1都换成o2时，程序P的行为没有发生变化，那么类型T2是类型T1的子类型。<strong>换句话说，所有引用基类的地方必须能透明地使用其子类的对象。</strong></p>
+<p>在使用继承时，遵循里氏替换原则，在子类中尽量不要重写父类的方法。</p>
+<p>里氏替换原则告诉我们，继承实际上让两个类耦合性增强了，在适当的情况下，可以通过聚合，组合，依赖来解决问题。</p>
+<h3 id="3-5-开闭原则"><a href="#3-5-开闭原则" class="headerlink" title="3.5 开闭原则"></a>3.5 开闭原则</h3><p>开闭原则是编程中最基础、最重要的设计原则。一个软件实体如类、模块和函数应该对扩展开放，对修改关闭。用抽象构建框架，用实现扩展细节。这样，当软件需要变化时，尽量通过扩展软件实体的行为来实现变化，而不是通过修改已有的代码来实现变化。</p>
+<p>我们在编程中遵循其它原则，以及使用设计模式的目的就是遵循开闭原则。</p>
+<h3 id="3-6-迪米特法则"><a href="#3-6-迪米特法则" class="headerlink" title="3.6 迪米特法则"></a>3.6 迪米特法则</h3><p>一个对象应该对其它对象保持最少的了解，但是，类与类关系越密切，耦合度越大。迪米特法则又叫最少知道原则，即一个类对自己依赖的类知道的越少越好。也就是说，对于被依赖的类不管多么复杂，都尽量将逻辑封装在类的内部。对外除了提供的public方法，不对外泄露任何信息。迪米特法则还有个更简单的定义：只与直接的朋友通信。</p>
+<p>所谓的直接的朋友就是：每个对象都会与其它对象有耦合关系，只要两个对象之间有耦合关系，我们就说这两个对象之间是朋友关系。耦合的方式很多，依赖，关联，组合，聚合等。其中，我们称<strong>出现成员变量，方法参数，方法返回值中的类为直接的朋友，而出现在局部变量中的类不是直接朋友</strong>。也就是说，陌生的类最好不要以局部变量的形式出现在类的内部。</p>
+<p>迪米特法则的核心是降低类之间的耦合，但是注意：由于每个类都减少了不必要的依赖，因此迪米特法则只是要求降低类间(对象间)耦合关系，并不是要求完全没有依赖关系。</p>
+<h3 id="3-7-合成复用原则"><a href="#3-7-合成复用原则" class="headerlink" title="3.7 合成复用原则"></a>3.7 合成复用原则</h3><p>原则是尽量使用合成/聚合的方式，而不是使用继承。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/12/09/%E5%88%9D%E8%A7%81%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" data-id="ckx2yjv9i0005pgtwdem9cujy" class="article-share-link">
+        Share
+      </a>
+      
+    </footer>
+
+  </div>
+
+  
+
+  
+
+</article>
+    
+    <article id="post-系统错误处理机制之——日志" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+      
+
+<h2 itemprop="name">
+  <a class="article-title" href="/2021/12/08/%E7%B3%BB%E7%BB%9F%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86%E6%9C%BA%E5%88%B6%E4%B9%8B%E2%80%94%E2%80%94%E6%97%A5%E5%BF%97/">系统错误处理机制之——日志</a>
+</h2>
+
+
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2021/12/08/%E7%B3%BB%E7%BB%9F%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86%E6%9C%BA%E5%88%B6%E4%B9%8B%E2%80%94%E2%80%94%E6%97%A5%E5%BF%97/" class="article-date">
+  <time datetime="2021-12-08T13:41:41.000Z" itemprop="datePublished">2021-12-08</time>
+</a>
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+        
+      
+      
+      <p>每个Java程序员都很熟悉在有问题的代码中插入一些System.out.println方法调用来帮助观察程序运行的操作过程。当然，一旦发现问题的根源，就要将这些语句从代码中删去。如果接下来又出现了问题，就需要再插入几个调用println方法的语句。记录日志API就是为了解决这个问题而设计的。下面先讨论这些API的优点：</p>
+<ul>
+<li>可以很容易地取消全部日志记录，或者仅仅取消某个级别的日志，而且打开和关闭这个操作也很容易。</li>
+<li>可以很简单地禁止日志记录的输出，因此，将这些日志代码留在程序中的开销很小。</li>
+<li>日志记录器和处理器都可以对记录进行过滤。过滤器可以根据过滤实现器指定的标准丢弃那些无用的记录项。</li>
+<li>日志记录可以采用不同的方式格式化，例如，纯文本或XML。</li>
+<li>应用程序可以使用多个日志记录器，它们使用类似包名的这种具有层次结构的名字，例如，com.mycompany.myapp。</li>
+<li>在默认情况下，日志系统的配置由配置文件控制。如果需要的话，应用程序可以替换这个配置。</li>
+</ul>
+<h2 id="1-基本日志"><a href="#1-基本日志" class="headerlink" title="1. 基本日志"></a>1. 基本日志</h2><p>要生成简单的日志记录，可以使用全局日志记录器(global logger)并调用其info方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.logging.Logger;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> pengbin007</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2021/12/8 21:57</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LoggerTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Logger.getGlobal().info(<span class="string">&quot;File-&gt;Open menu item selected&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>默认情况下，这条记录将会显示以下内容：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">十二月 08, 2021 9:58:08 下午 com.atqingke.LoggerTest main</span><br><span class="line">信息: File-&gt;Open menu item selected</span><br><span class="line"></span><br><span class="line">Process finished with exit code 0</span><br></pre></td></tr></table></figure>
+
+<p>但是，如果在适当的地方(如main开始)调用：Logger.getGlobal().setLevel(Level.OFF); 将会取消所有日志。</p>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20211208220217166.png" alt="image-20211208220217166"></p>
+<h2 id="2-高级日志"><a href="#2-高级日志" class="headerlink" title="2. 高级日志"></a>2. 高级日志</h2><p>在一个专业的应用程序中，不要将所有的日志都记录到一个全局日志记录器中，而是可以自定义日志记录器。可以调用getLogger方法创建或获取记录器：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Logger myLogger = Logger.getLogger(<span class="string">&quot;com.atqingke&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>提示：未被任何变量引用的日志记录器可能会被垃圾回收。为了防止这种情况发生，要像上面的例子中一样，用一个静态变量存储日志记录器的一个引用。</p>
+</blockquote>
+<p>与包名类似，日志记录器名也具有层次结构。事实上，与包名相比，日志记录器的层次性更强。对于包来说，一个包的名字与其父包的名字之间没有语义关系，但是日志记录器的父与子之间将共享某些属性。例如，如果对com.mycompany日志记录器设置了日志级别，它的子记录器也会继承这个级别。</p>
+<p>通常，有以下7个日志记录器级别：</p>
+<ul>
+<li>SEVERE</li>
+<li>WARNING</li>
+<li>INFO</li>
+<li>CONFIG</li>
+<li>FINE</li>
+<li>FINER</li>
+<li>FINEST</li>
+</ul>
+<p>在默认情况下，只记录前三个级别。也可以设置其他的级别。例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">logger.setLevel(Level.FINE);</span><br></pre></td></tr></table></figure>
+
+<p>现在，FINE和更高级别的记录都可以记录下来。另外，还可以使用Level.ALL开启所有级别的记录，或者使用Level.OFF关闭所有级别的记录。</p>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20211208222156636.png" alt="image-20211208222156636"></p>
+<p>对于所有的级别有下面几种记录方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">logger.warning(message);</span><br><span class="line">logger.fine(message);</span><br><span class="line">logger.log(Level.FINE, message); <span class="comment">// log方法指定级别</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>提示：默认的日志配置记录了INFO或更高级别的所有记录，因此，应该使用CONFIG、FINE、FINER和FINEST级别来记录那些有助于诊断，但对于程序员又没有太大意义的调试信息。</p>
+</blockquote>
+<blockquote>
+<p>警告：如果将日志级别设计为INFO或者更低，则需要修改日志处理器的配置。默认的日志处理器不会处理低于INFO级别的信息。</p>
+</blockquote>
+<h2 id="3-修改日志管理器配置"><a href="#3-修改日志管理器配置" class="headerlink" title="3. 修改日志管理器配置"></a>3. 修改日志管理器配置</h2><p>默认情况下，日志的配置文件存在于：jre/lib/loggin.properties。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/12/08/%E7%B3%BB%E7%BB%9F%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86%E6%9C%BA%E5%88%B6%E4%B9%8B%E2%80%94%E2%80%94%E6%97%A5%E5%BF%97/" data-id="ckx2yjv9k0008pgtwc9v3gylq" class="article-share-link">
+        Share
+      </a>
+      
+    </footer>
+
+  </div>
+
+  
+
+  
+
+</article>
+    
+    <article id="post-【Effective-Java】覆盖equals请遵守通用约定" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+      
+
+<h2 itemprop="name">
+  <a class="article-title" href="/2021/12/08/%E3%80%90Effective-Java%E3%80%91%E8%A6%86%E7%9B%96equals%E8%AF%B7%E9%81%B5%E5%AE%88%E9%80%9A%E7%94%A8%E7%BA%A6%E5%AE%9A/">【Effective-Java】覆盖equals请遵守通用约定</a>
+</h2>
+
+
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2021/12/08/%E3%80%90Effective-Java%E3%80%91%E8%A6%86%E7%9B%96equals%E8%AF%B7%E9%81%B5%E5%AE%88%E9%80%9A%E7%94%A8%E7%BA%A6%E5%AE%9A/" class="article-date">
+  <time datetime="2021-12-08T06:07:23.000Z" itemprop="datePublished">2021-12-08</time>
+</a>
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+        
+      
+      
+        <p>尽管Object类是一个具体的类，但设计它主要是为了扩展。它的所有非final方法（equals、hashCode、toString、clone和finalize）都有明确的通用约定，因为它们设计成是要覆盖的。任何一个类，它在覆盖这些方法的时候，都有责任遵守这些通用约定；如果不能做到这一点，其它依赖于这些约定的类就无法结合该类一起正常运作。</p>
+        
+          <p>
+            <a class="article-more-link" href="/2021/12/08/%E3%80%90Effective-Java%E3%80%91%E8%A6%86%E7%9B%96equals%E8%AF%B7%E9%81%B5%E5%AE%88%E9%80%9A%E7%94%A8%E7%BA%A6%E5%AE%9A/">
+              Read More...
+            </a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/12/08/%E3%80%90Effective-Java%E3%80%91%E8%A6%86%E7%9B%96equals%E8%AF%B7%E9%81%B5%E5%AE%88%E9%80%9A%E7%94%A8%E7%BA%A6%E5%AE%9A/" data-id="ckx2yjv9j0006pgtw7sbiba88" class="article-share-link">
+        Share
+      </a>
+      
+    </footer>
+
+  </div>
+
+  
+
+  
+
+</article>
+    
+    <article id="post-异常处理" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+      
+
+<h2 itemprop="name">
+  <a class="article-title" href="/2021/12/05/%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/">异常处理</a>
+</h2>
+
+
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2021/12/05/%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/" class="article-date">
+  <time datetime="2021-12-05T14:55:25.000Z" itemprop="datePublished">2021-12-05</time>
+</a>
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+        
+      
+      
+        <blockquote>
+<p>世界上最遥远的距离，是我在if里你在else里，似乎一直相伴又永远分离； </p>
+<p>世界上最痴心的等待，是我当case你是switch，或许永远都选不上自己； </p>
+<p>世界上最真情的相依，是你在try我在catch。无论你发神马脾气，我都默 默承受，静静处理。到那时，再来期待我们的finally。</p>
+</blockquote>
+        
+          <p>
+            <a class="article-more-link" href="/2021/12/05/%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/">
+              Read More...
+            </a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/12/05/%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/" data-id="ckwvky7t40008zotwbrw72gyj" class="article-share-link">
+        Share
+      </a>
+      
+<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%BC%82%E5%B8%B8/" rel="tag">异常</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+
+</article>
+    
+    <article id="post-深入Java集合系列之——HashMap" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+      
+
+<h2 itemprop="name">
+  <a class="article-title" href="/2021/12/04/%E6%B7%B1%E5%85%A5Java%E9%9B%86%E5%90%88%E7%B3%BB%E5%88%97%E4%B9%8B%E2%80%94%E2%80%94HashMap/">深入Java集合系列之——HashMap</a>
+</h2>
+
+
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2021/12/04/%E6%B7%B1%E5%85%A5Java%E9%9B%86%E5%90%88%E7%B3%BB%E5%88%97%E4%B9%8B%E2%80%94%E2%80%94HashMap/" class="article-date">
+  <time datetime="2021-12-04T01:32:40.000Z" itemprop="datePublished">2021-12-04</time>
+</a>
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+        
+      
+      
+        <h2 id="1-传统HashMap的缺点"><a href="#1-传统HashMap的缺点" class="headerlink" title="1. 传统HashMap的缺点"></a>1. 传统HashMap的缺点</h2><p>HashMap是基于哈希表的Map接口的非同步实现。此实现提供所有可选的映射操作，并允许使用null值和null键。此类不保证映射的顺序，特别是它不保证该顺序恒久不变。</p>
+<ol>
+<li><p>JDK1.8以前HashMap的实现是 数组 + 链表，即使哈希函数取得再好，也很难达到元素百分百均与分布。</p>
+</li>
+<li><p>当HashMap中有大量的元素都存放到同一个桶中时，这个桶下由一条长长的链表，这个时候HashMap就相当于一个单链表，加入单链表有n个元素，遍历的时间复杂度就是O(n)，完全失去了它的优势。</p>
+</li>
+<li><p>针对这种情况，JDK1.8中引入了红黑树(查找时间复杂度为O(logn))来优化这个问题。</p>
+        
+          <p>
+            <a class="article-more-link" href="/2021/12/04/%E6%B7%B1%E5%85%A5Java%E9%9B%86%E5%90%88%E7%B3%BB%E5%88%97%E4%B9%8B%E2%80%94%E2%80%94HashMap/">
+              Read More...
+            </a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/12/04/%E6%B7%B1%E5%85%A5Java%E9%9B%86%E5%90%88%E7%B3%BB%E5%88%97%E4%B9%8B%E2%80%94%E2%80%94HashMap/" data-id="ckwvky7tn000zzotwe2zocb9u" class="article-share-link">
+        Share
+      </a>
+      
+<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%9B%86%E5%90%88/" rel="tag">集合</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+
+</article>
+    
+    <article id="post-深入Java集合系列之——ArrayList" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+      
+
+<h2 itemprop="name">
+  <a class="article-title" href="/2021/12/03/%E6%B7%B1%E5%85%A5Java%E9%9B%86%E5%90%88%E7%B3%BB%E5%88%97%E4%B9%8B%E2%80%94%E2%80%94ArrayList/">深入Java集合系列之——ArrayList</a>
+</h2>
+
+
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2021/12/03/%E6%B7%B1%E5%85%A5Java%E9%9B%86%E5%90%88%E7%B3%BB%E5%88%97%E4%B9%8B%E2%80%94%E2%80%94ArrayList/" class="article-date">
+  <time datetime="2021-12-03T11:25:50.000Z" itemprop="datePublished">2021-12-03</time>
+</a>
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+        
+      
+      
+        <blockquote>
+<h2 id="6-总结"><a href="#6-总结" class="headerlink" title="6. 总结"></a>6. 总结</h2><ol>
+<li>ArrayList创建时的大小为0，当加入第一个元素时，进行第一次扩容，默认容量大小为10。（Java8之前为饿汉式，Java为懒汉式）</li>
+<li>ArrayList每次扩容都以当前数组大小的1.5倍去扩容。</li>
+<li>Vector创建时默认大小为10（饿汉式）。
+        
+          <p>
+            <a class="article-more-link" href="/2021/12/03/%E6%B7%B1%E5%85%A5Java%E9%9B%86%E5%90%88%E7%B3%BB%E5%88%97%E4%B9%8B%E2%80%94%E2%80%94ArrayList/">
+              Read More...
+            </a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/12/03/%E6%B7%B1%E5%85%A5Java%E9%9B%86%E5%90%88%E7%B3%BB%E5%88%97%E4%B9%8B%E2%80%94%E2%80%94ArrayList/" data-id="ckwvky7t9000dzotw4a7ldyko" class="article-share-link">
+        Share
+      </a>
+      
+<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%9B%86%E5%90%88/" rel="tag">集合</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+
+</article>
+    
+  </article>
+  
+
+  
+  <nav class="page-nav">
+    <a class="extend prev" rel="prev" href="/page/10/">Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="page-number" href="/page/10/">10</a><span class="page-number current">11</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/12/">Next</a>
+  </nav>
+  
+</section>
+</div>
+    <footer class="footer">
+  <div class="outer">
+    <div class="float-right">
+      <ul class="list-inline">
+  
+  <li><i class="fe fe-bar-chart"></i> <span id="busuanzi_value_site_pv"></span></li>
+  
+  <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
+  
+</ul>
+    </div>
+    <ul class="list-inline">
+      <li>青稞 &copy; 2022</li>
+      
+        <li>ZHWANGART</li>
+      
+      <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
+      <li>theme  <a target="_blank" rel="noopener" href="https://github.com/zhwangart/hexo-theme-ocean">Ocean</a></li>
+    </ul>
+  </div>
+</footer>
+  </main>
+  <aside class="sidebar">
+    <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/hexo.svg" alt="青稞"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">Home</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">Archives</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/gallery">Gallery</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about">About</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="Search">
+        <i class="fe fe-search"></i>
+        Search
+      </a>
+    </li>
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      <div class="totop" id="totop">
+  <i class="fe fe-rocket"></i>
+</div>
+    </li>
+    <li class="nav-item">
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="fe fe-feed"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+  </aside>
+  
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/copybtn.js"></script>
+
+
+
+
+
+
+<script src="/js/ocean.js"></script>
+
+</body>
+
+</html>

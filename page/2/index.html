@@ -1,0 +1,1083 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  
+  
+  <title>
+    
+    青稞
+  </title>
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+    
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<script src="/js/pace.min.js"></script>
+
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="青稞" type="application/atom+xml">
+</head>
+
+<body>
+  <main class="content">
+    <section class="jumbotron">
+  <div class="video">
+    
+    <div class="video-frame">
+      <img src="/images/ocean/overlay-hero.png" alt="Decorative image frame">
+    </div>
+    
+    <div class="video-media">
+      <video playsinline="" autoplay="" loop="" muted="" data-autoplay="" poster="/images/ocean/ocean.png"
+        x5-video-player-type="h5">
+        <source src="/images/ocean/ocean.mp4" type="video/mp4">
+        <source src="/images/ocean/ocean.ogv" type="video/ogg">
+        <source src="/images/ocean/ocean.webm" type="video/webm">
+        <p>Your user agent does not support the HTML5 Video element.</p>
+      </video>
+      <div class="video-overlay"></div>
+    </div>
+    <div class="video-inner text-center text-white">
+      <h1><a href="/">青稞</a></h1>
+      <p></p>
+      <div><img src="/images/hexo-inverted.svg" class="brand" alt="青稞"></div>
+    </div>
+    <div class="video-learn-more">
+      <a class="anchor" href="#landingpage"><i class="fe fe-mouse"></i></a>
+    </div>
+  </div>
+</section>
+<div id="landingpage">
+  <section class="outer">
+  <article class="articles">
+    
+    <h1 class="page-type-title"></h1>
+    
+    
+    <article id="post-Redis——安装" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+      
+
+<h2 itemprop="name">
+  <a class="article-title" href="/2022/02/03/Redis%E2%80%94%E2%80%94%E5%AE%89%E8%A3%85/">Redis——安装</a>
+</h2>
+
+
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2022/02/03/Redis%E2%80%94%E2%80%94%E5%AE%89%E8%A3%85/" class="article-date">
+  <time datetime="2022-02-03T06:55:40.000Z" itemprop="datePublished">2022-02-03</time>
+</a>
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+        
+      
+      
+      <blockquote>
+<ul>
+<li>英文官网：<a target="_blank" rel="noopener" href="https://redis.io/">https://redis.io/</a></li>
+<li>中文官网：<a target="_blank" rel="noopener" href="http://redis.cn/">http://redis.cn/</a></li>
+</ul>
+</blockquote>
+<p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220203145900071.png" alt="image-20220203145900071"></p>
+<h2 id="Redis概述"><a href="#Redis概述" class="headerlink" title="Redis概述"></a>Redis概述</h2><ul>
+<li>Redis是一个开源的key-value存储系统。</li>
+<li>和Memcached类似，它支持存储的value类型相对更多，包括string(字符串)、list(链表)、set(集合)、zset(sorted set –有序集合)和hash（哈希类型）。</li>
+<li>这些数据类型都支持push/pop、add/remove及取交集并集和差集及更丰富的操作，而且这些操作都是原子性的。</li>
+<li>在此基础上，Redis支持各种不同方式的排序。</li>
+<li>与memcached一样，为了保证效率，数据都是缓存在内存中。</li>
+<li>区别的是Redis会周期性的把更新的数据写入磁盘或者把修改操作写入追加的记录文件。</li>
+<li>并且在此基础上实现了master-slave(主从)同步。</li>
+</ul>
+<h2 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h2><h4 id="配合关系型数据库做高速缓存"><a href="#配合关系型数据库做高速缓存" class="headerlink" title="配合关系型数据库做高速缓存"></a>配合关系型数据库做高速缓存</h4><p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220204201013137.png" alt="image-20220204201013137"></p>
+<h4 id="多样的数据结构存储持久化数据"><a href="#多样的数据结构存储持久化数据" class="headerlink" title="多样的数据结构存储持久化数据"></a>多样的数据结构存储持久化数据</h4><p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220204200947400.png" alt="image-20220204200947400"></p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><ul>
+<li>安装C语言环境（如果有，这一步可以跳过）</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">yum install centos-release-scl scl-utils-build</span><br><span class="line">yum install -y devtoolset-8-toolchain</span><br><span class="line">scl enable devtoolset-8 bash</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>/usr/local目录下创建redis文件夹</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /usr/local</span><br><span class="line">mkdir redis</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>将安装包解压到新建的redis目录中</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd redis</span><br><span class="line">tar zxvf /opt/software/redis-6.2.6.tar.gz -C ./</span><br></pre></td></tr></table></figure>
+
+<p>解压完之后，在redis目录下会出现一个redis-6.2.6目录</p>
+<p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220204203944653.png" alt="image-20220204203944653"></p>
+<ul>
+<li>编译并安装</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd redis-6.2.6</span><br><span class="line">make &amp;&amp; make install</span><br></pre></td></tr></table></figure>
+
+<p>安装成功</p>
+<p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220204204335967.png" alt="image-20220204204335967"></p>
+<blockquote>
+<p>ps：执行make的时候报错</p>
+<p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220204205112972.png" alt="image-20220204205112972"></p>
+<p>解决方案：执行命令 <strong>make distclean</strong></p>
+<p>执行完后，再执行一遍make &amp;&amp; make install</p>
+</blockquote>
+<h3 id="安装目录"><a href="#安装目录" class="headerlink" title="安装目录"></a>安装目录</h3><p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220204205517902.png" alt="image-20220204205517902"></p>
+<h3 id="前台启动"><a href="#前台启动" class="headerlink" title="前台启动"></a>前台启动</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis-server</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220204210256753.png" alt="image-20220204210256753"></p>
+<p>前台启动，命令行窗口不能关闭，否则服务器停止（一般不采用）。</p>
+<h3 id="配置文件启动"><a href="#配置文件启动" class="headerlink" title="配置文件启动"></a>配置文件启动</h3><ul>
+<li>将/usr/local/redis/redis-6.2.6/redis.conf复制备份</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd /etc</span><br><span class="line">mkdir redis</span><br><span class="line">cp /usr/local/redis/redis-6.2.6/redis.conf /etc/redis/6379.conf</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>修改6379.conf以下几处</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 注释第76行，95行改成no，以便允许远程连接，否则只能本机连接</span><br><span class="line">76 #bind 127.0.0.1 -::1</span><br><span class="line">95 protected-mode no</span><br><span class="line"># 258行改为yes，允许后台启动</span><br><span class="line">258 daemonize yes</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>启动</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/local/bin/redis-server /usr/local/redis/redis-6.2.6/redis.conf</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220204223904012.png" alt="image-20220204223904012"></p>
+<h3 id="系统后台启动"><a href="#系统后台启动" class="headerlink" title="系统后台启动"></a>系统后台启动</h3><ul>
+<li>编辑redis.service</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">vim /usr/lib/systemd/system/redis.service</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 将下面内容写进去</span></span><br><span class="line">[Unit]</span><br><span class="line">Description=Redis</span><br><span class="line">After=network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=forking</span><br><span class="line">PIDFile=/var/run/redis_6379.pid</span><br><span class="line"><span class="meta">#</span><span class="bash"> 这里要注意换成你自己的目录</span></span><br><span class="line">ExecStart=/usr/local/bin/redis-server /etc/redis/6379.conf</span><br><span class="line">ExecReload=/bin/kill -s HUP $MAINPID</span><br><span class="line">ExecStop=/bin/kill -s QUIT $MAINPID</span><br><span class="line">PrivateTmp=true</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>让文件立即生效</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl daemon-reload</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>启动</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 启动</span></span><br><span class="line">systemctl start redis.service</span><br><span class="line"><span class="meta">#</span><span class="bash"> 重启</span></span><br><span class="line">systemctl restart redis.service</span><br><span class="line"><span class="meta">#</span><span class="bash"> 关闭</span></span><br><span class="line">systemctl stop redis.service</span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看状态</span></span><br><span class="line">systemctl status redis.service</span><br><span class="line"><span class="meta">#</span><span class="bash"> 设置开机自启</span></span><br><span class="line">systemctl enable redis.service</span><br><span class="line"><span class="meta">#</span><span class="bash"> 停止开机自启</span></span><br><span class="line">systemctl disable redis.service</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220204224633669.png" alt="image-20220204224633669"></p>
+<h3 id="redis-cli客户端连接测试"><a href="#redis-cli客户端连接测试" class="headerlink" title="redis-cli客户端连接测试"></a>redis-cli客户端连接测试</h3><p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220204225423226.png" alt="image-20220204225423226"></p>
+<h3 id="Redis-Desktop远程连接测试"><a href="#Redis-Desktop远程连接测试" class="headerlink" title="Redis Desktop远程连接测试"></a>Redis Desktop远程连接测试</h3><ul>
+<li>建立连接</li>
+</ul>
+<p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220204230650784.png" alt="image-20220204230650784"></p>
+<ul>
+<li>无法连接</li>
+</ul>
+<p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220204225842776.png" alt="image-20220204225842776"></p>
+<p>给redis设置一个密码即可，在/etc/redis/6379.conf文件下做如下修改：</p>
+<p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220204230327825.png" alt="image-20220204230327825"></p>
+<p>requirepass后面就是你的redis密码。</p>
+<ul>
+<li>重新建立连接</li>
+</ul>
+<p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220204230938826.png" alt="image-20220204230938826"></p>
+<ul>
+<li>测试成功</li>
+</ul>
+<p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220204230608520.png" alt="image-20220204230608520"></p>
+<p>此时，我们使用redis-cli连接也需要输入密码</p>
+<p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220205144625640.png" alt="image-20220205144625640"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/02/03/Redis%E2%80%94%E2%80%94%E5%AE%89%E8%A3%85/" data-id="ckzb6dz30000gzwtw0gdd1rsj" class="article-share-link">
+        Share
+      </a>
+      
+    </footer>
+
+  </div>
+
+  
+
+  
+
+</article>
+    
+    <article id="post-Redis——NoSQL数据库简介" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+      
+
+<h2 itemprop="name">
+  <a class="article-title" href="/2022/02/03/Redis%E2%80%94%E2%80%94NoSQL%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AE%80%E4%BB%8B/">Redis——NoSQL数据库简介</a>
+</h2>
+
+
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2022/02/03/Redis%E2%80%94%E2%80%94NoSQL%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AE%80%E4%BB%8B/" class="article-date">
+  <time datetime="2022-02-03T06:55:11.000Z" itemprop="datePublished">2022-02-03</time>
+</a>
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+        
+      
+      
+      <h2 id="技术发展"><a href="#技术发展" class="headerlink" title="技术发展"></a>技术发展</h2><p>我们目前的技术分类有：</p>
+<ul>
+<li>解决功能性的问题：Java、Jsp、RDBMS、Tomcat、HTML、Linux、JDBC、SVN</li>
+<li>解决扩展性的问题：Struts、Spring、SpringMVC、Hibernate、Mybatis</li>
+<li>解决性能的问题：NoSQL、Java线程、Hadoop、Nginx、MQ、ElasticSearch</li>
+</ul>
+<p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220203152632905.png" alt="image-20220203152632905"></p>
+<p>在我们的Web1.0时代，数据量访问特别有限，我们使用一夫当关的高性能单节点服务器就足以满足绝大部分的业务场景了。</p>
+<p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220203160555989.png" alt="image-20220203160555989"></p>
+<p>随着Web2.0的时代的到来，用户访问量大幅度提升，同时产生了大量的用户数据。加上后来的智能移动设备的普及，所有的互联网平台都面临了巨大的性能挑战。</p>
+<p>而为了解决CPU和内存的压力，比如，session存在哪里？应运而生的有以下几种解决方案：</p>
+<p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220203161839755.png" alt="image-20220203161839755"></p>
+<ul>
+<li>存在cookie中，但是不安全，而且网络负担效率低。</li>
+<li>存在文件服务器或者数据库中，造成严重的IO压力以及效率问题。</li>
+<li>session复制，易造成session数据冗余，并且节点越多，浪费越大。</li>
+<li>存在缓存数据库中，完全在内存中，速度快，数据结构简单。</li>
+</ul>
+<p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220203162815759.png" alt="image-20220203162815759"></p>
+<h2 id="NoSQL数据库"><a href="#NoSQL数据库" class="headerlink" title="NoSQL数据库"></a>NoSQL数据库</h2><p>所谓的NoSQL不是指没有SQL，而是指Not Only SQL，意指“不仅仅是SQL”，泛指“非关系型数据库”。NoSQL数据库不依赖于传统的业务逻辑方式存储，而以简单的key-value模式存储。因此大大的增加了数据库的扩展能力。它有以下特点：</p>
+<ul>
+<li>不遵循SQL标准；</li>
+<li>不支持ACID（注意不是不支持事务）；</li>
+<li>远超于SQL的性能；</li>
+<li>……</li>
+</ul>
+<h3 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a>适用场景</h3><ul>
+<li>对数据高并发的读写。</li>
+<li>海量数据的读写。</li>
+<li>对数据高可扩展性。</li>
+</ul>
+<h3 id="不适用场景"><a href="#不适用场景" class="headerlink" title="不适用场景"></a>不适用场景</h3><ul>
+<li>需要事务支持。</li>
+<li>基于sql的结构化查询存储，处理复杂的关系。</li>
+<li><strong>用不着sql的和用来sql也不行的情况，请考虑用NoSQL。</strong></li>
+</ul>
+<h3 id="常见产品"><a href="#常见产品" class="headerlink" title="常见产品"></a>常见产品</h3><h4 id="Memcached"><a href="#Memcached" class="headerlink" title="Memcached"></a>Memcached</h4><ul>
+<li>很早出现的NoSql数据库</li>
+<li>数据都在内存中，一般不持久化</li>
+<li>支持简单的key-value模式，支持类型单一</li>
+<li>一般是作为缓存数据库辅助持久化的数据库</li>
+</ul>
+<h4 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h4><ul>
+<li>几乎覆盖了Memcached的绝大部分功能</li>
+<li>数据都在内存中，支持持久化，主要用作备份恢复</li>
+<li>除了支持简单的key-value模式，还支持多种数据结构的存储，比如 list、set、hash、zset等。</li>
+<li>一般是作为缓存数据库辅助持久化的数据库</li>
+</ul>
+<h4 id="MongoDB"><a href="#MongoDB" class="headerlink" title="MongoDB"></a>MongoDB</h4><ul>
+<li>高性能、开源、模式自由(schema free)的<strong>文档型数据库</strong></li>
+<li>数据都在内存中， 如果内存不足，把不常用的数据保存到硬盘</li>
+<li>虽然是key-value模式，但是对value（尤其是<strong>json</strong>）提供了丰富的查询功能</li>
+<li>支持二进制数据及大型对象</li>
+<li>可以根据数据的特点替代RDBMS ，成为独立的数据库。或者配合RDBMS，存储特定的数据。</li>
+</ul>
+<h2 id="行式存储数据库（大数据时代）"><a href="#行式存储数据库（大数据时代）" class="headerlink" title="行式存储数据库（大数据时代）"></a>行式存储数据库（大数据时代）</h2><h3 id="行式数据库"><a href="#行式数据库" class="headerlink" title="行式数据库"></a>行式数据库</h3><p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220203164458163.png" alt="image-20220203164458163"></p>
+<h3 id="列式数据库"><a href="#列式数据库" class="headerlink" title="列式数据库"></a>列式数据库</h3><p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220203164655935.png" alt="image-20220203164655935"></p>
+<h3 id="Hbase"><a href="#Hbase" class="headerlink" title="Hbase"></a>Hbase</h3><p>HBase是<strong>Hadoop</strong>项目中的数据库。它用于需要对大量的数据进行随机、实时的读写操作的场景中。</p>
+<p>HBase的目标就是处理数据量非常庞大的表，可以用普通的计算机处理超过10亿行数据，还可处理有数百万列元素的数据表。</p>
+<h3 id="Cassandra"><a href="#Cassandra" class="headerlink" title="Cassandra"></a>Cassandra</h3><p>Apache Cassandra是一款免费的开源NoSQL数据库，其设计目的在于管理由大量商用服务器构建起来的庞大集群上的海量数据集(数据量通常达到PB级别)。在众多显著特性当中，Cassandra最为卓越的长处是对写入及读取操作进行规模调整，而且其不强调主集群的设计思路能够以相对直观的方式简化各集群的创建与扩展流程。</p>
+<blockquote>
+<p>ps：计算机存储单位</p>
+<p>计算机存储单位一般用B，KB，MB，GB，TB，EB，ZB，YB，BB来表示，它们之间的关系是：</p>
+<p>位 bit (比特)(Binary Digits)：存放一位二进制数，即 0 或 1，最小的存储单位。</p>
+<p>字节 byte：8个二进制位为一个字节(B)，最常用的单位。</p>
+<p>1KB (Kilobyte 千字节)=1024B，</p>
+<p>1MB (Megabyte 兆字节 简称“兆”)=1024KB，</p>
+<p>1GB (Gigabyte 吉字节 又称“千兆”)=1024MB，</p>
+<p>1TB (Trillionbyte 万亿字节 太字节)=1024GB，其中1024=2^10 ( 2 的10次方)，</p>
+<p>1PB（Petabyte 千万亿字节 拍字节）=1024TB，</p>
+<p>1EB（Exabyte 百亿亿字节 艾字节）=1024PB，</p>
+<p>1ZB (Zettabyte 十万亿亿字节 泽字节)= 1024 EB,</p>
+<p>1YB (Jottabyte 一亿亿亿字节 尧字节)= 1024 ZB,</p>
+<p>1BB (Brontobyte 一千亿亿亿字节)= 1024 YB.</p>
+<p>注：“兆”为百万级数量单位。</p>
+</blockquote>
+<h2 id="图关系型数据库"><a href="#图关系型数据库" class="headerlink" title="图关系型数据库"></a>图关系型数据库</h2><p>主要应用：社会关系，公共交通网络，地图及网络拓谱(n*(n-1)/2)</p>
+<p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220203165033021.png" alt="image-20220203165033021"></p>
+<h2 id="DB-Engines数据库排名"><a href="#DB-Engines数据库排名" class="headerlink" title="DB-Engines数据库排名"></a>DB-Engines数据库排名</h2><p><a target="_blank" rel="noopener" href="http://db-engines.com/en/ranking"><strong>http://db-engines.com/en/ranking</strong></a></p>
+<p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220203165235844.png" alt="image-20220203165235844"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/02/03/Redis%E2%80%94%E2%80%94NoSQL%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AE%80%E4%BB%8B/" data-id="ckzb6dz2x000czwtwfnr7gxb7" class="article-share-link">
+        Share
+      </a>
+      
+    </footer>
+
+  </div>
+
+  
+
+  
+
+</article>
+    
+    <article id="post-SpringBoot——自动配置" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+      
+
+<h2 itemprop="name">
+  <a class="article-title" href="/2022/02/02/SpringBoot%E2%80%94%E2%80%94%E8%87%AA%E5%8A%A8%E9%85%8D%E7%BD%AE/">SpringBoot——自动配置</a>
+</h2>
+
+
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2022/02/02/SpringBoot%E2%80%94%E2%80%94%E8%87%AA%E5%8A%A8%E9%85%8D%E7%BD%AE/" class="article-date">
+  <time datetime="2022-02-02T06:58:29.000Z" itemprop="datePublished">2022-02-02</time>
+</a>
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+        
+      
+      
+      <h4 id="SpringBootApplication流程分析图："><a href="#SpringBootApplication流程分析图：" class="headerlink" title="@SpringBootApplication流程分析图："></a>@SpringBootApplication流程分析图：</h4><p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220203205314823.png" alt="image-20220203205314823"></p>
+<p>从MainApplication上的@SpringBootApplication注解出发，在@SpringBootApplication里面有三个注解：</p>
+<ul>
+<li>其中@ComponentScan是用来包扫描的。</li>
+<li>进入@SpringBootConfiguration里面发现它其实也就是对@Configuration进行了一层封装，所以我们的MainApplication其实也是一个配置类。</li>
+<li>最后一个@EnableAutoConfiguration，在它里面有两个注解。其中@Import导入了AutoConfigurationImportSelector类，在这个类里面自定义了逻辑并返回需要导入的组件。</li>
+</ul>
+<h2 id="AutoConfigurationPackage"><a href="#AutoConfigurationPackage" class="headerlink" title="@AutoConfigurationPackage"></a>@AutoConfigurationPackage</h2><p>在@AutoConfigurationPackage里面，它又用@Import导入了一个Registrar。我们进入这个Registrar，给它打上断点之后debug运行。</p>
+<p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220203211331364.png" alt="image-20220203211331364"></p>
+<p>我们计算一下 new PackageImports(metadata).getPackageNames() 的值发现，它就是 com.atqingke.boot 。也就是我们的启动类MainApplication所在的包。</p>
+<p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220203211426427.png" alt="image-20220203211426427"></p>
+<p>也就是说，它利用Registrar将指定包下的一系列组件全部导进来，而这个指定的包就是我们的启动类所在的包。</p>
+<h2 id="Import-AutoConfigurationImportSelector-class"><a href="#Import-AutoConfigurationImportSelector-class" class="headerlink" title="@Import(AutoConfigurationImportSelector.class)"></a>@Import(AutoConfigurationImportSelector.class)</h2><h4 id="流程分析图："><a href="#流程分析图：" class="headerlink" title="流程分析图："></a>流程分析图：</h4><p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220204175821398.png" alt="image-20220204175821398"></p>
+<p>在@EnableAutoConfiguration里面，除了有自动配置包，还使用@Import导入了一个ImportSelector。我们知道，@Import可以导入一个实现了ImportSelector接口的类，在这个类中自定义逻辑并且返回需要导入的组件。可以看到，它导入的AutoConfigurationImportSelector中实现了DeferredImportSelector中的selectImports方法。</p>
+<p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220204170452319.png" alt="image-20220204170452319"></p>
+<p>可以看到，在这个方法中，首先判断传过来的标注了@Import注解的类的信息，即EnableAutoConfiguration，如果不需要导入组件，就返回空。</p>
+<p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220204170805074.png" alt="image-20220204170805074"></p>
+<p>然后，它通过getAutoConfigurationEntry方法，获取要注册的组件。我们进入getAutoConfigurationEntry方法里面：</p>
+<p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220204172827988.png" alt="image-20220204172827988"></p>
+<p>可以看到，它通过getCandidateConfigurations方法，来获取所有候选的配置，一共有127个。获取成功之后，再通过一系列操作（去重、排除某些不符合的……），最后将其封装为一个AutoConfigurationEntry返回。</p>
+<h4 id="那么这个127是怎么来的呢？"><a href="#那么这个127是怎么来的呢？" class="headerlink" title="那么这个127是怎么来的呢？"></a>那么这个127是怎么来的呢？</h4><p>我们再进入getCandidateConfigurations方法里面，可以看到，它会通过一个Spring的工厂加载器：Map&lt;String, List<String>&gt; loadSpringFactories(@Nullable ClassLoader classLoader)，来得到所有组件。</p>
+<p>进入loadSpringFactories里，看它是怎样利用工厂加载器来获取所有组件名字的</p>
+<p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220204174041053.png" alt="image-20220204174041053"></p>
+<p>可以看到，类加载器是通过读取META-INF/spring.factories文件，来获取组件名字的。我们去我们引入的Maven依赖中找到这个文件：</p>
+<p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220204174405172.png" alt="image-20220204174405172"></p>
+<p>可以看到，在它的这个文件中，已经把SpringBoot一启动要给容器中要加载的所有配置类给写死了。也可以看到，它的Auto Configure是从第21行直到148行共127个要给容器中注册的组件。</p>
+<h3 id="按需开启自动配置项"><a href="#按需开启自动配置项" class="headerlink" title="按需开启自动配置项"></a>按需开启自动配置项</h3><p>通过上面我们可以知道，我们的127个场景的所有自动配置（也就是哪些xxxAutoConfiguration）会在启动的时候默认全部加载，但是，这些xxxAutoConfiguration它是会按照@Conditional来按需配置的。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/02/02/SpringBoot%E2%80%94%E2%80%94%E8%87%AA%E5%8A%A8%E9%85%8D%E7%BD%AE/" data-id="ckzb6dz35000ozwtw0900g1na" class="article-share-link">
+        Share
+      </a>
+      
+    </footer>
+
+  </div>
+
+  
+
+  
+
+</article>
+    
+    <article id="post-SpringBoot——底层注解" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+      
+
+<h2 itemprop="name">
+  <a class="article-title" href="/2022/02/02/SpringBoot%E2%80%94%E2%80%94%E5%BA%95%E5%B1%82%E6%B3%A8%E8%A7%A3/">SpringBoot——底层注解</a>
+</h2>
+
+
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2022/02/02/SpringBoot%E2%80%94%E2%80%94%E5%BA%95%E5%B1%82%E6%B3%A8%E8%A7%A3/" class="article-date">
+  <time datetime="2022-02-02T06:57:47.000Z" itemprop="datePublished">2022-02-02</time>
+</a>
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+        
+      
+      
+      <blockquote>
+<p><a target="_blank" rel="noopener" href="https://atqingke.com/index.php/archives/380/">Spring注解驱动开发——组件注册</a></p>
+</blockquote>
+<h2 id="Configuration"><a href="#Configuration" class="headerlink" title="@Configuration"></a>@Configuration</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">proxyBeanMethods</span><span class="params">()</span> <span class="keyword">default</span> <span class="keyword">true</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>@Configuration注解里面有个属性proxyBeanMethods，它是用来指明代理bean的方法，分为两种模式：Full模式和Lite模式。</p>
+<ul>
+<li>proxyBeanMethods = true，即为Full模式，也就是说：SpringBoot会保证每个@Bean方法被调用多少次返回的组件都是单实例的。</li>
+<li>proxyBeanMethods = false，即为Lite模式，也就是说：SpringBoot会保证每个@Bean方法被调用多少次返回的组件都是新创建的。</li>
+</ul>
+<p>关于这两种模式的使用，我们坚持以下规则：</p>
+<ol>
+<li>如果是配置类组件之间没有依赖关系，我们则使用Lite模式来加速容器启动过程，减少判断。</li>
+<li>如果配置类组件之间有依赖关系，我们使用Full模式来让方法调用之前能得到之前的单实例组件。</li>
+</ol>
+<h2 id="Import、"><a href="#Import、" class="headerlink" title="@Import、"></a>@Import、</h2><h2 id="Conditional"><a href="#Conditional" class="headerlink" title="@Conditional"></a>@Conditional</h2><p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220203213003529.png" alt="image-20220203213003529"></p>
+<p>参见<a target="_blank" rel="noopener" href="https://atqingke.com/index.php/archives/380/">Spring注解驱动开发——组件注册</a></p>
+<h2 id="ImportResource"><a href="#ImportResource" class="headerlink" title="@ImportResource"></a>@ImportResource</h2><p>如果我们要对使用Spring框架的项目进行迁移，我们就需要使用到我们的@ImportResource注解，用于原生配置文件的引入。例如，我们之前在Spring阶段写的配置文件需要导入到当前的SpringBoot项目，只需要在配置类上引入即可：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ImportResource(&quot;classpath:/beans.xml&quot;)</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="ConfigurationProperties自动绑定"><a href="#ConfigurationProperties自动绑定" class="headerlink" title="@ConfigurationProperties自动绑定"></a>@ConfigurationProperties自动绑定</h2><p>为了将properties文件中的内容读取并封装到我们的JavaBean中，我们可以使用Properties类来实现：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">getProperties</span> </span>&#123;</span><br><span class="line">     <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> FileNotFoundException, IOException </span>&#123;</span><br><span class="line">         Properties pps = <span class="keyword">new</span> Properties();</span><br><span class="line">         pps.load(<span class="keyword">new</span> FileInputStream(<span class="string">&quot;a.properties&quot;</span>));</span><br><span class="line">         Enumeration enum1 = pps.propertyNames();<span class="comment">//得到配置文件的名字</span></span><br><span class="line">         <span class="keyword">while</span>(enum1.hasMoreElements()) &#123;</span><br><span class="line">             String strKey = (String) enum1.nextElement();</span><br><span class="line">             String strValue = pps.getProperty(strKey);</span><br><span class="line">             System.out.println(strKey + <span class="string">&quot;=&quot;</span> + strValue);</span><br><span class="line">             <span class="comment">//封装到JavaBean。</span></span><br><span class="line">         &#125;</span><br><span class="line">     &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+<p>但在SpringBoot中，有更简单的解决方案。</p>
+<h3 id="准备环境"><a href="#准备环境" class="headerlink" title="准备环境"></a>准备环境</h3><p>有一个JavaBean</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> Integer age;</span><br><span class="line">    </span><br><span class="line">    ......</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>有一个properties文件</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">myUser.name</span>=<span class="string">Tom</span></span><br><span class="line"><span class="meta">myUser.age</span>=<span class="string">23</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="方案一：-Component-ConfigurationProperties"><a href="#方案一：-Component-ConfigurationProperties" class="headerlink" title="方案一：@Component + @ConfigurationProperties"></a>方案一：@Component + @ConfigurationProperties</h3><p>首先，要将我们的User加到我们的容器中，使用@ConfigurationProperties注解才有效。</p>
+<p>然后，在@ConfigurationProperties中有一个属性prefix，它就是用来指定你在properties文件中的属性前缀的</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="meta">@ConfgiurationProperties(prefix = &quot;myUser&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span> </span>&#123; ...... &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="方案二：-EnableConfigurationProperties-ConfigurationProperties"><a href="#方案二：-EnableConfigurationProperties-ConfigurationProperties" class="headerlink" title="方案二：@EnableConfigurationProperties + @ConfigurationProperties"></a>方案二：@EnableConfigurationProperties + @ConfigurationProperties</h3><p>第二种方案是不需要我们显示的把JavaBean注入到容器中，我们在<strong>配置类</strong>里添加一个注解@EnableConfigurationProperties，它会帮我们做这件事。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/02/02/SpringBoot%E2%80%94%E2%80%94%E5%BA%95%E5%B1%82%E6%B3%A8%E8%A7%A3/" data-id="ckzb6dz35000nzwtw5ccre953" class="article-share-link">
+        Share
+      </a>
+      
+    </footer>
+
+  </div>
+
+  
+
+  
+
+</article>
+    
+    <article id="post-Hadoop集群搭建" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+      
+
+<h2 itemprop="name">
+  <a class="article-title" href="/2022/02/01/Hadoop%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/">Hadoop集群搭建</a>
+</h2>
+
+
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2022/02/01/Hadoop%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/" class="article-date">
+  <time datetime="2022-02-01T14:04:48.000Z" itemprop="datePublished">2022-02-01</time>
+</a>
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+        
+      
+      
+      
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/02/01/Hadoop%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/" data-id="ckzb6dz2u0009zwtw21bi909q" class="article-share-link">
+        Share
+      </a>
+      
+    </footer>
+
+  </div>
+
+  
+
+  
+
+</article>
+    
+    <article id="post-VMWare安装CentOS" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+      
+
+<h2 itemprop="name">
+  <a class="article-title" href="/2022/02/01/VMWare%E5%AE%89%E8%A3%85CentOS/">VMWare安装CentOS</a>
+</h2>
+
+
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2022/02/01/VMWare%E5%AE%89%E8%A3%85CentOS/" class="article-date">
+  <time datetime="2022-02-01T14:01:30.000Z" itemprop="datePublished">2022-02-01</time>
+</a>
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+        
+      
+      
+      
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/02/01/VMWare%E5%AE%89%E8%A3%85CentOS/" data-id="ckzb6dz3t001ezwtw0d447j3z" class="article-share-link">
+        Share
+      </a>
+      
+    </footer>
+
+  </div>
+
+  
+
+  
+
+</article>
+    
+    <article id="post-nginx——原理及优化参数配置" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+      
+
+<h2 itemprop="name">
+  <a class="article-title" href="/2022/02/01/nginx%E2%80%94%E2%80%94%E5%8E%9F%E7%90%86%E5%8F%8A%E4%BC%98%E5%8C%96%E5%8F%82%E6%95%B0%E9%85%8D%E7%BD%AE/">nginx——原理及优化参数配置</a>
+</h2>
+
+
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2022/02/01/nginx%E2%80%94%E2%80%94%E5%8E%9F%E7%90%86%E5%8F%8A%E4%BC%98%E5%8C%96%E5%8F%82%E6%95%B0%E9%85%8D%E7%BD%AE/" class="article-date">
+  <time datetime="2022-02-01T05:07:03.000Z" itemprop="datePublished">2022-02-01</time>
+</a>
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+        
+      
+      
+      
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/02/01/nginx%E2%80%94%E2%80%94%E5%8E%9F%E7%90%86%E5%8F%8A%E4%BC%98%E5%8C%96%E5%8F%82%E6%95%B0%E9%85%8D%E7%BD%AE/" data-id="ckzb6dz3v001hzwtw5kz8fe1i" class="article-share-link">
+        Share
+      </a>
+      
+    </footer>
+
+  </div>
+
+  
+
+  
+
+</article>
+    
+    <article id="post-nginx简介" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+      
+
+<h2 itemprop="name">
+  <a class="article-title" href="/2022/02/01/nginx%E7%AE%80%E4%BB%8B/">nginx简介</a>
+</h2>
+
+
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2022/02/01/nginx%E7%AE%80%E4%BB%8B/" class="article-date">
+  <time datetime="2022-02-01T05:05:49.000Z" itemprop="datePublished">2022-02-01</time>
+</a>
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+        
+      
+      
+      
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/02/01/nginx%E7%AE%80%E4%BB%8B/" data-id="ckzb6dz3v001gzwtw8fez9chn" class="article-share-link">
+        Share
+      </a>
+      
+    </footer>
+
+  </div>
+
+  
+
+  
+
+</article>
+    
+    <article id="post-Gitee-PicGo实现博客图床" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+      
+
+<h2 itemprop="name">
+  <a class="article-title" href="/2022/01/31/Gitee-PicGo%E5%AE%9E%E7%8E%B0%E5%8D%9A%E5%AE%A2%E5%9B%BE%E5%BA%8A/">Gitee + PicGo实现博客图床</a>
+</h2>
+
+
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2022/01/31/Gitee-PicGo%E5%AE%9E%E7%8E%B0%E5%8D%9A%E5%AE%A2%E5%9B%BE%E5%BA%8A/" class="article-date">
+  <time datetime="2022-01-31T09:52:00.000Z" itemprop="datePublished">2022-01-31</time>
+</a>
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+        
+      
+      
+      <h2 id="前置准备："><a href="#前置准备：" class="headerlink" title="前置准备："></a>前置准备：</h2><ul>
+<li>Gitee注册账号<a target="_blank" rel="noopener" href="https://gitee.com/">Gitee - 基于 Git 的代码托管和研发协作平台</a></li>
+<li>PicGo下载安装<a target="_blank" rel="noopener" href="https://github.com/Molunerfinn/PicGo/releases">Releases · Molunerfinn/PicGo · GitHub</a></li>
+<li>Typora下载安装<a target="_blank" rel="noopener" href="https://typora.com.cn/">https://typora.com.cn/</a></li>
+</ul>
+<h2 id="操作步骤"><a href="#操作步骤" class="headerlink" title="操作步骤"></a>操作步骤</h2><ul>
+<li>Gitee<ol>
+<li>新建一个仓库</li>
+<li>在个人设置里面找到私人令牌</li>
+<li>点击生成新令牌</li>
+<li>勾选projects选项</li>
+<li>生成令牌</li>
+<li>输入账户密码</li>
+<li>得到token（自行保存）</li>
+</ol>
+</li>
+<li>PicGo<ol>
+<li>安装插件</li>
+<li>设置图床</li>
+</ol>
+</li>
+<li>Typora<ol>
+<li>修改偏好设置</li>
+<li>验证上传</li>
+<li>浏览器访问成功</li>
+</ol>
+</li>
+</ul>
+<h2 id="Gitee"><a href="#Gitee" class="headerlink" title="Gitee"></a>Gitee</h2><h3 id="1-创建一个仓库"><a href="#1-创建一个仓库" class="headerlink" title="1. 创建一个仓库"></a>1. 创建一个仓库</h3><p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220131175732693.png" alt="image-20220131175732693"></p>
+<h3 id="2-获取token"><a href="#2-获取token" class="headerlink" title="2. 获取token"></a>2. 获取token</h3><h4 id="2-1-打开设置"><a href="#2-1-打开设置" class="headerlink" title="2.1 打开设置"></a>2.1 打开设置</h4><p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220131175859414.png" alt="image-20220131175859414"></p>
+<h4 id="2-2-找到私人令牌"><a href="#2-2-找到私人令牌" class="headerlink" title="2.2 找到私人令牌"></a>2.2 找到私人令牌</h4><p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220131175934845.png" alt="image-20220131175934845"></p>
+<h4 id="2-3-生成新令牌"><a href="#2-3-生成新令牌" class="headerlink" title="2.3 生成新令牌"></a>2.3 生成新令牌</h4><p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220131180002086.png" alt="image-20220131180002086"></p>
+<p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220131180046401.png" alt="image-20220131180046401"></p>
+<h4 id="2-4-输入密码"><a href="#2-4-输入密码" class="headerlink" title="2.4 输入密码"></a>2.4 输入密码</h4><p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220131180122654.png" alt="image-20220131180122654"></p>
+<h4 id="2-5-获取到token并自行保存"><a href="#2-5-获取到token并自行保存" class="headerlink" title="2.5 获取到token并自行保存"></a>2.5 获取到token并自行保存</h4><p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220131180212546.png" alt="image-20220131180212546"></p>
+<p>自此，Gitee操作完毕，要注意保存好自己的token，在页面上也提示了，当你确认并关闭之后，将获取不到了（如果丢失，重新生成即可）</p>
+<h2 id="PicGo"><a href="#PicGo" class="headerlink" title="PicGo"></a>PicGo</h2><p>打开PicGo，在插件位置搜索gitee，将搜索出来的插件全部安装（如果安装失败，可以尝试安装node环境之后再安装）</p>
+<p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220131180707433.png" alt="image-20220131180707433"></p>
+<p>配置图床</p>
+<p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220131181024413.png" alt="image-20220131181024413"></p>
+<h2 id="Typora"><a href="#Typora" class="headerlink" title="Typora"></a>Typora</h2><p>ctrl + 逗号打开偏好设置</p>
+<p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220131181427100.png" alt="image-20220131181427100"></p>
+<p>点击验证图片上传选项</p>
+<p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220131181309705.png" alt="image-20220131181309705"></p>
+<p>将得到的url地址粘贴至浏览器访问。</p>
+<p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220201084206678.png" alt="image-20220201084206678"></p>
+<p>大功告成！！！</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/01/31/Gitee-PicGo%E5%AE%9E%E7%8E%B0%E5%8D%9A%E5%AE%A2%E5%9B%BE%E5%BA%8A/" data-id="ckzb6dz2l0002zwtw04js9b0g" class="article-share-link">
+        Share
+      </a>
+      
+    </footer>
+
+  </div>
+
+  
+
+  
+
+</article>
+    
+    <article id="post-SpringBoot——HelloWorld" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+      
+
+<h2 itemprop="name">
+  <a class="article-title" href="/2022/01/31/SpringBoot%E2%80%94%E2%80%94HelloWorld/">SpringBoot——HelloWorld</a>
+</h2>
+
+
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2022/01/31/SpringBoot%E2%80%94%E2%80%94HelloWorld/" class="article-date">
+  <time datetime="2022-01-31T07:51:08.000Z" itemprop="datePublished">2022-01-31</time>
+</a>
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+        
+      
+      
+      <h2 id="HelloWorld"><a href="#HelloWorld" class="headerlink" title="HelloWorld"></a>HelloWorld</h2><p>创建Maven工程SpringBootHelloWorld，导入依赖：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">project</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://maven.apache.org/POM/4.0.0&quot;</span></span></span><br><span class="line"><span class="tag">         <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span></span><br><span class="line"><span class="tag">         <span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">modelVersion</span>&gt;</span>4.0.0<span class="tag">&lt;/<span class="name">modelVersion</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.atqingke<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>SpringBootHelloWorld<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">parent</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-parent<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.3.4.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">parent</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>编写控制器：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.atqingke.boot.controller;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestMapping;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RestController;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> pengbin007</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2022/1/31 15:47</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping(&quot;/hello&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">handle01</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Hello, Spring Boot 2!&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>编写主启动类：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.atqingke.boot;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.SpringApplication;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.autoconfigure.SpringBootApplication;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> pengbin007</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2022/1/31 15:46</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MainApplication</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        SpringApplication.run(MainApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>配置访问端口号：</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">server.port</span>=<span class="string">8888</span></span><br></pre></td></tr></table></figure>
+
+<p>运行MainApplication，访问<a target="_blank" rel="noopener" href="http://localhost:8888/hello">http://localhost:8888/hello</a></p>
+<p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220131155441556.png"></p>
+<h2 id="依赖管理特性"><a href="#依赖管理特性" class="headerlink" title="依赖管理特性"></a>依赖管理特性</h2><ul>
+<li><p><strong>父项目做依赖管理</strong></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 我们引入的SpringBoot父工程 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">parent</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-parent<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.3.4.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">parent</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 在SpringBoot里面它的父工程 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">parent</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-dependencies<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.3.4.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">parent</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 在它的父工程里面几乎声明了所有开发中常用的依赖版本号，自动版本仲裁机制 --&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li><p><strong>无须关注版本号，自动版本仲裁</strong></p>
+<ul>
+<li>我们在自己的pom文件里引入依赖，默认可以不用写版本号。</li>
+<li>当引入非版本仲裁的jar，才需要写版本号。</li>
+</ul>
+</li>
+<li><p><strong>可以修改默认版本号</strong></p>
+<p>如果你需要的依赖的版本已自动仲裁的版本号不对，可以在自己的pom文件里重新写配置。这里以mysql的依赖为例：</p>
+<ol>
+<li><p>首先查看spring-boot-dependencies里面规定当前依赖的版本时用的key。</p>
+<p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220131160616569.png"></p>
+</li>
+<li><p>在当前项目里重写配置。</p>
+</li>
+</ol>
+<p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220131160759918.png"></p>
+</li>
+<li><p><strong>开发导入starter场景启动器</strong></p>
+<p>我们在我们的项目中引入的父工程spring-boot-starter-parent，类似于这种spring-boot-starter-*就代表某种场景，只要我们在pom文件里引入了starter，这个常见的所有常规需要的依赖都会自动导入。</p>
+<p>SpringBoot所有支持的场景见它的官方文档：<a target="_blank" rel="noopener" href="https://docs.spring.io/spring-boot/docs/current/reference/html/using.html#using.build-systems.starters">https://docs.spring.io/spring-boot/docs/current/reference/html/using.html#using.build-systems.starters</a></p>
+<p>而如果我们见到类似于*-spring-boot-starter就表示这是第三方为我们提供额简化开发的场景启动器，例如MyBatis-Plus的starter：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- https://mvnrepository.com/artifact/com.baomidou/mybatis-plus-boot-starter --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.baomidou<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mybatis-plus-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.5.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>而所有的starter最底层都会依赖于我们的spring-boot-starter</p>
+<p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220131184949180.png" alt="image-20220131184949180"></p>
+<h2 id="自动配置属性"><a href="#自动配置属性" class="headerlink" title="自动配置属性"></a>自动配置属性</h2><ol>
+<li>自动配好Tocat<ul>
+<li>引入Tomcat依赖</li>
+<li>配置Tomcat</li>
+</ul>
+</li>
+<li>自动配好SpringMVC<ul>
+<li>引入SpringMVC全套组件</li>
+<li>自动配好SpringMVC常用组件（功能）</li>
+</ul>
+</li>
+<li>自动配好Web常见功能，如：字符编码问题<ul>
+<li>SpringBoot帮我们配置好了所有Web开发的常见场景</li>
+</ul>
+</li>
+<li>默认的包结构<ul>
+<li>主程序所在包及其下面的所有子包里面的组件都会被默认扫描进来</li>
+<li>无需以前的包扫描配置</li>
+<li>想要改变扫描路径，@SpringBootApplication(scanBasePackages=”com.atqingke”)<ul>
+<li>或者@ComponentScan指定扫描路径</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>各种配置拥有默认值<ul>
+<li>默认配置最终都是映射到某个类上，如：MultipartProperties</li>
+<li>配置文件的值最终会绑定每个类上，这个类会在容器中创建对象</li>
+</ul>
+</li>
+<li>按需加载所有自动配置项<ul>
+<li>非常多的starter</li>
+<li>引入了哪些场景这个场景的自动配置才会开启</li>
+<li>SpringBoot所有的自动配置功能都在spring-boot-autoconfigure包里面</li>
+</ul>
+</li>
+<li>…………</li>
+</ol>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/01/31/SpringBoot%E2%80%94%E2%80%94HelloWorld/" data-id="ckzb6dz36000pzwtw70d315rq" class="article-share-link">
+        Share
+      </a>
+      
+    </footer>
+
+  </div>
+
+  
+
+  
+
+</article>
+    
+  </article>
+  
+
+  
+  <nav class="page-nav">
+    <a class="extend prev" rel="prev" href="/">Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/3/">Next</a>
+  </nav>
+  
+</section>
+</div>
+    <footer class="footer">
+  <div class="outer">
+    <div class="float-right">
+      <ul class="list-inline">
+  
+  <li><i class="fe fe-bar-chart"></i> <span id="busuanzi_value_site_pv"></span></li>
+  
+  <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
+  
+</ul>
+    </div>
+    <ul class="list-inline">
+      <li>青稞 &copy; 2022</li>
+      
+        <li>ZHWANGART</li>
+      
+      <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
+      <li>theme  <a target="_blank" rel="noopener" href="https://github.com/zhwangart/hexo-theme-ocean">Ocean</a></li>
+    </ul>
+  </div>
+</footer>
+  </main>
+  <aside class="sidebar">
+    <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/hexo.svg" alt="青稞"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">Home</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">Archives</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/gallery">Gallery</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about">About</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="Search">
+        <i class="fe fe-search"></i>
+        Search
+      </a>
+    </li>
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      <div class="totop" id="totop">
+  <i class="fe fe-rocket"></i>
+</div>
+    </li>
+    <li class="nav-item">
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="fe fe-feed"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+  </aside>
+  
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/copybtn.js"></script>
+
+
+
+
+
+
+<script src="/js/ocean.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  
+  
+  <title>
+    Swagger |
+    
+    青稞
+  </title>
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+    
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<script src="/js/pace.min.js"></script>
+
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="青稞" type="application/atom+xml">
+</head>
+
+<body>
+  <main class="content">
+    <section class="outer">
+  <article id="post-Swagger" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+      
+
+<h1 class="article-title" itemprop="name">
+  Swagger
+</h1>
+
+
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2022/01/14/Swagger/" class="article-date">
+  <time datetime="2022-01-14T11:46:52.000Z" itemprop="datePublished">2022-01-14</time>
+</a>
+      
+    </div>
+    
+
+    
+    
+<div class="tocbot"></div>
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+      
+      <h1 id="Swagger"><a href="#Swagger" class="headerlink" title="Swagger"></a>Swagger</h1><p>Swagger是一款RESTful接口的文档在线自动生成、功能测试功能框架。一个规范和完整的框架，用于生成、描述、调用和可视化RESTful风格的Web服务，加上swagger-ui，可以有很好的呈现。</p>
+<p>当我们在后台的接口修改了后，swagger可以实现自动的更新，而不需要人为的维护这个接口进行测试。</p>
+<ul>
+<li>号称世界上最流行的Api框架</li>
+<li>RestFul Api文档在线自动生成工具=&gt;Api文档与API定义同步更新</li>
+<li>直接运行，可以在线测试API接口</li>
+<li>支持多种语言</li>
+</ul>
+<p>官网：<a target="_blank" rel="noopener" href="https://swagger.io/">https://swagger.io/</a></p>
+<h1 id="SpringBoot集成Swagger"><a href="#SpringBoot集成Swagger" class="headerlink" title="SpringBoot集成Swagger"></a>SpringBoot集成Swagger</h1><p>新建一个SpringBoot项目</p>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20220115150824442.png" alt="image-20220115150824442"></p>
+<p>使用Swagger需要Web环境，我们勾选Spring Web</p>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20220115151013167.png" alt="image-20220115151013167"></p>
+<p>要把Swagger集成到我们的SpringBoot项目，还需要下面两个依赖</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- https://mvnrepository.com/artifact/io.springfox/springfox-swagger2 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>io.springfox<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>springfox-swagger2<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.9.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- https://mvnrepository.com/artifact/io.springfox/springfox-swagger-ui --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>io.springfox<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>springfox-swagger-ui<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.9.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>springfox-swagger2依赖主要是一些核心配置以及功能模块，springfox-swagger-ui依赖主要用于前端页面视图显示。</p>
+<p>下面我们在项目中进行最简单的Swagger配置，首先我们编写一个HelloWorld的controller：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.atqingke.swagger.controller;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestMapping;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RestController;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> pengbin007</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2022/1/15 15:37</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloWorldController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping(&quot;/hello&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">hello</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Hello Swagger!&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在进行Swagger的配置</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.atqingke.swagger.config;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Configuration;</span><br><span class="line"><span class="keyword">import</span> springfox.documentation.swagger2.annotations.EnableSwagger2;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> pengbin007</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2022/1/15 15:32</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="comment">// 开启Swagger功能</span></span><br><span class="line"><span class="meta">@EnableSwagger2</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SwaggerConfig</span> </span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>ps：要注意的是，你选的SpringBoot版本要和Swagger版本要适配（否则启动报错），本例以SpringBoot-2.3.4.RELEASE和Swagger-2.9.2</p>
+</blockquote>
+<p>启动项目，就可以访问了。但是，如果我们以<a target="_blank" rel="noopener" href="http://localhost:8080/%E5%8E%BB%E8%AE%BF%E9%97%AE%EF%BC%8C%E8%82%AF%E5%AE%9A%E6%98%AF404%E7%9A%84%E3%80%82%E5%9B%A0%E4%B8%BA%E6%88%91%E4%BB%AC%E4%B9%8B%E7%BC%96%E5%86%99%E4%BA%86%E4%B8%80%E4%B8%AAcontrolle%E5%92%8C%E4%B8%80%E4%B8%AASwagger%E9%85%8D%E7%BD%AE%E7%B1%BB%EF%BC%8C%E5%B9%B6%E6%B2%A1%E6%9C%89%E5%86%99%E8%B7%B3%E8%BD%AC%E9%A1%B5%E9%9D%A2%E3%80%82">http://localhost:8080/去访问，肯定是404的。因为我们之编写了一个controlle和一个Swagger配置类，并没有写跳转页面。</a></p>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20220115160210736.png" alt="image-20220115160210736"></p>
+<p>之前引入依赖的时候讲了，Swagger它自己有一个前端视图依赖springfox-swagger-ui。我们打开这个依赖进行查看，发现在其资源根目录下一个swagger-ui.html页面：</p>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20220115160516036.png" alt="image-20220115160516036"></p>
+<p>因此，我们可以试着访问一下<a target="_blank" rel="noopener" href="http://localhost:8080/swagger-ui.html%EF%BC%8C%E9%82%A3%E4%B9%88%E6%88%91%E4%BB%AC%E6%9D%A5%E5%88%B0%E5%A6%82%E4%B8%8B%E9%A1%B5%E9%9D%A2%EF%BC%8C%E6%95%B4%E4%B8%AA%E9%A1%B5%E9%9D%A2%E5%88%86%E6%88%90%E5%9B%9B%E9%83%A8%E5%88%86%E3%80%82">http://localhost:8080/swagger-ui.html，那么我们来到如下页面，整个页面分成四部分。</a></p>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20220115160753036.png" alt="image-20220115160753036"></p>
+<h1 id="配置Swagger信息"><a href="#配置Swagger信息" class="headerlink" title="配置Swagger信息"></a>配置Swagger信息</h1><p>Swagger实例bean是Docket，因此我们通过配置Docket来配置Swagger。在Docket里面，只有一个有参构造器，需要传入一个DocumentationType。</p>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20220115161634305.png" alt="image-20220115161634305"></p>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20220115161711456.png" alt="image-20220115161711456"></p>
+<p>我们使用的Swagger2，因此传入DocumentationType.SWAGGER_2。</p>
+<p>在Docket里面有一个方法apiInfo：</p>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20220115161808556.png" alt="image-20220115161808556"></p>
+<p>它就是用来配置属性文档信息的，我们可以通过链式调用来使用它。</p>
+<p>apiInfo方法需要传入一个ApiInfo对象，我们可以在配置类中编写一个方法返回一个ApiInfo对象（通用做法）。</p>
+<p>查看ApiInfo源码</p>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20220115162131918.png" alt="image-20220115162131918"></p>
+<p>属性含义分别为：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 版本</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> String version;</span><br><span class="line"><span class="comment">// 标题</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> String title;</span><br><span class="line"><span class="comment">// 描述</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> String description;</span><br><span class="line"><span class="comment">// 组织链接</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> String termsOfServiceUrl;</span><br><span class="line"><span class="comment">// 许可证</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> String license;</span><br><span class="line"><span class="comment">// 许可链接</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> String licenseUrl;</span><br><span class="line"><span class="comment">// 联系人信息</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> Contact contact;</span><br><span class="line"><span class="comment">// 扩展</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> List&lt;VendorExtension&gt; vendorExtensions;</span><br></pre></td></tr></table></figure>
+
+<p>查看它的源码你会发现，它只有一个全参构造器，并且只有getter没有setter，因此我们在返回这个对象的时候需要把所有属性都附上值。其中比较特殊的是联系人信息，我们查看Contact源码，它只有三个属性name、url和email，并且它和ApiInfo一样，只有全参构造器和getter。</p>
+<p>这是，我们的SwaggerConfig如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.atqingke.swagger.config;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Bean;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Configuration;</span><br><span class="line"><span class="keyword">import</span> springfox.documentation.service.ApiInfo;</span><br><span class="line"><span class="keyword">import</span> springfox.documentation.service.Contact;</span><br><span class="line"><span class="keyword">import</span> springfox.documentation.spi.DocumentationType;</span><br><span class="line"><span class="keyword">import</span> springfox.documentation.spring.web.plugins.Docket;</span><br><span class="line"><span class="keyword">import</span> springfox.documentation.swagger2.annotations.EnableSwagger2;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> pengbin007</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2022/1/15 15:32</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@EnableSwagger2</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SwaggerConfig</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Docket <span class="title">helloDocket</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Docket(DocumentationType.SWAGGER_2).apiInfo(helloInfo());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> ApiInfo <span class="title">helloInfo</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        Contact contact = <span class="keyword">new</span> Contact(<span class="string">&quot;pengbin&quot;</span>, <span class="string">&quot;https://www.atqingke.com&quot;</span>, <span class="string">&quot;pengbin2367@163.com&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> ApiInfo(</span><br><span class="line">                <span class="string">&quot;Swagger学习&quot;</span>,</span><br><span class="line">                <span class="string">&quot;学习演示如何配置Swagger&quot;</span>,</span><br><span class="line">                <span class="string">&quot;v1.0&quot;</span>,</span><br><span class="line">                <span class="string">&quot;https://www.atqingke.com&quot;</span>,</span><br><span class="line">                contact,</span><br><span class="line">                <span class="string">&quot;Apach 2.0 许可&quot;</span>,</span><br><span class="line">                <span class="string">&quot;http://www.apache.org/licenses/LICENSE-2.0&quot;</span>,</span><br><span class="line">                <span class="keyword">new</span> ArrayList&lt;&gt;()</span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这是，我们重启项目，就看到下图效果了！</p>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20220115163425802.png" alt="image-20220115163425802"></p>
+<h1 id="配置扫描接口"><a href="#配置扫描接口" class="headerlink" title="配置扫描接口"></a>配置扫描接口</h1><p>在上面的效果图可以看到两个controller，但是我们只写了一个controller，另一个则是Swagger自带的controller。那么如何配置可以让它只显示我们想要的东西。在Docket里面有一个select方法，它就是Swagger提供的用来配置如何去扫描接口。</p>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20220115172528171.png" alt="image-20220115172528171"></p>
+<p>select方法返回一个ApiSelectorBuilder，我们进入它的源码：</p>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20220115173145856.png" alt="image-20220115173145856"></p>
+<h2 id="apis"><a href="#apis" class="headerlink" title="apis"></a>apis</h2><p>在这里，我们先使用我们apis方法，它需要传入一个RequestHandler，我们使用我们点上select，在点上apis，让它只扫描com.atqingke包下的接口：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Docket <span class="title">helloDocket</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> Docket(DocumentationType.SWAGGER_2)</span><br><span class="line">        .apiInfo(helloInfo())</span><br><span class="line">        .select()</span><br><span class="line">        .apis(RequestHandlerSelectors.basePackage(<span class="string">&quot;com.atqingke&quot;</span>))</span><br><span class="line">        .build();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20220115174546701.png" alt="image-20220115174546701"></p>
+<p>除了basePackage以外，RequestHandlerSelectors还有其它方式如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 扫描所有</span></span><br><span class="line">any()</span><br><span class="line"><span class="comment">// 不扫描接口</span></span><br><span class="line">none()</span><br><span class="line"><span class="comment">// 通过方法上的注解扫描，如：只扫描get请求</span></span><br><span class="line">withMethodAnnotation(GetMapping.class)</span><br><span class="line"><span class="comment">// 通过类上的注解扫描，如：只扫描有@Controller的类</span></span><br><span class="line">withClassAnnotation(Controller.class)</span><br></pre></td></tr></table></figure>
+
+<h2 id="paths"><a href="#paths" class="headerlink" title="paths"></a>paths</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Docket <span class="title">helloDocket</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> Docket(DocumentationType.SWAGGER_2)</span><br><span class="line">        .apiInfo(helloInfo())</span><br><span class="line">        .select()</span><br><span class="line">        .apis(RequestHandlerSelectors.basePackage(<span class="string">&quot;com.atqingke&quot;</span>))</span><br><span class="line">        <span class="comment">// 只扫描以 /hello 开头的请求</span></span><br><span class="line">        .paths(PathSelectors.ant(<span class="string">&quot;/hello/**&quot;</span>))</span><br><span class="line">        .build();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>通用的，除了ant也有：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 扫描所有</span></span><br><span class="line">any()</span><br><span class="line"><span class="comment">// 不扫描接口</span></span><br><span class="line">none()</span><br><span class="line"><span class="comment">// 通过正则表达式控制</span></span><br><span class="line">regex(<span class="keyword">final</span> String pathRegex)</span><br></pre></td></tr></table></figure>
+
+<h1 id="配置Swagger开关"><a href="#配置Swagger开关" class="headerlink" title="配置Swagger开关"></a>配置Swagger开关</h1><p>我们可以通过Swagger提供的配置，来实现一键开关Swagger。当我们关掉之后，从浏览器中将访问不到了。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Docket <span class="title">helloDocket</span><span class="params">(Environment environment)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 获取到当前环境，如果是dev或者test环境，就启用Swagger</span></span><br><span class="line">    Profiles profiles = Profiles.of(<span class="string">&quot;dev&quot;</span>, <span class="string">&quot;test&quot;</span>);</span><br><span class="line">    <span class="keyword">boolean</span> flag = environment.acceptsProfiles(profiles);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> Docket(DocumentationType.SWAGGER_2)</span><br><span class="line">        .apiInfo(helloInfo())</span><br><span class="line">        <span class="comment">// enable()是否开启Swagger</span></span><br><span class="line">        .enable(flag)</span><br><span class="line">        .select()</span><br><span class="line">        .apis(RequestHandlerSelectors.basePackage(<span class="string">&quot;com.atqingke&quot;</span>))</span><br><span class="line">        .paths(PathSelectors.ant(<span class="string">&quot;/hello/**&quot;</span>))</span><br><span class="line">        .build();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Profiles会从我们在application.properties中读取：</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">spring.profiles.active</span>=<span class="string">dev</span></span><br></pre></td></tr></table></figure>
+
+<p>当然，这只是一种方法，还可以通过在类上添加一个注解实现同样的效果：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@EnableSwagger2</span></span><br><span class="line"><span class="meta">@ConditionalOnProperty(name=&quot;swagger.enable&quot;, havingValue=&quot;true&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SwaggerConfig</span> </span>&#123; ... &#125;</span><br></pre></td></tr></table></figure>
+
+<p>这是就要在application.properties中这样配置：</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">swagger.enable</span>=<span class="string">true</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="配置Swagger分组"><a href="#配置Swagger分组" class="headerlink" title="配置Swagger分组"></a>配置Swagger分组</h1><p>要配置多个分组，只需要有多个Docket即可：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Docket <span class="title">testDocket</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> Docket(DocumentationType.SWAGGER_2)</span><br><span class="line">        .groupName(<span class="string">&quot;test&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Docket <span class="title">pengbinDocket</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> Docket(DocumentationType.SWAGGER_2)</span><br><span class="line">        .groupName(<span class="string">&quot;pengbin&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Docket <span class="title">helloDocket</span><span class="params">(Environment environment)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 获取到当前环境，如果是dev或者test环境，就启用Swagger</span></span><br><span class="line">    Profiles profiles = Profiles.of(<span class="string">&quot;dev&quot;</span>, <span class="string">&quot;test&quot;</span>);</span><br><span class="line">    <span class="keyword">boolean</span> flag = environment.acceptsProfiles(profiles);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> Docket(DocumentationType.SWAGGER_2)</span><br><span class="line">        .groupName(<span class="string">&quot;hello&quot;</span>)</span><br><span class="line">        .apiInfo(helloInfo())</span><br><span class="line">        .enable(flag)</span><br><span class="line">        .select()</span><br><span class="line">        .apis(RequestHandlerSelectors.basePackage(<span class="string">&quot;com.atqingke&quot;</span>))</span><br><span class="line">        .paths(PathSelectors.ant(<span class="string">&quot;/hello/**&quot;</span>))</span><br><span class="line">        .build();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20220115213014665.png" alt="image-20220115213014665"></p>
+<p>在每个分组里面可以有各自的Swagger配置！</p>
+<h1 id="Swagger常用注解"><a href="#Swagger常用注解" class="headerlink" title="Swagger常用注解"></a>Swagger常用注解</h1><table>
+<thead>
+<tr>
+<th>作用范围</th>
+<th>API</th>
+<th>使用位置</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>对象属性</td>
+<td>@ApiModelProperty</td>
+<td>用于出入参数对象的字段上</td>
+</tr>
+<tr>
+<td>协议集描述</td>
+<td>@Api</td>
+<td>用于controller类上</td>
+</tr>
+<tr>
+<td>协议描述</td>
+<td>@ApiOperation</td>
+<td>用于controller方法上</td>
+</tr>
+<tr>
+<td>Response集</td>
+<td>@ApiResponses</td>
+<td>用于controller方法上</td>
+</tr>
+<tr>
+<td>Response</td>
+<td>@ApiResponse</td>
+<td>用于@ApiResponse里面</td>
+</tr>
+<tr>
+<td>非对象参数集</td>
+<td>@ApiImplicitParams</td>
+<td>用于controller方法上</td>
+</tr>
+<tr>
+<td>非对象参数描述</td>
+<td>@ApiImplicitParam</td>
+<td>用于@ApiImplicitParams的方法里面</td>
+</tr>
+<tr>
+<td>描述返回对象的含义</td>
+<td>@ApiModel</td>
+<td>用于返回对象类上</td>
+</tr>
+</tbody></table>
+<h1 id="扩展"><a href="#扩展" class="headerlink" title="扩展"></a>扩展</h1><p>给Swagger换件衣服。</p>
+<h3 id="bootstrap-ui"><a href="#bootstrap-ui" class="headerlink" title="bootstrap-ui"></a>bootstrap-ui</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 引入swagger-bootstrap-ui包 /doc.html--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.github.xiaoymin<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>swagger-bootstrap-ui<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.9.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20220115215331053.png" alt="image-20220115215331053"></p>
+<h3 id="mg-ui"><a href="#mg-ui" class="headerlink" title="mg-ui"></a>mg-ui</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 引入swagger-mg-ui包 /document.html--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.zyplayer<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>swagger-mg-ui<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0.6<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20220115215250711.png" alt="image-20220115215250711"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/01/14/Swagger/" data-id="ckzb6dz3s001dzwtw0h3y8pcm" class="article-share-link">
+        Share
+      </a>
+      
+    </footer>
+
+  </div>
+
+  
+  
+<nav class="article-nav">
+  
+  <a href="/2022/01/15/HTML%E5%B0%8F%E7%BB%93-%E5%B0%9A%E7%A1%85%E8%B0%B7-%E6%9D%8E%E7%AB%8B%E8%B6%85%E8%AF%BE%E7%A8%8B/" class="article-nav-link">
+    <strong class="article-nav-caption">Newer</strong>
+    <div class="article-nav-title">
+      
+      HTML小结(尚硅谷-李立超课程)
+      
+    </div>
+  </a>
+  
+  
+  <a href="/2022/01/13/%E7%88%AC%E8%99%AB%E4%B8%8B%E8%BD%BD%E7%BD%91%E6%98%93%E4%BA%91%E7%83%AD%E6%AD%8C/" class="article-nav-link">
+    <strong class="article-nav-caption">Older</strong>
+    <div class="article-nav-title">爬虫下载网易云热歌</div>
+  </a>
+  
+</nav>
+
+  
+
+  
+  
+  
+  
+
+</article>
+</section>
+    <footer class="footer">
+  <div class="outer">
+    <div class="float-right">
+      <ul class="list-inline">
+  
+  <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
+  
+  <li><i class="fe fe-bookmark"></i> <span id="busuanzi_value_page_pv"></span></li>
+  
+</ul>
+    </div>
+    <ul class="list-inline">
+      <li>青稞 &copy; 2022</li>
+      
+        <li>ZHWANGART</li>
+      
+      <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
+      <li>theme  <a target="_blank" rel="noopener" href="https://github.com/zhwangart/hexo-theme-ocean">Ocean</a></li>
+    </ul>
+  </div>
+</footer>
+  </main>
+  <aside class="sidebar">
+    <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/hexo.svg" alt="青稞"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">Home</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">Archives</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/gallery">Gallery</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about">About</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="Search">
+        <i class="fe fe-search"></i>
+        Search
+      </a>
+    </li>
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      <div class="totop" id="totop">
+  <i class="fe fe-rocket"></i>
+</div>
+    </li>
+    <li class="nav-item">
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="fe fe-feed"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+  </aside>
+  
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/copybtn.js"></script>
+
+
+
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto',
+  });
+</script>
+
+
+
+<script src="/js/ocean.js"></script>
+
+</body>
+
+</html>

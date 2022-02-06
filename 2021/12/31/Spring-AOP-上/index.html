@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  
+  
+  <title>
+    Spring-AOP(上) |
+    
+    青稞
+  </title>
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+    
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<script src="/js/pace.min.js"></script>
+
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="青稞" type="application/atom+xml">
+</head>
+
+<body>
+  <main class="content">
+    <section class="outer">
+  <article id="post-Spring-AOP-上" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+      
+
+<h1 class="article-title" itemprop="name">
+  Spring-AOP(上)
+</h1>
+
+
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2021/12/31/Spring-AOP-%E4%B8%8A/" class="article-date">
+  <time datetime="2021-12-31T14:34:36.000Z" itemprop="datePublished">2021-12-31</time>
+</a>
+      
+    </div>
+    
+
+    
+    
+<div class="tocbot"></div>
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+      
+      <p>我们都知道，Java是一种OOP语言，也就是Object Oriented Programming，面向对象编程。而Spring中的AOP，则是Aspect Oriented Programming，面向切面编程——基于OOP的新的编程思想。那么什么是面向切面编程呢？我们用一句话来说就是：<strong>指在程序运行期间，将某段代码动态的切入到指定方法的指定位置进行运行的这种编程方式</strong>，就是面向切面编程。</p>
+<p>下面我们通过一个具体的业务场景来认识它！</p>
+<p>假设我们有一个计算器类MyMathCalculator，它继承于Calculator接口。MyMathCalculator实现了Calculator中的4个方法add、sub、mul和div。</p>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20220101000232218.png" alt="image-20220101000232218"></p>
+<p>现在我们想要在每个方法运行之前打印一条日志记录，日志内容为“【什么方法】开始运行了，参数为：”。在每个方法运行结束之前打印一条日志记录，日志内容为“【什么方法】结束运行了，运算结果是：”。</p>
+<p>要实现这个业务功能也很简单，我们可以简单的在这四个实现方法中的开始和结束分别加上一条System输出语句。</p>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20220101000905342.png" alt="image-20220101000905342"></p>
+<p>但是如果这是我们的需求又发生改变，我们把日志内容进行修改了，或者开始运行这条日志记录我们不需要了。这时候，我们就需要对每一个方法进行修改，而我们现在仅仅是只有四个方法，那如果有四十个、四百个方法呢？这样修改过于复杂、且没有什么实际意义。</p>
+<p>所以我们真正想要实现的目标是：业务逻辑当中，不要出现日志记录这种辅助功能。我们写一个日志模块，在核心功能运行期间，它可以自己动态地加上。</p>
+<h1 id="动态代理？？？"><a href="#动态代理？？？" class="headerlink" title="动态代理？？？"></a>动态代理？？？</h1><p>我们能想到的一种办法是可以使用动态代理来解决这个在方法运行前以及运行结束时添加日志，我们可以新建一个代理类CalculatorProxy帮助Calculator类生成代理对象：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.atqingke.proxy;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.atqingke.inter.Calculator;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.InvocationHandler;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Proxy;</span><br><span class="line"><span class="keyword">import</span> java.util.Arrays;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 帮Calculator.java生成代理对象的类</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> pengbin007</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2021/12/29 22:36</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CalculatorProxy</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 为传入的参数创建一个动态代理对象</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> calculator 被代理对象 内部类要使用参数必须将参数设置为final的</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Calculator <span class="title">getProxy</span><span class="params">(<span class="keyword">final</span> Calculator calculator)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 方法执行器，帮我们目标对象执行目标方法</span></span><br><span class="line">        InvocationHandler h = <span class="keyword">new</span> InvocationHandler() &#123;</span><br><span class="line">            <span class="comment">/**</span></span><br><span class="line"><span class="comment">             * 利用反射执行目标方法</span></span><br><span class="line"><span class="comment">             * <span class="doctag">@param</span> proxy 代理对象，给JDK使用，任何时候都不要动这个对象</span></span><br><span class="line"><span class="comment">             * <span class="doctag">@param</span> method 当前将要执行的目标对象的方法</span></span><br><span class="line"><span class="comment">             * <span class="doctag">@param</span> args 这个方法调用时外界传入的参数值</span></span><br><span class="line"><span class="comment">             * <span class="doctag">@return</span> 返回值必须返回出去外界才能拿到真正执行后的返回值</span></span><br><span class="line"><span class="comment">             */</span></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> Object <span class="title">invoke</span><span class="params">(Object proxy, Method method, Object[] args)</span> <span class="keyword">throws</span> Throwable </span>&#123;</span><br><span class="line">                Object result = <span class="keyword">null</span>;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    System.out.println(<span class="string">&quot;【&quot;</span> + method + <span class="string">&quot;】方法开始了，它使用的参数是【&quot;</span> + Arrays.toString(args) + <span class="string">&quot;】&quot;</span>);</span><br><span class="line">                    result = method.invoke(calculator, args);</span><br><span class="line">                    System.out.println(<span class="string">&quot;【&quot;</span> + method + <span class="string">&quot;】方法执行完成，计算结果是：&quot;</span> + result);</span><br><span class="line">                &#125; <span class="keyword">catch</span> (Exception exception) &#123;</span><br><span class="line">                    System.out.println(<span class="string">&quot;【&quot;</span> + method + <span class="string">&quot;】方法执行出现异常了，异常信息是：&quot;</span> + exception + <span class="string">&quot;；这个异常已经通知测试小组进行排查！&quot;</span>);</span><br><span class="line">                &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">                    System.out.println(<span class="string">&quot;【&quot;</span> + method + <span class="string">&quot;】方法最终结束了!!!&quot;</span>);</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">return</span> result;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        ClassLoader loader = calculator.getClass().getClassLoader();</span><br><span class="line">        Class&lt;?&gt;[] interfaces = calculator.getClass().getInterfaces();</span><br><span class="line">        Object proxy = Proxy.newProxyInstance(loader, interfaces, h);</span><br><span class="line">        <span class="keyword">return</span> (Calculator) proxy;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里我们讨论的是SpringAOP，关于这个代理类的具体细节就不做讨论了！</p>
+<p>这样做看起来很方便，也很好用，但是实际中还是由两个问题：</p>
+<ul>
+<li>第一个问题就是这个代理类写起来难。</li>
+<li>第二个问题是JDK默认的动态代理，如果目标对象没有实现任何接口，是无法为它创建代理对象的。</li>
+</ul>
+<p>关于第一个问题我们不做详细探讨，我们来看第二个问题。我们将MyMathCalculator类取消对Calculator的实现</p>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20220101002841522.png" alt="image-20220101002841522"></p>
+<p>这是我们再进行测试，可以看到没有任何日志打印</p>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20220101002920130.png" alt="image-20220101002920130"></p>
+<p>因此，使用动态代理也不能很好的解决我们所遇到的问题。</p>
+<p>接下来我们看使用Spring的AOP！</p>
+<h1 id="AOP！！！"><a href="#AOP！！！" class="headerlink" title="AOP！！！"></a>AOP！！！</h1><p>首先，我们先在配置文件中开启基于注解的AOP功能：</p>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20220101003206313.png" alt="image-20220101003206313"></p>
+<p>接下来，我们来看一下AOP中有哪些注解：</p>
+<blockquote>
+<p>@Before 在目标方法之前运行                                         前置通知</p>
+<p>@After 在目标方法结束之后运行                                     后置通知</p>
+<p>@AfterReturning 在目标方法正常返回之后运行           返回通知</p>
+<p>@AfterThrowing 在目标方法抛出异常之后运行            异常通知</p>
+<p>@Around                                                                          环绕通知</p>
+</blockquote>
+<p>现在，我们就来写一个类LogUtils来使用AOP：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.atqingke.utils;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.aspectj.lang.annotation.Aspect;</span><br><span class="line"><span class="keyword">import</span> org.aspectj.lang.annotation.Before;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Component;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Arrays;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> pengbin007</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2021/12/31 16:40</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Aspect</span>	<span class="comment">// 告诉Spring这是一个切面类</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LogUtils</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Before(&quot;execution(public int com.atqingke.impl.MyMathCalculator.*(int, int))&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">logStart</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;【xxx】方法开始了，它使用的参数是【xxx】&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@AfterReturning(&quot;execution(public int com.atqingke.impl.MyMathCalculator.*(int, int))&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">logReturn</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;【xxx】方法执行完成，计算结果是：【xxx】&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@AfterThrowing(&quot;execution(public int com.atqingke.impl.MyMathCalculator.*(int, int))&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">logException</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;【xxx】方法执行出现异常了，异常信息是：【xxx】；这个异常已经通知测试小组进行排查！&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@After(&quot;execution(public int com.atqingke.impl.MyMathCalculator.*(int, int))&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">logEnd</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;【xxx】方法最终结束了!!!&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20220101010756196.png" alt="image-20220101010756196"></p>
+<p>在这里，我们先不讨论关于参数的问题。我们可以看到，通过这几个注解，我们得到了我们想要的效果！</p>
+<p>下面我们来看几个关于AOP的术语：</p>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20220101005534247.png" alt="image-20220101005534247"></p>
+<ul>
+<li><strong>横切关注点</strong>。在图中，我们可以清楚的看到，所谓的横切关注点，就是指从每个方法中抽取出来的同一类非核心业务。在这里，有四个抽取出来的业务，分别是方法开始时、方法返回时、方法出现异常时、方法结束时需要执行的一系列操作。</li>
+<li><strong>通知方法</strong>。实现横切关注点的方法。</li>
+<li><strong>切入点</strong>。假设我们只需要在add方法结束时、mul方法返回时、div方法异常时打印日志，其它位置或者其它方法我们不进行任何操作。那么这三个点就是我们需要执行操作的地方，也就是我们的切入点。</li>
+<li><strong>连接点</strong>。见图。</li>
+<li><strong>切入点表达式</strong>。通过一个表达式，告诉通知方法需要对业务中的哪些方法进行切入。</li>
+<li><strong>切面类</strong>。横切关注点 + 通知方法 = 切面类。</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/12/31/Spring-AOP-%E4%B8%8A/" data-id="ckzb6dz33000kzwtwdf9hfeoe" class="article-share-link">
+        Share
+      </a>
+      
+    </footer>
+
+  </div>
+
+  
+  
+<nav class="article-nav">
+  
+  <a href="/2022/01/01/Spring-AOP-%E4%B8%AD/" class="article-nav-link">
+    <strong class="article-nav-caption">Newer</strong>
+    <div class="article-nav-title">
+      
+      Spring-AOP(中)
+      
+    </div>
+  </a>
+  
+  
+  <a href="/2021/12/31/%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB%E4%B8%8E%E4%BF%9D%E6%8A%A4/" class="article-nav-link">
+    <strong class="article-nav-caption">Older</strong>
+    <div class="article-nav-title">文件共享与保护</div>
+  </a>
+  
+</nav>
+
+  
+
+  
+  
+  
+  
+
+</article>
+</section>
+    <footer class="footer">
+  <div class="outer">
+    <div class="float-right">
+      <ul class="list-inline">
+  
+  <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
+  
+  <li><i class="fe fe-bookmark"></i> <span id="busuanzi_value_page_pv"></span></li>
+  
+</ul>
+    </div>
+    <ul class="list-inline">
+      <li>青稞 &copy; 2022</li>
+      
+        <li>ZHWANGART</li>
+      
+      <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
+      <li>theme  <a target="_blank" rel="noopener" href="https://github.com/zhwangart/hexo-theme-ocean">Ocean</a></li>
+    </ul>
+  </div>
+</footer>
+  </main>
+  <aside class="sidebar">
+    <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/hexo.svg" alt="青稞"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">Home</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">Archives</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/gallery">Gallery</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about">About</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="Search">
+        <i class="fe fe-search"></i>
+        Search
+      </a>
+    </li>
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      <div class="totop" id="totop">
+  <i class="fe fe-rocket"></i>
+</div>
+    </li>
+    <li class="nav-item">
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="fe fe-feed"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+  </aside>
+  
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/copybtn.js"></script>
+
+
+
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto',
+  });
+</script>
+
+
+
+<script src="/js/ocean.js"></script>
+
+</body>
+
+</html>

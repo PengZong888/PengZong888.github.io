@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  
+  
+  <title>
+    文件共享与保护 |
+    
+    青稞
+  </title>
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+    
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<script src="/js/pace.min.js"></script>
+
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="青稞" type="application/atom+xml">
+</head>
+
+<body>
+  <main class="content">
+    <section class="outer">
+  <article id="post-文件共享与保护" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+      
+
+<h1 class="article-title" itemprop="name">
+  文件共享与保护
+</h1>
+
+
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2021/12/31/%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB%E4%B8%8E%E4%BF%9D%E6%8A%A4/" class="article-date">
+  <time datetime="2021-12-31T14:24:56.000Z" itemprop="datePublished">2021-12-31</time>
+</a>
+      
+    </div>
+    
+
+    
+    
+<div class="tocbot"></div>
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+      
+      <h1 id="1-文件共享"><a href="#1-文件共享" class="headerlink" title="1. 文件共享"></a>1. 文件共享</h1><p>文件共享使多个用户（进程）共享同一个文件，系统中只需保留该文件的一个副本。随着计算机技术的发展，文件共享的范围已由单机系统发展到多机系统，进而通过网络扩展到全球。这些文件的共享是通过分布式文件系统、远程文件系统、分布式信息系统实现的。这些系统运行多个客户通过C/S模型共享网络中的服务器文件。</p>
+<p>现代常用的两种文件共享方法如下：</p>
+<h2 id="1-1-基于索引结点的共享方式（硬链接）"><a href="#1-1-基于索引结点的共享方式（硬链接）" class="headerlink" title="1.1 基于索引结点的共享方式（硬链接）"></a>1.1 基于索引结点的共享方式（硬链接）</h2><p>在树形结构的目录中，当有两个或多个用户要共享一个子目录或文件时，必须将共享文件或子目录链接到两个或多个用户的目录中，才能方便地找到该文件，如图所示：</p>
+<p><img src="C:/Users/pengbin007/AppData/Roaming/Typora/typora-user-images/image-20220101194616578.png" alt="image-20220101194616578"></p>
+<p>在这种共享方式中，诸如文件的物理地址及其他的文件属性等信息，不再放到目录项中，而放在索引结点中。在文件目录中只设置文件名及指向相应索引结点的指针。在索引结点中还应有一个链接计数count，用于表示链接到本索引结点上的用户目录项的数目。</p>
+<p>用户A创建一个新文件时，将count置为1。如果此时用户B要共享此文件，则在B的目录中增加一个目录项，并设置一个指针指向该文件的索引结点，此时count = 2。如果A不再使用该文件，A不能删除该文件，因为删除该文件意味着索引结点也被删除了，那么B的指针指向将会失效。因此A只能将count减1，然后删除自己目录中的相应目录项。当count = 0时，表示没有用户使用该文件，系统将负责删除该文件。如图给出了B链接到文件上的前、后情况。</p>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20220101194906651.png" alt="image-20220101194906651"></p>
+<h2 id="1-2-利用符号链实现文件共享（软链接）"><a href="#1-2-利用符号链实现文件共享（软链接）" class="headerlink" title="1.2 利用符号链实现文件共享（软链接）"></a>1.2 利用符号链实现文件共享（软链接）</h2><p>为使用户B能共享用户A的一个文件F，可以由系统创建一个LINK类型的新文件，也取名为F，并将文件F写入用户B的目录中，以实现用户B的目录与文件F的链接。在新文件中只包含被链接文件F的路径名。这样的链接方法称为<strong>符号链接</strong>。</p>
+<p>新文件中的路径名只被视为符号链，当用户B要访问被链接的文件F且正要读LINK类新文件时，OS根据新文件中的路径名去读该文件，从而实现用户B的文件F的共享。</p>
+<p>在利用符号链方式实现文件共享时，只有文件的拥有者才拥有指向其索引结点的指针。而共享该文件的其它用户只有该文件的路径名。这样，就不会发生文件主删除文件后，指针悬空的情况。此时，文件删除后，其它用户通过符号链访问它，会出现访问失败，于是将符号链删除，不会产生任何影响。但是，利用符号链依旧存在一个问题：当文件拥有者删除文件后，在其它用户使用符号链访问该文件之前，又有人在同一路径下创建了另一个同名的文件，则该符号链依旧有效，但访问的路径已经改变，从而导致错误。</p>
+<p>在符号链的共享方式中，当其它用户读共享文件时，需要根据文件路径名逐个查找目录，直至找到该文件的索引结点。因此，每次访问时，都可能需要多次读盘，使得访问文件的开销变大且增加了启动磁盘的频率。此外，符号链的索引结点也要耗费一定的存储空间。</p>
+<p>符号链有一个很大的优点：网络共享只需提供该文件所在机器的网络地址及该机器中的文件路径。</p>
+<p>上述两种链接方式都存在一个共同的问题，即每个共享文件都有几个文件名。换言之，每增加一条连接，就增加一个文件名。这实质上是每个用户都使用自己的路径区访问共享文件。当我们试图去遍历整个文件系统时，将会多次遍历到该共享文件。</p>
+<p>硬链接和软链接都是文件系统中的静态共享方法，在文件系统中还存在着另外的共享需求u，即两个进程同时对同一个文件进行操作，这样的共享称为动态共享。</p>
+<p>可以这样说：文件共享，“软”“硬”兼施。硬链接就是多个指针指向同一个索引结点，保证只要还有一个指针指向索引结点，索引结点就不能删除；软链接就是把到达共享文件的路径记录下来，当要访问文件时，根据路径寻找文件，可以想象，硬链接的查找速度要比软链接块。</p>
+<h1 id="2-文件保护"><a href="#2-文件保护" class="headerlink" title="2. 文件保护"></a>2. 文件保护</h1><p>为了防止文件共享可能会导致文件被破坏或未经核准的用户修改文件，文件系统必须控制用户对文件的存取，即解决对文件的读、写、执行的许可问题。为此，必须在文件系统中建立相应的文件保护机制。</p>
+<p>文件保护通过口令保护、加密保护和访问控制等方式实现。其中，口令保护和加密保护是为了防止用户文件被他人窃取，而访问控制则用于控制用户对文件的访问方式。</p>
+<h2 id="2-1-访问类型"><a href="#2-1-访问类型" class="headerlink" title="2.1 访问类型"></a>2.1 访问类型</h2><p>可加以控制的访问类型主要有以下几种：</p>
+<ul>
+<li>读。从文件中读。</li>
+<li>写。向文件中写。</li>
+<li>执行。将文件装入内存并执行。</li>
+<li>添加。将新信息添加到文件结尾部分。</li>
+<li>删除。删除文件，释放空间。</li>
+<li>列表清单。列出文件名和文件属性。</li>
+</ul>
+<p>此外还可以对文件的重命名、复制、编辑等加以控制。这些高层的功能可以通过系统调用底层系统调用来实现。保护可以只在底层提供。</p>
+<h2 id="2-2-访问控制"><a href="#2-2-访问控制" class="headerlink" title="2.2 访问控制"></a>2.2 访问控制</h2><p>解决访问控制最常用的方法是根据用户身份进行控制。而实现基于身份访问的最为普通的方法是，为每个文件和目录增加一个访问控制列表（Access-Control List，ACL），以规定每个用户名及其所允许的访问类型。</p>
+<p>这种方法的优点是可以使用复杂的访问方法，缺点是长度无法预计并且可能导致复杂的空间管理，使用精简的访问列表可以解决这个问题。</p>
+<p>精简的访问列表采用拥有者、组和其它三种用户类型。这样，只需用三个域即可列出访问表中这三类用户的访问权限。文件拥有者在创建文件时，说明创建者用户名及所在的组名，系统在创建文件时也将文件主的名字、所属组名列在该文件的FCB中。</p>
+<p>口令和密码是另外两种访问控制方法。</p>
+<p><strong>口令</strong>是指用户在建立一个文件时提供一个口令，系统为其建立FCB时附上相应口令，同时告诉允许共享该文件的其它用户。用户请求访问时必须提供相应的口令。这种方法时间和空间的开销不多，缺点是口令直接存在系统内部，不够安全。</p>
+<p><strong>密码</strong>是指用户对文件进行加密，文件被访问时需要使用密钥。这种方法保密性强，节省了存储空间，不过编码和译码要花费一定的时间。</p>
+<p>口令和密码都是防止用户文件被他人窃取，并没有控制用户对文件的访问类型。</p>
+<p>注意两个问题：</p>
+<ol>
+<li>现代OS常用的文件保护方法是，将访问控制列表与用户、组和其它成员访问控制方案一起组合使用。</li>
+<li>对于多级目录结构而言，不仅需要保护单个文件，而且需要保护子目录内的文件，即需要提供目录保护机制。目录操作与文件操作并不相同，因此需要不同的保护机制。</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/12/31/%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB%E4%B8%8E%E4%BF%9D%E6%8A%A4/" data-id="ckzb6dz44001szwtw3atx5i9s" class="article-share-link">
+        Share
+      </a>
+      
+    </footer>
+
+  </div>
+
+  
+  
+<nav class="article-nav">
+  
+  <a href="/2021/12/31/Spring-AOP-%E4%B8%8A/" class="article-nav-link">
+    <strong class="article-nav-caption">Newer</strong>
+    <div class="article-nav-title">
+      
+      Spring-AOP(上)
+      
+    </div>
+  </a>
+  
+  
+  <a href="/2021/12/31/%E6%96%87%E4%BB%B6%E5%AE%9E%E7%8E%B0%E2%80%94%E2%80%94%E6%96%87%E4%BB%B6%E5%AD%98%E5%82%A8%E7%A9%BA%E9%97%B4%E7%AE%A1%E7%90%86/" class="article-nav-link">
+    <strong class="article-nav-caption">Older</strong>
+    <div class="article-nav-title">文件实现——文件存储空间管理</div>
+  </a>
+  
+</nav>
+
+  
+
+  
+  
+  
+  
+
+</article>
+</section>
+    <footer class="footer">
+  <div class="outer">
+    <div class="float-right">
+      <ul class="list-inline">
+  
+  <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
+  
+  <li><i class="fe fe-bookmark"></i> <span id="busuanzi_value_page_pv"></span></li>
+  
+</ul>
+    </div>
+    <ul class="list-inline">
+      <li>青稞 &copy; 2022</li>
+      
+        <li>ZHWANGART</li>
+      
+      <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
+      <li>theme  <a target="_blank" rel="noopener" href="https://github.com/zhwangart/hexo-theme-ocean">Ocean</a></li>
+    </ul>
+  </div>
+</footer>
+  </main>
+  <aside class="sidebar">
+    <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/hexo.svg" alt="青稞"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">Home</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">Archives</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/gallery">Gallery</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about">About</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="Search">
+        <i class="fe fe-search"></i>
+        Search
+      </a>
+    </li>
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      <div class="totop" id="totop">
+  <i class="fe fe-rocket"></i>
+</div>
+    </li>
+    <li class="nav-item">
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="fe fe-feed"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+  </aside>
+  
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/copybtn.js"></script>
+
+
+
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto',
+  });
+</script>
+
+
+
+<script src="/js/ocean.js"></script>
+
+</body>
+
+</html>
