@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  
+  
+  <title>
+    CSS-04-字体&amp;背景色 |
+    
+    青稞
+  </title>
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+    
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<script src="/js/pace.min.js"></script>
+
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="青稞" type="application/atom+xml">
+</head>
+
+<body>
+  <main class="content">
+    <section class="outer">
+  <article id="post-CSS-04-字体-背景色" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+      
+
+<h1 class="article-title" itemprop="name">
+  CSS-04-字体&amp;背景色
+</h1>
+
+
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2022/02/20/CSS-04-%E5%AD%97%E4%BD%93-%E8%83%8C%E6%99%AF%E8%89%B2/" class="article-date">
+  <time datetime="2022-02-19T23:10:57.000Z" itemprop="datePublished">2022-02-20</time>
+</a>
+      
+    </div>
+    
+
+    
+    
+<div class="tocbot"></div>
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+      
+      <h2 id="字体"><a href="#字体" class="headerlink" title="字体"></a>字体</h2><ul>
+<li><p>color 设置字体颜色</p>
+</li>
+<li><p>font-size 字体的大小</p>
+<p>和font-size相关的单位有：em(相当于当前元素的一个font-size)、rem(相当于根元素的一个font-size)。</p>
+</li>
+<li><p>font-family 字体族（字体的格式），可选值有：</p>
+<ul>
+<li>serif 衬线字体</li>
+<li>sans-serif 非衬线字体</li>
+<li>monospace 等宽字体</li>
+</ul>
+<p>指定字体的类别，浏览器会自动使用该类别下的字体。font-family可以同时指定多个字体，多个字体间使用 , 隔开，字体生效时优先使用第一个，第一个无法使用则使用第二个，以此类推。</p>
+</li>
+<li><p>font-face 可以将服务器中的字体直接提供给用户去使用，但是存在一些问题，比如：加载速度、版权、字体格式等。</p>
+</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@font-face</span> &#123;</span><br><span class="line">    <span class="comment">/* 指定字体的名字，要使用时填写这个名字 */</span></span><br><span class="line">	<span class="attribute">font-family</span>: <span class="string">&#x27;myfont&#x27;</span>;</span><br><span class="line">    <span class="comment">/* 服务器中字体的路径 */</span></span><br><span class="line">    <span class="attribute">src</span>: <span class="built_in">url</span>(<span class="string">&#x27;./font/ZCOOLKuaiLe-Regular.ttf&#x27;</span>).<span class="built_in">format</span>(<span class="string">&quot;truetype&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="图标字体-iconfont"><a href="#图标字体-iconfont" class="headerlink" title="图标字体(iconfont)"></a>图标字体(iconfont)</h2><p>在网页中，我们经常需要使用一些图标，这些图标可以通过图片来引入，但是图片本身比较大，并且非常不灵活。所以在使用图标时，我们还可以将图标直接设置为字体，然后通过font-face的形式来对字体进行引入，这样我们就可以通过使用字体的形式来使用图标。</p>
+<h4 id="fontawesome-使用步骤"><a href="#fontawesome-使用步骤" class="headerlink" title="fontawesome 使用步骤"></a>fontawesome 使用步骤</h4><ol>
+<li>下载 <a target="_blank" rel="noopener" href="https://fontawesome.com/">https://fontawesome.com/</a></li>
+<li>解压</li>
+<li>将css和webfonts移动到项目中</li>
+<li>将all.css引入到网页中</li>
+<li>使用图标字体，直接通过类名使用图标字体，比如：class=”fas fa-bell”</li>
+</ol>
+<h4 id="通过伪元素嘞设置图标字体"><a href="#通过伪元素嘞设置图标字体" class="headerlink" title="通过伪元素嘞设置图标字体"></a>通过伪元素嘞设置图标字体</h4><ol>
+<li>找到要设置图标的元素通过before或after选中</li>
+<li>在content中设置字体的编码</li>
+<li>设置字体的样式</li>
+</ol>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">li</span><span class="selector-pseudo">::before</span> &#123;</span><br><span class="line">    <span class="attribute">content</span>: <span class="string">&#x27;/f1b0&#x27;</span>;</span><br><span class="line">    <span class="attribute">font-family</span>: <span class="string">&#x27;Font Awesome 5 Free&#x27;</span>;</span><br><span class="line">    <span class="attribute">font-weight</span>: <span class="number">900</span>;</span><br><span class="line">    <span class="attribute">color</span>: blue;</span><br><span class="line">    <span class="attribute">margin-right</span>: <span class="number">10px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="通过实体嘞使用图标字体"><a href="#通过实体嘞使用图标字体" class="headerlink" title="通过实体嘞使用图标字体"></a>通过实体嘞使用图标字体</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;fas&quot;</span>&gt;</span><span class="symbol">&amp;#xf0f3;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="阿里的字体库"><a href="#阿里的字体库" class="headerlink" title="阿里的字体库"></a>阿里的字体库</h2><h2 id="行高-line-height"><a href="#行高-line-height" class="headerlink" title="行高(line height)"></a>行高(line height)</h2><p>行高指的是文字占有的实际高度，可以通过 line-height 来设置行高。它可以直接指定一个大小(px em)，也可以直接为行高设置一个整数(行高将会是字体的指定的倍数)。</p>
+<p>行高经常还用来设置文字的行间距，行间距 = 行高 - 字体大小。</p>
+<p>可以将行高设置为和高度一样的值，使单行文字在一个元素中垂直居中。</p>
+<h4 id="字体框"><a href="#字体框" class="headerlink" title="字体框"></a>字体框</h4><p>就是字体存在的格子，设置font-size实际上就是在设置字体框的高度，而行高会在字体框的上下平均分配。</p>
+<h2 id="字体的简写属性-font"><a href="#字体的简写属性-font" class="headerlink" title="字体的简写属性(font)"></a>字体的简写属性(font)</h2><p>语法：字体大小/行高 字体族</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">div</span> &#123;</span><br><span class="line">    <span class="comment">/* font: 50px/2  微软雅黑, &#x27;Times New Roman&#x27;, Times, serif; */</span></span><br><span class="line">    <span class="attribute">font</span>: bold italic <span class="number">50px</span>/<span class="number">2</span> 微软雅黑, <span class="string">&#x27;Times New Roman&#x27;</span>, Times, serif;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>行高可以省略不写，有默认值。</p>
+<p>font-weight 字重 字体的加粗，可选值有：</p>
+<ul>
+<li>normal 默认值，不加粗</li>
+<li>bold 加粗</li>
+<li>100-900 九个级别(没什么用)</li>
+</ul>
+<p>font-style 字体的风格</p>
+<ul>
+<li>normal 正常的</li>
+<li>italic 斜体</li>
+</ul>
+<h2 id="文本的样式"><a href="#文本的样式" class="headerlink" title="文本的样式"></a>文本的样式</h2><p>text-align 文本的水平对齐</p>
+<ul>
+<li>left</li>
+<li>right</li>
+<li>center</li>
+<li>justify 两端对齐</li>
+</ul>
+<p>vertical-align 设置元素垂直对齐的方式</p>
+<ul>
+<li>baseline 默认，基线对齐</li>
+<li>top 顶部对齐</li>
+<li>bottom 底部对齐</li>
+<li>middle 居中对齐</li>
+</ul>
+<p>text-decoration 设置文本修饰</p>
+<ul>
+<li>none </li>
+<li>underline 下划线</li>
+<li>line-through 删除线</li>
+<li>overline 上划线</li>
+</ul>
+<p>white-space 设置网页如何处理空白</p>
+<ul>
+<li>normal 正常</li>
+<li>nowrap 不换行</li>
+<li>pre 保留空白</li>
+</ul>
+<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>background-color 设置背景颜色</p>
+<p>background-image 设置背景图片</p>
+<ul>
+<li>可以同时设置背景图片和颜色，这样背景颜色将会成为图片的背景色</li>
+<li>如果背景的图片小于元素，则背景图片会自动在元素中平铺，将元素铺满</li>
+<li>如果背景的图片大于元素，将有一部分背景无法完全显示</li>
+<li>如果背景图片和元素一样大，则会直接正常显示</li>
+</ul>
+<p>background-repeat 设置背景的重复方式</p>
+<ul>
+<li>repeat 默认值，背景会沿着x轴、y轴双方向重复</li>
+<li>repeat-x 沿着x轴方向重复</li>
+<li>repeat-y</li>
+<li>no-repeat</li>
+</ul>
+<p>background-position 设置背景图片的位置</p>
+<ul>
+<li>通过top、left、right、bottom、center几个表示方位的词来设置背景图片的位置，使用方位词时必须要同时指定两个值，如果只写一个则第二个默认就是center。</li>
+<li>通过偏移量来指定背景图片的位置：水平方向的偏移量 垂直方向偏移量。</li>
+</ul>
+<p>background-clip 设置背景范围</p>
+<ul>
+<li>border-box 默认，背景会出现在边框的下边</li>
+<li>padding-box 背景不会出现在边框，只出现在内容区和内边距</li>
+<li>content-box 背景只会出现在内容区</li>
+</ul>
+<p>background-origin 背景图片的偏移量计算的原点</p>
+<ul>
+<li>padding-box 默认，background-position从内边距处开始计算</li>
+<li>content-box </li>
+<li>border-box </li>
+</ul>
+<p>background-size 设置背景图片大小</p>
+<ul>
+<li><p>第一个值表示宽度</p>
+</li>
+<li><p>第二个值表示高度</p>
+<p>只写一个，默认第二个是auto</p>
+</li>
+<li><p>cover 图片的比例不变，将元素铺满</p>
+</li>
+<li><p>contain 图片比例不变，将图片在元素中完整显示</p>
+</li>
+</ul>
+<p>background-attachment 设置背景图片是否跟随元素移动</p>
+<ul>
+<li>scroll 默认，移动</li>
+<li>fixed 背景固定</li>
+</ul>
+<p>background 背景相关的简写属性，所有背景相关的样式都可以通过该样式来设置，并且没有顺序要求，也没有哪个属性是必须写的。只是要注意：</p>
+<ul>
+<li><p>background-size必须写在background-position的后边，并且使用 / 隔开</p>
+<p>background-position/background-size</p>
+</li>
+<li><p>background-origin、background-clip两个样式，origin要在clip前边</p>
+</li>
+</ul>
+<h2 id="渐变"><a href="#渐变" class="headerlink" title="渐变"></a>渐变</h2><p>通过渐变可以设置一些复杂的背景颜色，可以实现从一个颜色向其它颜色的过渡效果。</p>
+<blockquote>
+<p>渐变是图片，需要通过background-image来设置</p>
+</blockquote>
+<p>linear-gradient() 线性渐变，颜色沿着一条直线发生变化</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 红色开头在左边，黄色结尾在右边，to right指明的方向向右 */</span></span><br><span class="line">linear-gradient(<span class="selector-tag">to</span> <span class="attribute">right</span>, red, yellow);</span><br></pre></td></tr></table></figure>
+
+<p>除了to right，还有to left、to bottom、to top、deg(表示度数)、turn(表示圈)。渐变可以同时指定多个颜色，多个颜色默认情况平均分配，也可以手动指定渐变的分布情况。</p>
+<blockquote>
+<p>repeating-linear-gradient() 可以平铺的线性渐变</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">background-image</span>: <span class="built_in">repeating-linear-gradient</span>(to right ,red, yellow <span class="number">50px</span>);</span><br></pre></td></tr></table></figure>
+</blockquote>
+<h2 id="径向渐变"><a href="#径向渐变" class="headerlink" title="径向渐变"></a>径向渐变</h2><p>radial-gradient() 径向渐变(放射性的效果)</p>
+<p>默认情况下径向渐变的形状根据元素的形状来计算，比如：正方形 —&gt; 圆形， 长方形 —&gt; 椭圆形。我们也可以手动指定径向渐变的大小：circle、ellipse。</p>
+<p>还可以指定渐变的位置：radial-gradient(大小 at 位置, 颜色 位置, 颜色 位置, 颜色 位置)</p>
+<p>大小：</p>
+<ul>
+<li>circle 圆形</li>
+<li>ellipse 椭圆形</li>
+<li>closest-side 近边</li>
+<li>closest-corner 近角</li>
+<li>farthest-side 远边</li>
+<li>farthest-corner 远角</li>
+</ul>
+<p>位置</p>
+<ul>
+<li>top right left center bottom</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">background-image</span>: <span class="built_in">radial-gradient</span>(farthest-corner at <span class="number">100px</span> <span class="number">100px</span>, red , <span class="number">#bfa</span>)</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/02/20/CSS-04-%E5%AD%97%E4%BD%93-%E8%83%8C%E6%99%AF%E8%89%B2/" data-id="ckzwc413o0004gotw2rzm9hya" class="article-share-link">
+        Share
+      </a>
+      
+    </footer>
+
+  </div>
+
+  
+  
+<nav class="article-nav">
+  
+  <a href="/2022/02/20/HTML-01-%E8%A1%A8%E6%A0%BC/" class="article-nav-link">
+    <strong class="article-nav-caption">Newer</strong>
+    <div class="article-nav-title">
+      
+      HTML-01-表格
+      
+    </div>
+  </a>
+  
+  
+  <a href="/2022/02/20/CSS-03-%E5%AE%9A%E4%BD%8D/" class="article-nav-link">
+    <strong class="article-nav-caption">Older</strong>
+    <div class="article-nav-title">CSS-03-定位</div>
+  </a>
+  
+</nav>
+
+  
+
+  
+  
+  
+  
+
+</article>
+</section>
+    <footer class="footer">
+  <div class="outer">
+    <div class="float-right">
+      <ul class="list-inline">
+  
+  <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
+  
+  <li><i class="fe fe-bookmark"></i> <span id="busuanzi_value_page_pv"></span></li>
+  
+</ul>
+    </div>
+    <ul class="list-inline">
+      <li>青稞 &copy; 2022</li>
+      
+        <li>ZHWANGART</li>
+      
+      <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
+      <li>theme  <a target="_blank" rel="noopener" href="https://github.com/zhwangart/hexo-theme-ocean">Ocean</a></li>
+    </ul>
+  </div>
+</footer>
+  </main>
+  <aside class="sidebar">
+    <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/hexo.svg" alt="青稞"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">Home</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">Archives</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/gallery">Gallery</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about">About</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="Search">
+        <i class="fe fe-search"></i>
+        Search
+      </a>
+    </li>
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      <div class="totop" id="totop">
+  <i class="fe fe-rocket"></i>
+</div>
+    </li>
+    <li class="nav-item">
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="fe fe-feed"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+  </aside>
+  
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/copybtn.js"></script>
+
+
+
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto',
+  });
+</script>
+
+
+
+<script src="/js/ocean.js"></script>
+
+</body>
+
+</html>

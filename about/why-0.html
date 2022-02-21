@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  
+  
+  <title>
+    why 0? |
+    
+    青稞
+  </title>
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+    
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<script src="/js/pace.min.js"></script>
+
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="青稞" type="application/atom+xml">
+</head>
+
+<body>
+  <main class="content">
+    <section class="outer">
+  <article id="page-" class="article article-type-page" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+      
+
+<h1 class="article-title" itemprop="name">
+  why 0?
+</h1>
+
+
+
+    </header>
+    
+
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+      
+      <p>先看三段程序以及它们的运行结果：</p>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20220126191927466.png" alt="image-20220126191927466"></p>
+<p>我们看到，只有int打印的是正确结果，float和double打印的都是0。Why？</p>
+<p>我们知道，int和float都是占4个字节，而double占8个字节。那么，printf按%d输出，也就是将double按4个字节输出是有可能会是0，但为什么float打印的也是0？</p>
+<h2 id="浮点数"><a href="#浮点数" class="headerlink" title="浮点数"></a>浮点数</h2><p>浮点数在计算机的存储有它对应的标准，比如IEEE。IEEE标准规定了一个浮点数的形式应该为$(-1)^n * M * 2^E$  。其中n决定这个是正数还是负数，0表示正数，1表示负数；M叫尾数，一个二进制小数；E叫做阶码，它的所用是对浮点数进行加权，它可能为正也可能是一个负值。我们看一个具体例子，我们要printf的2.5如果转换成IEEE标准的浮点数形式。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">十进制： 2.5 -----&gt; 2 * 10的0次方 + 5 * 10的-1次方</span><br><span class="line">二进制： 1.1 -----&gt; 1 * 2的1次方 + 0 * 2的0次方 + 1 * 2的-1次方</span><br><span class="line">得到2.5的二进制1.1，再转换成IEEE标准</span><br><span class="line">首先是正数，n = 0</span><br><span class="line">尾数M = 1.1</span><br><span class="line">阶码E = 1</span><br></pre></td></tr></table></figure>
+
+<p>也就是$(-1)^0 * 1.1 * 2^1$。IEEE标准规定了单精度浮点数占32位，其中第31位是符号位，第30位到23位表示尾数，第22位到第0位表示阶码</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/about/why-0.html" data-id="ckzwc41210000gotw7ryq22pg" class="article-share-link">
+        Share
+      </a>
+      
+    </footer>
+
+  </div>
+
+  
+  
+  
+
+  
+
+</article>
+</section>
+    <footer class="footer">
+  <div class="outer">
+    <div class="float-right">
+      <ul class="list-inline">
+  
+  <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
+  
+</ul>
+    </div>
+    <ul class="list-inline">
+      <li>青稞 &copy; 2022</li>
+      
+        <li>ZHWANGART</li>
+      
+      <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
+      <li>theme  <a target="_blank" rel="noopener" href="https://github.com/zhwangart/hexo-theme-ocean">Ocean</a></li>
+    </ul>
+  </div>
+</footer>
+  </main>
+  <aside class="sidebar">
+    <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/hexo.svg" alt="青稞"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">Home</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">Archives</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/gallery">Gallery</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about">About</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="Search">
+        <i class="fe fe-search"></i>
+        Search
+      </a>
+    </li>
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      <div class="totop" id="totop">
+  <i class="fe fe-rocket"></i>
+</div>
+    </li>
+    <li class="nav-item">
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="fe fe-feed"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+  </aside>
+  
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/copybtn.js"></script>
+
+
+
+
+
+
+<script src="/js/ocean.js"></script>
+
+</body>
+
+</html>

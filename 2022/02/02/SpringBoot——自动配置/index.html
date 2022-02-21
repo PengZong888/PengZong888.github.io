@@ -94,7 +94,42 @@
 <p>可以看到，类加载器是通过读取META-INF/spring.factories文件，来获取组件名字的。我们去我们引入的Maven依赖中找到这个文件：</p>
 <p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220204174405172.png" alt="image-20220204174405172"></p>
 <p>可以看到，在它的这个文件中，已经把SpringBoot一启动要给容器中要加载的所有配置类给写死了。也可以看到，它的Auto Configure是从第21行直到148行共127个要给容器中注册的组件。</p>
-<h3 id="按需开启自动配置项"><a href="#按需开启自动配置项" class="headerlink" title="按需开启自动配置项"></a>按需开启自动配置项</h3><p>通过上面我们可以知道，我们的127个场景的所有自动配置（也就是哪些xxxAutoConfiguration）会在启动的时候默认全部加载，但是，这些xxxAutoConfiguration它是会按照@Conditional来按需配置的。</p>
+<h3 id="按需开启自动配置项"><a href="#按需开启自动配置项" class="headerlink" title="按需开启自动配置项"></a>按需开启自动配置项</h3><p>通过上面我们可以知道，我们的127个场景的所有自动配置（也就是哪些xxxAutoConfiguration）会在启动的时候默认全部加载，但是，这些xxxAutoConfiguration它是会按照@Conditional来按需配置的。举个例子，我们看一下我们的AOP功能的配置：</p>
+<p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220213142409154.png" alt="image-20220213142409154"></p>
+<p>首先它通过@Conditional判断你当前的是否配置了“spring.aop”，并且即使你没配，它也认为“matchIfMissing = true”你配了：</p>
+<p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220213142553014.png" alt="image-20220213142553014"></p>
+<p>所以这个配置类会生效！然后它会判断你是否有Advice类，这个Advice是aspectj包下的，我们这里并没有导入AOP的依赖，所以没有这个类。因此这里不会生效，那里面的JDK和cjlib的动态代理也就不会生效了。</p>
+<p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220213142731060.png" alt="image-20220213142731060"></p>
+<p>最后，它有判断你没有Advice类的逻辑，也就是我们没有给项目导入AOP场景，它会有一个默认的AOP代理：</p>
+<p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220213143020891.png" alt="image-20220213143020891"></p>
+<p>也就是说：SpringBoot默认会在底层配好所有的组件，但是如果用户自己配置了以用户的优先！</p>
+<blockquote>
+<p>总结：</p>
+<ul>
+<li><p>SpringBoot先加载所有的自动配置类  xxxxxAutoConfiguration</p>
+</li>
+<li><p>每个自动配置类按照条件进行生效，默认都会绑定配置文件指定的值。xxxxProperties里面拿。xxxProperties和配置文件进行了绑定</p>
+</li>
+<li><p>生效的配置类就会给容器中装配很多组件</p>
+</li>
+<li><p>只要容器中有这些组件，相当于这些功能就有了</p>
+</li>
+<li><p>定制化配置</p>
+</li>
+<li><ul>
+<li>用户直接自己@Bean替换底层的组件</li>
+<li>用户去看这个组件是获取的配置文件什么值就去修改。</li>
+</ul>
+</li>
+</ul>
+<p><strong>xxxxxAutoConfiguration —&gt; 组件  —&gt;</strong> <strong>xxxxProperties里面拿值  —-&gt; application.properties</strong></p>
+</blockquote>
+<h2 id="最佳实践"><a href="#最佳实践" class="headerlink" title="最佳实践"></a>最佳实践</h2><p>现在，我们知道：SpringBoot帮我们将所有的配置都设置了默认的，但并不是所有的配置都会生效，我们可以引入相关依赖进行按需开启，也可以自己配置相关细节来覆盖。而这些业务场景在官网都有介绍，我们可以自己结合实际需求，查看文档<a target="_blank" rel="noopener" href="https://docs.spring.io/spring-boot/docs/current/reference/html/using.html#using.build-systems.starters">https://docs.spring.io/spring-boot/docs/current/reference/html/using.html#using.build-systems.starters</a></p>
+<p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220213143855881.png" alt="image-20220213143855881"></p>
+<p>我们要知道哪些配置生效哪些不生效，最直接的办法就是自己分析，引入场景对应的自动配置一般都生效了。我们也可以在配置文件中“debug=true”开启自动配置报告，Negative（不生效）\Positive（生效）。</p>
+<p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220213144432654.png" alt="image-20220213144432654"></p>
+<p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220213144503772.png" alt="image-20220213144503772"></p>
+<p>如果我们需要修改配置，也可以自己去分析，看xxxProperties中绑定了配置文件中的哪些值，或者去查看官方文档：<a target="_blank" rel="noopener" href="https://docs.spring.io/spring-boot/docs/current/reference/html/application-properties.html#application-properties%E3%80%82">https://docs.spring.io/spring-boot/docs/current/reference/html/application-properties.html#application-properties。</a></p>
 
       
     </div>

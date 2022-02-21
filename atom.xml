@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2022-02-06T03:43:59.820Z</updated>
+  <updated>2022-02-21T03:10:58.009Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -17,11 +17,11 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>Spring注解驱动开发【源码】——AOP原理——链式调用通知方法</title>
-    <link href="http://example.com/2022/02/06/Spring%E6%B3%A8%E8%A7%A3%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91%E3%80%90%E6%BA%90%E7%A0%81%E3%80%91%E2%80%94%E2%80%94AOP%E5%8E%9F%E7%90%86%E2%80%94%E2%80%94%E9%93%BE%E5%BC%8F%E8%B0%83%E7%94%A8%E9%80%9A%E7%9F%A5%E6%96%B9%E6%B3%95/"/>
-    <id>http://example.com/2022/02/06/Spring%E6%B3%A8%E8%A7%A3%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91%E3%80%90%E6%BA%90%E7%A0%81%E3%80%91%E2%80%94%E2%80%94AOP%E5%8E%9F%E7%90%86%E2%80%94%E2%80%94%E9%93%BE%E5%BC%8F%E8%B0%83%E7%94%A8%E9%80%9A%E7%9F%A5%E6%96%B9%E6%B3%95/</id>
-    <published>2022-02-06T03:43:59.000Z</published>
-    <updated>2022-02-06T03:43:59.820Z</updated>
+    <title>Network-007-计算机网络和因特网的历史</title>
+    <link href="http://example.com/2022/02/21/Network-007-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%92%8C%E5%9B%A0%E7%89%B9%E7%BD%91%E7%9A%84%E5%8E%86%E5%8F%B2/"/>
+    <id>http://example.com/2022/02/21/Network-007-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%92%8C%E5%9B%A0%E7%89%B9%E7%BD%91%E7%9A%84%E5%8E%86%E5%8F%B2/</id>
+    <published>2022-02-21T03:10:57.000Z</published>
+    <updated>2022-02-21T03:10:58.009Z</updated>
     
     
     
@@ -30,11 +30,11 @@
   </entry>
   
   <entry>
-    <title>Spring注解驱动开发【源码】——AOP原理——获取拦截器链</title>
-    <link href="http://example.com/2022/02/06/Spring%E6%B3%A8%E8%A7%A3%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91%E3%80%90%E6%BA%90%E7%A0%81%E3%80%91%E2%80%94%E2%80%94AOP%E5%8E%9F%E7%90%86%E2%80%94%E2%80%94%E8%8E%B7%E5%8F%96%E6%8B%A6%E6%88%AA%E5%99%A8%E9%93%BE/"/>
-    <id>http://example.com/2022/02/06/Spring%E6%B3%A8%E8%A7%A3%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91%E3%80%90%E6%BA%90%E7%A0%81%E3%80%91%E2%80%94%E2%80%94AOP%E5%8E%9F%E7%90%86%E2%80%94%E2%80%94%E8%8E%B7%E5%8F%96%E6%8B%A6%E6%88%AA%E5%99%A8%E9%93%BE/</id>
-    <published>2022-02-06T03:43:29.000Z</published>
-    <updated>2022-02-06T03:43:29.693Z</updated>
+    <title>Network-006-面对攻击的网络</title>
+    <link href="http://example.com/2022/02/21/Network-006-%E9%9D%A2%E5%AF%B9%E6%94%BB%E5%87%BB%E7%9A%84%E7%BD%91%E7%BB%9C/"/>
+    <id>http://example.com/2022/02/21/Network-006-%E9%9D%A2%E5%AF%B9%E6%94%BB%E5%87%BB%E7%9A%84%E7%BD%91%E7%BB%9C/</id>
+    <published>2022-02-21T03:10:36.000Z</published>
+    <updated>2022-02-21T03:10:36.463Z</updated>
     
     
     
@@ -43,11 +43,11 @@
   </entry>
   
   <entry>
-    <title>Spring注解驱动开发【源码】——AOP原理——创建AOP代理</title>
-    <link href="http://example.com/2022/02/06/Spring%E6%B3%A8%E8%A7%A3%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91%E3%80%90%E6%BA%90%E7%A0%81%E3%80%91%E2%80%94%E2%80%94AOP%E5%8E%9F%E7%90%86%E2%80%94%E2%80%94%E5%88%9B%E5%BB%BAAOP%E4%BB%A3%E7%90%86/"/>
-    <id>http://example.com/2022/02/06/Spring%E6%B3%A8%E8%A7%A3%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91%E3%80%90%E6%BA%90%E7%A0%81%E3%80%91%E2%80%94%E2%80%94AOP%E5%8E%9F%E7%90%86%E2%80%94%E2%80%94%E5%88%9B%E5%BB%BAAOP%E4%BB%A3%E7%90%86/</id>
-    <published>2022-02-06T03:43:13.000Z</published>
-    <updated>2022-02-06T03:43:13.520Z</updated>
+    <title>Network-005-协议层次及其服务模型</title>
+    <link href="http://example.com/2022/02/21/Network-005-%E5%8D%8F%E8%AE%AE%E5%B1%82%E6%AC%A1%E5%8F%8A%E5%85%B6%E6%9C%8D%E5%8A%A1%E6%A8%A1%E5%9E%8B/"/>
+    <id>http://example.com/2022/02/21/Network-005-%E5%8D%8F%E8%AE%AE%E5%B1%82%E6%AC%A1%E5%8F%8A%E5%85%B6%E6%9C%8D%E5%8A%A1%E6%A8%A1%E5%9E%8B/</id>
+    <published>2022-02-21T03:09:50.000Z</published>
+    <updated>2022-02-21T03:09:50.486Z</updated>
     
     
     
@@ -56,11 +56,11 @@
   </entry>
   
   <entry>
-    <title>Spring注解驱动开发【源码】——AOP原理——AnnotationAwareAspectJAutoProxyCreator</title>
-    <link href="http://example.com/2022/02/06/Spring%E6%B3%A8%E8%A7%A3%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91%E3%80%90%E6%BA%90%E7%A0%81%E3%80%91%E2%80%94%E2%80%94AOP%E5%8E%9F%E7%90%86%E2%80%94%E2%80%94AnnotationAwareAspectJAutoProxyCreator/"/>
-    <id>http://example.com/2022/02/06/Spring%E6%B3%A8%E8%A7%A3%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91%E3%80%90%E6%BA%90%E7%A0%81%E3%80%91%E2%80%94%E2%80%94AOP%E5%8E%9F%E7%90%86%E2%80%94%E2%80%94AnnotationAwareAspectJAutoProxyCreator/</id>
-    <published>2022-02-06T03:42:40.000Z</published>
-    <updated>2022-02-06T03:42:40.266Z</updated>
+    <title>Network-003-网络核心</title>
+    <link href="http://example.com/2022/02/21/Network-003-%E7%BD%91%E7%BB%9C%E6%A0%B8%E5%BF%83/"/>
+    <id>http://example.com/2022/02/21/Network-003-%E7%BD%91%E7%BB%9C%E6%A0%B8%E5%BF%83/</id>
+    <published>2022-02-21T03:09:20.000Z</published>
+    <updated>2022-02-21T03:09:20.174Z</updated>
     
     
     
@@ -69,43 +69,19 @@
   </entry>
   
   <entry>
-    <title>Spring注解驱动开发【源码】——AOP原理——@EnableAspectJAutoProxy</title>
-    <link href="http://example.com/2022/02/06/Spring%E6%B3%A8%E8%A7%A3%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91%E3%80%90%E6%BA%90%E7%A0%81%E3%80%91%E2%80%94%E2%80%94AOP%E5%8E%9F%E7%90%86%E2%80%94%E2%80%94-EnableAspectJAutoProxy/"/>
-    <id>http://example.com/2022/02/06/Spring%E6%B3%A8%E8%A7%A3%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91%E3%80%90%E6%BA%90%E7%A0%81%E3%80%91%E2%80%94%E2%80%94AOP%E5%8E%9F%E7%90%86%E2%80%94%E2%80%94-EnableAspectJAutoProxy/</id>
-    <published>2022-02-06T03:41:52.000Z</published>
-    <updated>2022-02-06T05:54:44.474Z</updated>
+    <title>Network-002-网络边缘</title>
+    <link href="http://example.com/2022/02/21/Network-002-%E7%BD%91%E7%BB%9C%E8%BE%B9%E7%BC%98/"/>
+    <id>http://example.com/2022/02/21/Network-002-%E7%BD%91%E7%BB%9C%E8%BE%B9%E7%BC%98/</id>
+    <published>2022-02-21T03:08:58.000Z</published>
+    <updated>2022-02-21T03:24:57.498Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;p&gt;要实现注解版的AOP功能，最核心的注解就是@EnableAspectJAutoProxy了，有了它，AOP模式才生效。&lt;/p&gt;
-&lt;h4 id=&quot;流程分析图&quot;&gt;&lt;a href=&quot;#流程分析图&quot; class=&quot;headerlink&quot;</summary>
-        
-      
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>Spring注解驱动开发——AOP功能测试</title>
-    <link href="http://example.com/2022/02/06/Spring%E6%B3%A8%E8%A7%A3%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91%E2%80%94%E2%80%94AOP%E5%8A%9F%E8%83%BD%E6%B5%8B%E8%AF%95/"/>
-    <id>http://example.com/2022/02/06/Spring%E6%B3%A8%E8%A7%A3%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91%E2%80%94%E2%80%94AOP%E5%8A%9F%E8%83%BD%E6%B5%8B%E8%AF%95/</id>
-    <published>2022-02-06T03:40:43.000Z</published>
-    <updated>2022-02-06T03:54:40.232Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;blockquote&gt;
-&lt;p&gt;Prev： &lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;https://atqingke.com/index.php/archives/272/&quot;&gt;Spring-AOP(上)&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a</summary>
+    <summary type="html">&lt;p&gt;前面讲到，通常把与因特网相连的计算机和其它设备称为端系统。因为它们位于因特网的边缘，故而称为端系统。因特网的端系统包括了桌面计算机、服务器和移动计算机，。此外，越来越多的非传统设备正在被作为端系统与因特网相连。&lt;/p&gt;
+&lt;p&gt;端系统也称为主机，因为它们运行应用程序，这两个术</summary>
         
       
     
@@ -115,41 +91,18 @@
   </entry>
   
   <entry>
-    <title>Redis——配置文件介绍</title>
-    <link href="http://example.com/2022/02/05/Redis%E2%80%94%E2%80%94%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E4%BB%8B%E7%BB%8D/"/>
-    <id>http://example.com/2022/02/05/Redis%E2%80%94%E2%80%94%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E4%BB%8B%E7%BB%8D/</id>
-    <published>2022-02-05T13:25:57.000Z</published>
-    <updated>2022-02-06T03:11:49.792Z</updated>
+    <title>SpringMVC【源码】-12-执行流程</title>
+    <link href="http://example.com/2022/02/20/SpringMVC%E3%80%90%E6%BA%90%E7%A0%81%E3%80%91-12-%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B/"/>
+    <id>http://example.com/2022/02/20/SpringMVC%E3%80%90%E6%BA%90%E7%A0%81%E3%80%91-12-%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B/</id>
+    <published>2022-02-20T09:15:15.000Z</published>
+    <updated>2022-02-21T06:44:21.197Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;p&gt;来到我们的拷贝的配置文件/etc/redis/6379.conf&lt;/p&gt;
-&lt;figure class=&quot;highlight shell&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span</summary>
-        
-      
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>Redis——常用数据类型</title>
-    <link href="http://example.com/2022/02/05/Redis%E2%80%94%E2%80%94%E5%B8%B8%E7%94%A8%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/"/>
-    <id>http://example.com/2022/02/05/Redis%E2%80%94%E2%80%94%E5%B8%B8%E7%94%A8%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</id>
-    <published>2022-02-05T06:37:57.000Z</published>
-    <updated>2022-02-05T13:26:45.943Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;blockquote&gt;
-&lt;p&gt;Redis操作命令见：&lt;a</summary>
+    <summary type="html">&lt;h3 id=&quot;1、SpringMVC常用组件&quot;&gt;&lt;a href=&quot;#1、SpringMVC常用组件&quot; class=&quot;headerlink&quot;</summary>
         
       
     
@@ -159,43 +112,19 @@
   </entry>
   
   <entry>
-    <title>Redis——配置后台启动</title>
-    <link href="http://example.com/2022/02/04/Redis%E2%80%94%E2%80%94%E9%85%8D%E7%BD%AE%E5%90%8E%E5%8F%B0%E5%90%AF%E5%8A%A8/"/>
-    <id>http://example.com/2022/02/04/Redis%E2%80%94%E2%80%94%E9%85%8D%E7%BD%AE%E5%90%8E%E5%8F%B0%E5%90%AF%E5%8A%A8/</id>
-    <published>2022-02-04T14:47:32.000Z</published>
-    <updated>2022-02-04T14:47:57.295Z</updated>
+    <title>SpringMVC-11-注解版SpringMVC</title>
+    <link href="http://example.com/2022/02/20/SpringMVC-11-%E6%B3%A8%E8%A7%A3%E7%89%88SpringMVC/"/>
+    <id>http://example.com/2022/02/20/SpringMVC-11-%E6%B3%A8%E8%A7%A3%E7%89%88SpringMVC/</id>
+    <published>2022-02-20T09:14:38.000Z</published>
+    <updated>2022-02-21T05:21:28.705Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;p&gt;进入/usr/local/redis/redis-6.2.6/utils目录下执行脚本&lt;/p&gt;
-&lt;figure class=&quot;highlight shell&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span</summary>
-        
-      
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>Redis——安装</title>
-    <link href="http://example.com/2022/02/03/Redis%E2%80%94%E2%80%94%E5%AE%89%E8%A3%85/"/>
-    <id>http://example.com/2022/02/03/Redis%E2%80%94%E2%80%94%E5%AE%89%E8%A3%85/</id>
-    <published>2022-02-03T06:55:40.000Z</published>
-    <updated>2022-02-05T06:47:41.438Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;blockquote&gt;
-&lt;ul&gt;
-&lt;li&gt;英文官网：&lt;a href=&quot;https://redis.io/&quot;&gt;https://redis.io/&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;中文官网：&lt;a</summary>
+    <summary type="html">&lt;p&gt;使用配置类和注解代替web.xml和SpringMVC配置文件的功能&lt;/p&gt;
+&lt;h3 id=&quot;1、创建初始化类，代替web-xml&quot;&gt;&lt;a href=&quot;#1、创建初始化类，代替web-xml&quot; class=&quot;headerlink&quot;</summary>
         
       
     
@@ -205,39 +134,18 @@
   </entry>
   
   <entry>
-    <title>Redis——NoSQL数据库简介</title>
-    <link href="http://example.com/2022/02/03/Redis%E2%80%94%E2%80%94NoSQL%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AE%80%E4%BB%8B/"/>
-    <id>http://example.com/2022/02/03/Redis%E2%80%94%E2%80%94NoSQL%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AE%80%E4%BB%8B/</id>
-    <published>2022-02-03T06:55:11.000Z</published>
-    <updated>2022-02-03T09:12:15.923Z</updated>
+    <title>SpringMVC-10-异常处理器</title>
+    <link href="http://example.com/2022/02/20/SpringMVC-10-%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E5%99%A8/"/>
+    <id>http://example.com/2022/02/20/SpringMVC-10-%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E5%99%A8/</id>
+    <published>2022-02-20T09:14:15.000Z</published>
+    <updated>2022-02-21T05:21:16.431Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h2 id=&quot;技术发展&quot;&gt;&lt;a href=&quot;#技术发展&quot; class=&quot;headerlink&quot;</summary>
-        
-      
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>SpringBoot——自动配置</title>
-    <link href="http://example.com/2022/02/02/SpringBoot%E2%80%94%E2%80%94%E8%87%AA%E5%8A%A8%E9%85%8D%E7%BD%AE/"/>
-    <id>http://example.com/2022/02/02/SpringBoot%E2%80%94%E2%80%94%E8%87%AA%E5%8A%A8%E9%85%8D%E7%BD%AE/</id>
-    <published>2022-02-02T06:58:29.000Z</published>
-    <updated>2022-02-04T11:22:52.634Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h4 id=&quot;SpringBootApplication流程分析图：&quot;&gt;&lt;a href=&quot;#SpringBootApplication流程分析图：&quot; class=&quot;headerlink&quot;</summary>
+    <summary type="html">&lt;h3 id=&quot;1、基于配置的异常处理&quot;&gt;&lt;a href=&quot;#1、基于配置的异常处理&quot; class=&quot;headerlink&quot;</summary>
         
       
     
@@ -247,21 +155,18 @@
   </entry>
   
   <entry>
-    <title>SpringBoot——底层注解</title>
-    <link href="http://example.com/2022/02/02/SpringBoot%E2%80%94%E2%80%94%E5%BA%95%E5%B1%82%E6%B3%A8%E8%A7%A3/"/>
-    <id>http://example.com/2022/02/02/SpringBoot%E2%80%94%E2%80%94%E5%BA%95%E5%B1%82%E6%B3%A8%E8%A7%A3/</id>
-    <published>2022-02-02T06:57:47.000Z</published>
-    <updated>2022-02-03T13:55:05.386Z</updated>
+    <title>SpringMVC-09-拦截器</title>
+    <link href="http://example.com/2022/02/20/SpringMVC-09-%E6%8B%A6%E6%88%AA%E5%99%A8/"/>
+    <id>http://example.com/2022/02/20/SpringMVC-09-%E6%8B%A6%E6%88%AA%E5%99%A8/</id>
+    <published>2022-02-20T09:14:04.000Z</published>
+    <updated>2022-02-21T05:20:57.029Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;blockquote&gt;
-&lt;p&gt;&lt;a href=&quot;https://atqingke.com/index.php/archives/380/&quot;&gt;Spring注解驱动开发——组件注册&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h2 id=&quot;Configuration&quot;&gt;&lt;a</summary>
+    <summary type="html">&lt;h3 id=&quot;1、拦截器的配置&quot;&gt;&lt;a href=&quot;#1、拦截器的配置&quot; class=&quot;headerlink&quot;</summary>
         
       
     
@@ -271,71 +176,19 @@
   </entry>
   
   <entry>
-    <title>Hadoop集群搭建</title>
-    <link href="http://example.com/2022/02/01/Hadoop%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/"/>
-    <id>http://example.com/2022/02/01/Hadoop%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/</id>
-    <published>2022-02-01T14:04:48.000Z</published>
-    <updated>2022-02-01T14:04:48.858Z</updated>
-    
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>VMWare安装CentOS</title>
-    <link href="http://example.com/2022/02/01/VMWare%E5%AE%89%E8%A3%85CentOS/"/>
-    <id>http://example.com/2022/02/01/VMWare%E5%AE%89%E8%A3%85CentOS/</id>
-    <published>2022-02-01T14:01:30.000Z</published>
-    <updated>2022-02-01T14:20:16.872Z</updated>
-    
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>nginx——原理及优化参数配置</title>
-    <link href="http://example.com/2022/02/01/nginx%E2%80%94%E2%80%94%E5%8E%9F%E7%90%86%E5%8F%8A%E4%BC%98%E5%8C%96%E5%8F%82%E6%95%B0%E9%85%8D%E7%BD%AE/"/>
-    <id>http://example.com/2022/02/01/nginx%E2%80%94%E2%80%94%E5%8E%9F%E7%90%86%E5%8F%8A%E4%BC%98%E5%8C%96%E5%8F%82%E6%95%B0%E9%85%8D%E7%BD%AE/</id>
-    <published>2022-02-01T05:07:03.000Z</published>
-    <updated>2022-02-01T05:07:03.793Z</updated>
-    
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>nginx简介</title>
-    <link href="http://example.com/2022/02/01/nginx%E7%AE%80%E4%BB%8B/"/>
-    <id>http://example.com/2022/02/01/nginx%E7%AE%80%E4%BB%8B/</id>
-    <published>2022-02-01T05:05:49.000Z</published>
-    <updated>2022-02-01T05:07:39.472Z</updated>
-    
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>Gitee + PicGo实现博客图床</title>
-    <link href="http://example.com/2022/01/31/Gitee-PicGo%E5%AE%9E%E7%8E%B0%E5%8D%9A%E5%AE%A2%E5%9B%BE%E5%BA%8A/"/>
-    <id>http://example.com/2022/01/31/Gitee-PicGo%E5%AE%9E%E7%8E%B0%E5%8D%9A%E5%AE%A2%E5%9B%BE%E5%BA%8A/</id>
-    <published>2022-01-31T09:52:00.000Z</published>
-    <updated>2022-02-01T00:42:52.214Z</updated>
+    <title>SpringMVC-08-文件上传和下载</title>
+    <link href="http://example.com/2022/02/20/SpringMVC-08-%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E5%92%8C%E4%B8%8B%E8%BD%BD/"/>
+    <id>http://example.com/2022/02/20/SpringMVC-08-%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E5%92%8C%E4%B8%8B%E8%BD%BD/</id>
+    <published>2022-02-20T09:13:51.000Z</published>
+    <updated>2022-02-21T05:20:45.590Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h2 id=&quot;前置准备：&quot;&gt;&lt;a href=&quot;#前置准备：&quot; class=&quot;headerlink&quot; title=&quot;前置准备：&quot;&gt;&lt;/a&gt;前置准备：&lt;/h2&gt;&lt;ul&gt;
-&lt;li&gt;Gitee注册账号&lt;a href=&quot;https://gitee.com/&quot;&gt;Gitee - 基于</summary>
+    <summary type="html">&lt;h3 id=&quot;1、文件下载&quot;&gt;&lt;a href=&quot;#1、文件下载&quot; class=&quot;headerlink&quot; title=&quot;1、文件下载&quot;&gt;&lt;/a&gt;1、文件下载&lt;/h3&gt;&lt;p&gt;使用ResponseEntity实现下载文件的功能&lt;/p&gt;
+&lt;figure</summary>
         
       
     
@@ -345,18 +198,19 @@
   </entry>
   
   <entry>
-    <title>SpringBoot——HelloWorld</title>
-    <link href="http://example.com/2022/01/31/SpringBoot%E2%80%94%E2%80%94HelloWorld/"/>
-    <id>http://example.com/2022/01/31/SpringBoot%E2%80%94%E2%80%94HelloWorld/</id>
-    <published>2022-01-31T07:51:08.000Z</published>
-    <updated>2022-02-01T05:07:32.367Z</updated>
+    <title>SpringMVC-07-HttpMessageConverter</title>
+    <link href="http://example.com/2022/02/20/SpringMVC-07-HttpMessageConverter/"/>
+    <id>http://example.com/2022/02/20/SpringMVC-07-HttpMessageConverter/</id>
+    <published>2022-02-20T09:13:29.000Z</published>
+    <updated>2022-02-21T05:20:35.670Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h2 id=&quot;HelloWorld&quot;&gt;&lt;a href=&quot;#HelloWorld&quot; class=&quot;headerlink&quot;</summary>
+    <summary type="html">&lt;p&gt;HttpMessageConverter，报文信息转换器，将请求报文转换为Java对象，或将Java对象转换为响应报文&lt;/p&gt;
+&lt;p&gt;HttpMessageConverter提供了两个注解和两个类型：@RequestBody，@ResponseBody，RequestEnt</summary>
         
       
     
@@ -366,19 +220,184 @@
   </entry>
   
   <entry>
-    <title>【源码】Spring——AOP</title>
-    <link href="http://example.com/2022/01/29/%E3%80%90%E6%BA%90%E7%A0%81%E3%80%91Spring%E2%80%94%E2%80%94AOP/"/>
-    <id>http://example.com/2022/01/29/%E3%80%90%E6%BA%90%E7%A0%81%E3%80%91Spring%E2%80%94%E2%80%94AOP/</id>
-    <published>2022-01-29T12:18:44.000Z</published>
-    <updated>2022-01-30T06:19:36.495Z</updated>
+    <title>SpringMVC-06-RESTful(含案例)</title>
+    <link href="http://example.com/2022/02/20/SpringMVC-06-RESTful-%E5%90%AB%E6%A1%88%E4%BE%8B/"/>
+    <id>http://example.com/2022/02/20/SpringMVC-06-RESTful-%E5%90%AB%E6%A1%88%E4%BE%8B/</id>
+    <published>2022-02-20T09:12:54.000Z</published>
+    <updated>2022-02-21T05:20:18.079Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;p&gt;f&lt;/p&gt;
-</summary>
+    <summary type="html">&lt;h3 id=&quot;1、RESTful简介&quot;&gt;&lt;a href=&quot;#1、RESTful简介&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>SpringMVC-05-视图</title>
+    <link href="http://example.com/2022/02/20/SpringMVC-05-%E8%A7%86%E5%9B%BE/"/>
+    <id>http://example.com/2022/02/20/SpringMVC-05-%E8%A7%86%E5%9B%BE/</id>
+    <published>2022-02-20T09:12:23.000Z</published>
+    <updated>2022-02-21T06:38:42.763Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;SpringMVC中的视图是View接口，视图的作用渲染数据，将模型Model中的数据展示给用户&lt;/p&gt;
+&lt;p&gt;SpringMVC视图的种类很多，默认有转发视图和重定向视图&lt;/p&gt;
+&lt;p&gt;当工程引入jstl的依赖，转发视图会自动转换为JstlView&lt;/p&gt;
+&lt;p&gt;若使用的</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>SpringMVC-04-域对象共享数据</title>
+    <link href="http://example.com/2022/02/20/SpringMVC-04-%E5%9F%9F%E5%AF%B9%E8%B1%A1%E5%85%B1%E4%BA%AB%E6%95%B0%E6%8D%AE/"/>
+    <id>http://example.com/2022/02/20/SpringMVC-04-%E5%9F%9F%E5%AF%B9%E8%B1%A1%E5%85%B1%E4%BA%AB%E6%95%B0%E6%8D%AE/</id>
+    <published>2022-02-20T09:12:08.000Z</published>
+    <updated>2022-02-21T05:19:32.390Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h3 id=&quot;1、使用ServletAPI向request域对象共享数据&quot;&gt;&lt;a href=&quot;#1、使用ServletAPI向request域对象共享数据&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>SpringMVC-03-获取请求参数</title>
+    <link href="http://example.com/2022/02/20/SpringMVC-03-%E8%8E%B7%E5%8F%96%E8%AF%B7%E6%B1%82%E5%8F%82%E6%95%B0/"/>
+    <id>http://example.com/2022/02/20/SpringMVC-03-%E8%8E%B7%E5%8F%96%E8%AF%B7%E6%B1%82%E5%8F%82%E6%95%B0/</id>
+    <published>2022-02-20T09:11:53.000Z</published>
+    <updated>2022-02-21T05:19:19.579Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h3 id=&quot;1、通过ServletAPI获取&quot;&gt;&lt;a href=&quot;#1、通过ServletAPI获取&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>SpringMVC-02-@RequestMapping注解</title>
+    <link href="http://example.com/2022/02/20/SpringMVC-02-RequestMapping%E6%B3%A8%E8%A7%A3/"/>
+    <id>http://example.com/2022/02/20/SpringMVC-02-RequestMapping%E6%B3%A8%E8%A7%A3/</id>
+    <published>2022-02-20T09:11:32.000Z</published>
+    <updated>2022-02-21T05:19:00.941Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h3 id=&quot;1、-RequestMapping注解的功能&quot;&gt;&lt;a href=&quot;#1、-RequestMapping注解的功能&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>SpringMVC-01-HelloWorld</title>
+    <link href="http://example.com/2022/02/20/SpringMVC-01-HelloWorld/"/>
+    <id>http://example.com/2022/02/20/SpringMVC-01-HelloWorld/</id>
+    <published>2022-02-20T09:11:01.000Z</published>
+    <updated>2022-02-21T05:42:40.502Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h3 id=&quot;1、什么是MVC&quot;&gt;&lt;a href=&quot;#1、什么是MVC&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>HTML-01-表格</title>
+    <link href="http://example.com/2022/02/20/HTML-01-%E8%A1%A8%E6%A0%BC/"/>
+    <id>http://example.com/2022/02/20/HTML-01-%E8%A1%A8%E6%A0%BC/</id>
+    <published>2022-02-19T23:11:26.000Z</published>
+    <updated>2022-02-19T23:11:26.215Z</updated>
+    
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>CSS-04-字体&amp;背景色</title>
+    <link href="http://example.com/2022/02/20/CSS-04-%E5%AD%97%E4%BD%93-%E8%83%8C%E6%99%AF%E8%89%B2/"/>
+    <id>http://example.com/2022/02/20/CSS-04-%E5%AD%97%E4%BD%93-%E8%83%8C%E6%99%AF%E8%89%B2/</id>
+    <published>2022-02-19T23:10:57.000Z</published>
+    <updated>2022-02-21T02:32:08.990Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;字体&quot;&gt;&lt;a href=&quot;#字体&quot; class=&quot;headerlink&quot; title=&quot;字体&quot;&gt;&lt;/a&gt;字体&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;color 设置字体颜色&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;font-size</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>CSS-03-定位</title>
+    <link href="http://example.com/2022/02/20/CSS-03-%E5%AE%9A%E4%BD%8D/"/>
+    <id>http://example.com/2022/02/20/CSS-03-%E5%AE%9A%E4%BD%8D/</id>
+    <published>2022-02-19T23:09:23.000Z</published>
+    <updated>2022-02-20T01:19:52.587Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot; title=&quot;简介&quot;&gt;&lt;/a&gt;简介&lt;/h2&gt;&lt;p&gt;定位(position)是一种更加高级的布局手段，通过定位可以将元素摆放到页面的任意位置。使用 position</summary>
         
       
     

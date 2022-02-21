@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  
+  
+  <title>
+    Redis——事务和锁机制 |
+    
+    青稞
+  </title>
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+    
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<script src="/js/pace.min.js"></script>
+
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="青稞" type="application/atom+xml">
+</head>
+
+<body>
+  <main class="content">
+    <section class="outer">
+  <article id="post-Redis——事务和锁机制" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+      
+
+<h1 class="article-title" itemprop="name">
+  Redis——事务和锁机制
+</h1>
+
+
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2022/02/08/Redis%E2%80%94%E2%80%94%E4%BA%8B%E5%8A%A1%E5%92%8C%E9%94%81%E6%9C%BA%E5%88%B6/" class="article-date">
+  <time datetime="2022-02-08T11:02:50.000Z" itemprop="datePublished">2022-02-08</time>
+</a>
+      
+    </div>
+    
+
+    
+    
+<div class="tocbot"></div>
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+      
+      <blockquote>
+<p><a target="_blank" rel="noopener" href="https://redis.io/topics/transactions">Redis官网关于事务的介绍</a></p>
+</blockquote>
+<p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220208190341777.png" alt="image-20220208190341777"></p>
+<p>Redis事务是一个单独的隔离操作：事务中的所有命令都会序列化、按顺序地执行。事务在执行过程中，不会被其它客户端发送来的命令请求所打断。Redis事务的主要作用就是串联多个命令防止别的命令插队。</p>
+<h2 id="Multi、Exec、Discard"><a href="#Multi、Exec、Discard" class="headerlink" title="Multi、Exec、Discard"></a>Multi、Exec、Discard</h2><p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220208193735052.png" alt="image-20220208193735052"></p>
+<p>Redis中使用Multi命令来开启事务，从输入Multi命令开始，输入的命令都会依次进入命令队列中，但不会执行，直到输入Exec后，Redis会将之前的命令队列中的命令依次执行。</p>
+<p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220208193602365.png" alt="image-20220208193602365"></p>
+<p>在组队的过程中可以通过discard命令来放弃组队。</p>
+<p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220208193634178.png" alt="image-20220208193634178"></p>
+<h2 id="事务的错误处理"><a href="#事务的错误处理" class="headerlink" title="事务的错误处理"></a>事务的错误处理</h2><p>如果是在组队过程中，输入的命令有错误，则会退出事务，不再进行组队：</p>
+<p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220208193858810.png" alt="image-20220208193858810"></p>
+<p>如果是在执行命令队列过程中，执行的命令有错误。那么正确的命令会正常执行，错误的命令不执行：</p>
+<p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220208193917320.png" alt="image-20220208193917320"></p>
+<h2 id="事务冲突的问题"><a href="#事务冲突的问题" class="headerlink" title="事务冲突的问题"></a>事务冲突的问题</h2><p>一个请求想给金额减8000</p>
+<p>一个请求想给金额减5000</p>
+<p>一个请求想给金额减1000</p>
+<p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220208195311824.png" alt="image-20220208195311824"></p>
+<h3 id="悲观锁"><a href="#悲观锁" class="headerlink" title="悲观锁"></a>悲观锁</h3><p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220208195343488.png" alt="image-20220208195343488"></p>
+<p>悲观锁(Pessimistic Lock), 顾名思义，就是很悲观，每次去拿数据的时候都认为别人会修改，所以每次在拿数据的时候都会上锁，这样别人想拿这个数据就会block直到它拿到锁。传统的关系型数据库里边就用到了很多这种锁机制，比如行锁，表锁等，读锁，写锁等，都是在做操作之前先上锁。</p>
+<h3 id="乐观锁"><a href="#乐观锁" class="headerlink" title="乐观锁"></a>乐观锁</h3><p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220208195404397.png" alt="image-20220208195404397"></p>
+<p>乐观锁(Optimistic Lock), 顾名思义，就是很乐观，每次去拿数据的时候都认为别人不会修改，所以不会上锁，但是在更新的时候会判断一下在此期间别人有没有去更新这个数据，可以使用版本号等机制。乐观锁适用于多读的应用类型，这样可以提高吞吐量。Redis就是利用这种check-and-set机制实现事务的。</p>
+<h2 id="watch-key"><a href="#watch-key" class="headerlink" title="watch key"></a>watch key</h2><p>在执行multi之前，先执行watch key1 [key2],可以监视一个(或多个) key ，如果在事务执行之前这个(或这些) key 被其他命令所改动，那么事务将被打断。</p>
+<p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220208201548769.png" alt="image-20220208201548769"></p>
+<p>unwatch 取消 WATCH 命令对所有 key 的监视。如果在执行 WATCH 命令之后，EXEC 命令或DISCARD 命令先被执行了的话，那么就不需要再执行UNWATCH 了。</p>
+<p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220208201611454.png" alt="image-20220208201611454"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/02/08/Redis%E2%80%94%E2%80%94%E4%BA%8B%E5%8A%A1%E5%92%8C%E9%94%81%E6%9C%BA%E5%88%B6/" data-id="ckzwc414t001bgotwf2zj7rcc" class="article-share-link">
+        Share
+      </a>
+      
+    </footer>
+
+  </div>
+
+  
+  
+<nav class="article-nav">
+  
+  <a href="/2022/02/10/MySQL-%E6%B7%BB%E5%8A%A0%E7%94%A8%E6%88%B7%E4%B8%8E%E6%8E%88%E6%9D%83/" class="article-nav-link">
+    <strong class="article-nav-caption">Newer</strong>
+    <div class="article-nav-title">
+      
+      MySQL-添加用户与授权
+      
+    </div>
+  </a>
+  
+  
+  <a href="/2022/02/08/Redis%E2%80%94%E2%80%94RedisTemplate-SpringBoot%E9%9B%86%E6%88%90Redis/" class="article-nav-link">
+    <strong class="article-nav-caption">Older</strong>
+    <div class="article-nav-title">Redis——RedisTemplate(SpringBoot集成Redis)</div>
+  </a>
+  
+</nav>
+
+  
+
+  
+  
+  
+  
+
+</article>
+</section>
+    <footer class="footer">
+  <div class="outer">
+    <div class="float-right">
+      <ul class="list-inline">
+  
+  <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
+  
+  <li><i class="fe fe-bookmark"></i> <span id="busuanzi_value_page_pv"></span></li>
+  
+</ul>
+    </div>
+    <ul class="list-inline">
+      <li>青稞 &copy; 2022</li>
+      
+        <li>ZHWANGART</li>
+      
+      <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
+      <li>theme  <a target="_blank" rel="noopener" href="https://github.com/zhwangart/hexo-theme-ocean">Ocean</a></li>
+    </ul>
+  </div>
+</footer>
+  </main>
+  <aside class="sidebar">
+    <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/hexo.svg" alt="青稞"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">Home</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">Archives</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/gallery">Gallery</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about">About</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="Search">
+        <i class="fe fe-search"></i>
+        Search
+      </a>
+    </li>
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      <div class="totop" id="totop">
+  <i class="fe fe-rocket"></i>
+</div>
+    </li>
+    <li class="nav-item">
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="fe fe-feed"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+  </aside>
+  
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/copybtn.js"></script>
+
+
+
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto',
+  });
+</script>
+
+
+
+<script src="/js/ocean.js"></script>
+
+</body>
+
+</html>

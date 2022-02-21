@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  
+  
+  <title>
+    永远的HelloWorld |
+    
+    青稞
+  </title>
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+    
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<script src="/js/pace.min.js"></script>
+
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="青稞" type="application/atom+xml">
+</head>
+
+<body>
+  <main class="content">
+    <section class="outer">
+  <article id="post-Compilers-永远的HelloWorld" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+      
+
+<h1 class="article-title" itemprop="name">
+  永远的HelloWorld
+</h1>
+
+
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2021/12/14/Compilers-%E6%B0%B8%E8%BF%9C%E7%9A%84HelloWorld/" class="article-date">
+  <time datetime="2021-12-14T07:47:57.000Z" itemprop="datePublished">2021-12-14</time>
+</a>
+      
+    </div>
+    
+
+    
+    
+<div class="tocbot"></div>
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+      
+      <p>毫无疑问，“HelloWorld”对于程序员来说简直是如雷贯耳。下面是一个C语言的HelloWorld程序：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Hello World\n&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>对于下面这些问题，你的脑子里能够马上反应出一个清晰又明确的答案吗？</p>
+<ul>
+<li>程序为什么要被编译器编译了之后才可以运行？</li>
+<li>编译器在把C语言程序转换成可以执行的机器码的过程中做了什么，怎么做的？</li>
+<li>最后编译出来的可执行文里面是什么？除了机器码还有什么？它们怎么存放的，怎么组织的？</li>
+<li>/#include&lt;stdio.h&gt;是什么意思？把stdio.h包含进来意味着什么？C语言库又是什么？它怎么实现的？</li>
+<li>不同的编译器（Microsoft VC、GCC）和不同的硬件平台（x86、SPARC、MIPS、ARM），以及不同的OS（Windows、Linux、UNIX、Solaris），最终编译出来的结果一样吗？为什么？</li>
+<li>HelloWorld程序是怎么运行起来的？OS是怎么装载它的？它从哪儿开始执行，到哪儿结束？main函数之前发生了什么？main函数结束以后又发生了什么？</li>
+<li>如果没有OS，HelloWorld可以运行吗？如果要在一台没有OS的机器上运行HelloWorld需要什么？应该怎么实现？</li>
+<li>printf是怎么实现的？它为什么可以有不定数量的参数？为什么它能够在终端上输出字符串？</li>
+<li>HelloWorld程序在运行时，它在内存中是什么样子的？</li>
+</ul>
+<p>在接下来的“程序员的自我修养”系列将逐个解决这些问题！</p>
+<h2 id="1-万变不离其宗"><a href="#1-万变不离其宗" class="headerlink" title="1. 万变不离其宗"></a>1. 万变不离其宗</h2><p>对于系统程序开发者来说，计算机多如牛毛的硬件设备中，有三个部件最为关键，它们分别是<strong>中央处理器CPU、内存和I/O控制芯片</strong>，这三个部件几乎就是计算机的核心了；对于普通应用程序开发者来说，它们似乎除了要关心CPU以外，其它的硬件细节基本不用关心，对于一些高级平台的开发者来说，连CPU都不需要关心，因为这些平台为它们提供了一个通用的抽象的计算机，它们只要关心这个抽象的计算机就可以了。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/12/14/Compilers-%E6%B0%B8%E8%BF%9C%E7%9A%84HelloWorld/" data-id="ckzwc413q0006gotwdol52k5b" class="article-share-link">
+        Share
+      </a>
+      
+    </footer>
+
+  </div>
+
+  
+  
+<nav class="article-nav">
+  
+  <a href="/2021/12/14/Algorithm-%E6%9C%80%E5%BF%AB%E6%9C%80%E7%AE%80%E5%8D%95%E7%9A%84%E6%8E%92%E5%BA%8F%E2%80%94%E2%80%94%E6%A1%B6%E6%8E%92%E5%BA%8F/" class="article-nav-link">
+    <strong class="article-nav-caption">Newer</strong>
+    <div class="article-nav-title">
+      
+      最快最简单的排序——桶排序
+      
+    </div>
+  </a>
+  
+  
+  <a href="/2021/12/13/MySQL-%E8%BF%9E%E6%8E%A5MySQL/" class="article-nav-link">
+    <strong class="article-nav-caption">Older</strong>
+    <div class="article-nav-title">连接MySQL</div>
+  </a>
+  
+</nav>
+
+  
+
+  
+  
+  
+  
+
+</article>
+</section>
+    <footer class="footer">
+  <div class="outer">
+    <div class="float-right">
+      <ul class="list-inline">
+  
+  <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
+  
+  <li><i class="fe fe-bookmark"></i> <span id="busuanzi_value_page_pv"></span></li>
+  
+</ul>
+    </div>
+    <ul class="list-inline">
+      <li>青稞 &copy; 2022</li>
+      
+        <li>ZHWANGART</li>
+      
+      <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
+      <li>theme  <a target="_blank" rel="noopener" href="https://github.com/zhwangart/hexo-theme-ocean">Ocean</a></li>
+    </ul>
+  </div>
+</footer>
+  </main>
+  <aside class="sidebar">
+    <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/hexo.svg" alt="青稞"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">Home</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">Archives</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/gallery">Gallery</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about">About</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="Search">
+        <i class="fe fe-search"></i>
+        Search
+      </a>
+    </li>
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      <div class="totop" id="totop">
+  <i class="fe fe-rocket"></i>
+</div>
+    </li>
+    <li class="nav-item">
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="fe fe-feed"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+  </aside>
+  
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/copybtn.js"></script>
+
+
+
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto',
+  });
+</script>
+
+
+
+<script src="/js/ocean.js"></script>
+
+</body>
+
+</html>

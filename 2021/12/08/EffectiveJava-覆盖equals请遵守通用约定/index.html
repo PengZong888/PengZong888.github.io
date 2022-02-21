@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  
+  
+  <title>
+    【Effective-Java】覆盖equals请遵守通用约定 |
+    
+    青稞
+  </title>
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+    
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<script src="/js/pace.min.js"></script>
+
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="青稞" type="application/atom+xml">
+</head>
+
+<body>
+  <main class="content">
+    <section class="outer">
+  <article id="post-EffectiveJava-覆盖equals请遵守通用约定" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+      
+
+<h1 class="article-title" itemprop="name">
+  【Effective-Java】覆盖equals请遵守通用约定
+</h1>
+
+
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2021/12/08/EffectiveJava-%E8%A6%86%E7%9B%96equals%E8%AF%B7%E9%81%B5%E5%AE%88%E9%80%9A%E7%94%A8%E7%BA%A6%E5%AE%9A/" class="article-date">
+  <time datetime="2021-12-08T06:07:23.000Z" itemprop="datePublished">2021-12-08</time>
+</a>
+      
+    </div>
+    
+
+    
+    
+<div class="tocbot"></div>
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+      
+      <p>尽管Object类是一个具体的类，但设计它主要是为了扩展。它的所有非final方法（equals、hashCode、toString、clone和finalize）都有明确的通用约定，因为它们设计成是要覆盖的。任何一个类，它在覆盖这些方法的时候，都有责任遵守这些通用约定；如果不能做到这一点，其它依赖于这些约定的类就无法结合该类一起正常运作。</p>
+<span id="more"></span>
+
+<h2 id="1-不需要覆盖equals的情况"><a href="#1-不需要覆盖equals的情况" class="headerlink" title="1. 不需要覆盖equals的情况"></a>1. 不需要覆盖equals的情况</h2><p>覆盖equals方法看起来非常简单，但是有许多覆盖方式会导致错误，并且后果严重。因此，我们先来看一下不需要覆盖equals方法的情况：</p>
+<ol>
+<li>类的每个实例本质上都是唯一的。</li>
+<li>类没有必要提供“逻辑相等”的测试功能。</li>
+<li>父类已经覆盖了equals，父类的行为对于这个类也是合适的。例如，大多数的Set都是从AbstractSet继承equals实现的，List实现从AbstractList继承equals实现的，Map从AbstractMap继承equals实现的。</li>
+<li>类是私有的，或者是包级私有的，可以确定它的equals方法永远不会被调用。如果你非常想要规避风险，可以覆盖equals方法，以确保它不会被意外调用。</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object o)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> AssertionError(); <span class="comment">// Method is never called.</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-什么时候覆盖equals"><a href="#2-什么时候覆盖equals" class="headerlink" title="2. 什么时候覆盖equals"></a>2. 什么时候覆盖equals</h2><p>如果类具有自己特有的“逻辑相等”概念（不同于对象等同的概念），而且父类还没有覆盖equals。这通常属于“值类”的情形。值类仅仅是一个表示值的类，例如Integer或者String。程序员在利用equals方法来比较值对象的引用时，希望知道它们在逻辑上是否相等，而不是想了解它们是否指向同一个对象。而为了满足程序员的要求，不仅必须重写equals方法，而且这样做也使得这个类的实例可以被用作映射表的键，或者集合的元素，使映射或者集合表现出预期的能力。</p>
+<h2 id="3-必须遵守的通用约定"><a href="#3-必须遵守的通用约定" class="headerlink" title="3. 必须遵守的通用约定"></a>3. 必须遵守的通用约定</h2><p>在覆盖equals方法时，必须要遵守它的通用约定。下面是约定的内容，来自Object的规范。equals方法实现了等价关系，其属性如下：</p>
+<ul>
+<li>自反性（reflexive）：对于任何非null的引用值x，x.equals(x)必须返回true。</li>
+<li>对称性（symmetric）：对于任何非null的引用值x和y，当且仅当y.equals(x)返回true时，x.equals(y)必须返回true。</li>
+<li>传递性（transitive）：对于任何非null的引用值x、y和z，如果x.equals(y)返回true，并且y.equals(z)也返回true，那么x.equals(z)也必须返回true。</li>
+<li>一致性（consistent）：对于任何非null的引用值x和y，只要equals的比较操作在对象中所用的信息没有被修改，多次调用x.equals(y)就会一致地返回true，或者一致地返回false。</li>
+<li>非空性（Non-nullity）：对于任何非null的引用值x，x.equals(null)必须返回false。</li>
+</ul>
+<h2 id="4-属性详解"><a href="#4-属性详解" class="headerlink" title="4. 属性详解"></a>4. 属性详解</h2><ul>
+<li><p>自反性</p>
+<p>这个要求仅仅说明对象必须等于其自身。</p>
+</li>
+<li><p>对称性</p>
+<p>第二个要求是说，任何两个对象对于“它们是否相等”的问题都必须保持一致。与第一个要求不同，若无意中违反这一条，这种情形倒是不难想象。例如下面的类，它实现了一个区分大小写的字符串。字符串由toString保存，但在equals操作中被忽略。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">CaseInsensitiveString</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> String s;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">CaseInsensitiveString</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.s = Objects.requireNonNull(s);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object o)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(o <span class="keyword">instanceof</span> CaseInsensitiveString)</span><br><span class="line">            <span class="keyword">return</span> s.equalsIgnoreCase(((CaseInsensitiveString) o).s);</span><br><span class="line">       	<span class="keyword">if</span>(o <span class="keyword">instanceof</span> String)</span><br><span class="line">            <span class="keyword">return</span> s.equalsIgnoreCase((String) o);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在这个类中，equals方法的意图非常好，它企图与普通的字符串对象进行互操作。假设我们有一个不区分大小写的字符串和一个普通的字符串：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Throwable </span>&#123;</span><br><span class="line"></span><br><span class="line">    CaseInsensitiveString polish = <span class="keyword">new</span> CaseInsensitiveString(<span class="string">&quot;Polish&quot;</span>);</span><br><span class="line">    String s = <span class="string">&quot;polish&quot;</span>;</span><br><span class="line">    System.out.println(polish.equals(s));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>结果不出所料返回true。问题在于，虽然CaseInsensitiveString类中的equals方法知道普通字符串对象，但是，String类中的equals方法却并不知道不区分大小写的字符串。因此，s.equals(polish)返回false，显然违反了对称性。为了解决这个问题，只需把企图与String互操作的这段代码从equals方法中去掉就可以了。这样做之后，就可以重构该方法，使它变成一条单独的返回语句：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object o)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> o <span class="keyword">instanceof</span> CaseInsensitiveString &amp;&amp; ((CaseInsensitiveString) o).s.equalsIgnoreCase(s);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>传递性</p>
+<p>equals约定的第三个要求是，如果一个对象等于第二个对象，而第二个对象又等于第三个对象，则第一个对象一定等于第三个对象。同样地，无意识地违反这条规则的情形也不难想象。我们有一个父类Point：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Point</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">int</span> x;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">int</span> y;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Point</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.x = x;</span><br><span class="line">        <span class="keyword">this</span>.y = y;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object o)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(!(o <span class="keyword">instanceof</span> Point))</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        Point p = (Point) o;</span><br><span class="line">        <span class="keyword">return</span> p.x == x &amp;&amp; p.y == y;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>有一个子类ColorPoint：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ColorPoint</span> <span class="keyword">extends</span> <span class="title">Point</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Color color;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ColorPoint</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y, Color color)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(x, y);</span><br><span class="line">        <span class="keyword">this</span>.color = color;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们如果不给ColorPoint提供equals方法，直接从Point中继承过来，在equals作比较的时候颜色信息就被忽略掉了。虽然这样做不会违反equals约定，但是我们明显无法接受。假设我们在ColorPoint中也重写了equals方法，只有当它的参数是另一个有色点，并且具有同样的位置和颜色时，才返回true：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object o)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(!(o <span class="keyword">instanceof</span> ColorPoint))</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">super</span>.equals(o) &amp;&amp; ((ColorPoint) o).color == color;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个方法的问题在于，在比较普通点和有色点，以及相反的情形时，可能会得到不同的结果。前一种比较忽略了颜色信息，而后一种比较则总是返回false，因为参数类型不正确。</p>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20211208234254912.png" alt="image-20211208234254912"></p>
+<p>为了修正这个问题，我们可以让ColorPoint在进行“混合比较”时忽略颜色信息：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object o)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(!(o <span class="keyword">instanceof</span> Point))</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    <span class="keyword">if</span>(!(o <span class="keyword">instanceof</span> ColorPoint))</span><br><span class="line">        <span class="keyword">return</span> o.equals(<span class="keyword">this</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">super</span>.equals(o) &amp;&amp; ((ColorPoint) o).color == color;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这种方法确实提供了对称性，但是却牺牲了传递性：</p>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20211208234815483.png" alt="image-20211208234815483"></p>
+<p>此外，这种方法还可能导致无限递归问题：假设Point有两个子类：ColorPoint和SmellPoint，它们各自都带有这种equals方法。那么对colorPoint.equals(SmellPoint)的调用将会抛出StackOverflowError异常。</p>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20211208235227767.png" alt="image-20211208235227767"></p>
+<p>如何解决这个问题呢？事实上，这是面向对象语言中关于等价关系的一个基本问题。<strong>我们无法在扩展可实例化的类的同时，既增加新的值组件，同时又保留equals约定</strong>，除非愿意放弃面向对象的抽象所带来的优势。而一种方法是在equals方法中用getClass测试代替instanceof测试，可以扩展可实例化的类和增加新的值组件，同时保留equals约定：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object o)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(o == <span class="keyword">null</span> || o.getClass() != getClass())</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    Point p = (Point) o;</span><br><span class="line">    <span class="keyword">return</span> p.x == x &amp;&amp; p.y == y;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这段程序只有当对象具有相同的实现类时，才能使对象等同。这也并不是我们想要的结果！</p>
+<p>虽然没有一种令人满意的办法可以既扩展不可实例化的类，又增加值组件，但还是有一种不错的权宜之计：遵从“复合优先于继承”的建议。我们不再让ColorPoint扩展Point，而是在ColorPoint中加入一个私有的Point域，以及一个公有的试图方法，此方法返回一个与该有色点处在相同位置的普通Point对象：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ColorPoint</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Point point</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Color color;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ColorPoint</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y, Color color)</span> </span>&#123;</span><br><span class="line">		point = <span class="keyword">new</span> Point(x, y);</span><br><span class="line">        <span class="keyword">this</span>.color = Objects.requireNonNull(color);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/* Returns the point-view of this color point. */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Point <span class="title">asPoint</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> point;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object o)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(!(o <span class="keyword">instanceof</span> ColorPoint))</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        ColorPoint cp = (ColorPoint) o;</span><br><span class="line">		<span class="keyword">return</span> cp.point.equals(point) &amp;&amp; cp.color.equals(color);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在Java平台类库中，有一些类扩展了可实例化的类，并添加了新的值组件。例如，java.sql.Timestamp对java.util.Date进行了扩展，并增加了nanoseconds域。而在Timestamp中也告诉我们不要把这两个混用：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * &lt;P&gt;&lt;B&gt;Note:&lt;/B&gt; This type is a composite of a &lt;code&gt;java.util.Date&lt;/code&gt; and a</span></span><br><span class="line"><span class="comment"> * separate nanoseconds value. Only integral seconds are stored in the</span></span><br><span class="line"><span class="comment"> * &lt;code&gt;java.util.Date&lt;/code&gt; component. The fractional seconds - the nanos - are</span></span><br><span class="line"><span class="comment"> * separate.  The &lt;code&gt;Timestamp.equals(Object)&lt;/code&gt; method never returns</span></span><br><span class="line"><span class="comment"> * &lt;code&gt;true&lt;/code&gt; when passed an object</span></span><br><span class="line"><span class="comment"> * that isn&#x27;t an instance of &lt;code&gt;java.sql.Timestamp&lt;/code&gt;,</span></span><br><span class="line"><span class="comment"> * because the nanos component of a date is unknown.</span></span><br><span class="line"><span class="comment"> * As a result, the &lt;code&gt;Timestamp.equals(Object)&lt;/code&gt;</span></span><br><span class="line"><span class="comment"> * method is not symmetric with respect to the</span></span><br><span class="line"><span class="comment"> * &lt;code&gt;java.util.Date.equals(Object)&lt;/code&gt;</span></span><br><span class="line"><span class="comment"> * method.  Also, the &lt;code&gt;hashCode&lt;/code&gt; method uses the underlying</span></span><br><span class="line"><span class="comment"> * &lt;code&gt;java.util.Date&lt;/code&gt;</span></span><br><span class="line"><span class="comment"> * implementation and therefore does not include nanos in its computation.</span></span><br><span class="line"><span class="comment"> * &lt;P&gt;</span></span><br><span class="line"><span class="comment"> * Due to the differences between the &lt;code&gt;Timestamp&lt;/code&gt; class</span></span><br><span class="line"><span class="comment"> * and the &lt;code&gt;java.util.Date&lt;/code&gt;</span></span><br><span class="line"><span class="comment"> * class mentioned above, it is recommended that code not view</span></span><br><span class="line"><span class="comment"> * &lt;code&gt;Timestamp&lt;/code&gt; values generically as an instance of</span></span><br><span class="line"><span class="comment"> * &lt;code&gt;java.util.Date&lt;/code&gt;.  The</span></span><br><span class="line"><span class="comment"> * inheritance relationship between &lt;code&gt;Timestamp&lt;/code&gt;</span></span><br><span class="line"><span class="comment"> * and &lt;code&gt;java.util.Date&lt;/code&gt; really</span></span><br><span class="line"><span class="comment"> * denotes implementation inheritance, and not type inheritance.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Timestamp</span> <span class="keyword">extends</span> <span class="title">java</span>.<span class="title">util</span>.<span class="title">Date</span> </span>&#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>最后注意，你可以在一个抽象类的子类中增加新的值组件且不违反equals约定。</p>
+</li>
+<li><p>一致性</p>
+<p>第四个要求是，如果两个对象相等，它们就必须始终保持相等，除非其中有变化。换句话说，可变对象在不同时候可以与不同的对象相等，而不可变对象则不会这样。当你写一个类的受，应该仔细考虑它是否应该是不可变的。如果认为它应该是不可变的，就必须保证equals满足：相等的对象永远相等，不相等的对象永远不相等。</p>
+<p>无论类是否是不可变的，都不要使equals方法依赖于不可靠的资源。如果违反了这条禁令，要想满足一致性的要求就十分困难了。例如，java.net.URL的equals方法依赖于对URL主机IP地址的比较。而将一个主机名转变成IP地址可能需要访问网络，随着时间的推移，就不能确保会产生相同的结果，即IP地址发生了变化。这样会导致URL的equals方法违反equals约定，在实践中可能引发一些问题。这种行为是一个大错误且不应被模仿。遗憾的是，因为兼容性要求，这样行为无法被改变。</p>
+</li>
+<li><p>非空性</p>
+<p>通用约定不允许抛出NullPointerException异常。许多类的equals都通过一个显式的null测试来防止这种情况：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object o)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(o == <span class="keyword">null</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这项测试是不必要的。为了测试其参数的等同性，equals方法必须先把参数转换成适当的类型，以便可以调用它的访问方法，或者访问它的域。在进行转换之前，必须使用instanceof操作符，检查参数类型是否正确：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object o)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(!(o <span class="keyword">instanceof</span> MyType))</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    MyType mt = (MyType) o;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果漏掉这一步，并且传递的参数是错误的类型，会抛出ClassCastException异常，违反了约定。但是，如果instanceof的第一个操作数为null，那么，不管第二个操作数是哪种类型，instanceof都应该返回false。因此，如果把null传给equals，类型检查就会返回false，所以不需要显式的null检查。</p>
+</li>
+</ul>
+<p>结合所有这些要求，得出了以下实现高质量equals方法的诀窍：</p>
+<blockquote>
+<ol>
+<li>使用==操作符检查“参数是否为这个对象的引用”。</li>
+<li>使用instanceof操作符检查”参数是否为正确的类型“。</li>
+<li>把参数转换成正确的类型。</li>
+<li>对于该类中的每个”关键“域，检查参数中的域是否与该对象中对应的域相匹配。</li>
+<li>覆盖equals时总要覆盖hashCode。</li>
+<li>不要企图让equals方法过于智能。</li>
+<li>不要将equals声明中的Object对象替换为其它的类型。（那样做的话就不是Override重写了）</li>
+</ol>
+</blockquote>
+<p>对于既不是float也不是double类型的基本类型域，可以使用==进行比较；对于对象引用域，可以递归调用equals方法；对于float域，可以使用Float.compare(float, float)方法；对于double域，则使用Double.compare(double, double)。</p>
+<p>有些对象引用域包含null可能是合法的，所以，为了避免可能导致空指针异常，则使用静态方法Objects.equals(Ojbect, Object)来检查这类域的等同性。</p>
+<p>域的比较顺序可能会影响equals方法的性能。为了获得最佳的性能，应该最先比较最有可能不一致的域，或者是开销最低的域，最理想的情况是两个条件同时满足的域。</p>
+<p>在编写完equals方法之后，应该问自己三个问题：它是否是对称的、传递的、一致的？并且要编写单元测试来检验。除非用AutoValue生成的。</p>
+<p>编写和测试equals（及hashCode）方法都是十分繁琐的，得到的代码也很琐碎。代替手工编写和测试的最佳途径，是使用Google开源的AutoValue框架，它会自动生成这些方法，通过类汇总的单个注解就能触发。</p>
+<p>IDE也有工具可以生成，但得到的源代码比使用Auto-Value的更加冗长，可读性也更差，它无法自动追踪类中的变化，但通常由于程序员手工实现它们。</p>
+<p>总而言之，不要轻易覆盖equals方法，除非迫不得已。因为大多数情况下，Object继承的实现已经是想要的，如果覆盖，一定要比较这个类的所有关键域，并且查看是否遵守equals合约的所有五个条款。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/12/08/EffectiveJava-%E8%A6%86%E7%9B%96equals%E8%AF%B7%E9%81%B5%E5%AE%88%E9%80%9A%E7%94%A8%E7%BA%A6%E5%AE%9A/" data-id="ckzwc413w000bgotwhjgjgakt" class="article-share-link">
+        Share
+      </a>
+      
+    </footer>
+
+  </div>
+
+  
+  
+<nav class="article-nav">
+  
+  <a href="/2021/12/08/Java-Exception-%E7%B3%BB%E7%BB%9F%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86%E6%9C%BA%E5%88%B6%E4%B9%8B%E2%80%94%E2%80%94%E6%97%A5%E5%BF%97/" class="article-nav-link">
+    <strong class="article-nav-caption">Newer</strong>
+    <div class="article-nav-title">
+      
+      系统错误处理机制之——日志
+      
+    </div>
+  </a>
+  
+  
+  <a href="/2021/12/06/%EF%BC%81%EF%BC%81%EF%BC%81%EF%BC%81%EF%BC%81/" class="article-nav-link">
+    <strong class="article-nav-caption">Older</strong>
+    <div class="article-nav-title">！！！！！</div>
+  </a>
+  
+</nav>
+
+  
+
+  
+  
+  
+  
+
+</article>
+</section>
+    <footer class="footer">
+  <div class="outer">
+    <div class="float-right">
+      <ul class="list-inline">
+  
+  <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
+  
+  <li><i class="fe fe-bookmark"></i> <span id="busuanzi_value_page_pv"></span></li>
+  
+</ul>
+    </div>
+    <ul class="list-inline">
+      <li>青稞 &copy; 2022</li>
+      
+        <li>ZHWANGART</li>
+      
+      <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
+      <li>theme  <a target="_blank" rel="noopener" href="https://github.com/zhwangart/hexo-theme-ocean">Ocean</a></li>
+    </ul>
+  </div>
+</footer>
+  </main>
+  <aside class="sidebar">
+    <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/hexo.svg" alt="青稞"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">Home</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">Archives</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/gallery">Gallery</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about">About</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="Search">
+        <i class="fe fe-search"></i>
+        Search
+      </a>
+    </li>
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      <div class="totop" id="totop">
+  <i class="fe fe-rocket"></i>
+</div>
+    </li>
+    <li class="nav-item">
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="fe fe-feed"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+  </aside>
+  
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/copybtn.js"></script>
+
+
+
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto',
+  });
+</script>
+
+
+
+<script src="/js/ocean.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  
+  
+  <title>
+    Redis——Redis6新增数据类型 |
+    
+    青稞
+  </title>
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+    
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<script src="/js/pace.min.js"></script>
+
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="青稞" type="application/atom+xml">
+</head>
+
+<body>
+  <main class="content">
+    <section class="outer">
+  <article id="post-Redis——Redis6新增数据类型" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+      
+
+<h1 class="article-title" itemprop="name">
+  Redis——Redis6新增数据类型
+</h1>
+
+
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2022/02/07/Redis%E2%80%94%E2%80%94Redis6%E6%96%B0%E5%A2%9E%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" class="article-date">
+  <time datetime="2022-02-06T16:10:51.000Z" itemprop="datePublished">2022-02-07</time>
+</a>
+      
+    </div>
+    
+
+    
+    
+<div class="tocbot"></div>
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+      
+      <h2 id="Bitmaps"><a href="#Bitmaps" class="headerlink" title="Bitmaps"></a>Bitmaps</h2><p>现代计算机用二进制（位）作为信息的基础单位，1个字节等于8位，例如“abc”字符串是由3个字节组成，但实际在计算机存储时将其用二进制表示，“abc”分别对应的ASCII码分别是97、98、99，对应的二进制分别是01100001、01100010和01100011，如下图：</p>
+<p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220207142015398.png" alt="image-20220207142015398"></p>
+<p>合理地使用操作位能够有效地提高内存使用率和开发效率。</p>
+<p>Redis提供了Bitmaps这个“数据类型”可以实现对位的操作：</p>
+<ul>
+<li>Bitmaps本身不是一种数据类型，实际上它就是字符串（key-value），但是它可以对字符串的位进行操作。</li>
+<li>Bitmaps单独提供了一套命令，所以在Redis中使用Bitmaps和使用字符串的方法不太相同。可以把Bitmaps想象成一个以位为单位的数组，数组的每个单元只能存储0和1，数组的下标在Bitmaps中叫做偏移量。</li>
+</ul>
+<p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220207142232341.png" alt="image-20220207142232341"></p>
+<h3 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h3><ul>
+<li><h4 id="setbit"><a href="#setbit" class="headerlink" title="setbit"></a>setbit</h4></li>
+</ul>
+<p>格式：</p>
+<p>​    setbit <key> <offset> <value> 设置Bitmaps中某个偏移量的值（0或1），offset偏移量从0开始。</p>
+<p>实例：</p>
+<p>​    每个独立用户是否访问过网站存放在Bitmaps中，将访问的用户记作1，没有访问的用户记作0，用偏移量作为用户的id。设置键的第offset个位的值（从0算起），假设现在有20个用户，userid = 1、6、11、15、19的用户对网站进行了访问，那么当前Bitmaps初始化结果如图：</p>
+<p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220207142622854.png" alt="image-20220207142622854"></p>
+<p>unique:users:20220207代表2022-02-07这天的独立访问用户的Bitmaps：</p>
+<p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220207142907787.png" alt="image-20220207142907787"></p>
+<blockquote>
+<p>ps：很多应用的用户id是以一个指定数字（例如10000）开头，直接将用户id和Bitmaps的偏移量对应势必会造成一定的浪费，通常的做法是每次做setbit操作时将用户id减去这个指定数字。</p>
+<p>在第一次初始化Bitmaps时，如果偏移量非常大，那么整个初始化过程执行会比较慢，可能会造成Redis的阻塞。</p>
+</blockquote>
+<ul>
+<li><h4 id="getbit"><a href="#getbit" class="headerlink" title="getbit"></a>getbit</h4></li>
+</ul>
+<p>格式：getbit <key> <offset> 获取Bitmaps中某个偏移量的值。</p>
+<p>实例：获取id = 8的用户是否在2022-02-07这天访问过，返回0表示没有访问过。</p>
+<p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220207143312835.png" alt="image-20220207143312835"></p>
+<p>100不存在，所以也是返回0。</p>
+<ul>
+<li><h4 id="bitcount"><a href="#bitcount" class="headerlink" title="bitcount"></a>bitcount</h4></li>
+</ul>
+<p>统计字符串被设置为1的bit数。一般情况下，给定的整个字符串都会被进行计数，通过指定额外的start或end参数，可以让计数只在特定的位上进行。start和end参数的设置，都可以使用负数值。比如-1表示最后一个位，而-2表示倒数第二个位。start、end是指bit组的字节的下标树，二者皆为包含。</p>
+<p>格式：bitcount <key> [start end] 统计字符串从start字节到end字节的比特值为1的数量。</p>
+<p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220207145007635.png" alt="image-20220207145007635"></p>
+<blockquote>
+<p>ps：Redis的setbit设置或清除的是bit位置，而bitcount计算的是btye位置。</p>
+</blockquote>
+<ul>
+<li><h4 id="bitop"><a href="#bitop" class="headerlink" title="bitop"></a>bitop</h4></li>
+</ul>
+<p>bitop and(or/not/xor) <destkey> [key…] bitop是一个复合操作，它可以做多个Bitmaps的and(交集)、or(并集)、not(非)、xor(异或)操作并将结果保存在destkey中。</p>
+<p>实例：</p>
+<p>​    20220206访问网站的userid = 1、2、5、9：</p>
+<p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220207145515693.png" alt="image-20220207145515693"></p>
+<p>​    20220205访问网站的userid = 0、1、4、9：</p>
+<p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220207145528024.png" alt="image-20220207145528024"></p>
+<p>计算出两天都访问过网站的用户数量：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bitop and unique:users:and:20220205_06 unique:users:20220205 unique:users:20220206</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220207145755183.png" alt="image-20220207145755183"></p>
+<p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220207145831955.png" alt="image-20220207145831955"></p>
+<p>计算出任意一天都访问过网站的用户数量（例如月活跃就是类似这种），可以使用or求并集：</p>
+<p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220207150022745.png" alt="image-20220207150022745"></p>
+<h3 id="Bitmaps和Set对比"><a href="#Bitmaps和Set对比" class="headerlink" title="Bitmaps和Set对比"></a>Bitmaps和Set对比</h3><p>假设网站有一亿用户，每天独立访问的用户有五千万，如果每天用集合类型和Bitmaps分别存储活跃用户可以得到表：</p>
+<table>
+<thead>
+<tr>
+<th>数据类型</th>
+<th>每个用户id占用空间</th>
+<th>需要存储的用户量</th>
+<th>全部内存量</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Set</td>
+<td>64byte</td>
+<td>5000 0000</td>
+<td>64byte * 50000000 = 400MB</td>
+</tr>
+<tr>
+<td>Bitmaps</td>
+<td>1byte</td>
+<td>1 0000 0000</td>
+<td>1byte * 100000000 = 12.5MB</td>
+</tr>
+</tbody></table>
+<p>很明显，这种情况下使用Bitmaps能节省很多的内存空间，尤其是随着时间推移节省的内存还是非常可观的：</p>
+<table>
+<thead>
+<tr>
+<th>数据类型</th>
+<th>一天</th>
+<th>一个月</th>
+<th>一年</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Set</td>
+<td>400MB</td>
+<td>12GB</td>
+<td>144GB</td>
+</tr>
+<tr>
+<td>Bitmaps</td>
+<td>12.5MB</td>
+<td>375MB</td>
+<td>4.5GB</td>
+</tr>
+</tbody></table>
+<p>但Bitmaps并不是万金油，假如该网站每天的独立访问用户很少，例如只有十万（大量的僵尸用户），那么两者的对比如下表所示，很显然，这时候用Bitmaps就不太合适了，因为基本上大部分位都是0：</p>
+<table>
+<thead>
+<tr>
+<th>数据类型</th>
+<th>每个用户id占用空间</th>
+<th>需要存储的用户量</th>
+<th>全部内存量</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Set</td>
+<td>64byte</td>
+<td>10 0000</td>
+<td>64byte * 100000 = 800KB</td>
+</tr>
+<tr>
+<td>Bitmaps</td>
+<td>1byte</td>
+<td>1 0000 0000</td>
+<td>1byte * 100000000 = 12.5MB</td>
+</tr>
+</tbody></table>
+<h2 id="HyperLogLog"><a href="#HyperLogLog" class="headerlink" title="HyperLogLog"></a>HyperLogLog</h2><p>在工作当中，我们经常会遇到与统计相关的功能需求，比如统计网站PV（PageView页面访问量）,可以使用Redis的incr、incrby轻松实现。但像UV（UniqueVisitor，独立访客）、独立IP数、搜索记录数等需要去重和计数的问题如何解决？这种求集合中不重复元素个数的问题称为基数问题。</p>
+<p>解决基数问题有很多种方案：</p>
+<ul>
+<li>数据存储在MySQL表中，使用distinct count计算不重复个数</li>
+<li>使用Redis提供的hash、set、bitmaps等数据结构来处理</li>
+</ul>
+<p>以上的方案结果精确，但随着数据不断增加，导致占用空间越来越大，对于非常大的数据集是不切实际的。</p>
+<p>能否能够降低一定的精度来平衡存储空间？Redis推出了HyperLogLog。</p>
+<p>Redis HyperLogLog 是用来做基数统计的算法，HyperLogLog 的优点是，在输入元素的数量或者体积非常非常大时，计算基数所需的空间总是固定的、并且是很小的。</p>
+<p>在 Redis 里面，每个 HyperLogLog 键只需要花费 12 KB 内存，就可以计算接近 2^64 个不同元素的基数。这和计算基数时，元素越多耗费内存就越多的集合形成鲜明对比。但是，因为 HyperLogLog 只会根据输入元素来计算基数，而不会储存输入元素本身，所以 HyperLogLog 不能像集合那样，返回输入的各个元素。</p>
+<blockquote>
+<p>什么是基数?</p>
+<p>比如数据集 {1, 3, 5, 7, 5, 7, 8}， 那么这个数据集的基数集为 {1, 3, 5 ,7, 8}, 基数(不重复元素)为5。 基数估计就是在误差可接受的范围内，快速计算基数。</p>
+</blockquote>
+<h3 id="命令-1"><a href="#命令-1" class="headerlink" title="命令"></a>命令</h3><ul>
+<li>pfadd 添加指定元素到HyperLogLog。添加后，基数发生变化返回1，否则返回0。</li>
+<li>pfcount 计算HLL的近似基数，可以计算多个HLL。</li>
+<li>pfmerge 将一个或多个HLL合并后的结果存储在另一个HLL中。</li>
+</ul>
+<p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220207153158317.png" alt="image-20220207153158317"></p>
+<h2 id="Geospatial"><a href="#Geospatial" class="headerlink" title="Geospatial"></a>Geospatial</h2><p>Redis 3.2 中增加了对GEO类型的支持。GEO，Geographic，地理信息的缩写。该类型，就是元素的2维坐标，在地图上就是经纬度。redis基于该类型，提供了经纬度设置，查询，范围查询，距离查询，经纬度Hash等常见操作。</p>
+<h3 id="命令-2"><a href="#命令-2" class="headerlink" title="命令"></a>命令</h3><ul>
+<li>geoadd 添加地理位置。</li>
+<li>geopos 获取指定地区的坐标值。</li>
+<li>geodist 获取两位置之间的直线距离。</li>
+<li>georadius 以给定的经纬度为中心，找出某一半径内的元素。</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"># geoadd key 经度 纬度 名称</span><br><span class="line">geoadd china:city 121.47 31.23 shanghai</span><br><span class="line">geoadd china:city 106.50 29.53 chongqing 114.05 22.52 shenzhen 116.38 39.90 beijing</span><br><span class="line"># 两极无法直接添加，一般会下载城市数据，直接通过Java程序一次性导入。有效的经度从-180~180。有效纬度从-85.05112878~85.05112878。</span><br><span class="line"># 当坐标位置超出指定范围时，该命令将会返回一个错误。</span><br><span class="line"># 已经添加的数据，是无法再次往里面添加的。</span><br><span class="line"></span><br><span class="line">geopos china:city shanghai</span><br><span class="line"></span><br><span class="line"># 单位：m米（默认值）、km千米、mi英里、ft英尺</span><br><span class="line">geodist china:city beijing shanghai km</span><br><span class="line"></span><br><span class="line">georadius china:city 110 30 1000 km</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220207154610610.png" alt="image-20220207154610610"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/02/07/Redis%E2%80%94%E2%80%94Redis6%E6%96%B0%E5%A2%9E%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" data-id="ckzwc414r0019gotw9igt425p" class="article-share-link">
+        Share
+      </a>
+      
+    </footer>
+
+  </div>
+
+  
+  
+<nav class="article-nav">
+  
+  <a href="/2022/02/07/Redis%E2%80%94%E2%80%94%E5%8F%91%E5%B8%83%E5%92%8C%E8%AE%A2%E9%98%85/" class="article-nav-link">
+    <strong class="article-nav-caption">Newer</strong>
+    <div class="article-nav-title">
+      
+      Redis——发布和订阅
+      
+    </div>
+  </a>
+  
+  
+  <a href="/2022/02/05/Redis%E2%80%94%E2%80%94%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E4%BB%8B%E7%BB%8D/" class="article-nav-link">
+    <strong class="article-nav-caption">Older</strong>
+    <div class="article-nav-title">Redis——配置文件介绍</div>
+  </a>
+  
+</nav>
+
+  
+
+  
+  
+  
+  
+
+</article>
+</section>
+    <footer class="footer">
+  <div class="outer">
+    <div class="float-right">
+      <ul class="list-inline">
+  
+  <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
+  
+  <li><i class="fe fe-bookmark"></i> <span id="busuanzi_value_page_pv"></span></li>
+  
+</ul>
+    </div>
+    <ul class="list-inline">
+      <li>青稞 &copy; 2022</li>
+      
+        <li>ZHWANGART</li>
+      
+      <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
+      <li>theme  <a target="_blank" rel="noopener" href="https://github.com/zhwangart/hexo-theme-ocean">Ocean</a></li>
+    </ul>
+  </div>
+</footer>
+  </main>
+  <aside class="sidebar">
+    <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/hexo.svg" alt="青稞"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">Home</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">Archives</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/gallery">Gallery</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about">About</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="Search">
+        <i class="fe fe-search"></i>
+        Search
+      </a>
+    </li>
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      <div class="totop" id="totop">
+  <i class="fe fe-rocket"></i>
+</div>
+    </li>
+    <li class="nav-item">
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="fe fe-feed"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+  </aside>
+  
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/copybtn.js"></script>
+
+
+
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto',
+  });
+</script>
+
+
+
+<script src="/js/ocean.js"></script>
+
+</body>
+
+</html>

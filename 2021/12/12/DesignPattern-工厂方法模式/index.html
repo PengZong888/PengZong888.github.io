@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  
+  
+  <title>
+    工厂方法模式 |
+    
+    青稞
+  </title>
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+    
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<script src="/js/pace.min.js"></script>
+
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="青稞" type="application/atom+xml">
+</head>
+
+<body>
+  <main class="content">
+    <section class="outer">
+  <article id="post-DesignPattern-工厂方法模式" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+      
+
+<h1 class="article-title" itemprop="name">
+  工厂方法模式
+</h1>
+
+
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2021/12/12/DesignPattern-%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F/" class="article-date">
+  <time datetime="2021-12-12T15:04:25.000Z" itemprop="datePublished">2021-12-12</time>
+</a>
+      
+    </div>
+    
+
+    
+    
+<div class="tocbot"></div>
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+      
+      <p>工厂方法模式定义了一个用户创建对象的接口，让子类决定实例化哪一个类。工厂方法模式使一个类的实例化延迟到其子类。</p>
+<p>在看到工厂方法时可能有这样的疑问：</p>
+<ul>
+<li>为什么要创建一个对象的接口？</li>
+<li>为什么要把类实例化延迟到其子类？</li>
+</ul>
+<p>我们看一个具体实例：比如某人有一个习惯，在睡前吃一个水果，无论什么水果都行。水果本身是一个抽象的概念，比如有苹果、葡萄等。此人的习惯是任意水果都行，所以它不关心是哪一种水果的具体实现，如果让他执行每晚固定吃水果的程序时都确定哪一种水果，这是不现实的，每天家里能有的水果是不可知的，这就是工厂方法模式要解决的问题。</p>
+<p>在编程活动中，对于一个大型的软件工程，一个行之有效的方案就是进行模块式的分解。每一个模块由大量的代码构成，此模块的功能被其它模块使用，使用的方式就是：</p>
+<ul>
+<li>实例化此模块</li>
+<li>调用此模块功能</li>
+</ul>
+<p>注意这两个步骤中的第一步，在复杂的应用中会产生严重的副作用。模块的接口虽然不易变，但是各种具体实现的类及其需求是经常变化的。比如编码客户端的时候设计的用户按钮是方形的，但是交付客户的时候客户的需求改成了圆形，程序中创建的按钮有数万个，更改程序时就成了非常麻烦的事。</p>
+<p>以上各种情形下所出现的棘手问题都可以由工厂方法模式解决。</p>
+<h2 id="1-商品上架遇到的问题"><a href="#1-商品上架遇到的问题" class="headerlink" title="1. 商品上架遇到的问题"></a>1. 商品上架遇到的问题</h2><p>超市中有很多种商品，每种商品上架时都需要合适的货架来摆放。</p>
+<p>现在我们使用软件实现商品上架，在以下的设计中，基本思路是为商品选择货架，而不是为货架选择商品，这是根据需求决定的设计方式。商品上架的流程是先拿到商品对象，创建一个可以容纳的货架空间，最后讲商品放入。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Goods</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Goods</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Goods</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SampleShelf</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String name  = <span class="string">&quot;普通货架类&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">put</span><span class="params">(Goods goods)</span> </span>&#123;</span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 打印货架名，货架类信息，所放商品信息</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        System.out.println(<span class="keyword">this</span>.name + <span class="string">&quot;(&quot;</span> + <span class="keyword">this</span> + <span class="string">&quot;)&quot;</span> + <span class="string">&quot;上摆放了：&quot;</span> + goods.getName());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SampleShelfClient</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 得到商品</span></span><br><span class="line">        Goods goods = <span class="keyword">new</span> Goods(<span class="string">&quot;巧克力&quot;</span>);</span><br><span class="line">        <span class="comment">// 得到货架</span></span><br><span class="line">        SampleShelf shelf = <span class="keyword">new</span> SampleShelf();</span><br><span class="line">        <span class="comment">// 上架</span></span><br><span class="line">        shelf.put(goods);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 得到商品</span></span><br><span class="line">        Goods goods1 = <span class="keyword">new</span> Goods(<span class="string">&quot;方便面&quot;</span>);</span><br><span class="line">        <span class="comment">// 得到货架</span></span><br><span class="line">        SampleShelf shelf1 = <span class="keyword">new</span> SampleShelf();</span><br><span class="line">        <span class="comment">// 上架</span></span><br><span class="line">        shelf1.put(goods1);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20211213221122918.png" alt="image-20211213221122918"></p>
+<p>从代码和结果可以看出，我们需要商品就实例化一个商品，需要货架就实例化一个货架，从结果也可以看出，两个商品分别取得了不同的货架进行存放。</p>
+<p>但是我们设想一下在这个系统设计出来以后有可能发生的事情：</p>
+<ul>
+<li>货架的使用应该具有可复用性，即如果一个货架没有装满的话，还可以用来装其它的货物。由于使用程序来装货物，所以货物不应该知道货架的细节。</li>
+<li>每一种货物所摆放的货架是有要求的，不能任意用一种货架。</li>
+<li>当使用代码大量增加时，如果再想做统一的操作，将会增加大量代码。</li>
+<li>未来将会增加货架的种类，在此系统中，增加货架的种类势必增加货架类和改变使用的代码，使用代码和特定的货架是紧密耦合的。</li>
+</ul>
+<p>由以上的研究可以发现，简单的设计在需求的复杂性提高了后会出现问题，而工厂方法模式就是解决创建类问题的一种方法。</p>
+<h2 id="2-简单工厂模式"><a href="#2-简单工厂模式" class="headerlink" title="2. 简单工厂模式"></a>2. 简单工厂模式</h2><p>一个具体工厂通过条件语句创建多个产品，产品的创建逻辑集中在一个工厂类上。客户端通过传递不同的参数给工厂，实现创建不同产品的目的。增减新产品时，需要修改工厂类、增加产品类，这不符合OCP原则。</p>
+<p>先看一下通常所见到的代码初步设计类图：</p>
+<p><img src="C:/Users/pengbin007/AppData/Roaming/Typora/typora-user-images/image-20211213202048185.png" alt="image-20211213202048185"></p>
+<p>这个图使用的结构类似于上面的商品上架的代码，这种设计所能造成的缺点我们已经讨论过了，下面看一下由此图进行的模式演化：</p>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20211213202557212.png" alt="image-20211213202557212"></p>
+<p>由图可见，设计中加入了一个抽象的层次Auto类，加入此抽象层次的好处是显而易见的，它帮助架构降低了Client类和各种具体车型之间的耦合度，而且符合了开-闭原则，如果以后需要加入其它车型，设计将变得很容易。</p>
+<p>但是，此设计的缺点也是存在的，它并没有将客户端的构建具体依赖对象的代码和客户端的使用代码完全分开，这样就会对扩展性和功能性设计造成麻烦，请思考以下问题：</p>
+<ul>
+<li>客户所用的任何一部车都需要在使用前登记。</li>
+<li>如果Car类车型没有了，使用Truck车型替代。</li>
+<li>公司的Car类车全部换为SuperCar。</li>
+</ul>
+<p>如果采用简单工厂模式，则可以解决以上问题，如图：</p>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20211213203646066.png" alt="image-20211213203646066"></p>
+<p>图中各种元素如下：</p>
+<ul>
+<li>产品接口：Auto此接口用于描述各种具体的产品。</li>
+<li>具体产品：Car、Bus、Truck。</li>
+<li>静态工厂类：StaticFactory类中具有静态的工厂方法。</li>
+<li>客户类：Client类调用静态工厂生产各种Auto的实现对象。</li>
+</ul>
+<p>具体代码实现：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 调用静态工厂创建对象</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        Auto auto1 = StaticFactory.createAuto(<span class="number">1</span>);</span><br><span class="line">        auto1.run();</span><br><span class="line"></span><br><span class="line">        Auto auto2 = StaticFactory.createAuto(<span class="number">2</span>);</span><br><span class="line">        auto2.run();</span><br><span class="line"></span><br><span class="line">        Auto auto3 = StaticFactory.createAuto(<span class="number">4</span>);</span><br><span class="line">        auto3.run();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StaticFactory</span> <span class="keyword">extends</span> <span class="title">Client</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Auto <span class="title">createAuto</span><span class="params">(<span class="keyword">int</span> autoId)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">switch</span>(autoId) &#123;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">new</span> Car();</span><br><span class="line">            <span class="keyword">case</span> <span class="number">2</span>:</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">new</span> Bus();</span><br><span class="line">            <span class="keyword">case</span> <span class="number">3</span>:</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">new</span> Truck();</span><br><span class="line">            <span class="keyword">default</span>:</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">&quot;没有这种车型&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Auto</span> <span class="keyword">extends</span> <span class="title">StaticFactory</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">abstract</span> <span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Car</span> <span class="keyword">extends</span> <span class="title">Auto</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Car</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.setName(<span class="string">&quot;轿车&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;启动&quot;</span> + <span class="keyword">this</span>.getName());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Bus</span> <span class="keyword">extends</span> <span class="title">Auto</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Bus</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.setName(<span class="string">&quot;巴士&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;启动&quot;</span> + <span class="keyword">this</span>.getName());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Truck</span> <span class="keyword">extends</span> <span class="title">Auto</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Truck</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.setName(<span class="string">&quot;卡车&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;启动&quot;</span> + <span class="keyword">this</span>.getName());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>运行结果如下：</p>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20211213204023931.png" alt="image-20211213204023931"></p>
+<p>经过了以上的简单工厂模式的设计，可以发现它有以下几个方面的优点：</p>
+<ol>
+<li>用代码和具体使用类的耦合度降低。</li>
+<li>令创建与使用的代码相分离，可以独立地变化，易于维护和扩展。</li>
+<li>可以通过外部配置的方法将耦合度进一步降低。</li>
+</ol>
+<h2 id="3-工厂方法模式"><a href="#3-工厂方法模式" class="headerlink" title="3. 工厂方法模式"></a>3. 工厂方法模式</h2><p>简单工厂模式虽然有一定的优点，但是还是存在下面的不足：</p>
+<ul>
+<li><p>工厂实现的产品抽象，不具备复杂性。</p>
+</li>
+<li><p>工厂不具备抽象性。</p>
+</li>
+</ul>
+<p>为了解决这些问题，GoF的设计模式中提出了工厂方法模式。解决方法就是将各种产品使用不同的工厂生产，各种工厂中的创建方法可以互相独立地改变，并将这些工厂类抽象出一个共同的父类，如下图：</p>
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20211213210920006.png" alt="image-20211213210920006"></p>
+<p>工厂方法和简单工厂的区别在于其对工厂也做了一层抽象，不同的工厂负责生产不同的产品。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 调用静态工厂创建对象</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        Factory factory;</span><br><span class="line">        Auto auto;</span><br><span class="line"></span><br><span class="line">        factory = <span class="keyword">new</span> BusFactory();</span><br><span class="line">        auto = factory.createAuto();</span><br><span class="line">        auto.run();</span><br><span class="line"></span><br><span class="line">        factory = <span class="keyword">new</span> CarFactory();</span><br><span class="line">        auto = factory.createAuto();</span><br><span class="line">        auto.run();</span><br><span class="line"></span><br><span class="line">        factory = <span class="keyword">new</span> TruckFactory();</span><br><span class="line">        auto = factory.createAuto();</span><br><span class="line">        auto.run();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Factory</span> <span class="keyword">extends</span> <span class="title">Client</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">abstract</span> <span class="keyword">public</span> Auto <span class="title">createAuto</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CarFactory</span> <span class="keyword">extends</span> <span class="title">Factory</span></span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Auto <span class="title">createAuto</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Truck();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BusFactory</span> <span class="keyword">extends</span> <span class="title">Factory</span></span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Auto <span class="title">createAuto</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Bus();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TruckFactory</span> <span class="keyword">extends</span> <span class="title">Factory</span></span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Auto <span class="title">createAuto</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Car();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20211213211500428.png" alt="image-20211213211500428"></p>
+<p>以上就是工厂方法模式的简单实现，分析其实现可以发现简单工厂模式的两种主要缺点已经被解决了，现在我们看工厂方法能实现而简单工厂不能实现的情况：</p>
+<ul>
+<li>对每一种生产出的产品实例做不同的操作。</li>
+<li>增加一种完全不同类型的产品。</li>
+<li>在不修改原有工厂类的情况下增加对新产品的支持。</li>
+</ul>
+<h2 id="4-使用工厂方法模式解决商品上架问题"><a href="#4-使用工厂方法模式解决商品上架问题" class="headerlink" title="4. 使用工厂方法模式解决商品上架问题"></a>4. 使用工厂方法模式解决商品上架问题</h2><p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20211213214955812.png" alt="image-20211213214955812"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Bed</span> <span class="keyword">extends</span> <span class="title">Goods</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Bed</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>();</span><br><span class="line">        <span class="keyword">this</span>.setName(<span class="string">&quot;双人床&quot;</span>);</span><br><span class="line">        <span class="keyword">this</span>.setWidth(<span class="number">300</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Shelf</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String shelfName;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> maxWidth;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getShelfName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> shelfName;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setShelfName</span><span class="params">(String shelfName)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.shelfName = shelfName;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getMaxWidth</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> maxWidth;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setMaxWidth</span><span class="params">(<span class="keyword">int</span> maxWidth)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.maxWidth = maxWidth;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">put</span><span class="params">(Goods goods)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;将&quot;</span> + goods.getName() + <span class="string">&quot;放入&quot;</span> + <span class="keyword">this</span>.getShelfName());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SmallShelf</span> <span class="keyword">extends</span> <span class="title">Shelf</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">SmallShelf</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>();</span><br><span class="line">        <span class="keyword">this</span>.setShelfName(<span class="string">&quot;一种90cm的小货架&quot;</span>);</span><br><span class="line">        <span class="keyword">this</span>.setMaxWidth(<span class="number">90</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BigShelf</span> <span class="keyword">extends</span> <span class="title">Shelf</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">BigShelf</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>();</span><br><span class="line">        <span class="keyword">this</span>.setShelfName(<span class="string">&quot;一种200cm的大货架&quot;</span>);</span><br><span class="line">        <span class="keyword">this</span>.setMaxWidth(<span class="number">200</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">ShelfFactory</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> maxWidth;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getMaxWidth</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> maxWidth;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setMaxWidth</span><span class="params">(<span class="keyword">int</span> maxWidth)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.maxWidth = maxWidth;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">abstract</span> <span class="keyword">public</span> Shelf <span class="title">createShelf</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SmallShelfFactory</span> <span class="keyword">extends</span> <span class="title">ShelfFactory</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">SmallShelfFactory</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>();</span><br><span class="line">        <span class="keyword">this</span>.setMaxWidth(<span class="keyword">new</span> SmallShelf().getMaxWidth());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Shelf <span class="title">createShelf</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> SmallShelf();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BigShelfFactory</span> <span class="keyword">extends</span> <span class="title">ShelfFactory</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">BigShelfFactory</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>();</span><br><span class="line">        <span class="keyword">this</span>.setMaxWidth(<span class="keyword">new</span> BigShelf().getMaxWidth());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Shelf <span class="title">createShelf</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> BigShelf();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PlaceGoodsHelper</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">placeGoods</span><span class="params">(Goods goods)</span> </span>&#123;</span><br><span class="line">        ArrayList&lt;ShelfFactory&gt; shelfFactories = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        shelfFactories.add(<span class="keyword">new</span> SmallShelfFactory());</span><br><span class="line">        shelfFactories.add(<span class="keyword">new</span> BigShelfFactory());</span><br><span class="line"></span><br><span class="line">        Shelf shelf;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(ShelfFactory shelfFactory : shelfFactories) &#123;</span><br><span class="line">            <span class="keyword">if</span>(shelfFactory.getMaxWidth() &gt;= goods.getWidth()) &#123;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    shelf = shelfFactory.createShelf();</span><br><span class="line">                    shelf.put(goods);</span><br><span class="line">                    <span class="keyword">return</span>;</span><br><span class="line">                &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">&quot;没有找到符合&quot;</span> + goods.getName() + <span class="string">&quot;尺寸的货架&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        ArrayList&lt;Goods&gt; goods = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        goods.add(<span class="keyword">new</span> Phone());</span><br><span class="line">        goods.add(<span class="keyword">new</span> TV());</span><br><span class="line">        goods.add(<span class="keyword">new</span> Bed());</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">&quot;init already&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(Goods good : goods) &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                PlaceGoodsHelper.placeGoods(good);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">&quot;放置货物完成！&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20211213215148107.png" alt="image-20211213215148107"></p>
+<p>到此，我们已经可以使用工厂方法模式完全解决商品上架的问题了，但是，由于篇幅原因，有一些因素没有完全考虑到，读者可以自行扩展。部分扩展如下：</p>
+<ul>
+<li>考虑一个货架可以放多个货物的情况。</li>
+<li>考虑商品防止的优先级的问题。</li>
+<li>考虑更多类型的货架，如不同的形状和材质的货架。</li>
+<li>考虑货物体积与货架空间相互作用引发的最优化放置问题。</li>
+</ul>
+<p>完整代码见我的码云仓库：<a target="_blank" rel="noopener" href="https://gitee.com/pengzong888/blog">https://gitee.com/pengzong888/blog</a></p>
+<h2 id="5-工厂方法模式的使用范围"><a href="#5-工厂方法模式的使用范围" class="headerlink" title="5. 工厂方法模式的使用范围"></a>5. 工厂方法模式的使用范围</h2><ul>
+<li>当客户程序不需要知道要使用对象的创建过程时。</li>
+<li>客户程序使用的对象存在变动的可能，或者根本就不知道使用哪一个具体的对象时。</li>
+<li>当客户想分离对象的创建和使用代码时。</li>
+<li>当客户想集中管理创建代码时。</li>
+<li>当客户需要使用的对象种类非常多，并且有扩展需求时。</li>
+</ul>
+<p>其优点在于分担了对象承受的压力，使结构变得灵活起来，并且符合开-闭原则。同样的可以看出工厂方法的加入，使得对象的数量成倍增长。当产品种类非常多时，会出现大量的与之对应的工厂对象，这不是我们希望的。</p>
+<h2 id="6-简单工厂与其它模式的区别"><a href="#6-简单工厂与其它模式的区别" class="headerlink" title="6. 简单工厂与其它模式的区别"></a>6. 简单工厂与其它模式的区别</h2><ul>
+<li>工厂方法模式与简单工厂模式在结构上的不同不是很明显。工厂方法模式的核心是一个抽象工厂类，而简单工厂模式把核心放在一个具体类上。</li>
+<li>工厂方法模式之所以有一个别名叫多态性工厂模式是因为，具体工厂类都有共同的接口，或者有共同的抽象父类。</li>
+<li>当系统扩展需要添加新的产品对象时，仅仅需要添加一个具体对象以及一个具体工厂对象，原有工厂对象不需要进行任何修改，也不需要修改客户端，这很好地符合了”开放——封闭“原则。而简单工厂模式在添加新产品对象后不得不修改工厂方法，扩展性不好。</li>
+<li>工厂方法模式退化后可以演变成简单工厂模式。</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/12/12/DesignPattern-%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F/" data-id="ckzwc413v000agotw1ryh3xa5" class="article-share-link">
+        Share
+      </a>
+      
+    </footer>
+
+  </div>
+
+  
+  
+<nav class="article-nav">
+  
+  <a href="/2021/12/13/MySQL-%E8%BF%9E%E6%8E%A5MySQL/" class="article-nav-link">
+    <strong class="article-nav-caption">Newer</strong>
+    <div class="article-nav-title">
+      
+      连接MySQL
+      
+    </div>
+  </a>
+  
+  
+  <a href="/2021/12/11/Java%E7%BA%BF%E7%A8%8B/" class="article-nav-link">
+    <strong class="article-nav-caption">Older</strong>
+    <div class="article-nav-title">Java线程</div>
+  </a>
+  
+</nav>
+
+  
+
+  
+  
+  
+  
+
+</article>
+</section>
+    <footer class="footer">
+  <div class="outer">
+    <div class="float-right">
+      <ul class="list-inline">
+  
+  <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
+  
+  <li><i class="fe fe-bookmark"></i> <span id="busuanzi_value_page_pv"></span></li>
+  
+</ul>
+    </div>
+    <ul class="list-inline">
+      <li>青稞 &copy; 2022</li>
+      
+        <li>ZHWANGART</li>
+      
+      <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
+      <li>theme  <a target="_blank" rel="noopener" href="https://github.com/zhwangart/hexo-theme-ocean">Ocean</a></li>
+    </ul>
+  </div>
+</footer>
+  </main>
+  <aside class="sidebar">
+    <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/hexo.svg" alt="青稞"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">Home</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">Archives</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/gallery">Gallery</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about">About</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="Search">
+        <i class="fe fe-search"></i>
+        Search
+      </a>
+    </li>
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      <div class="totop" id="totop">
+  <i class="fe fe-rocket"></i>
+</div>
+    </li>
+    <li class="nav-item">
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="fe fe-feed"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+  </aside>
+  
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/copybtn.js"></script>
+
+
+
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto',
+  });
+</script>
+
+
+
+<script src="/js/ocean.js"></script>
+
+</body>
+
+</html>

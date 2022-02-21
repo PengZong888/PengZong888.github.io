@@ -76,6 +76,79 @@
 <p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220205213040529.png" alt="image-20220205213040529"></p>
 <h2 id="INCLUDES包含"><a href="#INCLUDES包含" class="headerlink" title="INCLUDES包含"></a>INCLUDES包含</h2><p>类似jsp中的include，多实例的情况可以把公用的配置文件提取出来</p>
 <p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220205213140870.png" alt="image-20220205213140870"></p>
+<h2 id="网络相关配置"><a href="#网络相关配置" class="headerlink" title="网络相关配置"></a>网络相关配置</h2><h3 id="bind"><a href="#bind" class="headerlink" title="bind"></a>bind</h3><p>默认情况bind = 127.0.0.1只能接收本机的访问请求，如果不写的话，可以无限制接受任何ip地址的访问。在生产环境肯定是写你应用服务器的地址，在这里，我们先将其注释掉。</p>
+<p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220207121251549.png" alt="image-20220207121251549"></p>
+<blockquote>
+<p>ps：如果开启了protected-mode，并且在没有设定bind ip，而且没有设置密码的情况下（也就是默认情况），Redis只允许接受本机的访问。</p>
+</blockquote>
+<p>保存配置，重启服务，查看进程，可以看到，不再是本机访问了（*表示任意主机皆可访问）：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl restart redis.service</span><br><span class="line">ps -ef | grep redis</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220207121508397.png" alt="image-20220207121508397"></p>
+<h3 id="protected-mode"><a href="#protected-mode" class="headerlink" title="protected-mode"></a>protected-mode</h3><p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220207122011311.png" alt="image-20220207122011311"></p>
+<p>从它的注释中可以看到，protected-mode是为了禁止redis被外网访问的，加强redis的安全，它开启有两个前提条件：</p>
+<ul>
+<li>没有设置bind ip。</li>
+<li>没有设置密码。</li>
+</ul>
+<p>我们将它设为no，不开启。</p>
+<h3 id="port"><a href="#port" class="headerlink" title="port"></a>port</h3><p>端口号，默认6379：</p>
+<p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220207122242484.png" alt="image-20220207122242484"></p>
+<h3 id="tcp-backlog"><a href="#tcp-backlog" class="headerlink" title="tcp-backlog"></a>tcp-backlog</h3><p>此参数确定TCP连接中已完成队列（完成三次握手之后）的长度，这个值必须不大于Linux系统中定义的/proc/sys/net/core/somaxconn的值（默认128）。</p>
+<p>已完成连接队列又和半连接队列长度有关：/proc/sys/net/ipv4/tcp_max_syn_backlog</p>
+<blockquote>
+<p>ps：</p>
+<p>半连接：服务端收到客户端syn后，将连接放入半连接队列。如果半连接队列已满则会丢弃，客户端报错connection time out。</p>
+<p>已完成连接：服务端收到客户端的ack后，从半连接队列中拿出连接放入已完成连接队列。如果已完成连接队列已满则无法放入，客户端报错read timeout 或者connection reset by peer。</p>
+</blockquote>
+<p>当系统并发量大并且客户端速度缓慢的时候，我们可以将这两个参数一起修改。</p>
+<h4 id="修改somaxconn："><a href="#修改somaxconn：" class="headerlink" title="修改somaxconn："></a>修改somaxconn：</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">echo 2048 &gt; /proc/sys/net/core/somaxconn</span><br><span class="line">vim /etc/sysctl.conf</span><br><span class="line">sysctl -p</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220207125051100.png" alt="image-20220207125051100"></p>
+<p>仅修改somaxconn，系统重启后会丢失，因此还要修改sysctl.conf。</p>
+<p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220207125133215.png" alt="image-20220207125133215"></p>
+<h4 id="修改tcp-max-syn-backlog"><a href="#修改tcp-max-syn-backlog" class="headerlink" title="修改tcp_max_syn_backlog"></a>修改tcp_max_syn_backlog</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">echo 2048 &gt; /proc/sys/net/ipv4/tcp_max_syn_backlog</span><br><span class="line">vim /etc/sysctl.conf</span><br><span class="line">sysctl -p</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220207130324836.png" alt="image-20220207130324836"></p>
+<p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220207130356503.png" alt="image-20220207130356503"></p>
+<h4 id="修改tcp-backlog"><a href="#修改tcp-backlog" class="headerlink" title="修改tcp-backlog"></a>修改tcp-backlog</h4><p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220207130525274.png" alt="image-20220207130525274"></p>
+<h3 id="timeout"><a href="#timeout" class="headerlink" title="timeout"></a>timeout</h3><p>一个空闲的客户端维持多少秒会关闭，0表示关闭该功能，即永不关闭。</p>
+<p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220207130613391.png" alt="image-20220207130613391"></p>
+<h3 id="tcp-keepalive"><a href="#tcp-keepalive" class="headerlink" title="tcp-keepalive"></a>tcp-keepalive</h3><p>指定TCP连接是否为长连接,”侦探”信号由server端维护,长连接将会额外的增加server端的开支，如果为0.表示禁用,非0值表示开启长连接“侦探”信号的发送间隔将有linux系统决定。在多次“侦探”后,如果对等端仍不回复,将会关闭连接,否则连接将会被保持开启。client端socket也可以通过配置keepalive选项,开启“长连接”。</p>
+<p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220207131404119.png" alt="image-20220207131404119"></p>
+<p>官方说从3.2.1是建议设为300，之前是60。</p>
+<h2 id="GENERAL通用"><a href="#GENERAL通用" class="headerlink" title="GENERAL通用"></a>GENERAL通用</h2><h3 id="daemonize"><a href="#daemonize" class="headerlink" title="daemonize"></a>daemonize</h3><p>是否为后台进程，设为yes可以后台启动。</p>
+<p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220207132234941.png" alt="image-20220207132234941"></p>
+<h3 id="pidfile"><a href="#pidfile" class="headerlink" title="pidfile"></a>pidfile</h3><p>存放pid文件的位置，每个实例会产生一个不同的pid文件：</p>
+<p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220207132322349.png" alt="image-20220207132322349"></p>
+<h3 id="loglevel"><a href="#loglevel" class="headerlink" title="loglevel"></a>loglevel</h3><p>日志级别。Redis共支持4个级别：debug、verbose、notice、warning，默认notice。生产环境选notice或warning。</p>
+<p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220207132434756.png" alt="image-20220207132434756"></p>
+<h3 id="logfile"><a href="#logfile" class="headerlink" title="logfile"></a>logfile</h3><p>日志文件名称：</p>
+<p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220207132549663.png" alt="image-20220207132549663"></p>
+<h3 id="databases"><a href="#databases" class="headerlink" title="databases"></a>databases</h3><p>设定库的数量：</p>
+<p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220207132601514.png" alt="image-20220207132601514"></p>
+<h2 id="SECURITY安全"><a href="#SECURITY安全" class="headerlink" title="SECURITY安全"></a>SECURITY安全</h2><h3 id="设置密码"><a href="#设置密码" class="headerlink" title="设置密码"></a>设置密码</h3><p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220207132749045.png" alt="image-20220207132749045"></p>
+<p>也可以在命令中设置密码，但是只是临时的，重启Redis服务器，密码就还原了。要永久，还是得配置文件设置。</p>
+<p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220207133008742.png" alt="image-20220207133008742"></p>
+<h2 id="LIMITS限制"><a href="#LIMITS限制" class="headerlink" title="LIMITS限制"></a>LIMITS限制</h2><h3 id="maxclients"><a href="#maxclients" class="headerlink" title="maxclients"></a>maxclients</h3><p>设置Redis同时可以和多少个客户端进行连接，默认10000个。如果达到了此限制，Redis会拒绝新的连接请求，并且向这些连接请求放发出“max number of clients reached”以作回应。</p>
+<p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220207133237625.png" alt="image-20220207133237625"></p>
+<h3 id="maxmemory"><a href="#maxmemory" class="headerlink" title="maxmemory"></a>maxmemory</h3><p>设置Redis可以使用的内存量，一旦到达内存使用上限，Redis将会试图移除内部数据，移除规则通过maxmemory-policy来指定。</p>
+<p>如果Redis无法根据移除规则来移除内存中的数据，或者设置了“不允许移除”，那么Redis则会针对那些需要申请内存的指令返回错误信息，比如set、lpush等。</p>
+<p>但是对于无内存申请的指令，仍然会正常响应，比如get等。</p>
+<p>如果你的Redis是主Redis（说明还有从Redis），那么在设置内存使用上限时，需要在系统中流出一些内存空间给同步队列缓存，只有在你设置的是“不移除”的情况下，才不用考虑这个因素。</p>
+<p>建议必须设置，否则，将内存占满，造成服务器宕机。</p>
+<p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220207133733362.png" alt="image-20220207133733362"></p>
+<h3 id="maxmemory-policy"><a href="#maxmemory-policy" class="headerlink" title="maxmemory-policy"></a>maxmemory-policy</h3><ul>
+<li>volatile-lru：使用LRU算法移除key，只对设置了过期时间的键（最近最少使用）。</li>
+<li>allkeys-lru：在所有集合key中，使用LRU算法移除key。</li>
+<li>volatile-random：在过期集合中移除随机的key，只对设置了过期时间的键。</li>
+<li>allkeys-random：在所有集合key中，随机移除key。</li>
+<li>volatile-ttl：移除那些ttl值最小的key，即那些最近要过期的key。</li>
+<li>noeviction：不进行移除。针对写操作，只是返回错误信息。</li>
+</ul>
+<p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220207133821177.png" alt="image-20220207133821177"></p>
+<h3 id="maxmemory-samples"><a href="#maxmemory-samples" class="headerlink" title="maxmemory-samples"></a>maxmemory-samples</h3><p>设置样本数量，LRU算法和最小TTL算法都并非是精确的算法，而是估算值，所以你可以设置样本的大小，Redis默认会检查这么多个key并选择其中LRU的那个。一般设置3到7的数字，数值越小样本越不准确，但性能消耗小。</p>
+<p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220207134255320.png" alt="image-20220207134255320"></p>
 
       
     </div>
@@ -92,11 +165,11 @@
   
 <nav class="article-nav">
   
-  <a href="/2022/02/06/Spring%E6%B3%A8%E8%A7%A3%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91%E2%80%94%E2%80%94AOP%E5%8A%9F%E8%83%BD%E6%B5%8B%E8%AF%95/" class="article-nav-link">
+  <a href="/2022/02/07/Redis%E2%80%94%E2%80%94Redis6%E6%96%B0%E5%A2%9E%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" class="article-nav-link">
     <strong class="article-nav-caption">Newer</strong>
     <div class="article-nav-title">
       
-      Spring注解驱动开发——AOP功能测试
+      Redis——Redis6新增数据类型
       
     </div>
   </a>

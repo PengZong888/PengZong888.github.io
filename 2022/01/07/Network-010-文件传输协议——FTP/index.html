@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  
+  
+  <title>
+    文件传输协议——FTP |
+    
+    青稞
+  </title>
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+    
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<script src="/js/pace.min.js"></script>
+
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="青稞" type="application/atom+xml">
+</head>
+
+<body>
+  <main class="content">
+    <section class="outer">
+  <article id="post-Network-010-文件传输协议——FTP" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+      
+
+<h1 class="article-title" itemprop="name">
+  文件传输协议——FTP
+</h1>
+
+
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2022/01/07/Network-010-%E6%96%87%E4%BB%B6%E4%BC%A0%E8%BE%93%E5%8D%8F%E8%AE%AE%E2%80%94%E2%80%94FTP/" class="article-date">
+  <time datetime="2022-01-07T05:26:53.000Z" itemprop="datePublished">2022-01-07</time>
+</a>
+      
+    </div>
+    
+
+    
+    
+<div class="tocbot"></div>
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+      
+      <p>在一个典型的FTP会话中，用户坐在一台主机前面，向一台远程主机传输文件。为使用户能访问它的远程账户，用户必须提供一个用户标识和口令。在提供了这种授权信息后，用户就能从本地文件系统向远程主机文件系统传送文件，反之亦然。</p>
+<p>如图所示，用户通过一个FTP用户代理与FTP交互。该用户首先提供远程主机的主机名，使本地主机的FTP客户进程建立一个到远程主机FTP服务器进程的TCP连接。该用户接着提供用户标识和口令，作为FTP命令的一部分在该TCP连接上传送。一旦该服务器向该用户授权，用户可以将存放在本地文件系统中的一个或者多个文件复制到远程文件系统（反之亦然）。</p>
+<p><img src="C:/Users/pengbin007/AppData/Roaming/Typora/typora-user-images/image-20220107170948054.png" alt="image-20220107170948054"></p>
+<p>HTTP和FTP都是文件传输协议，并且有很多共同的特点，例如，它们都运行在TCP上。然而，这两个应用层协议也有一些重要的区别。其中最显著的就是FTP使用了两个并行的TCP连接来传输文件，一个是控制连接（control connection），一个是数据连接（data connection）。</p>
+<p>控制连接用于在两主机之间传输控制信息，如用户标识、口令、改变远程目录的命令以及“存放（put）”和“获取（get）”文件的命令。数据连接用于实际发送一个文件。因为FTP协议使用了一个独立的控制连接，所以我们也称FTP的控制信息是带外（out-of-band）传送的。而HTTP协议是在传输文件的同一个TCP连接中发送请求和响应首部行的。因此，HTTP也可以说是带内（in-band）发送控制信息的。FTP协议控制连接和数据连接如图所示。</p>
+<p><img src="C:/Users/pengbin007/AppData/Roaming/Typora/typora-user-images/image-20220107170217442.png" alt="image-20220107170217442"></p>
+<p>在同一个会话期间，如果用户还需要传输另一个文件，FTP则打开另一个数据连接。因而对FTP传输而言，控制连接贯穿了整个用户会话期间，但是对会话中的每一次文件传输都需要建立一个新的数据连接（即数据连接是非持续的）。</p>
+<p>FTP服务器必须在整个会话期间保留用户的状态（state）。特别是，服务器必须把特定的用户账户与控制连接联系起来，随着用户在远程目录树上徘徊，服务器必须追踪用户在远程目录树上的当前位置。对每个进行中的用户会话的状态信息进行追踪，大大限制了FTP同时维持的会话总数。而另一方面，前面讲过FTP是无状态的，即它不必对任何用户状态进行追踪。</p>
+<h1 id="FTP命令和回答"><a href="#FTP命令和回答" class="headerlink" title="FTP命令和回答"></a>FTP命令和回答</h1><p>从客户到服务器的命令和从服务器到客户的回答，都是以7比特ASCII格式在控制连接上传送的。因此，与HTTP协议的命令类似，FTP协议的命令也是人可读的。为了区分连续的命令，每个命令后跟回车换行符。每个命令由4个大写字母ASCII字符组成，有些还具有可选参数。一些较为常见的命令如下：</p>
+<ul>
+<li>USER username：用户向服务器传送用户标识。</li>
+<li>PASS password：用于向服务器发送用户口令。</li>
+<li>LIST：用于请求服务器回送当前远程目录中的所有文件列表。该文件列表是通过一个数据连接传送的，而不是在控制TCP连接上传送。</li>
+<li>RETR filename：用于从远程主机当前目录检索（即get）文件。该命令引起远程主机发起一个数据连接，并经该数据连接发送所请求的文件。</li>
+<li>STOR filename：用于在远程主机的当前目录上存放（即put）文件。</li>
+</ul>
+<p>贯穿控制连接，在用户发出的命令和FTP发送的命令之间通常有一一对应关系。每个命令都对应这一个从服务器发向客户的回答。回答是一个3位的数字，后跟一个可选信息。这与HTTP响应报文状态行的状态码和状态信息的结构相同。一些典型的回答连同它们可能的报文如下所示：</p>
+<ul>
+<li>331 Username OK，Password required（用户名OK，需要口令）。</li>
+<li>125 Data connection already open；transfer starting（数据连接已经打开，开始传送）。</li>
+<li>425 Can’t open data connection（无法打开数据连接）。</li>
+<li>452 Error writing file（写文件差错）。</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/01/07/Network-010-%E6%96%87%E4%BB%B6%E4%BC%A0%E8%BE%93%E5%8D%8F%E8%AE%AE%E2%80%94%E2%80%94FTP/" data-id="ckzwc414l0015gotwfvxn5utt" class="article-share-link">
+        Share
+      </a>
+      
+    </footer>
+
+  </div>
+
+  
+  
+<nav class="article-nav">
+  
+  <a href="/2022/01/13/Python-%E7%88%AC%E8%99%AB%E4%B8%8B%E8%BD%BD%E7%BD%91%E6%98%93%E4%BA%91%E7%83%AD%E6%AD%8C/" class="article-nav-link">
+    <strong class="article-nav-caption">Newer</strong>
+    <div class="article-nav-title">
+      
+      爬虫下载网易云热歌
+      
+    </div>
+  </a>
+  
+  
+  <a href="/2022/01/02/Spring%E3%80%90%E6%BA%90%E7%A0%81%E3%80%91%E2%80%94%E2%80%94bean%E7%9A%84%E5%88%9B%E5%BB%BA/" class="article-nav-link">
+    <strong class="article-nav-caption">Older</strong>
+    <div class="article-nav-title">一探Spring源码——bean的创建</div>
+  </a>
+  
+</nav>
+
+  
+
+  
+  
+  
+  
+
+</article>
+</section>
+    <footer class="footer">
+  <div class="outer">
+    <div class="float-right">
+      <ul class="list-inline">
+  
+  <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
+  
+  <li><i class="fe fe-bookmark"></i> <span id="busuanzi_value_page_pv"></span></li>
+  
+</ul>
+    </div>
+    <ul class="list-inline">
+      <li>青稞 &copy; 2022</li>
+      
+        <li>ZHWANGART</li>
+      
+      <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
+      <li>theme  <a target="_blank" rel="noopener" href="https://github.com/zhwangart/hexo-theme-ocean">Ocean</a></li>
+    </ul>
+  </div>
+</footer>
+  </main>
+  <aside class="sidebar">
+    <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/hexo.svg" alt="青稞"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">Home</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">Archives</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/gallery">Gallery</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about">About</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="Search">
+        <i class="fe fe-search"></i>
+        Search
+      </a>
+    </li>
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      <div class="totop" id="totop">
+  <i class="fe fe-rocket"></i>
+</div>
+    </li>
+    <li class="nav-item">
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="fe fe-feed"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+  </aside>
+  
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/copybtn.js"></script>
+
+
+
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto',
+  });
+</script>
+
+
+
+<script src="/js/ocean.js"></script>
+
+</body>
+
+</html>

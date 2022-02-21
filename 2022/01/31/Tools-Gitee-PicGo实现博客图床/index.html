@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  
+  
+  <title>
+    Gitee + PicGo实现博客图床 |
+    
+    青稞
+  </title>
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+    
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<script src="/js/pace.min.js"></script>
+
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="青稞" type="application/atom+xml">
+</head>
+
+<body>
+  <main class="content">
+    <section class="outer">
+  <article id="post-Tools-Gitee-PicGo实现博客图床" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+      
+
+<h1 class="article-title" itemprop="name">
+  Gitee + PicGo实现博客图床
+</h1>
+
+
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2022/01/31/Tools-Gitee-PicGo%E5%AE%9E%E7%8E%B0%E5%8D%9A%E5%AE%A2%E5%9B%BE%E5%BA%8A/" class="article-date">
+  <time datetime="2022-01-31T09:52:00.000Z" itemprop="datePublished">2022-01-31</time>
+</a>
+      
+    </div>
+    
+
+    
+    
+<div class="tocbot"></div>
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+      
+      <h2 id="前置准备："><a href="#前置准备：" class="headerlink" title="前置准备："></a>前置准备：</h2><ul>
+<li>Gitee注册账号<a target="_blank" rel="noopener" href="https://gitee.com/">Gitee - 基于 Git 的代码托管和研发协作平台</a></li>
+<li>PicGo下载安装<a target="_blank" rel="noopener" href="https://github.com/Molunerfinn/PicGo/releases">Releases · Molunerfinn/PicGo · GitHub</a></li>
+<li>Typora下载安装<a target="_blank" rel="noopener" href="https://typora.com.cn/">https://typora.com.cn/</a></li>
+</ul>
+<h2 id="操作步骤"><a href="#操作步骤" class="headerlink" title="操作步骤"></a>操作步骤</h2><ul>
+<li>Gitee<ol>
+<li>新建一个仓库</li>
+<li>在个人设置里面找到私人令牌</li>
+<li>点击生成新令牌</li>
+<li>勾选projects选项</li>
+<li>生成令牌</li>
+<li>输入账户密码</li>
+<li>得到token（自行保存）</li>
+</ol>
+</li>
+<li>PicGo<ol>
+<li>安装插件</li>
+<li>设置图床</li>
+</ol>
+</li>
+<li>Typora<ol>
+<li>修改偏好设置</li>
+<li>验证上传</li>
+<li>浏览器访问成功</li>
+</ol>
+</li>
+</ul>
+<h2 id="Gitee"><a href="#Gitee" class="headerlink" title="Gitee"></a>Gitee</h2><h3 id="1-创建一个仓库"><a href="#1-创建一个仓库" class="headerlink" title="1. 创建一个仓库"></a>1. 创建一个仓库</h3><p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220131175732693.png" alt="image-20220131175732693"></p>
+<h3 id="2-获取token"><a href="#2-获取token" class="headerlink" title="2. 获取token"></a>2. 获取token</h3><h4 id="2-1-打开设置"><a href="#2-1-打开设置" class="headerlink" title="2.1 打开设置"></a>2.1 打开设置</h4><p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220131175859414.png" alt="image-20220131175859414"></p>
+<h4 id="2-2-找到私人令牌"><a href="#2-2-找到私人令牌" class="headerlink" title="2.2 找到私人令牌"></a>2.2 找到私人令牌</h4><p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220131175934845.png" alt="image-20220131175934845"></p>
+<h4 id="2-3-生成新令牌"><a href="#2-3-生成新令牌" class="headerlink" title="2.3 生成新令牌"></a>2.3 生成新令牌</h4><p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220131180002086.png" alt="image-20220131180002086"></p>
+<p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220131180046401.png" alt="image-20220131180046401"></p>
+<h4 id="2-4-输入密码"><a href="#2-4-输入密码" class="headerlink" title="2.4 输入密码"></a>2.4 输入密码</h4><p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220131180122654.png" alt="image-20220131180122654"></p>
+<h4 id="2-5-获取到token并自行保存"><a href="#2-5-获取到token并自行保存" class="headerlink" title="2.5 获取到token并自行保存"></a>2.5 获取到token并自行保存</h4><p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220131180212546.png" alt="image-20220131180212546"></p>
+<p>自此，Gitee操作完毕，要注意保存好自己的token，在页面上也提示了，当你确认并关闭之后，将获取不到了（如果丢失，重新生成即可）</p>
+<h2 id="PicGo"><a href="#PicGo" class="headerlink" title="PicGo"></a>PicGo</h2><p>打开PicGo，在插件位置搜索gitee，将搜索出来的插件全部安装（如果安装失败，可以尝试安装node环境之后再安装）</p>
+<p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220131180707433.png" alt="image-20220131180707433"></p>
+<p>配置图床</p>
+<p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220131181024413.png" alt="image-20220131181024413"></p>
+<h2 id="Typora"><a href="#Typora" class="headerlink" title="Typora"></a>Typora</h2><p>ctrl + 逗号打开偏好设置</p>
+<p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220131181427100.png" alt="image-20220131181427100"></p>
+<p>点击验证图片上传选项</p>
+<p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220131181309705.png" alt="image-20220131181309705"></p>
+<p>将得到的url地址粘贴至浏览器访问。</p>
+<p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20220201084206678.png" alt="image-20220201084206678"></p>
+<p>大功告成！！！</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/01/31/Tools-Gitee-PicGo%E5%AE%9E%E7%8E%B0%E5%8D%9A%E5%AE%A2%E5%9B%BE%E5%BA%8A/" data-id="ckzwc415f001ugotw7o1o28ti" class="article-share-link">
+        Share
+      </a>
+      
+    </footer>
+
+  </div>
+
+  
+  
+<nav class="article-nav">
+  
+  <a href="/2022/02/01/Tools-VMWare%E5%AE%89%E8%A3%85CentOS/" class="article-nav-link">
+    <strong class="article-nav-caption">Newer</strong>
+    <div class="article-nav-title">
+      
+      VMWare安装CentOS
+      
+    </div>
+  </a>
+  
+  
+  <a href="/2022/01/31/SpringBoot%E2%80%94%E2%80%94HelloWorld/" class="article-nav-link">
+    <strong class="article-nav-caption">Older</strong>
+    <div class="article-nav-title">SpringBoot——HelloWorld</div>
+  </a>
+  
+</nav>
+
+  
+
+  
+  
+  
+  
+
+</article>
+</section>
+    <footer class="footer">
+  <div class="outer">
+    <div class="float-right">
+      <ul class="list-inline">
+  
+  <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
+  
+  <li><i class="fe fe-bookmark"></i> <span id="busuanzi_value_page_pv"></span></li>
+  
+</ul>
+    </div>
+    <ul class="list-inline">
+      <li>青稞 &copy; 2022</li>
+      
+        <li>ZHWANGART</li>
+      
+      <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
+      <li>theme  <a target="_blank" rel="noopener" href="https://github.com/zhwangart/hexo-theme-ocean">Ocean</a></li>
+    </ul>
+  </div>
+</footer>
+  </main>
+  <aside class="sidebar">
+    <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/hexo.svg" alt="青稞"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">Home</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">Archives</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/gallery">Gallery</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about">About</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="Search">
+        <i class="fe fe-search"></i>
+        Search
+      </a>
+    </li>
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      <div class="totop" id="totop">
+  <i class="fe fe-rocket"></i>
+</div>
+    </li>
+    <li class="nav-item">
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="fe fe-feed"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+  </aside>
+  
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/copybtn.js"></script>
+
+
+
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto',
+  });
+</script>
+
+
+
+<script src="/js/ocean.js"></script>
+
+</body>
+
+</html>
