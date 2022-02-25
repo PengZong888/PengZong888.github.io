@@ -70,9 +70,9 @@
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 文档声明，声明当前网页的版本 --&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- html的根标签（元素），网页中的所有内容都要写在根元素里面 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- head是网页的头部，head中的内容不会在网页中直接出现，主要用来帮助浏览器或搜索引擎来解析网页 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- meta标签用来设置网页的元数据，这里meta用来设置网页的字符集，避免乱码问题 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;utf-8&quot;</span>&gt;</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment">&lt;!-- title中的内容会显示在浏览器的标题栏，搜索引擎会主要根据title中的内容来判断网页的主要内容 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">title</span>&gt;</span>网页的标题<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">&lt;!-- body是html的子元素，表示网页的主题，网页中所有的课件内容都应该写在body里面 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 网页的一级标题 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">h1</span>&gt;</span>网页的大标题<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 <p>在这里，我们详细解释一下这个meta标签。从它的文档解释中我们可以看到：这是一个用来表示元数据的标签。</p>
-<p><img src="C:/Users/pengbin007/AppData/Roaming/Typora/typora-user-images/image-20211220144716530.png" alt="image-20211220144716530"></p>
+<p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20211220144716530.png" alt="image-20211220144716530"></p>
 <p>那么，什么是元数据呢？在<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E5%85%83%E6%95%B0%E6%8D%AE/1946090?fr=aladdin">百度百科</a>上给出的解释是“元数据是关于数据的<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E7%BB%84%E7%BB%87/10200">组织</a>、数据域及其关系的<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E4%BF%A1%E6%81%AF/111163">信息</a>，简言之，元数据就是关于数据的<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E6%95%B0%E6%8D%AE">数据</a>”。这样说，可能不太好理解，举个栗子：</p>
-<p><img src="https://raw.githubusercontent.com/PengZong888/tuchuang/main/img/image-20211220145548852.png" alt="image-20211220145548852"></p>
+<p><img src="https://gitee.com/pengzong888/imageSource/raw/master/img/2022/2/image-20211220145548852.png" alt="image-20211220145548852"></p>
 <p>这是电脑上一个很普通的txt文件，我们可以看到这里有banner.txt的文件类型、打开方式、位置、大小…等等信息。而元数据指的就是方框中所圈出来的数据，因为它们是用来描述具体数据的。类似的，还有我们在淘宝上购买电脑的时候，可以查看它的内存大小、显存、硬盘等等，而这些就是元数据，用来描述电脑具体信息的数据。</p>
 <p>回到我们的meta标签，它主要用于设置网页中的一些元数据，而这些元数据并不是给用户看的。在上面的标准网页中，我们看到有“&lt;meta charset=”utf-8”&gt;”，我们用charset来指定网页的字符集为utf-8。</p>
 <p>我们还可以在meta标签里面用name指定数据的名称，用content指定数据的内容。</p>
@@ -97,7 +97,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2021/12/20/HTML-meta%E6%A0%87%E7%AD%BE/" data-id="ckzwc413w000cgotw3i4aarpl" class="article-share-link">
+      <a data-url="http://example.com/2021/12/20/HTML-meta%E6%A0%87%E7%AD%BE/" data-id="cl01voq7d000n1gtw5geh7684" class="article-share-link">
         Share
       </a>
       
@@ -109,19 +109,19 @@
   
 <nav class="article-nav">
   
-  <a href="/2021/12/22/Network-URI-URL-URN/" class="article-nav-link">
+  <a href="/2022/01/02/Spring%E3%80%90%E6%BA%90%E7%A0%81%E3%80%91%E2%80%94%E2%80%94bean%E7%9A%84%E5%88%9B%E5%BB%BA/" class="article-nav-link">
     <strong class="article-nav-caption">Newer</strong>
     <div class="article-nav-title">
       
-      URI &amp; URL &amp; URN
+      一探Spring源码——bean的创建
       
     </div>
   </a>
   
   
-  <a href="/2021/12/19/Network-009-Web%E5%92%8CHTTP/" class="article-nav-link">
+  <a href="/2021/12/18/SpringSecurity-Web%E6%9D%83%E9%99%90%E6%96%B9%E6%A1%88-%E4%B8%8A/" class="article-nav-link">
     <strong class="article-nav-caption">Older</strong>
-    <div class="article-nav-title">Web和HTTP</div>
+    <div class="article-nav-title">SpringSecurity Web权限方案(上)</div>
   </a>
   
 </nav>

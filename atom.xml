@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2022-02-24T02:33:36.430Z</updated>
+  <updated>2022-02-25T00:16:49.943Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,191 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>MyBatis-10-扩展</title>
+    <link href="http://example.com/2022/02/25/MyBatis-10-%E6%89%A9%E5%B1%95/"/>
+    <id>http://example.com/2022/02/25/MyBatis-10-%E6%89%A9%E5%B1%95/</id>
+    <published>2022-02-25T00:16:49.000Z</published>
+    <updated>2022-02-25T00:16:49.943Z</updated>
+    
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>MyBatis-09-运行原理</title>
+    <link href="http://example.com/2022/02/25/MyBatis-09-%E8%BF%90%E8%A1%8C%E5%8E%9F%E7%90%86/"/>
+    <id>http://example.com/2022/02/25/MyBatis-09-%E8%BF%90%E8%A1%8C%E5%8E%9F%E7%90%86/</id>
+    <published>2022-02-25T00:16:33.000Z</published>
+    <updated>2022-02-25T00:16:33.365Z</updated>
+    
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>MyBatis-08-SSM整合</title>
+    <link href="http://example.com/2022/02/25/MyBatis-08-SSM%E6%95%B4%E5%90%88/"/>
+    <id>http://example.com/2022/02/25/MyBatis-08-SSM%E6%95%B4%E5%90%88/</id>
+    <published>2022-02-25T00:16:23.000Z</published>
+    <updated>2022-02-25T00:16:23.140Z</updated>
+    
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>MyBatis-07-插件</title>
+    <link href="http://example.com/2022/02/25/MyBatis-07-%E6%8F%92%E4%BB%B6/"/>
+    <id>http://example.com/2022/02/25/MyBatis-07-%E6%8F%92%E4%BB%B6/</id>
+    <published>2022-02-25T00:15:43.000Z</published>
+    <updated>2022-02-25T00:15:43.799Z</updated>
+    
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>MyBatis-06-逆向工程</title>
+    <link href="http://example.com/2022/02/25/MyBatis-06-%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B/"/>
+    <id>http://example.com/2022/02/25/MyBatis-06-%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B/</id>
+    <published>2022-02-25T00:14:18.000Z</published>
+    <updated>2022-02-25T03:49:31.620Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;ul&gt;
+&lt;li&gt;正向工程：先创建Java实体类，由框架负责根据实体类生成数据库表。Hibernate是支持正向工程的。&lt;/li&gt;
+&lt;li&gt;逆向工程：先创建数据库表，由框架负责根据数据库表，反向生成如下资源：&lt;ul&gt;
+&lt;li&gt;Java实体类&lt;/li&gt;
+&lt;li&gt;Mapper接口&lt;/</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>MyBatis-05-缓存</title>
+    <link href="http://example.com/2022/02/25/MyBatis-05-%E7%BC%93%E5%AD%98/"/>
+    <id>http://example.com/2022/02/25/MyBatis-05-%E7%BC%93%E5%AD%98/</id>
+    <published>2022-02-25T00:13:33.000Z</published>
+    <updated>2022-02-25T03:46:44.386Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;1、MyBatis的一级缓存&quot;&gt;&lt;a href=&quot;#1、MyBatis的一级缓存&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>MyBatis-04-动态SQL</title>
+    <link href="http://example.com/2022/02/25/MyBatis-04-%E5%8A%A8%E6%80%81SQL/"/>
+    <id>http://example.com/2022/02/25/MyBatis-04-%E5%8A%A8%E6%80%81SQL/</id>
+    <published>2022-02-25T00:13:19.000Z</published>
+    <updated>2022-02-25T02:20:28.988Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;1、if&quot;&gt;&lt;a href=&quot;#1、if&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>MyBatis-03-映射文件</title>
+    <link href="http://example.com/2022/02/25/MyBatis-03-%E6%98%A0%E5%B0%84%E6%96%87%E4%BB%B6/"/>
+    <id>http://example.com/2022/02/25/MyBatis-03-%E6%98%A0%E5%B0%84%E6%96%87%E4%BB%B6/</id>
+    <published>2022-02-25T00:13:03.000Z</published>
+    <updated>2022-02-25T02:04:51.976Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;至此，我们已经可以通过MyBatis使用Java操作MySQL数据库了。但是，目前我们写的SQL语句都是固定的，它并没有实现条件查询，而在实际开发中，我们的SQL基本上都是带有条件的。&lt;/p&gt;
+&lt;h2 id=&quot;MyBatis获取参数值的两种方式（重点）&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>MyBatis-02-核心配置文件</title>
+    <link href="http://example.com/2022/02/25/MyBatis-02-%E6%A0%B8%E5%BF%83%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/"/>
+    <id>http://example.com/2022/02/25/MyBatis-02-%E6%A0%B8%E5%BF%83%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/</id>
+    <published>2022-02-25T00:10:38.000Z</published>
+    <updated>2022-02-25T01:25:19.348Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;要注意的是，配置文件中的配置是有顺序的：&lt;/p&gt;
+&lt;p&gt;&lt;img</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>MyBatis-01-HelloWorld</title>
+    <link href="http://example.com/2022/02/25/MyBatis-01-HelloWorld/"/>
+    <id>http://example.com/2022/02/25/MyBatis-01-HelloWorld/</id>
+    <published>2022-02-25T00:10:18.000Z</published>
+    <updated>2022-02-25T01:15:48.151Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;一、MyBatis简介&quot;&gt;&lt;a href=&quot;#一、MyBatis简介&quot; class=&quot;headerlink&quot; title=&quot;一、MyBatis简介&quot;&gt;&lt;/a&gt;一、MyBatis简介&lt;/h2&gt;&lt;h3 id=&quot;1、MyBatis历史&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>CSS-05-动画</title>
@@ -29,140 +214,6 @@
         
         
     <summary type="html">&lt;h2 id=&quot;1、过渡-transition&quot;&gt;&lt;a href=&quot;#1、过渡-transition&quot; class=&quot;headerlink&quot;</summary>
-        
-      
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>Network-007-计算机网络和因特网的历史</title>
-    <link href="http://example.com/2022/02/21/Network-007-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%92%8C%E5%9B%A0%E7%89%B9%E7%BD%91%E7%9A%84%E5%8E%86%E5%8F%B2/"/>
-    <id>http://example.com/2022/02/21/Network-007-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%92%8C%E5%9B%A0%E7%89%B9%E7%BD%91%E7%9A%84%E5%8E%86%E5%8F%B2/</id>
-    <published>2022-02-21T03:10:57.000Z</published>
-    <updated>2022-02-23T01:01:51.850Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;1、分组交换的发展：1961-1972&quot;&gt;&lt;a href=&quot;#1、分组交换的发展：1961-1972&quot; class=&quot;headerlink&quot; title=&quot;1、分组交换的发展：1961~1972&quot;&gt;&lt;/a&gt;1、分组交换的发展：1961~1972&lt;/h2&gt;&lt;h2</summary>
-        
-      
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>Network-006-面对攻击的网络</title>
-    <link href="http://example.com/2022/02/21/Network-006-%E9%9D%A2%E5%AF%B9%E6%94%BB%E5%87%BB%E7%9A%84%E7%BD%91%E7%BB%9C/"/>
-    <id>http://example.com/2022/02/21/Network-006-%E9%9D%A2%E5%AF%B9%E6%94%BB%E5%87%BB%E7%9A%84%E7%BD%91%E7%BB%9C/</id>
-    <published>2022-02-21T03:10:36.000Z</published>
-    <updated>2022-02-24T01:58:11.889Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;网络安全领域主要探讨以下问题：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;坏家伙如何攻击计算机网络&lt;/li&gt;
-&lt;li&gt;我们如何防御&lt;/li&gt;
-&lt;li&gt;如何设计能够事先免除这样的攻击的新型体系结构&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2</summary>
-        
-      
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>Network-005-协议层次及其服务模型</title>
-    <link href="http://example.com/2022/02/21/Network-005-%E5%8D%8F%E8%AE%AE%E5%B1%82%E6%AC%A1%E5%8F%8A%E5%85%B6%E6%9C%8D%E5%8A%A1%E6%A8%A1%E5%9E%8B/"/>
-    <id>http://example.com/2022/02/21/Network-005-%E5%8D%8F%E8%AE%AE%E5%B1%82%E6%AC%A1%E5%8F%8A%E5%85%B6%E6%9C%8D%E5%8A%A1%E6%A8%A1%E5%9E%8B/</id>
-    <published>2022-02-21T03:09:50.000Z</published>
-    <updated>2022-02-24T01:36:19.551Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;1、分层的体系结构&quot;&gt;&lt;a href=&quot;#1、分层的体系结构&quot; class=&quot;headerlink&quot; title=&quot;1、分层的体系结构&quot;&gt;&lt;/a&gt;1、分层的体系结构&lt;/h2&gt;&lt;p&gt;&lt;img</summary>
-        
-      
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>Network-003-网络核心</title>
-    <link href="http://example.com/2022/02/21/Network-003-%E7%BD%91%E7%BB%9C%E6%A0%B8%E5%BF%83/"/>
-    <id>http://example.com/2022/02/21/Network-003-%E7%BD%91%E7%BB%9C%E6%A0%B8%E5%BF%83/</id>
-    <published>2022-02-21T03:09:20.000Z</published>
-    <updated>2022-02-22T05:30:15.523Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;&lt;strong&gt;网络核心，即由互联因特网端系统的分组交换机和链路构成的网状网络。&lt;/strong&gt;&lt;/p&gt;
-&lt;h2 id=&quot;1、分组交换&quot;&gt;&lt;a href=&quot;#1、分组交换&quot; class=&quot;headerlink&quot;</summary>
-        
-      
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>Network-002-网络边缘</title>
-    <link href="http://example.com/2022/02/21/Network-002-%E7%BD%91%E7%BB%9C%E8%BE%B9%E7%BC%98/"/>
-    <id>http://example.com/2022/02/21/Network-002-%E7%BD%91%E7%BB%9C%E8%BE%B9%E7%BC%98/</id>
-    <published>2022-02-21T03:08:58.000Z</published>
-    <updated>2022-02-22T02:01:21.967Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;前面讲到，通常把与因特网相连的计算机和其它设备称为端系统。因为它们位于因特网的边缘，故而称为端系统。因特网的端系统包括了桌面计算机、服务器和移动计算机，。此外，越来越多的非传统设备正在被作为端系统与因特网相连。&lt;/p&gt;
-&lt;p&gt;端系统也称为主机，因为它们运行应用程序，这两个术</summary>
-        
-      
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>HTML-01-表格</title>
-    <link href="http://example.com/2022/02/20/HTML-01-%E8%A1%A8%E6%A0%BC/"/>
-    <id>http://example.com/2022/02/20/HTML-01-%E8%A1%A8%E6%A0%BC/</id>
-    <published>2022-02-19T23:11:26.000Z</published>
-    <updated>2022-02-22T05:35:21.031Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;现实中，我们经常需要使用表格来表示一些格式化的数据，比如：课程表、成绩单、……同样的，这些需求在网页中也需要。在网页中，我们通过table标签来创建一个表格；在table中使用tr表示表格中的一行，有几个tr就有几行；在tr中使用td表示一个单元格，有几个td就有几个单元格</summary>
         
       
     
@@ -356,93 +407,6 @@
         
     <summary type="html">&lt;h2 id=&quot;本地环境&quot;&gt;&lt;a href=&quot;#本地环境&quot; class=&quot;headerlink&quot; title=&quot;本地环境&quot;&gt;&lt;/a&gt;本地环境&lt;/h2&gt;&lt;p&gt;Win11、MySQL5.7.32&lt;/p&gt;
 &lt;h2 id=&quot;root登录MySQL&quot;&gt;&lt;a</summary>
-        
-      
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>Redis——事务和锁机制</title>
-    <link href="http://example.com/2022/02/08/Redis%E2%80%94%E2%80%94%E4%BA%8B%E5%8A%A1%E5%92%8C%E9%94%81%E6%9C%BA%E5%88%B6/"/>
-    <id>http://example.com/2022/02/08/Redis%E2%80%94%E2%80%94%E4%BA%8B%E5%8A%A1%E5%92%8C%E9%94%81%E6%9C%BA%E5%88%B6/</id>
-    <published>2022-02-08T11:02:50.000Z</published>
-    <updated>2022-02-08T12:16:14.824Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;blockquote&gt;
-&lt;p&gt;&lt;a href=&quot;https://redis.io/topics/transactions&quot;&gt;Redis官网关于事务的介绍&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;&lt;img</summary>
-        
-      
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>Redis——RedisTemplate(SpringBoot集成Redis)</title>
-    <link href="http://example.com/2022/02/08/Redis%E2%80%94%E2%80%94RedisTemplate-SpringBoot%E9%9B%86%E6%88%90Redis/"/>
-    <id>http://example.com/2022/02/08/Redis%E2%80%94%E2%80%94RedisTemplate-SpringBoot%E9%9B%86%E6%88%90Redis/</id>
-    <published>2022-02-08T07:21:47.000Z</published>
-    <updated>2022-02-08T08:21:17.986Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;新建SpringBoot工程&quot;&gt;&lt;a href=&quot;#新建SpringBoot工程&quot; class=&quot;headerlink&quot; title=&quot;新建SpringBoot工程&quot;&gt;&lt;/a&gt;新建SpringBoot工程&lt;/h2&gt;&lt;figure class=&quot;highlight</summary>
-        
-      
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>Redis——Jedis(Java操作Redis)</title>
-    <link href="http://example.com/2022/02/08/Redis%E2%80%94%E2%80%94Jedis-Java%E6%93%8D%E4%BD%9CRedis/"/>
-    <id>http://example.com/2022/02/08/Redis%E2%80%94%E2%80%94Jedis-Java%E6%93%8D%E4%BD%9CRedis/</id>
-    <published>2022-02-08T03:08:19.000Z</published>
-    <updated>2022-02-08T07:15:49.667Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;HelloWorld&quot;&gt;&lt;a href=&quot;#HelloWorld&quot; class=&quot;headerlink&quot; title=&quot;HelloWorld&quot;&gt;&lt;/a&gt;HelloWorld&lt;/h2&gt;&lt;h3 id=&quot;创建Maven工程&quot;&gt;&lt;a href=&quot;#创建Maven工程&quot;</summary>
-        
-      
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>Redis——发布和订阅</title>
-    <link href="http://example.com/2022/02/07/Redis%E2%80%94%E2%80%94%E5%8F%91%E5%B8%83%E5%92%8C%E8%AE%A2%E9%98%85/"/>
-    <id>http://example.com/2022/02/07/Redis%E2%80%94%E2%80%94%E5%8F%91%E5%B8%83%E5%92%8C%E8%AE%A2%E9%98%85/</id>
-    <published>2022-02-07T03:53:08.000Z</published>
-    <updated>2022-02-07T04:06:27.823Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;什么是发布和订阅&quot;&gt;&lt;a href=&quot;#什么是发布和订阅&quot; class=&quot;headerlink&quot;</summary>
         
       
     
